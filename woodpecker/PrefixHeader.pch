@@ -1,0 +1,39 @@
+//
+//  PrefixHeader.pch
+//  woodpecker
+//
+//  Created by yongche on 17/8/25.
+//  Copyright © 2017年 goldsmith. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//系统库
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+//从cocoapods导入第三方库
+#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/UIKit+AFNetworking.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <FMDB/FMDB.h>
+#import <Masonry/Masonry.h>
+#import <MJExtension/MJExtension.h>
+#import <MJRefresh/MJRefresh.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+#import <ReactiveViewModel/ReactiveViewModel.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <TMCache/TMCache.h>
+#import <MMPopupView/MMAlertView.h>
+#import <MMPopupView/MMSheetView.h>
+#import <MMPopupView/MMPopupView.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+
+//自定义Framework
+//#import "CustomFramework.h"
+#endif /* PrefixHeader_pch */
