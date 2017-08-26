@@ -172,6 +172,10 @@
 		C14CA3F71F4FB2B1007F50A1 /* woodpecker */ = {
 			isa = PBXGroup;
 			children = (
+				C199D3A01F51463500431AF2 /* Controller */,
+				C199D3A11F51463C00431AF2 /* ViewModel */,
+				C199D3A21F51464700431AF2 /* View */,
+				C199D39F1F51462800431AF2 /* Model */,
 				C1562FD41F5065FE00D6CC30 /* CustomFramework */,
 				C14CA3FE1F4FB2B1007F50A1 /* ViewController.h */,
 				C14CA3FF1F4FB2B1007F50A1 /* ViewController.m */,
@@ -392,6 +396,34 @@
 				C156302A1F5065FE00D6CC30 /* XJFUIView.h */,
 				C156302B1F5065FE00D6CC30 /* XJFUIView.m */,
 				C156302C1F5065FE00D6CC30 /* XJFView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C199D39F1F51462800431AF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C199D3A01F51463500431AF2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C199D3A11F51463C00431AF2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C199D3A21F51464700431AF2 /* View */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = View;
 			sourceTree = "<group>";
