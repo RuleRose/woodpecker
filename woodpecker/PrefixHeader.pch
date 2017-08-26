@@ -35,5 +35,5 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 //自定义Framework
-//#import "CustomFramework.h"
+#import "CustomFramework.h"
 #endif /* PrefixHeader_pch */
