@@ -17,4 +17,5 @@
 #import "UserDefaultConst.h"
 #import "UtilsMacro.h"
 #import "UtilsEnum.h"
+#import "BluetoothConst.h"
 #endif /* XJFConstant_h */

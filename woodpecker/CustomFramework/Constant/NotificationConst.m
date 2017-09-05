@@ -12,10 +12,9 @@
 NSString* const MMCNotificationKeyBluetoothState = @"MMCNotificationKeyBluetoothState";
 NSString* const MMCNotificationKeyDeviceState = @"MMCNotificationKeyDeviceState";
 NSString* const MMCNotificationKeyDeviceConnectionState = @"MMCNotificationKeyDeviceConnectionState";
-NSString* const UNICNotificationKeyDeviceRecordCountReady = @"UNICNotificationKeyDeviceRecordCountReady";
-NSString* const UNICNotificationKeyDeviceTemperatureValue = @"UNICNotificationKeyDeviceTemperatureValue";
-NSString* const UNICNotificationKeyDeviceFound = @"UNICNotificationKeyDeviceFound";
-NSString* const UNICNotificationKeyRecoverSendOrder = @"UNICNotificationKeyRecoverSendOrder";
-NSString* const UNICNotificationKeyUserModeChanged = @"UNICNotificationKeyUserModeChanged";
-NSString* const UNICNotificationKeyOrderListChanged = @"UNICNotificationKeyOrderListChanged";
+NSString* const MMCNotificationKeyTemperature = @"MMCNotificationKeyTemperature";
+NSString* const MMCNotificationKeyTemperatureIndexUpdated = @"MMCNotificationKeyTemperatureIndexUpdated";
+NSString* const MMCNotificationKeyAlarmUpdated = @"MMCNotificationKeyAlarmUpdated";
+NSString* const MMCNotificationKeySyncOver = @"MMCNotificationKeySyncOver";
+NSString* const MMCNotificationKeyTemperatureMonitoring = @"MMCNotificationKeyTemperatureMonitoring";
 @end

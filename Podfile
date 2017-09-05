@@ -1,7 +1,7 @@
 platform:ios, '8.0'
 
 target 'woodpecker' do
-pod 'AFNetworking', '~> 3.1.0'
+pod 'AFNetworking', '~> 2.6.3'
 pod 'ReactiveCocoa'
 pod 'ReactiveViewModel'
 pod 'Masonry', '~> 1.0.1'

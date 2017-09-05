@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "WPMainViewController.h"
+#import "initServer.h"
 
 @interface AppDelegate ()
 

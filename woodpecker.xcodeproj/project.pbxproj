@@ -12,7 +12,7 @@
 		C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C14CA3FC1F4FB2B1007F50A1 /* AppDelegate.m */; };
 		C14CA4051F4FB2B1007F50A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C14CA4041F4FB2B1007F50A1 /* Assets.xcassets */; };
 		C1562F0E1F50638800D6CC30 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1562F101F50638800D6CC30 /* Localization.strings */; };
-		C1562FD31F5064DE00D6CC30 /* initServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C1562FD21F5064DE00D6CC30 /* initServer.m */; };
+		C1562FD31F5064DE00D6CC30 /* initServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = C1562FD21F5064DE00D6CC30 /* initServer.mm */; };
 		C156302D1F5065FE00D6CC30 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C1562FD81F5065FE00D6CC30 /* NSArray+Extension.m */; };
 		C156302E1F5065FE00D6CC30 /* NSDate+ext.m in Sources */ = {isa = PBXBuildFile; fileRef = C1562FDB1F5065FE00D6CC30 /* NSDate+ext.m */; };
 		C156302F1F5065FE00D6CC30 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C1562FDD1F5065FE00D6CC30 /* NSDate+Extension.m */; };
@@ -43,6 +43,14 @@
 		C15630481F5065FE00D6CC30 /* XJFUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C15630271F5065FE00D6CC30 /* XJFUITextField.m */; };
 		C15630491F5065FE00D6CC30 /* XJFUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C15630291F5065FE00D6CC30 /* XJFUITextView.m */; };
 		C156304A1F5065FE00D6CC30 /* XJFUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = C156302B1F5065FE00D6CC30 /* XJFUIView.m */; };
+		C15847671F5E71E900D785A6 /* BleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C15847621F5E71E900D785A6 /* BleDevice.m */; };
+		C15847681F5E71E900D785A6 /* BleDeviceBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = C15847641F5E71E900D785A6 /* BleDeviceBroadcast.m */; };
+		C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = C15847661F5E71E900D785A6 /* WoodpeckerSensorData.m */; };
+		C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476B1F5E71F200D785A6 /* MMCBluetoothManager.m */; };
+		C158476F1F5E71F200D785A6 /* MMCDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */; };
+		C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */; };
+		C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */; };
+		C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */; };
 		C1FE08321F5BCA3C0054A254 /* btn-navi-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */; };
 		C1FE08331F5BCA3C0054A254 /* btn-navi-back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FB1F5BCA3C0054A254 /* btn-navi-back@3x.png */; };
 		C1FE08341F5BCA3C0054A254 /* btn-navi-device-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FC1F5BCA3C0054A254 /* btn-navi-device-add@2x.png */; };
@@ -120,7 +128,7 @@
 		C1562F111F50638A00D6CC30 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		C1562F121F50639D00D6CC30 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
 		C1562FD11F5064DE00D6CC30 /* initServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = initServer.h; sourceTree = "<group>"; };
-		C1562FD21F5064DE00D6CC30 /* initServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = initServer.m; sourceTree = "<group>"; };
+		C1562FD21F5064DE00D6CC30 /* initServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = initServer.mm; sourceTree = "<group>"; };
 		C1562FD71F5065FE00D6CC30 /* NSArray+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extension.h"; sourceTree = "<group>"; };
 		C1562FD81F5065FE00D6CC30 /* NSArray+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extension.m"; sourceTree = "<group>"; };
 		C1562FDA1F5065FE00D6CC30 /* NSDate+ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ext.h"; sourceTree = "<group>"; };
@@ -194,6 +202,20 @@
 		C156302A1F5065FE00D6CC30 /* XJFUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJFUIView.h; sourceTree = "<group>"; };
 		C156302B1F5065FE00D6CC30 /* XJFUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJFUIView.m; sourceTree = "<group>"; };
 		C156302C1F5065FE00D6CC30 /* XJFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJFView.h; sourceTree = "<group>"; };
+		C15847611F5E71E900D785A6 /* BleDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleDevice.h; sourceTree = "<group>"; };
+		C15847621F5E71E900D785A6 /* BleDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleDevice.m; sourceTree = "<group>"; };
+		C15847631F5E71E900D785A6 /* BleDeviceBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleDeviceBroadcast.h; sourceTree = "<group>"; };
+		C15847641F5E71E900D785A6 /* BleDeviceBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleDeviceBroadcast.m; sourceTree = "<group>"; };
+		C15847651F5E71E900D785A6 /* WoodpeckerSensorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WoodpeckerSensorData.h; sourceTree = "<group>"; };
+		C15847661F5E71E900D785A6 /* WoodpeckerSensorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoodpeckerSensorData.m; sourceTree = "<group>"; };
+		C158476A1F5E71F200D785A6 /* MMCBluetoothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCBluetoothManager.h; sourceTree = "<group>"; };
+		C158476B1F5E71F200D785A6 /* MMCBluetoothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCBluetoothManager.m; sourceTree = "<group>"; };
+		C158476C1F5E71F200D785A6 /* MMCDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCDeviceManager.h; sourceTree = "<group>"; };
+		C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCDeviceManager.m; sourceTree = "<group>"; };
+		C15847721F5E85F100D785A6 /* BluetoothConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConst.h; sourceTree = "<group>"; };
+		C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiBluetoothFramework.framework; sourceTree = "<group>"; };
+		C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiPassport.framework; sourceTree = "<group>"; };
+		C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MiPassport.bundle; sourceTree = "<group>"; };
 		C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-back@2x.png"; sourceTree = "<group>"; };
 		C1FE07FB1F5BCA3C0054A254 /* btn-navi-back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-back@3x.png"; sourceTree = "<group>"; };
 		C1FE07FC1F5BCA3C0054A254 /* btn-navi-device-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-device-add@2x.png"; sourceTree = "<group>"; };
@@ -268,6 +290,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */,
+				C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */,
 				135676341C8E6BA53718F116 /* libPods-woodpecker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +320,7 @@
 		C14CA3F71F4FB2B1007F50A1 /* woodpecker */ = {
 			isa = PBXGroup;
 			children = (
+				C15847601F5E71C200D785A6 /* CommonManager */,
 				C1FE07F81F5BCA100054A254 /* Resource */,
 				C199D3A01F51463500431AF2 /* Controller */,
 				C199D3A11F51463C00431AF2 /* ViewModel */,
@@ -315,7 +340,7 @@
 				C14CA3F91F4FB2B1007F50A1 /* main.m */,
 				C1562F0B1F505E6600D6CC30 /* PrefixHeader.pch */,
 				C1562FD11F5064DE00D6CC30 /* initServer.h */,
-				C1562FD21F5064DE00D6CC30 /* initServer.m */,
+				C1562FD21F5064DE00D6CC30 /* initServer.mm */,
 				C14CA4041F4FB2B1007F50A1 /* Assets.xcassets */,
 				C14CA4091F4FB2B2007F50A1 /* Info.plist */,
 				C1562F101F50638800D6CC30 /* Localization.strings */,
@@ -455,6 +480,7 @@
 				C15630011F5065FE00D6CC30 /* UserDefaultConst.h */,
 				C15630021F5065FE00D6CC30 /* UtilsEnum.h */,
 				C15630031F5065FE00D6CC30 /* UtilsMacro.h */,
+				C15847721F5E85F100D785A6 /* BluetoothConst.h */,
 				C15630041F5065FE00D6CC30 /* XJFConstant.h */,
 			);
 			path = Constant;
@@ -523,6 +549,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C15847601F5E71C200D785A6 /* CommonManager */ = {
+			isa = PBXGroup;
+			children = (
+				C158476A1F5E71F200D785A6 /* MMCBluetoothManager.h */,
+				C158476B1F5E71F200D785A6 /* MMCBluetoothManager.m */,
+				C158476C1F5E71F200D785A6 /* MMCDeviceManager.h */,
+				C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */,
+				C15847611F5E71E900D785A6 /* BleDevice.h */,
+				C15847621F5E71E900D785A6 /* BleDevice.m */,
+				C15847631F5E71E900D785A6 /* BleDeviceBroadcast.h */,
+				C15847641F5E71E900D785A6 /* BleDeviceBroadcast.m */,
+				C15847651F5E71E900D785A6 /* WoodpeckerSensorData.h */,
+				C15847661F5E71E900D785A6 /* WoodpeckerSensorData.m */,
+			);
+			path = CommonManager;
+			sourceTree = "<group>";
+		};
 		C199D39F1F51462800431AF2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +607,7 @@
 		C1FE07F81F5BCA100054A254 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */,
 				C1FE07F91F5BCA100054A254 /* image */,
 			);
 			path = Resource;
@@ -644,6 +688,8 @@
 		F54DD6FADDEF2E5E0113AD58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */,
+				C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */,
 				6C49084367002DCB90033864 /* libPods-woodpecker.a */,
 			);
 			name = Frameworks;
@@ -678,7 +724,7 @@
 		C14CA3ED1F4FB2B1007F50A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = goldsmith;
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
@@ -753,6 +799,7 @@
 				C1FE085B1F5BCA3C0054A254 /* icon-record-menses@3x.png in Resources */,
 				C1FE08671F5BCA3C0054A254 /* icon-record-weight@3x.png in Resources */,
 				C1FE08491F5BCA3C0054A254 /* btn-tab-me-u@3x.png in Resources */,
+				C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */,
 				C1FE08381F5BCA3C0054A254 /* btn-navi-device-connecking@3x.png in Resources */,
 				C1FE08681F5BCA3C0054A254 /* icon-status-edit@2x.png in Resources */,
 				C1FE08341F5BCA3C0054A254 /* btn-navi-device-add@2x.png in Resources */,
@@ -828,9 +875,11 @@
 			files = (
 				C15630421F5065FE00D6CC30 /* XJFServerManager.m in Sources */,
 				C15630301F5065FE00D6CC30 /* NSDictionary+Extension.m in Sources */,
-				C1562FD31F5064DE00D6CC30 /* initServer.m in Sources */,
+				C1562FD31F5064DE00D6CC30 /* initServer.mm in Sources */,
 				C156302F1F5065FE00D6CC30 /* NSDate+Extension.m in Sources */,
 				C15630321F5065FE00D6CC30 /* NSFileManager+Extensions.m in Sources */,
+				C158476F1F5E71F200D785A6 /* MMCDeviceManager.m in Sources */,
+				C15847681F5E71E900D785A6 /* BleDeviceBroadcast.m in Sources */,
 				C15630491F5065FE00D6CC30 /* XJFUITextView.m in Sources */,
 				C156303D1F5065FE00D6CC30 /* XJFBaseModel.m in Sources */,
 				C1FE087E1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m in Sources */,
@@ -849,11 +898,14 @@
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
 				C15630441F5065FE00D6CC30 /* XJFSeperatorLineView.m in Sources */,
 				C15630451F5065FE00D6CC30 /* XJFUIButton.m in Sources */,
+				C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
 				C15630471F5065FE00D6CC30 /* XJFUILabel.m in Sources */,
 				C15630431F5065FE00D6CC30 /* XJFBackgroundView.m in Sources */,
 				C15630351F5065FE00D6CC30 /* UIColor+Hex.m in Sources */,
+				C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */,
+				C15847671F5E71E900D785A6 /* BleDevice.m in Sources */,
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
 				C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */,
 				C15630361F5065FE00D6CC30 /* UIImage+animatedGIF.m in Sources */,
@@ -887,6 +939,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -896,8 +949,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -933,6 +988,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -942,8 +998,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -975,7 +1033,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = woodpecker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.woodpecker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -988,7 +1051,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = woodpecker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.woodpecker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
