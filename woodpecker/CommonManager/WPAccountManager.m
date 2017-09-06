@@ -27,6 +27,10 @@ Singleton_Implementation(WPAccountManager);
                                                  selector:@selector(passportAccessTokenInvalidOrExpired:)
                                                      name:MH_Account_AccsessToken_Expire
                                                    object:nil];
+
+        if ([_account isLogin]) {
+            [self loadUserDefaultValue];
+        }
     }
     return self;
 }
@@ -56,6 +60,7 @@ Singleton_Implementation(WPAccountManager);
 - (void)passportDidLogin:(id)note {
     DDLogDebug(@"passport login succeeded, token:%@", self.account.accessToken);
     self.userToken = self.account.accessToken;
+    kDefaultSetValueForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
     [self.account save];
     [self fetchProfile];
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
@@ -99,7 +104,18 @@ Singleton_Implementation(WPAccountManager);
           self.userID = profile.userId;
           self.userNickName = profile.nickName;
           self.userAvatar = profile.userIcon;
+
+          kDefaultSetValueForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
+          kDefaultSetValueForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+          kDefaultSetValueForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
       }
     }];
+}
+
+- (void)loadUserDefaultValue {
+    self.userToken = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    self.userID = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    self.userNickName = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    self.userAvatar = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
 }
 @end
