@@ -20,6 +20,7 @@ NSString* const MMCNotificationKeyTemperatureMonitoring = @"MMCNotificationKeyTe
 
 NSString* const WPNotificationKeyLoginSuccess = @"WPNotificationKeyLoginSuccess";
 NSString* const WPNotificationKeyLoginFailed = @"WPNotificationKeyLoginFailed";
+NSString* const WPNotificationKeyLoginCancel = @"WPNotificationKeyLoginCancel";
 NSString* const WPNotificationKeyLogoutSuccess = @"WPNotificationKeyLogoutSuccess";
 NSString* const WPNotificationKeyTokenExpire = @"WPNotificationKeyTokenExpire";
 

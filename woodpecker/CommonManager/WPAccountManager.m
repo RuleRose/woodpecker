@@ -33,7 +33,7 @@ Singleton_Implementation(WPAccountManager);
 
 - (void)login {
     if (![self.account isLogin]) {
-        [self.account login:@[ @1, @3, @6000 ]];
+        [self.account login:@[ @1, @3 ]];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
     }
@@ -76,6 +76,7 @@ Singleton_Implementation(WPAccountManager);
 // 用户取消登录
 - (void)passportDidCancel:(id)note {
     DDLogDebug(@"passport login did cancel");
+    [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginCancel object:nil];
 }
 
 //登出成功
