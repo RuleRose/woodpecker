@@ -22,4 +22,9 @@ extern NSString* const MMCNotificationKeyTemperatureIndexUpdated;
 extern NSString* const MMCNotificationKeyAlarmUpdated;
 extern NSString* const MMCNotificationKeySyncOver;
 extern NSString* const MMCNotificationKeyTemperatureMonitoring;
+
+extern NSString* const WPNotificationKeyLoginSuccess;
+extern NSString* const WPNotificationKeyLoginFailed;
+extern NSString* const WPNotificationKeyLogoutSuccess;
+extern NSString* const WPNotificationKeyTokenExpire;
 @end

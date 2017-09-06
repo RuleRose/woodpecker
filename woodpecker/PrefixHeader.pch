@@ -38,6 +38,7 @@
 #import "CustomFramework.h"
 
 //手动导入第三方库
-#import <MiBluetoothFramework/MHPassport.h>
+#import <MiBluetoothFramework/MHAccount.h>
+#import <MiBluetoothFramework/MHConstants.h>
 #import <MiPassport/MiPassport.h>
 #endif /* PrefixHeader_pch */
