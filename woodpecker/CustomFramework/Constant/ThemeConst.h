@@ -25,7 +25,6 @@
 #define kColorFromRGB(rgbValue) kColorFromRGBA(rgbValue, 1.0f)
 
 /**************************颜色**************************************/
-#define kColor_NavigationBar kColorFromRGB(0xffc905)
 #define kColor_Text1 kColorFromRGB(0x333333)
 #define kColor_Text2 kColorFromRGB(0x666666)
 #define kColor_Text3 kColorFromRGB(0x999999)

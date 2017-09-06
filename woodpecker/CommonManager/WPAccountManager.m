@@ -17,8 +17,8 @@ Singleton_Implementation(WPAccountManager);
 - (instancetype)init {
     self = [super init];
     if (self) {
+        //        _account = [[MHAccount alloc] initWithAppId:@"2882303761517441957" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/"];
         _account = [[MHAccount alloc] initWithAppId:@"2882303761517613555" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/"];
-
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportDidLogin:) name:MH_Account_Login_Sucess object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportLoginFailed:) name:MH_Account_Login_Failure object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportDidCancel:) name:MH_Account_Login_Cancel object:nil];
@@ -55,10 +55,9 @@ Singleton_Implementation(WPAccountManager);
 // 登录成功
 - (void)passportDidLogin:(id)note {
     DDLogDebug(@"passport login succeeded, token:%@", self.account.accessToken);
+    self.userToken = self.account.accessToken;
     [self.account save];
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    //      [self fetchDatas];
-    //    });
+    [self fetchProfile];
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
 }
 
@@ -89,5 +88,17 @@ Singleton_Implementation(WPAccountManager);
 - (void)passportAccessTokenInvalidOrExpired:(id)note {
     DDLogDebug(@"passport accesstoken invalid or expired");
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyTokenExpire object:nil];
+}
+
+- (void)fetchProfile {
+    @weakify(self);
+    [self.account fetchAccountProfile:^(MHAccountProfile *profile, NSError *error) {
+      @strongify(self);
+      if (0 == error.code) {
+          self.userID = profile.userId;
+          self.userNickName = profile.nickName;
+          self.userAvatar = profile.userIcon;
+      }
+    }];
 }
 @end

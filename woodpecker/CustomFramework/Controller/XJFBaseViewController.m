@@ -16,11 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setBarTintColor:kColor_NavigationBar];
+    [self.navigationController.navigationBar setBarTintColor:COLOR_NAVI_BAR];
     [self.navigationController.navigationBar setTintColor:kClear];
-    self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
     self.view.backgroundColor = kColor_1;
     [self navigationBarLineHidden:YES];
+    
+    self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
     self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:19], NSForegroundColorAttributeName : kColor_Text1 };
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];

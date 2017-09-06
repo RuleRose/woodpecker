@@ -10,6 +10,10 @@
 
 @interface WPAccountManager : NSObject
 Singleton_Interface(WPAccountManager);
+@property (nonatomic,copy) NSString *userID;
+@property (nonatomic,copy) NSString *userNickName;
+@property (nonatomic,copy) NSString *userAvatar;
+@property (nonatomic,copy) NSString *userToken;
 
 - (void)login;
 - (BOOL)isLogin;
