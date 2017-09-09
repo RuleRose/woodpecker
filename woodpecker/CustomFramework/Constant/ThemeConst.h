@@ -42,6 +42,8 @@
 #define kColor_9_With_Alpha(alpha) [UIColor leie_colorWithHex:0x000000 andAlpha:alpha]
 #define kColor_10 kColor_10_With_Alpha(1.0)
 #define kColor_10_With_Alpha(alpha) [UIColor leie_colorWithHex:0xffffff andAlpha:alpha]
+#define kColor_11 kColor_11_With_Alpha(1.0)
+#define kColor_11_With_Alpha(alpha) [UIColor leie_colorWithHex:0x221798 andAlpha:alpha]
 
 #define COLOR_STATUS_BAR kColor_5
 #define COLOR_NAVI_BAR kColor_5
