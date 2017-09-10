@@ -7,8 +7,12 @@
 //
 
 #import "WPMyInfoViewController.h"
+#import "WPMyInfoView.h"
+#import "WPMyInfoViewModel.h"
 
-@interface WPMyInfoViewController ()
+@interface WPMyInfoViewController ()<WPMyInfoViewDelegate>
+@property(nonatomic, strong) WPMyInfoView *loginView;
+@property(nonatomic, strong) WPMyInfoViewModel *viewModel;
 
 @end
 
@@ -16,7 +20,61 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kColor_2;
+    [self setupData];
+    [self setupViews];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self hideNavigationBar];
+}
+
+- (void)setupData{
+    _viewModel = [[WPMyInfoViewModel alloc] init];
+}
+
+- (void)setupViews{
+    _loginView = [[WPMyInfoView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+    _loginView.backgroundColor = [UIColor clearColor];
+    _loginView.delegate = self;
+    [self.view addSubview:_loginView];
+}
+
+#pragma mark WPMyInfoViewDelegate
+- (void)selectedAvatar{
+    NSLog(@"selectedAvatar");
+}
+
+- (void)selectedAccount{
+    NSLog(@"selectedAccount");
+
+}
+
+- (void)selectedBasic{
+    NSLog(@"selectedBasic");
+
+}
+
+- (void)selectedCycle{
+    NSLog(@"selectedCycle");
+
+}
+
+- (void)selectedShop{
+    NSLog(@"selectedShop");
+
+}
+
+- (void)selectedAbout{
+    NSLog(@"selectedAbout");
+
+}
+
+- (void)selectedHelp{
+    NSLog(@"selectedHelp");
+
 }
 
 - (void)didReceiveMemoryWarning {
