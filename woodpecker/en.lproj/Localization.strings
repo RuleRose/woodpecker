@@ -7,3 +7,9 @@
 */
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
+"me_title" = "我";
+"me_basic" = "基本信息";
+"me_cycle" = "周期信息";
+"me_shop" = "购买";
+"me_about" = "关于";
+"me_help" = "帮助";

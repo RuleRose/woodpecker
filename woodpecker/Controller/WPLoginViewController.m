@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kColorFromRGB(0xffffff);
+    self.view.backgroundColor = kColor_10;
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -56,7 +56,6 @@
     _loginView.backgroundColor = [UIColor clearColor];
     _loginView.delegate = self;
     [self.view addSubview:_loginView];
-    
 }
 
 #pragma mark WPLoginViewDelegate

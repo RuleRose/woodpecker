@@ -7,6 +7,7 @@
 //
 
 #import "WPMainViewController.h"
+#import "UIImage+Extension.h"
 
 @interface WPMainViewController ()
 
@@ -17,17 +18,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupData];
+    [self.tabBar setBackgroundImage:[UIImage drawImageWithSize:CGSizeMake(kScreen_Width, 45) color:kColor_4]];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)setupData {
     self.viewModel = [[WPMainViewModel alloc] init];
     self.viewControllers = self.viewModel.controllerList;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 /*
 #pragma mark - Navigation

@@ -143,6 +143,15 @@
 		CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214241F64E92C00AE2D82 /* WPLoginView.m */; };
 		CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */; };
 		CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214311F64F55200AE2D82 /* UIView+Extensions.m */; };
+		CC7214391F65105700AE2D82 /* WPMyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214381F65105700AE2D82 /* WPMyInfoView.m */; };
+		CC72143C1F65107000AE2D82 /* WPMyInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72143B1F65107000AE2D82 /* WPMyInfoViewModel.m */; };
+		CC7214401F6513DB00AE2D82 /* TableViewNextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72143F1F6513DB00AE2D82 /* TableViewNextCell.m */; };
+		CC7214431F65184600AE2D82 /* MyInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214421F65184600AE2D82 /* MyInfoHeaderView.m */; };
+		CC7214461F65329E00AE2D82 /* WPStatusViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */; };
+		CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214481F6532D000AE2D82 /* WPStatusView.m */; };
+		CC72144C1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */; };
+		CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */; };
+		CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -349,6 +358,24 @@
 		CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLoginViewModel.m; sourceTree = "<group>"; };
 		CC7214301F64F55200AE2D82 /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
 		CC7214311F64F55200AE2D82 /* UIView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extensions.m"; sourceTree = "<group>"; };
+		CC7214371F65105700AE2D82 /* WPMyInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMyInfoView.h; sourceTree = "<group>"; };
+		CC7214381F65105700AE2D82 /* WPMyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMyInfoView.m; sourceTree = "<group>"; };
+		CC72143A1F65107000AE2D82 /* WPMyInfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMyInfoViewModel.h; sourceTree = "<group>"; };
+		CC72143B1F65107000AE2D82 /* WPMyInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMyInfoViewModel.m; sourceTree = "<group>"; };
+		CC72143E1F6513DB00AE2D82 /* TableViewNextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewNextCell.h; sourceTree = "<group>"; };
+		CC72143F1F6513DB00AE2D82 /* TableViewNextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewNextCell.m; sourceTree = "<group>"; };
+		CC7214411F65184600AE2D82 /* MyInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoHeaderView.h; sourceTree = "<group>"; };
+		CC7214421F65184600AE2D82 /* MyInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoHeaderView.m; sourceTree = "<group>"; };
+		CC7214441F65329E00AE2D82 /* WPStatusViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusViewModel.h; sourceTree = "<group>"; };
+		CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusViewModel.m; sourceTree = "<group>"; };
+		CC7214471F6532D000AE2D82 /* WPStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusView.h; sourceTree = "<group>"; };
+		CC7214481F6532D000AE2D82 /* WPStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusView.m; sourceTree = "<group>"; };
+		CC72144A1F6533E900AE2D82 /* WPTemperatureRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordViewModel.h; sourceTree = "<group>"; };
+		CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordViewModel.m; sourceTree = "<group>"; };
+		CC72144D1F6533F800AE2D82 /* WPTemperatureRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordView.h; sourceTree = "<group>"; };
+		CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordView.m; sourceTree = "<group>"; };
+		CC7214531F653F1A00AE2D82 /* WPStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusItemView.h; sourceTree = "<group>"; };
+		CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusItemView.m; sourceTree = "<group>"; };
 		D763EE217E13AB564BD30CBB /* Pods-woodpecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-woodpecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -667,6 +694,12 @@
 				C1FE086E1F5BCA8D0054A254 /* WPMainViewModel.m */,
 				CC7214261F64E96300AE2D82 /* WPLoginViewModel.h */,
 				CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */,
+				CC72143A1F65107000AE2D82 /* WPMyInfoViewModel.h */,
+				CC72143B1F65107000AE2D82 /* WPMyInfoViewModel.m */,
+				CC7214441F65329E00AE2D82 /* WPStatusViewModel.h */,
+				CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */,
+				CC72144A1F6533E900AE2D82 /* WPTemperatureRecordViewModel.h */,
+				CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -676,6 +709,18 @@
 			children = (
 				CC7214231F64E92C00AE2D82 /* WPLoginView.h */,
 				CC7214241F64E92C00AE2D82 /* WPLoginView.m */,
+				CC7214371F65105700AE2D82 /* WPMyInfoView.h */,
+				CC7214381F65105700AE2D82 /* WPMyInfoView.m */,
+				CC72143E1F6513DB00AE2D82 /* TableViewNextCell.h */,
+				CC72143F1F6513DB00AE2D82 /* TableViewNextCell.m */,
+				CC7214411F65184600AE2D82 /* MyInfoHeaderView.h */,
+				CC7214421F65184600AE2D82 /* MyInfoHeaderView.m */,
+				CC7214471F6532D000AE2D82 /* WPStatusView.h */,
+				CC7214481F6532D000AE2D82 /* WPStatusView.m */,
+				CC72144D1F6533F800AE2D82 /* WPTemperatureRecordView.h */,
+				CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */,
+				CC7214531F653F1A00AE2D82 /* WPStatusItemView.h */,
+				CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1016,9 +1061,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */,
 				C15630421F5065FE00D6CC30 /* XJFServerManager.m in Sources */,
 				C15630301F5065FE00D6CC30 /* NSDictionary+Extension.m in Sources */,
 				C1562FD31F5064DE00D6CC30 /* initServer.mm in Sources */,
+				CC72143C1F65107000AE2D82 /* WPMyInfoViewModel.m in Sources */,
 				C156302F1F5065FE00D6CC30 /* NSDate+Extension.m in Sources */,
 				C15630321F5065FE00D6CC30 /* NSFileManager+Extensions.m in Sources */,
 				C158476F1F5E71F200D785A6 /* MMCDeviceManager.m in Sources */,
@@ -1042,28 +1089,35 @@
 				C15630381F5065FE00D6CC30 /* UIImageView+SD.m in Sources */,
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
 				C15630441F5065FE00D6CC30 /* XJFSeperatorLineView.m in Sources */,
+				CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */,
 				C15630451F5065FE00D6CC30 /* XJFUIButton.m in Sources */,
 				C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
+				CC7214391F65105700AE2D82 /* WPMyInfoView.m in Sources */,
 				C15630471F5065FE00D6CC30 /* XJFUILabel.m in Sources */,
 				C15630431F5065FE00D6CC30 /* XJFBackgroundView.m in Sources */,
 				CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */,
 				C15630351F5065FE00D6CC30 /* UIColor+Hex.m in Sources */,
 				CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */,
+				CC7214401F6513DB00AE2D82 /* TableViewNextCell.m in Sources */,
 				C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */,
 				C15847671F5E71E900D785A6 /* BleDevice.m in Sources */,
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
 				C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */,
+				CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */,
 				C15630361F5065FE00D6CC30 /* UIImage+animatedGIF.m in Sources */,
 				C15630411F5065FE00D6CC30 /* XJFNetworkManager.m in Sources */,
+				CC7214461F65329E00AE2D82 /* WPStatusViewModel.m in Sources */,
 				C156303B1F5065FE00D6CC30 /* XJFBaseNavigationController.m in Sources */,
 				C1FE086F1F5BCA8D0054A254 /* WPMainViewModel.m in Sources */,
 				C156304A1F5065FE00D6CC30 /* XJFUIView.m in Sources */,
+				CC7214431F65184600AE2D82 /* MyInfoHeaderView.m in Sources */,
 				C15630311F5065FE00D6CC30 /* NSMutableDictionary+Extension.m in Sources */,
 				C15466131F63E00500B5CCD9 /* WPLoginViewController.m in Sources */,
 				C15630481F5065FE00D6CC30 /* XJFUITextField.m in Sources */,
 				C14CA3FA1F4FB2B1007F50A1 /* main.m in Sources */,
+				CC72144C1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

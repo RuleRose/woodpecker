@@ -7,17 +7,37 @@
 //
 
 #import "WPTemperatureRecordViewController.h"
+#import "WPTemperatureRecordView.h"
+#import "WPTemperatureRecordViewModel.h"
 
-@interface WPTemperatureRecordViewController ()
-
+@interface WPTemperatureRecordViewController ()<WPTemperatureRecordViewDelegate>
+@property(nonatomic, strong) WPTemperatureRecordView *recordView;
+@property(nonatomic, strong) WPTemperatureRecordViewModel *viewModel;
 @end
 
 @implementation WPTemperatureRecordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kColor_2;
+    [self setupData];
+    [self setupViews];
     // Do any additional setup after loading the view.
 }
+
+- (void)setupData{
+    _viewModel = [[WPTemperatureRecordViewModel alloc] init];
+}
+
+- (void)setupViews{
+    _recordView = [[WPTemperatureRecordView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+    _recordView.backgroundColor = [UIColor clearColor];
+    _recordView.delegate = self;
+    [self.view addSubview:_recordView];
+}
+
+#pragma mark WPTemperatureRecordViewDelegate
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
