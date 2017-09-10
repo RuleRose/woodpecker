@@ -5,3 +5,5 @@
   Created by yongche on 17/8/25.
   Copyright © 2017年 goldsmith. All rights reserved.
 */
+"login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
+"login_btn" = "小米账号登录";

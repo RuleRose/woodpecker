@@ -37,7 +37,7 @@
 		C154660E1F63DEC500B5CCD9 /* ima-alarm@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15465F41F63DEC500B5CCD9 /* ima-alarm@3x.png */; };
 		C154660F1F63DEC500B5CCD9 /* ima-logon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15465F51F63DEC500B5CCD9 /* ima-logon@2x.png */; };
 		C15466101F63DEC500B5CCD9 /* ima-logon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15465F61F63DEC500B5CCD9 /* ima-logon@3x.png */; };
-		C15466131F63E00500B5CCD9 /* VPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15466121F63E00500B5CCD9 /* VPLoginViewController.m */; };
+		C15466131F63E00500B5CCD9 /* WPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15466121F63E00500B5CCD9 /* WPLoginViewController.m */; };
 		C1562F0E1F50638800D6CC30 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1562F101F50638800D6CC30 /* Localization.strings */; };
 		C1562FD31F5064DE00D6CC30 /* initServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = C1562FD21F5064DE00D6CC30 /* initServer.mm */; };
 		C156302D1F5065FE00D6CC30 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C1562FD81F5065FE00D6CC30 /* NSArray+Extension.m */; };
@@ -140,6 +140,9 @@
 		C1FE087B1F5BCFE90054A254 /* WPStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */; };
 		C1FE087E1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */; };
 		C1FE08811F5BD00A0054A254 /* WPMyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */; };
+		CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214241F64E92C00AE2D82 /* WPLoginView.m */; };
+		CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */; };
+		CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214311F64F55200AE2D82 /* UIView+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,8 +180,8 @@
 		C15465F41F63DEC500B5CCD9 /* ima-alarm@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ima-alarm@3x.png"; sourceTree = "<group>"; };
 		C15465F51F63DEC500B5CCD9 /* ima-logon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ima-logon@2x.png"; sourceTree = "<group>"; };
 		C15465F61F63DEC500B5CCD9 /* ima-logon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ima-logon@3x.png"; sourceTree = "<group>"; };
-		C15466111F63E00500B5CCD9 /* VPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPLoginViewController.h; sourceTree = "<group>"; };
-		C15466121F63E00500B5CCD9 /* VPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPLoginViewController.m; sourceTree = "<group>"; };
+		C15466111F63E00500B5CCD9 /* WPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginViewController.h; sourceTree = "<group>"; };
+		C15466121F63E00500B5CCD9 /* WPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLoginViewController.m; sourceTree = "<group>"; };
 		C1562F0B1F505E6600D6CC30 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		C1562F0F1F50638800D6CC30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
 		C1562F111F50638A00D6CC30 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -340,6 +343,12 @@
 		C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordViewController.m; sourceTree = "<group>"; };
 		C1FE087F1F5BD00A0054A254 /* WPMyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMyInfoViewController.h; sourceTree = "<group>"; };
 		C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMyInfoViewController.m; sourceTree = "<group>"; };
+		CC7214231F64E92C00AE2D82 /* WPLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginView.h; sourceTree = "<group>"; };
+		CC7214241F64E92C00AE2D82 /* WPLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLoginView.m; sourceTree = "<group>"; };
+		CC7214261F64E96300AE2D82 /* WPLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginViewModel.h; sourceTree = "<group>"; };
+		CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLoginViewModel.m; sourceTree = "<group>"; };
+		CC7214301F64F55200AE2D82 /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
+		CC7214311F64F55200AE2D82 /* UIView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extensions.m"; sourceTree = "<group>"; };
 		D763EE217E13AB564BD30CBB /* Pods-woodpecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-woodpecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -423,6 +432,7 @@
 		C1562FD51F5065FE00D6CC30 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CC72142E1F64F4F600AE2D82 /* UIView */,
 				C1562FD61F5065FE00D6CC30 /* NSArray */,
 				C1562FD91F5065FE00D6CC30 /* NSDate */,
 				C1562FDE1F5065FE00D6CC30 /* NSDictionary */,
@@ -644,8 +654,8 @@
 				C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */,
 				C1FE087F1F5BD00A0054A254 /* WPMyInfoViewController.h */,
 				C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */,
-				C15466111F63E00500B5CCD9 /* VPLoginViewController.h */,
-				C15466121F63E00500B5CCD9 /* VPLoginViewController.m */,
+				C15466111F63E00500B5CCD9 /* WPLoginViewController.h */,
+				C15466121F63E00500B5CCD9 /* WPLoginViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -655,6 +665,8 @@
 			children = (
 				C1FE086D1F5BCA8D0054A254 /* WPMainViewModel.h */,
 				C1FE086E1F5BCA8D0054A254 /* WPMainViewModel.m */,
+				CC7214261F64E96300AE2D82 /* WPLoginViewModel.h */,
+				CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -662,6 +674,8 @@
 		C199D3A21F51464700431AF2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CC7214231F64E92C00AE2D82 /* WPLoginView.h */,
+				CC7214241F64E92C00AE2D82 /* WPLoginView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -773,6 +787,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CC72142E1F64F4F600AE2D82 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				CC7214301F64F55200AE2D82 /* UIView+Extensions.h */,
+				CC7214311F64F55200AE2D82 /* UIView+Extensions.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		F54DD6FADDEF2E5E0113AD58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,12 +813,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C14CA40C1F4FB2B2007F50A1 /* Build configuration list for PBXNativeTarget "woodpecker" */;
 			buildPhases = (
-				C208931932684BB55E122927 /* 📦 Check Pods Manifest.lock */,
+				C208931932684BB55E122927 /* [CP] Check Pods Manifest.lock */,
 				C14CA3F11F4FB2B1007F50A1 /* Sources */,
 				C14CA3F21F4FB2B1007F50A1 /* Frameworks */,
 				C14CA3F31F4FB2B1007F50A1 /* Resources */,
-				3A9EFE5DB2E6716EF8F178A1 /* 📦 Embed Pods Frameworks */,
-				6CB423B2401950B243995168 /* 📦 Copy Pods Resources */,
+				3A9EFE5DB2E6716EF8F178A1 /* [CP] Embed Pods Frameworks */,
+				6CB423B2401950B243995168 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -935,14 +958,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3A9EFE5DB2E6716EF8F178A1 /* 📦 Embed Pods Frameworks */ = {
+		3A9EFE5DB2E6716EF8F178A1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -950,34 +973,40 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6CB423B2401950B243995168 /* 📦 Copy Pods Resources */ = {
+		6CB423B2401950B243995168 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C208931932684BB55E122927 /* 📦 Check Pods Manifest.lock */ = {
+		C208931932684BB55E122927 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-woodpecker-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1008,6 +1037,7 @@
 				C156302D1F5065FE00D6CC30 /* NSArray+Extension.m in Sources */,
 				C156303A1F5065FE00D6CC30 /* NotificationConst.m in Sources */,
 				C156302E1F5065FE00D6CC30 /* NSDate+ext.m in Sources */,
+				CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */,
 				C15630391F5065FE00D6CC30 /* UITableViewCell+roundCorner.m in Sources */,
 				C15630381F5065FE00D6CC30 /* UIImageView+SD.m in Sources */,
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
@@ -1018,7 +1048,9 @@
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
 				C15630471F5065FE00D6CC30 /* XJFUILabel.m in Sources */,
 				C15630431F5065FE00D6CC30 /* XJFBackgroundView.m in Sources */,
+				CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */,
 				C15630351F5065FE00D6CC30 /* UIColor+Hex.m in Sources */,
+				CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */,
 				C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */,
 				C15847671F5E71E900D785A6 /* BleDevice.m in Sources */,
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
@@ -1029,7 +1061,7 @@
 				C1FE086F1F5BCA8D0054A254 /* WPMainViewModel.m in Sources */,
 				C156304A1F5065FE00D6CC30 /* XJFUIView.m in Sources */,
 				C15630311F5065FE00D6CC30 /* NSMutableDictionary+Extension.m in Sources */,
-				C15466131F63E00500B5CCD9 /* VPLoginViewController.m in Sources */,
+				C15466131F63E00500B5CCD9 /* WPLoginViewController.m in Sources */,
 				C15630481F5065FE00D6CC30 /* XJFUITextField.m in Sources */,
 				C14CA3FA1F4FB2B1007F50A1 /* main.m in Sources */,
 			);

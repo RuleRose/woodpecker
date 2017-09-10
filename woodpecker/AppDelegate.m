@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "WPMainViewController.h"
 #import "initServer.h"
+#import "WPLoginViewController.h"
+#import "WPAccountManager.h"
 
 @interface AppDelegate ()
 
@@ -20,12 +22,21 @@
     // Override point for customization after application launch.
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = kColor_1;
+
     // Override point for customization after application launch.
-
-    UIViewController *viewController = [[WPMainViewController alloc] init];
-    self.window.rootViewController = viewController;
+    if ([[WPAccountManager defaultInstance] isLogin]) {
+        //主页
+        WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+        _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:mainVC];
+    }else{
+        //登录
+        WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
+        _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:loginVC];
+    }
+    self.window.rootViewController = _navigationC;
     [self.window makeKeyAndVisible];
-
+    //[NSThread sleepForTimeInterval:1];
     return YES;
 }
 
