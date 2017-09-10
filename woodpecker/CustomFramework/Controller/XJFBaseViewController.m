@@ -125,7 +125,7 @@
         if (title) {
             [button setTitle:[title leie_objectAtIndex:i] forState:UIControlStateNormal];
             [button.titleLabel setFont:[UIFont systemFontOfSize:16]];
-            [button setTitleColor:kColor_Text1 forState:UIControlStateNormal];
+            [button setTitleColor:kColor_1 forState:UIControlStateNormal];
         }
 
         if (image) {

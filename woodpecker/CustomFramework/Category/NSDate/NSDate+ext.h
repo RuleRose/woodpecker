@@ -12,8 +12,9 @@
 + (instancetype)dateWithTimeIntervalSince2000:(NSTimeInterval)secs;
 - (NSTimeInterval)timeIntervalSince2000;
 
-+ (instancetype)dateOfDisplayString:(NSString*)dateStr;
-- (NSString*)displayStringOfDate;
++ (instancetype)dateOfDisplayString:(NSString *)dateStr;
+- (NSString *)displayStringOfDate;
 
 - (BOOL)isToday;
+- (BOOL)isSameDay:(NSDate *)date;
 @end
