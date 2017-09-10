@@ -1,13 +1,13 @@
 //
-//  WPMyInfoViewModel.h
+//  WPThermometerClockViewModel.m
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/10.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WPThermometerClockViewModel.h"
 
-@interface WPMyInfoViewModel : NSObject
+@implementation WPThermometerClockViewModel
 
 @end

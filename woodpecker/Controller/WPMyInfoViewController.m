@@ -11,7 +11,7 @@
 #import "WPMyInfoViewModel.h"
 
 @interface WPMyInfoViewController ()<WPMyInfoViewDelegate>
-@property(nonatomic, strong) WPMyInfoView *loginView;
+@property(nonatomic, strong) WPMyInfoView *infoView;
 @property(nonatomic, strong) WPMyInfoViewModel *viewModel;
 
 @end
@@ -36,10 +36,10 @@
 }
 
 - (void)setupViews{
-    _loginView = [[WPMyInfoView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
-    _loginView.backgroundColor = [UIColor clearColor];
-    _loginView.delegate = self;
-    [self.view addSubview:_loginView];
+    _infoView = [[WPMyInfoView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+    _infoView.backgroundColor = [UIColor clearColor];
+    _infoView.delegate = self;
+    [self.view addSubview:_infoView];
 }
 
 #pragma mark WPMyInfoViewDelegate

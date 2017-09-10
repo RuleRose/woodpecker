@@ -1,5 +1,5 @@
 //
-//  WPMyInfoViewModel.h
+//  WPTemperatureRecordViewModel.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/10.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WPMyInfoViewModel : NSObject
+@interface WPTemperatureRecordViewModel : NSObject
 
 @end

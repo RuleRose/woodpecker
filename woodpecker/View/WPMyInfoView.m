@@ -59,7 +59,7 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.row == 0 || indexPath.row == 3) {
-        NSString* identifier = @"MyCell";
+        NSString* identifier = @"SpaceCell";
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];

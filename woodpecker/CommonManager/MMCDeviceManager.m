@@ -6,11 +6,11 @@
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
+#import "MMCDeviceManager.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BleDevice.h"
 #import "BleDeviceBroadcast.h"
 #import "MMCBluetoothManager.h"
-#import "MMCDeviceManager.h"
 #import "WoodpeckerSensorData.h"
 
 @interface MMCDeviceManager ()<CBPeripheralDelegate, MMCBluetoothManagerDiscoveryDelegate>
@@ -34,6 +34,7 @@ Singleton_Implementation(MMCDeviceManager);
     }
 }
 
+// woodpecker项目不关心实时温度和状态
 - (void)setDeviceState:(MMCDeviceState)deviceState {
     if (_deviceState != deviceState) {
         _preDeviceState = _deviceState;
@@ -95,15 +96,15 @@ Singleton_Implementation(MMCDeviceManager);
     }
 }
 
-- (void)readMonitoringTemperature {
-    if (self.currentDevice) {
-        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_MONITORING_TEMPERATURE_READ];
-    }
-}
+//- (void)readMonitoringTemperature {
+//    if (self.currentDevice) {
+//        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_MONITORING_TEMPERATURE_READ];
+//    }
+//}
 
 - (void)readAlarm {
     if (self.currentDevice) {
-        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_ALARM_READ];
+        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_ALARM_READ_WRITE];
     }
 }
 
@@ -114,7 +115,7 @@ Singleton_Implementation(MMCDeviceManager);
         int32_t value = interval;
         [self writeCharacteristic:self.currentDevice.peripheral
                             sUUID:SERVICE_UUID_MMCSERVICE
-                            cUUID:CHARACT_UUID_TIME_WRITE
+                            cUUID:CHARACT_UUID_TIME_READ_WRITE
                              data:[NSData dataWithBytes:&value length:sizeof(int32_t)]];
     }
 }
@@ -128,7 +129,7 @@ Singleton_Implementation(MMCDeviceManager);
         int32_t value = (int32_t)alarmInterval;
         [self writeCharacteristic:self.currentDevice.peripheral
                             sUUID:SERVICE_UUID_MMCSERVICE
-                            cUUID:CHARACT_UUID_ALARM_WRITE
+                            cUUID:CHARACT_UUID_ALARM_READ_WRITE
                              data:[NSData dataWithBytes:&value length:sizeof(int32_t)]];
     } else {
         if (callback) {
@@ -142,7 +143,7 @@ Singleton_Implementation(MMCDeviceManager);
         int16_t value = (int16_t)index;
         [self writeCharacteristic:self.currentDevice.peripheral
                             sUUID:SERVICE_UUID_MMCSERVICE
-                            cUUID:CHARACT_UUID_RECORD_INDEX_WRITE
+                            cUUID:CHARACT_UUID_RECORD_INDEX_READ_WRITE
                              data:[NSData dataWithBytes:&value length:sizeof(int16_t)]];
     }
 }
@@ -159,17 +160,17 @@ Singleton_Implementation(MMCDeviceManager);
     }
 }
 
-- (void)startCheckRealTimeTemperature {
-    if (self.monitoringTimer) {
-        [self.monitoringTimer invalidate];
-    }
-    self.monitoringTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(readMonitoringTemperature) userInfo:nil repeats:YES];
-    [self.monitoringTimer fire];
-}
-
-- (void)stopCheckRealTimeTemperature {
-    [self.monitoringTimer invalidate];
-}
+//- (void)startCheckRealTimeTemperature {
+//    if (self.monitoringTimer) {
+//        [self.monitoringTimer invalidate];
+//    }
+//    self.monitoringTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(readMonitoringTemperature) userInfo:nil repeats:YES];
+//    [self.monitoringTimer fire];
+//}
+//
+//- (void)stopCheckRealTimeTemperature {
+//    [self.monitoringTimer invalidate];
+//}
 
 - (void)notificationHandler:(NSNotification *)sender {
     NSString *notificationName = sender.name;
@@ -278,7 +279,7 @@ Singleton_Implementation(MMCDeviceManager);
 - (void)didDisconnect:(CBPeripheral *)peripheral {
     self.preDeviceState = MMC_STATE_IDLE;
     self.deviceState = MMC_STATE_IDLE;
-    [self stopCheckRealTimeTemperature];
+    //    [self stopCheckRealTimeTemperature];
 }
 
 - (BOOL)readCharacteristic:(CBPeripheral *)peripheral sUUID:(NSString *)sUUID cUUID:(NSString *)cUUID {
@@ -340,14 +341,11 @@ Singleton_Implementation(MMCDeviceManager);
         /* MMC Services */
         if ([[service.UUID.UUIDString lowercaseString] isEqualToString:SERVICE_UUID_MMCSERVICE]) {
             [peripheral discoverCharacteristics:@[
-                [CBUUID UUIDWithString:CHARACT_UUID_TIME_READ],
-                [CBUUID UUIDWithString:CHARACT_UUID_TIME_WRITE],
-                [CBUUID UUIDWithString:CHARACT_UUID_ALARM_READ],
-                [CBUUID UUIDWithString:CHARACT_UUID_ALARM_WRITE],
-                [CBUUID UUIDWithString:CHARACT_UUID_RECORD_COUNT_READ],
-                [CBUUID UUIDWithString:CHARACT_UUID_RECORD_INDEX_WRITE],
+                [CBUUID UUIDWithString:CHARACT_UUID_TIME_READ_WRITE], [CBUUID UUIDWithString:CHARACT_UUID_ALARM_READ_WRITE],
+                [CBUUID UUIDWithString:CHARACT_UUID_RECORD_COUNT_READ], [CBUUID UUIDWithString:CHARACT_UUID_RECORD_INDEX_READ_WRITE],
                 [CBUUID UUIDWithString:CHARACT_UUID_RECORD_INDEX_TEMPERATURE_READ],
-                [CBUUID UUIDWithString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]
+                //                [CBUUID UUIDWithString:CHARACT_UUID_MONITORING_TEMPERATURE_READ],
+                [CBUUID UUIDWithString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE]
             ]
                                      forService:service];
         }
@@ -369,8 +367,9 @@ Singleton_Implementation(MMCDeviceManager);
         NSString *charactUUIDString = [Char.UUID.UUIDString lowercaseString];
 
         /* read values or set notification*/
-        if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ] || [charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ] ||
-            [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_COUNT_READ]) {
+        if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ_WRITE] ||
+            [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_COUNT_READ] ||
+            [charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE]) {
             if (Char.properties & CBCharacteristicPropertyRead) {
                 DDLogDebug(@"[Device Manager] Read value for Charactestic: %@", charactUUIDString);
                 [peripheral readValueForCharacteristic:Char];
@@ -379,9 +378,11 @@ Singleton_Implementation(MMCDeviceManager);
                 DDLogDebug(@"[Device Manager] Set notification for Charactestic: %@", charactUUIDString);
                 [peripheral setNotifyValue:YES forCharacteristic:Char];
             }
-        } else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
-            [self startCheckRealTimeTemperature];
-        } else if ([charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_WRITE]) {
+        }
+        //        else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
+        //            [self startCheckRealTimeTemperature];
+        //        }
+        else if ([charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_READ_WRITE]) {
             //设置获取数据的index。新设备从1开始；上次连接的设备，从上次最后一次数据开始。
             //写index成功，是sync history的启动事件。
             if (self.isConnectToNewDevice) {
@@ -392,7 +393,9 @@ Singleton_Implementation(MMCDeviceManager);
                     [self writeTemperatureIndex:index + 1];
                 }
             }
-        } else if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_WRITE]) {
+        }
+
+        if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE]) {
             if (self.isConnectToNewDevice) {
                 [self setTimeToNow];
             }
@@ -414,11 +417,11 @@ Singleton_Implementation(MMCDeviceManager);
     }
 
     DDLogDebug(@"[Device Manager] On charactestic value: %@", charactUUIDString);
-    if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ]) {
+    if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE]) {
         int32_t time;
         [characteristic.value getBytes:&time range:NSMakeRange(0, 4)];
         DDLogDebug(@"[Device Manager] get time: %d", time);
-    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ]) {
+    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ_WRITE]) {
         int32_t alarmTime;
         [characteristic.value getBytes:&alarmTime range:NSMakeRange(0, 4)];
         self.alarmTimeInterval = alarmTime;
@@ -467,45 +470,47 @@ Singleton_Implementation(MMCDeviceManager);
         }
 
         DDLogDebug(@"[Device Manager] get record index: %d, time : %d, temperature: %d", recordIndex, time, temperature);
-    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
-        int16_t state;
-        int16_t temperature;
-        [characteristic.value getBytes:&state range:NSMakeRange(0, 2)];
-        [characteristic.value getBytes:&temperature range:NSMakeRange(2, 2)];
-
-        /* MMC_STATE_NONE       0
-           MMC_STATE_IDLE       1
-           MMC_STATE_INIT       2
-           MMC_STATE_HISTORY    3
-           MMC_STATE_MEASURING  4
-           MMC_STATE_FINISH     5
-           MMC_STATE_SET_ALARM  6
-           MMC_STATE_ALARM      7
-           MMC_STATE_ERROR      0xFF
-         */
-
-        if (4 == state) {
-            self.deviceState = MMC_STATE_MEASURING;
-            self.monitoringTemperatureResult = temperature;
-        } else {
-            if (5 == state) {
-                if (self.deviceState != MMC_STATE_SYNC) {
-                    self.deviceState = MMC_STATE_MEASURING_FINISH;
-                }
-                self.monitoringTemperatureResult = temperature;
-            } else {
-                if (self.deviceState != MMC_STATE_SYNC) {
-                    self.deviceState = MMC_STATE_IDLE;
-                    self.monitoringTemperatureResult = -1;
-                }
-            }
-        }
-
-        if (4 == state) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyTemperatureMonitoring object:nil userInfo:nil];
-        }
-        DDLogDebug(@"[Device Manager] get monitoring data state: %d, temperature: %d", state, temperature);
+    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE]) {
     }
+    //    else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
+    //        int16_t state;
+    //        int16_t temperature;
+    //        [characteristic.value getBytes:&state range:NSMakeRange(0, 2)];
+    //        [characteristic.value getBytes:&temperature range:NSMakeRange(2, 2)];
+    //
+    //        /* MMC_STATE_NONE       0
+    //           MMC_STATE_IDLE       1
+    //           MMC_STATE_INIT       2
+    //           MMC_STATE_HISTORY    3
+    //           MMC_STATE_MEASURING  4
+    //           MMC_STATE_FINISH     5
+    //           MMC_STATE_SET_ALARM  6
+    //           MMC_STATE_ALARM      7
+    //           MMC_STATE_ERROR      0xFF
+    //         */
+    //
+    //        if (4 == state) {
+    //            self.deviceState = MMC_STATE_MEASURING;
+    //            self.monitoringTemperatureResult = temperature;
+    //        } else {
+    //            if (5 == state) {
+    //                if (self.deviceState != MMC_STATE_SYNC) {
+    //                    self.deviceState = MMC_STATE_MEASURING_FINISH;
+    //                }
+    //                self.monitoringTemperatureResult = temperature;
+    //            } else {
+    //                if (self.deviceState != MMC_STATE_SYNC) {
+    //                    self.deviceState = MMC_STATE_IDLE;
+    //                    self.monitoringTemperatureResult = -1;
+    //                }
+    //            }
+    //        }
+    //
+    //        if (4 == state) {
+    //            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyTemperatureMonitoring object:nil userInfo:nil];
+    //        }
+    //        DDLogDebug(@"[Device Manager] get monitoring data state: %d, temperature: %d", state, temperature);
+    //    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error {
@@ -528,11 +533,12 @@ Singleton_Implementation(MMCDeviceManager);
 
     NSString *charactUUIDString = [characteristic.UUID.UUIDString lowercaseString];
     DDLogDebug(@"[Device Manager] write %@", charactUUIDString);
-    if ([charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_WRITE]) {
+    if ([charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_READ_WRITE]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyTemperatureIndexUpdated object:nil];
-    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_ALARM_WRITE]) {
+    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ_WRITE]) {
         self.alarmTimeInterval = self.alarmTimeIntervalToSet;
         [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyAlarmUpdated object:nil userInfo:@{ NOTIFY_KEY_IS_WRITE_ALARM : @YES }];
+    } else if ([charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE]) {
     }
 }
 @end

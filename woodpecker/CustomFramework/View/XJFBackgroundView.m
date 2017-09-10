@@ -21,7 +21,6 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         [self setBackgroundColor:kColor_4];
-        [self.layer setCornerRadius:kCorner_radio];
         [self.layer setMasksToBounds:YES];
     }
     return self;

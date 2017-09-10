@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) TTTAttributedLabel* agreementLabel;
-@property(nonatomic, assign) id<WPLoginViewDelegate> delegate;
+@property (nonatomic, assign) id<WPLoginViewDelegate> delegate;
 
 @end
 @protocol WPLoginViewDelegate <NSObject>
