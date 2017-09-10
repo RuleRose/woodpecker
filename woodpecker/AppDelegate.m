@@ -22,7 +22,7 @@
     // Override point for customization after application launch.
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = kColor_1;
+    self.window.backgroundColor = kColor_10;
 
     // Override point for customization after application launch.
     if ([[WPAccountManager defaultInstance] isLogin]) {
