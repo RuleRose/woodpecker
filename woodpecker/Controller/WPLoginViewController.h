@@ -1,5 +1,5 @@
 //
-//  VPLoginViewController.h
+//  WPLoginViewController.h
 //  woodpecker
 //
 //  Created by yongche on 17/9/9.
@@ -8,6 +8,6 @@
 
 #import "XJFBaseViewController.h"
 
-@interface VPLoginViewController : XJFBaseViewController
+@interface WPLoginViewController : XJFBaseViewController
 
 @end
