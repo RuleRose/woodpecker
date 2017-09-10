@@ -28,14 +28,14 @@
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)setupData {
     self.viewModel = [[WPMainViewModel alloc] init];
     self.viewControllers = self.viewModel.controllerList;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 /*
 #pragma mark - Navigation
