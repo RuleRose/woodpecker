@@ -19,5 +19,6 @@
 #import "UIImage+animatedGIF.h"
 #import "UIImageView+SD.h"
 #import "UITableViewCell+roundCorner.h"
+#import "UIView+Extensions.h"
 
 #endif /* XJFCategory_h */

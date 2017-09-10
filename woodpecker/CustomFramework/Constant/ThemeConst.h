@@ -20,35 +20,64 @@
 #define kRGB_Color(r, g, b) [UIColor colorWithRed:r / 255.f green:g / 255.f blue:b / 255.f alpha:1.f]
 #define kRGBA_Color(r, g, b, a) [UIColor colorWithRed:r / 255.f green:g / 255.f blue:b / 255.f alpha:a]
 #define kRandom_Color (kRGB_Color(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256)))
+#define kColorFromRGBA(rgbValue, alpha) [UIColor leie_colorWithHex:rgbValue andAlpha:alpha]
+#define kColorFromRGB(rgbValue) kColorFromRGBA(rgbValue, 1.0f)
 
 /**************************颜色**************************************/
+#define kColor_NavigationBar kColorFromRGB(0xffc905)
+#define kColor_Text1 kColorFromRGB(0x333333)
+#define kColor_Text2 kColorFromRGB(0x666666)
+#define kColor_Text3 kColorFromRGB(0x999999)
+#define kColor_Text4 kColorFromRGB(0xffffff)
+#define kColor_Text5 kColorFromRGB(0x54b3c5)
+#define kColor_Button1 kColorFromRGB(0xffc905)
+#define kColor_Button2 kColorFromRGB(0xffefb4)
+#define kColor_Highlight_Button3 kColorFromRGB(0xcca004)
+
 #define kColor_1 kColor_1_With_Alpha(1.0)
-#define kColor_1_With_Alpha(alpha) [UIColor leie_colorWithHex:0xf8f8f8 andAlpha:alpha]
+#define kColor_1_With_Alpha(alpha) kRGBA_Color(248, 248, 248, alpha)
+
 #define kColor_2 kColor_2_With_Alpha(1.0)
-#define kColor_2_With_Alpha(alpha) [UIColor leie_colorWithHex:0xf7f7f7 andAlpha:alpha]
+#define kColor_2_With_Alpha(alpha) kRGBA_Color(247, 247, 247, alpha)
+
 #define kColor_3 kColor_3_With_Alpha(1.0)
-#define kColor_3_With_Alpha(alpha) [UIColor leie_colorWithHex:0xefefef andAlpha:alpha]
+#define kColor_3_With_Alpha(alpha) kRGBA_Color(239, 239, 239, alpha)
+
 #define kColor_4 kColor_4_With_Alpha(1.0)
-#define kColor_4_With_Alpha(alpha) [UIColor leie_colorWithHex:0xffe9e7 andAlpha:alpha]
+#define kColor_4_With_Alpha(alpha) kRGBA_Color(255, 233, 231, alpha)
+
 #define kColor_5 kColor_5_With_Alpha(1.0)
-#define kColor_5_With_Alpha(alpha) [UIColor leie_colorWithHex:0xfb948c andAlpha:alpha]
+#define kColor_5_With_Alpha(alpha) kRGBA_Color(251, 148, 140, alpha)
+
 #define kColor_6 kColor_6_With_Alpha(1.0)
-#define kColor_6_With_Alpha(alpha) [UIColor leie_colorWithHex:0xbfbfc0 andAlpha:alpha]
+#define kColor_6_With_Alpha(alpha) kRGBA_Color(191, 191, 192, alpha)
+
 #define kColor_7 kColor_7_With_Alpha(1.0)
-#define kColor_7_With_Alpha(alpha) [UIColor leie_colorWithHex:0x6f6568 andAlpha:alpha]
+#define kColor_7_With_Alpha(alpha) kRGBA_Color(111, 101, 104, alpha)
+
 #define kColor_8 kColor_8_With_Alpha(1.0)
-#define kColor_8_With_Alpha(alpha) [UIColor leie_colorWithHex:0x343535 andAlpha:alpha]
+#define kColor_8_With_Alpha(alpha) kRGBA_Color(52, 53, 53, alpha)
+
 #define kColor_9 kColor_9_With_Alpha(1.0)
-#define kColor_9_With_Alpha(alpha) [UIColor leie_colorWithHex:0x000000 andAlpha:alpha]
+#define kColor_9_With_Alpha(alpha) kRGBA_Color(0, 0, 0, alpha)
+
 #define kColor_10 kColor_10_With_Alpha(1.0)
-#define kColor_10_With_Alpha(alpha) [UIColor leie_colorWithHex:0xffffff andAlpha:alpha]
+#define kColor_10_With_Alpha(alpha) kRGBA_Color(255, 255, 255, alpha)
+
 #define kColor_11 kColor_11_With_Alpha(1.0)
-#define kColor_11_With_Alpha(alpha) [UIColor leie_colorWithHex:0x221798 andAlpha:alpha]
+#define kColor_11_With_Alpha(alpha) kRGBA_Color(34, 23, 152, alpha)
+
 
 #define COLOR_STATUS_BAR kColor_5
 #define COLOR_NAVI_BAR kColor_5
 
 /****************************字体大小***********************************/
+
+#define kFont_1(size) [UIFont systemFontOfSize:size]
+#define kFont_2(size) [UIFont systemFontOfSize:size]
+#define kFont_3(size) [UIFont systemFontOfSize:size]
+#define kFont_4(size) [UIFont systemFontOfSize:size]
+
 
 #define kFont6 [UIFont systemFontOfSize:6]
 #define kFont9 [UIFont systemFontOfSize:9]
@@ -91,4 +120,5 @@
 #define kFontHeight50 ([@"aqwyPW" sizeWithAttributes:@{NSFontAttributeName : kFont50}].height)
 #define kFontHeight58 ([@"aqwyPW" sizeWithAttributes:@{NSFontAttributeName : kFont58}].height)
 
+#define kCorner_radio 5
 #endif /* ThemeConst_h */
