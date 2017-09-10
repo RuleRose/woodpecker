@@ -22,7 +22,7 @@
     [self navigationBarLineHidden:YES];
     
     self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
-    self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:19], NSForegroundColorAttributeName : kColor_Text1 };
+    self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:19], NSForegroundColorAttributeName : kColor_1 };
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
@@ -120,7 +120,7 @@
         if (title) {
             [button setTitle:[title leie_objectAtIndex:i] forState:UIControlStateNormal];
             [button.titleLabel setFont:[UIFont systemFontOfSize:16]];
-            [button setTitleColor:kColor_Text1 forState:UIControlStateNormal];
+            [button setTitleColor:kColor_1 forState:UIControlStateNormal];
         }
 
         if (image) {
