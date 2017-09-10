@@ -27,4 +27,8 @@
 @end
 @protocol WPStatusViewDelegate <NSObject>
 @optional
+- (void)showCalendar;
+- (void)showTemperature;
+- (void)editTemperature;
+- (void)showRecord;
 @end

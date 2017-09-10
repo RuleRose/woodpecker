@@ -9,6 +9,7 @@
 #import "WPStatusViewController.h"
 #import "WPStatusView.h"
 #import "WPStatusViewModel.h"
+#import "WPThermometerViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -37,6 +38,22 @@
 }
 
 #pragma mark WPStatusViewDelegate
+- (void)showCalendar{
+    
+}
+
+- (void)showTemperature{
+    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
+    [self.navigationController pushViewController:thermometerVC animated:YES];
+}
+
+- (void)editTemperature{
+    
+}
+
+- (void)showRecord{
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

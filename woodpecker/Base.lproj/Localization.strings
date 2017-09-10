@@ -14,4 +14,8 @@
 "me_shop" = "购买";
 "me_about" = "关于";
 "me_help" = "帮助";
-
+"thermometer_title" = "体温计";
+"thermometer_clock" = "闹钟";
+"thermometer_unit" = "单位";
+"thermometer_hardware" = "硬件信息";
+"thermometer_remove_binding" = "解除绑定";

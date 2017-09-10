@@ -85,15 +85,21 @@
 }
 
 - (void)calendarBtnPressed{
-
+    if (_delegate && [_delegate respondsToSelector:@selector(showCalendar)]) {
+        [_delegate showCalendar];
+    }
 }
 
 - (void)tempBtnPressed{
-
+    if (_delegate && [_delegate respondsToSelector:@selector(showTemperature)]) {
+        [_delegate showTemperature];
+    }
 }
 
 - (void)tempEditBtnPressed{
-
+    if (_delegate && [_delegate respondsToSelector:@selector(editTemperature)]) {
+        [_delegate editTemperature];
+    }
 }
 
 /*
