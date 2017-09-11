@@ -7,7 +7,7 @@
 //
 
 #import "WPMyInfoView.h"
-#import "TableViewNextCell.h"
+#import "TableViewCell.h"
 #import "MyInfoHeaderView.h"
 
 @interface WPMyInfoView ()<UITableViewDataSource,UITableViewDelegate,MyInfoHeaderViewDelegate>
@@ -70,16 +70,16 @@
         return cell;
     }else{
         NSString* identifier = @"MyCell";
-        TableViewNextCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        TableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (!cell) {
-            cell = [[TableViewNextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
         [self configureCell:cell atIndexPath:indexPath];
         
         return cell;
     }
 }
-- (void)configureCell:(TableViewNextCell *)cell atIndexPath:(NSIndexPath*)indexPath
+- (void)configureCell:(TableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
 {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];

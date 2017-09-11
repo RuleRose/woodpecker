@@ -181,7 +181,7 @@
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil
                                        action:nil];
-    leftSpaceItem.width = -20;
+    leftSpaceItem.width = -15;
     self.navigationItem.leftBarButtonItems = @[leftSpaceItem, leftbutton];
 }
 
