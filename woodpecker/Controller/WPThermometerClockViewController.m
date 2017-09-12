@@ -9,6 +9,7 @@
 #import "WPThermometerClockViewController.h"
 #import "WPThermometerClockViewModel.h"
 #import "TableViewCell.h"
+#import "WPClockPopupView.h"
 
 @interface WPThermometerClockViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -126,6 +127,14 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    if (indexPath.row == 1) {
+        WPClockPopupView *popView = [[WPClockPopupView alloc] init];
+        NSLog(@"1=====%f",popView.attachedView.size.height);
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            NSLog(@"2=====%f",popView.attachedView.size.height);
+        }];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

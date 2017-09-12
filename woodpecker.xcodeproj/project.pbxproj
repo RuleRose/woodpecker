@@ -150,6 +150,8 @@
 		CC0E885D1F65874800EC5062 /* WPThermometerHardwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E885C1F65874800EC5062 /* WPThermometerHardwareViewController.m */; };
 		CC0E88601F65875D00EC5062 /* WPThermometerHardwareViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E885F1F65875D00EC5062 /* WPThermometerHardwareViewModel.m */; };
 		CC0E88631F65876B00EC5062 /* WPThermometerHardwareView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */; };
+		CC1134BC1F68107000AFD946 /* WPClockPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1134BB1F68107000AFD946 /* WPClockPopupView.m */; };
+		CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1134BE1F68287000AFD946 /* WPClockItemView.m */; };
 		CC5DA1BE1F66DE0F008AC242 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DA1BD1F66DE0F008AC242 /* TableViewCell.m */; };
 		CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214241F64E92C00AE2D82 /* WPLoginView.m */; };
 		CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */; };
@@ -382,6 +384,10 @@
 		CC0E885F1F65875D00EC5062 /* WPThermometerHardwareViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerHardwareViewModel.m; sourceTree = "<group>"; };
 		CC0E88611F65876B00EC5062 /* WPThermometerHardwareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerHardwareView.h; sourceTree = "<group>"; };
 		CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerHardwareView.m; sourceTree = "<group>"; };
+		CC1134BA1F68107000AFD946 /* WPClockPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPClockPopupView.h; sourceTree = "<group>"; };
+		CC1134BB1F68107000AFD946 /* WPClockPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPClockPopupView.m; sourceTree = "<group>"; };
+		CC1134BD1F68287000AFD946 /* WPClockItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPClockItemView.h; sourceTree = "<group>"; };
+		CC1134BE1F68287000AFD946 /* WPClockItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPClockItemView.m; sourceTree = "<group>"; };
 		CC5DA1BC1F66DE0F008AC242 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		CC5DA1BD1F66DE0F008AC242 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		CC7214231F64E92C00AE2D82 /* WPLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginView.h; sourceTree = "<group>"; };
@@ -771,6 +777,10 @@
 				CC0E88591F65863B00EC5062 /* WPThermometerUnitView.m */,
 				CC0E88611F65876B00EC5062 /* WPThermometerHardwareView.h */,
 				CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */,
+				CC1134BA1F68107000AFD946 /* WPClockPopupView.h */,
+				CC1134BB1F68107000AFD946 /* WPClockPopupView.m */,
+				CC1134BD1F68287000AFD946 /* WPClockItemView.h */,
+				CC1134BE1F68287000AFD946 /* WPClockItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1146,10 +1156,12 @@
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
 				C15630441F5065FE00D6CC30 /* XJFSeperatorLineView.m in Sources */,
 				CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */,
+				CC1134BC1F68107000AFD946 /* WPClockPopupView.m in Sources */,
 				C15630451F5065FE00D6CC30 /* XJFUIButton.m in Sources */,
 				C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
+				CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */,
 				CC7214391F65105700AE2D82 /* WPMyInfoView.m in Sources */,
 				CC0E88421F65702200EC5062 /* WPThermometerViewController.m in Sources */,
 				C15630471F5065FE00D6CC30 /* XJFUILabel.m in Sources */,
