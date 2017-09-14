@@ -31,10 +31,13 @@
     _detailLabel.font = kFont_4(47);
     _detailLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_detailLabel];
-
+    _nextIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 9, 15)];
+    _nextIcon.image = kImage(@"arrow-status");
+    [self addSubview:_nextIcon];
+    _nextIcon.hidden = YES;
 }
 
-- (void)setTitle:(NSString *)title detail:(NSString *)detail unit:(NSString *)unit{
+- (void)setTitle:(NSString *)title detail:(NSString *)detail unit:(NSString *)unit showNext:(BOOL)showNext{
     _titleLabel.text = title;
     NSString *text = [NSString stringWithFormat:@"%@%@",detail,unit];
     if ([NSString leie_isBlankString:text]) {
@@ -43,6 +46,13 @@
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:text];
     [attributedStr setAttributes:@{NSForegroundColorAttributeName: kColor_7, NSFontAttributeName: kFont_2(23)} range:NSMakeRange(detail.length, unit.length)];
     _detailLabel.attributedText = attributedStr;
+    if (showNext) {
+        CGSize size = [text sizeWithAttributes:@{NSForegroundColorAttributeName: kColor_7, NSFontAttributeName: kFont_4(47)}];
+        _nextIcon.frame = CGRectMake((self.width + size.width)/2 - 6, _titleLabel.bottom + 28, 9, 15);
+        _nextIcon.hidden = NO;
+    }else{
+        _nextIcon.hidden = YES;
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

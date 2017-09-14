@@ -10,6 +10,7 @@
 #import "WPStatusView.h"
 #import "WPStatusViewModel.h"
 #import "WPThermometerViewController.h"
+#import "WPRecordViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -52,7 +53,8 @@
 }
 
 - (void)showRecord{
-    
+    WPRecordViewController *recordVC = [[WPRecordViewController alloc] init];
+    [self.navigationController pushViewController:recordVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

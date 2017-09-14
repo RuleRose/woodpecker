@@ -78,10 +78,18 @@
     rightLine.backgroundColor = kColor_9_With_Alpha(0.1);
     [self addSubview:rightLine];
     
-    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%"];
-    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天"];
-    [_recordView setTitle:@"记录" detail:@"3" unit:@"项"];
+    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
+    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
+    [_recordView setTitle:@"记录" detail:@"3" unit:@"项" showNext:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
+    [_recordView addGestureRecognizer:tap];
 
+}
+
+- (void)showRecord{
+    if (_delegate && [_delegate respondsToSelector:@selector(showRecord)]) {
+        [_delegate showRecord];
+    }
 }
 
 - (void)calendarBtnPressed{
