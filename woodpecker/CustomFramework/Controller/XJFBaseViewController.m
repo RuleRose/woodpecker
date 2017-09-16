@@ -7,10 +7,10 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "UIImage+Extension.h"
 
 @interface XJFBaseViewController ()
 @property(nonatomic, strong) NSArray *rightBarItems;
-@property(nonatomic, strong) UIView *bottomLine;
 @end
 
 @implementation XJFBaseViewController
@@ -19,6 +19,8 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarTintColor:kColor_4];
     [self.navigationController.navigationBar setTintColor:kClear];
+    self.navigationController.navigationBar.translucent = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = kColor_1;
     [self navigationBarLineHidden:YES];
     

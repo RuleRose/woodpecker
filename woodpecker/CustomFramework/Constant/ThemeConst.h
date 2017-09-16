@@ -67,6 +67,8 @@
 #define kColor_11 kColor_11_With_Alpha(1.0)
 #define kColor_11_With_Alpha(alpha) kRGBA_Color(34, 23, 152, alpha)
 
+#define kColor_12 kColor_11_With_Alpha(1.0)
+#define kColor_12_With_Alpha(alpha) kRGBA_Color(34, 23, 152, alpha)
 
 #define COLOR_STATUS_BAR kColor_5
 #define COLOR_NAVI_BAR kColor_5
@@ -77,6 +79,8 @@
 #define kFont_2(size) [UIFont systemFontOfSize:size]
 #define kFont_3(size) [UIFont systemFontOfSize:size]
 #define kFont_4(size) [UIFont systemFontOfSize:size]
+#define kFont_5(size) [UIFont systemFontOfSize:size]
+#define kFont_6(size) [UIFont systemFontOfSize:size]
 
 
 #define kFont6 [UIFont systemFontOfSize:6]

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface XJFBaseViewController : UIViewController
-
+@property(nonatomic, strong) UIView *bottomLine;
 //显示/隐藏导航
 - (void)hideNavigationBar;
 - (void)showNavigationBar;

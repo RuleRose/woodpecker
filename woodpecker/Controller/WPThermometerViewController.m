@@ -59,7 +59,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self showStatusBar];
     [self setBackBarButton];
     [self showNavigationBar];
     

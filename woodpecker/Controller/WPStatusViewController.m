@@ -11,6 +11,7 @@
 #import "WPStatusViewModel.h"
 #import "WPThermometerViewController.h"
 #import "WPRecordViewController.h"
+#import "WPCalendarViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -40,7 +41,8 @@
 
 #pragma mark WPStatusViewDelegate
 - (void)showCalendar{
-    
+    WPCalendarViewController *calendarVC = [[WPCalendarViewController alloc] init];
+    [self.navigationController pushViewController:calendarVC animated:YES];
 }
 
 - (void)showTemperature{
