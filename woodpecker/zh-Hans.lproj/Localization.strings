@@ -5,6 +5,9 @@
   Created by yongche on 17/8/25.
   Copyright © 2017年 goldsmith. All rights reserved.
 */
+"common_cancel" = "取消";
+"common_confirm" = "确定";
+
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
 "me_title" = "我";
@@ -13,3 +16,11 @@
 "me_shop" = "购买";
 "me_about" = "关于";
 "me_help" = "帮助";
+"thermometer_title" = "体温计";
+"thermometer_clock" = "闹钟";
+"thermometer_unit" = "单位";
+"thermometer_hardware" = "硬件信息";
+"thermometer_remove_binding" = "解除绑定";
+"clock_measurement" = "测温提醒";
+"clock_wakeup_time" = "唤醒时间";
+"clock_prompt" = "设置闹钟后\n体温计将在指定时间提醒您测温";

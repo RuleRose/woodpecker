@@ -7,6 +7,7 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "UIImage+Extension.h"
 
 @interface XJFBaseViewController ()
 @property(nonatomic, strong) NSArray *rightBarItems;
@@ -16,16 +17,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setBarTintColor:COLOR_NAVI_BAR];
+    [self.navigationController.navigationBar setBarTintColor:kColor_4];
     [self.navigationController.navigationBar setTintColor:kClear];
+    self.navigationController.navigationBar.translucent = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = kColor_1;
     [self navigationBarLineHidden:YES];
     
     self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
-    self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:19], NSForegroundColorAttributeName : kColor_1 };
+    self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : kFont_1(14), NSForegroundColorAttributeName : kColor_7_With_Alpha(0.8) };
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +46,11 @@
 
 - (void)showNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
+    if (!_bottomLine) {
+        _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, kNavigationHeight - 0.5, kScreen_Width, 0.5)];
+        _bottomLine.backgroundColor = kColor_6;
+        [self.navigationController.navigationBar addSubview:_bottomLine];
+    }
 }
 
 - (void)showStatusBar {
@@ -167,8 +174,8 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 44, 44)];
-    [button setImage:kImage(@"titel_button_fanhui") forState:UIControlStateNormal];
-    [button setImage:kImage(@"titel_button_fanhui_highlight") forState:UIControlStateHighlighted];
+    [button setImage:kImage(@"btn-navi-back") forState:UIControlStateNormal];
+    [button setImage:kImage(@"btn-navi-back") forState:UIControlStateHighlighted];
     [button.titleLabel setFont:kFont16];
     [button setTitleColor:kColor_2_With_Alpha(0.8) forState:UIControlStateNormal];
     UIBarButtonItem *leftbutton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -176,7 +183,7 @@
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil
                                        action:nil];
-    leftSpaceItem.width = -20;
+    leftSpaceItem.width = -15;
     self.navigationItem.leftBarButtonItems = @[leftSpaceItem, leftbutton];
 }
 

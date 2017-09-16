@@ -31,6 +31,41 @@
     return formatter;
 }
 
++ (NSInteger)yearOfDate:(NSDate *)date{
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitYear fromDate:date];
+    return component.year;
+}
+
++ (NSInteger)monthOfDate:(NSDate *)date{
+    
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitMonth
+                                                     fromDate:date];
+    return component.month;
+}
++ (NSInteger)weekOfDate:(NSDate *)date
+{
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitWeekOfYear fromDate:date];
+    return component.weekOfYear;
+}
+
++ (NSInteger)dayOfDate:(NSDate *)date{
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitDay
+                                                     fromDate:date];
+    return component.day;
+}
+
++ (NSInteger)hourOfDate:(NSDate *)date{
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitHour
+                                                     fromDate:date];
+    return component.hour;
+}
+
++ (NSInteger)weekdayOfDate:(NSDate*)date
+{
+    NSDateComponents* component = [[self calendar] components:NSCalendarUnitWeekday fromDate:date];
+    return component.weekday;
+}
+
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format{
     NSDateFormatter *formatter = [self localFormatter];
     formatter.dateFormat = format;
@@ -82,4 +117,61 @@
     }
 }
 
++ (BOOL)isDateInToday:(NSDate *)date{
+    return [self isDate:date equalToDate:[NSDate date] toCalendarUnit:NSCalendarUnitDay];
+}
+
++ (BOOL)isDate:(NSDate *)date1 equalToDate:(NSDate *)date2 toCalendarUnit:(NSCalendarUnit)unit{
+    switch (unit) {
+        case NSCalendarUnitMonth:
+            return [self yearOfDate:date1] == [self yearOfDate:date2] && [self monthOfDate:date1] == [self monthOfDate:date2];
+        case NSCalendarUnitWeekOfYear:
+            return [self yearOfDate:date1] == [self yearOfDate:date2] && [self weekOfDate:date1] == [self weekOfDate:date2];
+        case NSCalendarUnitDay:
+            return [self yearOfDate:date1] == [self yearOfDate:date2] && [self monthOfDate:date1] == [self monthOfDate:date2] && [self dayOfDate:date1] == [self dayOfDate:date2];
+        default:
+            break;
+    }
+    return NO;
+}
+
++ (BOOL)isDateAfterToday:(NSDate *)date{
+    return [self isDate:date afterToDate:[NSDate date] toCalendarUnit:NSCalendarUnitDay];
+}
+
++ (BOOL)isDate:(NSDate *)date1 afterToDate:(NSDate *)date2 toCalendarUnit:(NSCalendarUnit)unit{
+    switch (unit) {
+        case NSCalendarUnitMonth:
+            if ([self yearOfDate:date1] > [self yearOfDate:date2]) {
+                return YES;
+            }else if ([self yearOfDate:date1] == [self yearOfDate:date2]){
+                if ([self monthOfDate:date1] > [self monthOfDate:date2]) {
+                    return YES;
+                }
+            }
+        case NSCalendarUnitWeekOfYear:
+            if ([self yearOfDate:date1] > [self yearOfDate:date2]) {
+                return YES;
+            }else if ([self yearOfDate:date1] == [self yearOfDate:date2]){
+                if ([self weekOfDate:date1] > [self weekOfDate:date2]) {
+                    return YES;
+                }
+            }
+        case NSCalendarUnitDay:
+            if ([self yearOfDate:date1] > [self yearOfDate:date2]) {
+                return YES;
+            }else if ([self yearOfDate:date1] == [self yearOfDate:date2]){
+                if ([self monthOfDate:date1] > [self monthOfDate:date2]) {
+                    return YES;
+                }else if ([self monthOfDate:date1] == [self monthOfDate:date2]){
+                    if ([self dayOfDate:date1] > [self dayOfDate:date2]) {
+                        return YES;
+                    }
+                }
+            }
+        default:
+            break;
+    }
+    return NO;
+}
 @end

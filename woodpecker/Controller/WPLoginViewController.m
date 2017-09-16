@@ -29,7 +29,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self hideStatusBar];
     [self hideNavigationBar];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:WPNotificationKeyLoginSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFailed) name:WPNotificationKeyLoginFailed object:nil];
