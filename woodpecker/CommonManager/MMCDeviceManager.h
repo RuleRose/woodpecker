@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BleDeviceBroadcast.h"
+
 typedef NS_ENUM(NSUInteger, MMCDeviceConnectionState) {
     STATE_DEVICE_NONE,
     STATE_DEVICE_SCANNING,
@@ -21,14 +23,20 @@ typedef NS_ENUM(NSUInteger, MMCDeviceState) { MMC_STATE_IDLE, MMC_STATE_SYNC, MM
 
 @interface MMCDeviceManager : NSObject
 Singleton_Interface(MMCDeviceManager);
+@property(nonatomic, strong) BleDeviceBroadcast *currentDevice;
 @property(nonatomic, assign) MMCDeviceConnectionState preConnectionDeviceState;
 @property(nonatomic, assign) MMCDeviceConnectionState deviceConnectionState;
 @property(nonatomic, assign) MMCDeviceState preDeviceState;
 @property(nonatomic, assign) MMCDeviceState deviceState;
 @property(nonatomic, assign) NSInteger alarmTimeInterval;
+@property(nonatomic, assign) BOOL alarmIsOn;
+@property(nonatomic, assign) NSInteger dataCount;
+@property(nonatomic, assign) NSInteger lastRecordIndex;
 @property(nonatomic, assign) NSInteger monitoringTemperatureResult;
+@property(nonatomic, assign) BOOL isCentigrade;
 
-- (void)startScan:(void (^)(NSInteger sendState))callback;  // 0 命令成功发送，1 命令发送失败。如果不关心是否发送成功，传nil。
+- (void)startScanAndConnect:(void (^)(NSInteger sendState))callback;  // 0 命令成功发送，1 命令发送失败。如果不关心是否发送成功，传nil。
+- (void)startScanAndConnectWithMac:(NSString *)mac callback:(void (^)(NSInteger sendState))callback;
 - (void)stopScan:(void (^)(NSInteger sendState))callback;
 - (void)disconnect:(void (^)(NSInteger sendState))callback;
 - (void)writeAlarm:(NSInteger)alarmInterval callback:(void (^)(NSInteger sendState))callback;
