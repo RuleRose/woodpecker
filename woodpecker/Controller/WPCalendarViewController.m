@@ -12,12 +12,13 @@
 #import "NSDate+Extension.h"
 #import "WPCalendarCell.h"
 #import "WPCalendarDetailViewController.h"
+#import "WPCalendarNoteView.h"
 
 @interface WPCalendarViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
 @property (nonatomic, strong) WPCalendarViewModel *viewModel;
 @property (nonatomic, strong) FSCalendar* calendar;
 @property (nonatomic, strong) FSCalendarWeekdayView* weekdayView;
-
+@property (nonatomic, strong) WPCalendarNoteView *noteView;
 @end
 
 @interface FSCalendarWeekdayView (Extension)
@@ -86,6 +87,10 @@
     [self.view addSubview:self.calendar];
     _calendar.currentPage = [NSDate date];
     self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+    _noteView = [[WPCalendarNoteView alloc] initWithFrame:CGRectMake(0, kScreen_Height - 52, kScreen_Width, 52)];
+    _noteView.backgroundColor = kColor_3;
+    [self.view addSubview:_noteView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -201,7 +206,7 @@
 }
 
 
-- (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
+- (void)configureCell:(__kindof WPCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
     if ([NSDate isDateInToday:date]) {
         cell.selected = YES;
@@ -221,6 +226,8 @@
         cell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
         cell.shapeLayer.opacity = 0;
     }
+    cell.period = kPeriodTypeOfForecast;
+    cell.shape = kPeriodShapeOfSingle;
     [cell setNeedsLayout];
 }
 

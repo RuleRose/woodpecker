@@ -8,13 +8,17 @@
 
 #ifndef UtilsEnum_h
 #define UtilsEnum_h
-
-typedef NS_ENUM(NSUInteger, FingerType) {
-    kFingerOfThumb = 0,
-    kFingerOfIndexFinger,
-    kFingerOfMiddleFinger,
-    kFingerOfRingFinger,
-    kFingerOfLittleFinger,
+typedef NS_ENUM(NSUInteger, PeriodType) {
+    kPeriodTypeOfMenstrual = 0, //月经期
+    kPeriodTypeOfPregnancy, //易孕期
+    kPeriodTypeOfForecast, //预测经期
+    kPeriodTypeOfOviposit //排卵日
 };
-
+typedef NS_ENUM(NSUInteger, PeriodShapeType) {
+    kPeriodShapeOfRight = 0,
+    kPeriodShapeOfLeft,
+    kPeriodShapeOfMiddle,
+    kPeriodShapeOfSingle,
+    kPeriodShapeOfCircle
+};
 #endif /* UtilsEnum_h */
