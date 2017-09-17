@@ -18,8 +18,7 @@ typedef NS_ENUM(NSUInteger, MMCDeviceConnectionState) {
 };
 
 // all state valide when conncetion state is connected
-// woodpecker项目不关心实时温度和状态
-typedef NS_ENUM(NSUInteger, MMCDeviceState) { MMC_STATE_IDLE, MMC_STATE_SYNC, MMC_STATE_MEASURING, MMC_STATE_MEASURING_FINISH };
+typedef NS_ENUM(NSUInteger, MMCDeviceState) { MMC_STATE_IDLE, MMC_STATE_SYNC };
 
 @interface MMCDeviceManager : NSObject
 Singleton_Interface(MMCDeviceManager);
@@ -40,7 +39,10 @@ Singleton_Interface(MMCDeviceManager);
 - (void)stopScan:(void (^)(NSInteger sendState))callback;
 - (void)disconnect:(void (^)(NSInteger sendState))callback;
 - (void)writeAlarm:(NSInteger)alarmInterval callback:(void (^)(NSInteger sendState))callback;
-- (void)syncHistoryRecord;
+- (void)turnOffAlarm:(void (^)(NSInteger sendState))callback;
+- (void)centigradeAsUnit:(BOOL)isCentigrade callback:(void (^)(NSInteger sendState))callback;
+- (void)syncDataFromIndex:(NSInteger)index callback:(void (^)(NSInteger sendState))callback;  // index是下一个要返回的值，直到最后一个数据。
+//- (void)syncHistoryRecord;
 //- (void)startCheckRealTimeTemperature;
 //- (void)stopCheckRealTimeTemperature;
 @end

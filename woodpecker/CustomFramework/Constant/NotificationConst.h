@@ -20,6 +20,8 @@ extern NSString* const MMCNotificationKeyDeviceConnectionState;
 extern NSString* const MMCNotificationKeyTemperature;
 extern NSString* const MMCNotificationKeyTemperatureIndexUpdated;
 extern NSString* const MMCNotificationKeyAlarmUpdated;
+extern NSString* const MMCNotificationKeyTemperatureUnitUpdated;
+
 extern NSString* const MMCNotificationKeySyncOver;
 extern NSString* const MMCNotificationKeyTemperatureMonitoring;
 

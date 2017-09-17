@@ -15,6 +15,7 @@ NSString* const MMCNotificationKeyDeviceConnectionState = @"MMCNotificationKeyDe
 NSString* const MMCNotificationKeyTemperature = @"MMCNotificationKeyTemperature";
 NSString* const MMCNotificationKeyTemperatureIndexUpdated = @"MMCNotificationKeyTemperatureIndexUpdated";
 NSString* const MMCNotificationKeyAlarmUpdated = @"MMCNotificationKeyAlarmUpdated";
+NSString* const MMCNotificationKeyTemperatureUnitUpdated = @"MMCNotificationKeyTemperatureUnitUpdated";
 NSString* const MMCNotificationKeySyncOver = @"MMCNotificationKeySyncOver";
 NSString* const MMCNotificationKeyTemperatureMonitoring = @"MMCNotificationKeyTemperatureMonitoring";
 
