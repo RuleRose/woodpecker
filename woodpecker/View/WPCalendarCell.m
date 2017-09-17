@@ -15,37 +15,73 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-//        CALayer *selectionLayer = [[CALayer alloc] init];
-//        selectionLayer.backgroundColor = [UIColor orangeColor].CGColor;
-//        selectionLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
-//        [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
-//        self.selectionLayer = selectionLayer;
-//        
-//        CALayer *middleLayer = [[CALayer alloc] init];
-//        middleLayer.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3].CGColor;
-//        middleLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
-//        [self.contentView.layer insertSublayer:middleLayer below:self.titleLabel.layer];
-//        self.middleLayer = middleLayer;
-//        
-//        // Hide the default selection layer
-//        self.shapeLayer.hidden = YES;
-        
+        CALayer *markLayer = [[CALayer alloc] init];
+        self.markLayer.backgroundColor = [UIColor clearColor].CGColor;
+        markLayer.backgroundColor = [UIColor clearColor].CGColor;
+        markLayer.cornerRadius = 11.5;
+        markLayer.borderColor = [UIColor clearColor].CGColor;
+        markLayer.borderWidth = 0.5;
+        markLayer.actions = @{@"hidden":[NSNull null]};
+        [self.contentView.layer insertSublayer:markLayer below:self.titleLabel.layer];
+        markLayer.masksToBounds = YES;
+        self.markLayer = markLayer;
+        self.markLayer.hidden = YES;
+        self.layer.masksToBounds = YES;
     }
     return self;
 }
 
-//- (void)layoutSubviews
-//{
-//    [super layoutSubviews];
-//    self.titleLabel.frame = self.contentView.bounds;
-//}
-//
-//- (void)layoutSublayersOfLayer:(CALayer *)layer
-//{
-//    [super layoutSublayersOfLayer:layer];
-//    self.selectionLayer.frame = self.contentView.bounds;
-//    self.middleLayer.frame = self.contentView.bounds;
-//}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)layer
+{
+    [super layoutSublayersOfLayer:layer];
+    if (!self.selected) {
+       self.shapeLayer.hidden = YES;
+            self.markLayer.hidden = NO;
+        switch (_period) {
+            case kPeriodTypeOfMenstrual:
+                self.markLayer.backgroundColor = kColor_13.CGColor;
+                self.markLayer.borderColor = kColor_13.CGColor;
+                break;
+            case kPeriodTypeOfPregnancy:
+                self.markLayer.backgroundColor = kColor_14_With_Alpha(0.1).CGColor;
+                self.markLayer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
+                break;
+            case kPeriodTypeOfForecast:
+                self.markLayer.backgroundColor = [UIColor clearColor].CGColor;
+                self.markLayer.borderColor = kColor_15.CGColor;
+                break;
+            case kPeriodTypeOfOviposit:
+                self.markLayer.backgroundColor = kColor_15.CGColor;
+                self.markLayer.borderColor = kColor_15.CGColor;
+                break;
+        }
+        switch (_shape) {
+            case kPeriodShapeOfRight:
+                self.markLayer.frame = CGRectMake(-12, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 12, 23);
+                break;
+            case kPeriodShapeOfLeft:
+                self.markLayer.frame = CGRectMake(0, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 12, 23);
+                break;
+            case kPeriodShapeOfSingle:
+                self.markLayer.frame = CGRectMake(0, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width, 23);
+                break;
+            case kPeriodShapeOfMiddle:
+                self.markLayer.frame = CGRectMake(-12, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 24, 23);
+                break;
+            case kPeriodShapeOfCircle:
+                self.markLayer.frame = CGRectMake((self.width - 23)/2, (self.height - 23)/2, 23, 23);
+                break;
+        }
+    }else{
+        self.shapeLayer.hidden = NO;
+        self.markLayer.hidden = YES;
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

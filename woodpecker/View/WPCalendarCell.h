@@ -9,9 +9,7 @@
 #import "FSCalendarCell.h"
 
 @interface WPCalendarCell : FSCalendarCell
-// The start/end of the range
-@property (weak, nonatomic) CALayer *selectionLayer;
-
-// The middle of the range
-@property (weak, nonatomic) CALayer *middleLayer;
+@property (weak, nonatomic) CALayer *markLayer;
+@property(nonatomic, assign) PeriodType period;
+@property(nonatomic, assign) PeriodShapeType shape;
 @end
