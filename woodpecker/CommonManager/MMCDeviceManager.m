@@ -15,9 +15,9 @@
 
 @interface MMCDeviceManager ()<CBPeripheralDelegate, MMCBluetoothManagerDiscoveryDelegate>
 //@property(nonatomic, assign) BOOL isConnectToNewDevice;
-@property(nonatomic, assign) NSInteger lastReadRecordIndex;
-@property(nonatomic, strong) NSTimer *monitoringTimer;
-@property(nonatomic, assign) NSInteger workaroundReadTemperatureCount;
+//@property(nonatomic, assign) NSInteger lastReadRecordIndex;
+//@property(nonatomic, strong) NSTimer *monitoringTimer;
+//@property(nonatomic, assign) NSInteger workaroundReadTemperatureCount;
 
 @property(nonatomic, copy) NSString *destMacAddr;
 @end
@@ -73,7 +73,7 @@ Singleton_Implementation(MMCDeviceManager);
     }
 
     self.destMacAddr = mac;
-    self.monitoringTemperatureResult = -1;
+    //    self.monitoringTemperatureResult = -1;
     [[MMCBluetoothManager defaultInstance] startScan:callback];
 }
 

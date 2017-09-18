@@ -31,7 +31,7 @@ Singleton_Interface(MMCDeviceManager);
 @property(nonatomic, assign) BOOL alarmIsOn;
 @property(nonatomic, assign) NSInteger dataCount;
 @property(nonatomic, assign) NSInteger lastRecordIndex;
-@property(nonatomic, assign) NSInteger monitoringTemperatureResult;
+//@property(nonatomic, assign) NSInteger monitoringTemperatureResult;
 @property(nonatomic, assign) BOOL isCentigrade;
 
 - (void)startScanAndConnect:(void (^)(NSInteger sendState))callback;  // 0 命令成功发送，1 命令发送失败。如果不关心是否发送成功，传nil。
