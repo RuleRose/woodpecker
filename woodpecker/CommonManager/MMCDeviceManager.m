@@ -14,7 +14,7 @@
 #import "WoodpeckerSensorData.h"
 
 @interface MMCDeviceManager ()<CBPeripheralDelegate, MMCBluetoothManagerDiscoveryDelegate>
-@property(nonatomic, assign) BOOL isConnectToNewDevice;
+//@property(nonatomic, assign) BOOL isConnectToNewDevice;
 @property(nonatomic, assign) NSInteger lastReadRecordIndex;
 @property(nonatomic, strong) NSTimer *monitoringTimer;
 @property(nonatomic, assign) NSInteger workaroundReadTemperatureCount;
@@ -49,7 +49,7 @@ Singleton_Implementation(MMCDeviceManager);
     if (self) {
         [MMCBluetoothManager defaultInstance].discoveryDelegate = self;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationHandler:) name:MMCNotificationKeyBluetoothState object:nil];
-        _isConnectToNewDevice = NO;
+        //        _isConnectToNewDevice = NO;
         _deviceConnectionState = STATE_DEVICE_NONE;
         _preConnectionDeviceState = STATE_DEVICE_NONE;
         _deviceState = MMC_STATE_IDLE;
@@ -337,23 +337,23 @@ Singleton_Implementation(MMCDeviceManager);
     //    SELECTED_DEVICE_RSSI_THRESHOLD) {
     if (isConcernedDevice) {
         [[MMCBluetoothManager defaultInstance] stopScan:nil];
-        self.isConnectToNewDevice = NO;
+        //        self.isConnectToNewDevice = NO;
         self.alarmTimeInterval = -1;
         [[MMCBluetoothManager defaultInstance] connectToPeripheral:peripheral];
     }
 }
 
 - (void)didConnect:(CBPeripheral *)peripheral {
-    NSString *preDeviceUUIDStr = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_PRE_CONNECTED_DEVICE_UUIDSTRING];
+    //    NSString *preDeviceUUIDStr = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_PRE_CONNECTED_DEVICE_UUIDSTRING];
 
     // if did connect new device, need clean history record
     // 温度计断电不能保留数据，每次连接删除历史记录，重新同步。以后放开
-    if (!preDeviceUUIDStr || ![preDeviceUUIDStr isEqualToString:peripheral.identifier.UUIDString]) {
-        NSString *UUIDStr = peripheral.identifier.UUIDString;
-        [[NSUserDefaults standardUserDefaults] setObject:UUIDStr forKey:USER_DEFAULT_PRE_CONNECTED_DEVICE_UUIDSTRING];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:-1] forKey:USER_DEFAULT_LAST_TEMPERATURE_INDEX];
-        self.isConnectToNewDevice = YES;
-    }
+    //    if (!preDeviceUUIDStr || ![preDeviceUUIDStr isEqualToString:peripheral.identifier.UUIDString]) {
+    //        NSString *UUIDStr = peripheral.identifier.UUIDString;
+    //        [[NSUserDefaults standardUserDefaults] setObject:UUIDStr forKey:USER_DEFAULT_PRE_CONNECTED_DEVICE_UUIDSTRING];
+    //        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:-1] forKey:USER_DEFAULT_LAST_TEMPERATURE_INDEX];
+    //        self.isConnectToNewDevice = YES;
+    //    }
 
     [peripheral setDelegate:self];
 
@@ -486,9 +486,9 @@ Singleton_Implementation(MMCDeviceManager);
         }
 
         if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE]) {
-            if (self.isConnectToNewDevice) {
-                [self setTimeToNow];
-            }
+            //            if (self.isConnectToNewDevice) {
+            [self setTimeToNow];
+            //            }
         }
     }
 }
@@ -545,6 +545,10 @@ Singleton_Implementation(MMCDeviceManager);
         [characteristic.value getBytes:&temperature range:NSMakeRange(12, 2)];
         [characteristic.value getBytes:&isRelativeTime range:NSMakeRange(14, 1)];
         [characteristic.value getBytes:&isValideData range:NSMakeRange(15, 1)];
+
+        if (0 == isRelativeTime) {
+            timestamp += timeGap;
+        }
 
         //如果sync的时候检测到开始监测体温，结束同步，等监测体温结束以后再次开始同步数据。
         //        if ((MMC_STATE_MEASURING == self.deviceState)) {
