@@ -11,6 +11,7 @@
 #import "TableViewCell.h"
 #import "WPRecordHeaderView.h"
 #import "WPRecordStatusModel.h"
+#import "WPRecordDetailCell.h"
 
 @interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -74,29 +75,70 @@
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 2) {
+        return 4;
+    }else if (section == 4){
+        return 2;
+    }else if (section == 5){
+        return 1;
+    }else if (section == 6){
+        return 1;
+    }else if (section == 8){
+        return 1;
+    }else if (section == 10){
+        return 1;
+    }else if (section == 12){
+        return 1;
+    }
     return 0;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSString* identifier = @"ThermometerCell";
-    TableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    NSString* identifier = @"DetailCell";
+    WPRecordDetailCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[WPRecordDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
-- (void)configureCell:(TableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
+- (void)configureCell:(WPRecordDetailCell *)cell atIndexPath:(NSIndexPath*)indexPath
 {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
-    cell.contentView.backgroundColor = kColor_10;
+    cell.backgroundColor = kColor_3;
+    cell.contentView.backgroundColor = kColor_3;
     cell.layer.masksToBounds = YES;
-    cell.leftModel = kCellLeftModelIcon;
-    cell.rightModel = kCellRightModelNext;
-    [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            cell.theme = @"颜色";
+            cell.selectedTitle = @"深红";
+            cell.titles = @[@"淡红",@"鲜红",@"深红"];
+            cell.line.hidden = YES;
+        }else if (indexPath.row == 1){
+        }else if (indexPath.row == 2){
+
+        }else{
+        
+        }
+    }else if (indexPath.section == 4){
+        if (indexPath.row == 0) {
+            
+        }else{
+        
+        }
+    }else if (indexPath.section == 5){
+
+    }else if (indexPath.section == 6){
+
+    }else if (indexPath.section == 8){
+
+    }else if (indexPath.section == 10){
+        
+    }else if (indexPath.section == 12){
+        
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -107,7 +149,12 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    return 41;
+    WPRecordStatusModel *status = [_statuses objectAtIndex:indexPath.section];
+    if (status.showDetail) {
+        return 41;
+    }else{
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -150,7 +197,7 @@
 
 #pragma mark WPRecordHeaderViewDelegate
 - (void)showRecordHeader:(WPRecordHeaderView *)headerView{
-//    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
+   [_tableView reloadSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)didReceiveMemoryWarning {
