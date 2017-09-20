@@ -7,6 +7,7 @@
 //
 
 #import "initServer.h"
+#import "MMCDeviceManager.h"
 #import "WPAccountManager.h"
 
 @implementation initServer
@@ -36,6 +37,9 @@
       [[[SDWebImageManager sharedManager] imageDownloader] setValue:@"text/html,application/xhtml+xml,application/"
                                                                     @"xml;q=0.9,image/webp,*/*;q=0.8"
                                                  forHTTPHeaderField:@"Accept"];
+
+      // init CB
+      [MMCDeviceManager defaultInstance];
 
       //加载DDLog
       [DDLog addLogger:[DDASLLogger sharedInstance]];
