@@ -11,12 +11,14 @@
 @interface WoodpeckerSensorData : NSObject
 
 - (instancetype)initWithRawData:(NSData *)data;
-
-@property (nonatomic, assign, readonly) uint8_t version;
-@property (nonatomic, assign, readonly) uint16_t productID;
-@property (nonatomic, assign, readonly) uint16_t eventID;
-@property (nonatomic, assign, readonly) float temp1;
-@property (nonatomic, assign, readonly) float temp2;
-@property (nonatomic, assign, readonly) int8_t batteryLevel;
+@property(nonatomic, copy) NSString *MacAddr;
+@property(nonatomic, assign) NSInteger productID;
+@property(nonatomic, assign) NSInteger powerLevel;
+//@property(nonatomic, assign, readonly) uint8_t version;
+//@property(nonatomic, assign, readonly) uint16_t productID;
+//@property(nonatomic, assign, readonly) uint16_t eventID;
+////@property(nonatomic, assign, readonly) float temp1;
+////@property(nonatomic, assign, readonly) float temp2;
+//@property(nonatomic, assign, readonly) int8_t batteryLevel;
 
 @end
