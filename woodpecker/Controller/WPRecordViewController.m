@@ -9,11 +9,15 @@
 #import "WPRecordViewController.h"
 #import "WPRecordViewModel.h"
 #import "TableViewCell.h"
+#import "WPRecordHeaderView.h"
+#import "WPRecordStatusModel.h"
 
-@interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPRecordViewModel *viewModel;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) NSMutableArray *statuses;
+
 @end
 
 @implementation WPRecordViewController
@@ -31,10 +35,11 @@
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
         headerView.backgroundColor = [UIColor clearColor];
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
-        _dateLabel.backgroundColor = [UIColor clearColor];
-        _dateLabel.textColor = kColor_7;
-        _dateLabel.font = kFont_3(12);
+        _dateLabel.backgroundColor = kColor_7;
+        _dateLabel.textColor = kColor_10;
+        _dateLabel.font = kFont_2(12);
         _dateLabel.textAlignment = NSTextAlignmentCenter;
+        _dateLabel.text = @"2017年6月7日 周三";
         [headerView addSubview:_dateLabel];
         _tableView.tableHeaderView = headerView;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -62,13 +67,14 @@
 }
 
 - (void)setupViews{
+    _statuses = _viewModel.statuses;
     [self.view addSubview:self.tableView];
 }
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 0;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -90,28 +96,12 @@
     cell.layer.masksToBounds = YES;
     cell.leftModel = kCellLeftModelIcon;
     cell.rightModel = kCellRightModelNext;
-    if (indexPath.row == 0) {
-        cell.icon.image = kImage(@"icon-device-alarm");
-        cell.titleLabel.text = kLocalization(@"thermometer_clock");
-        cell.detailLabel.text = @"05:30";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 1){
-        cell.icon.image = kImage(@"icon-device-unit");
-        cell.titleLabel.text = kLocalization(@"thermometer_unit");
-        cell.detailLabel.text = @"摄氏度°C";
-        cell.line.hidden = NO;
-    }else if (indexPath.row == 2){
-        cell.icon.image = kImage(@"icon-device-settings");
-        cell.titleLabel.text = kLocalization(@"thermometer_hardware");
-        cell.detailLabel.text = @"";
-        cell.line.hidden = NO;
-    }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
-    return 3;
+    return _statuses.count;
 }
 
 #pragma mark UITableViewDelegate
@@ -121,15 +111,32 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 28;
+    if (section == 0 || section == 3 || section == 7 ) {
+        return 28;
+    }
+    return 41;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
-    headerView.backgroundColor = [UIColor clearColor];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(23, 0, kScreen_Width - 46, 28)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    return headerView;
+    WPRecordStatusModel *status = [_statuses objectAtIndex:section];
+    if (status.onlyTitle) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
+        headerView.backgroundColor = [UIColor clearColor];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(23, 0, kScreen_Width - 46, 28)];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.font = kFont_1(10);
+        titleLabel.textColor = kColor_7_With_Alpha(0.8);
+        titleLabel.text = status.title;
+        [headerView addSubview:titleLabel];
+        return headerView;
+    }else{
+        WPRecordHeaderView *headerView = [[WPRecordHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 41)];
+        headerView.backgroundColor = kColor_10;
+        headerView.status = status;
+        headerView.section = section;
+        headerView.delegate = self;
+        return headerView;
+    }
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
@@ -139,6 +146,11 @@
 
 - (void)removeBtnPressed{
     
+}
+
+#pragma mark WPRecordHeaderViewDelegate
+- (void)showRecordHeader:(WPRecordHeaderView *)headerView{
+//    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)didReceiveMemoryWarning {
