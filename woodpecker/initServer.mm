@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
       //加载网络配置文件
-      //        [[UNICServerManager shareManager] loadSettingsConfig];
+      [[XJFServerManager shareManager] loadSettingsConfig];
 
       //网络监听
       //        [[AFNetworkActivityIndicatorManager sharedManager]
