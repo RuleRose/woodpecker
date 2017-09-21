@@ -15,5 +15,6 @@
 @property(nonatomic, strong)NSString *selectedTitle;
 @property(nonatomic, strong)UIView *line;
 @property(nonatomic, strong)UIView *selectionView;
-
+@property(nonatomic, assign)NSInteger column;
+- (void)drawCellWithSize:(CGSize)size;
 @end

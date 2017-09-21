@@ -25,25 +25,21 @@
 - (UITableView*)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _dateLabel.bottom, kScreen_Width, kScreen_Height - _dateLabel.bottom)];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
-        headerView.backgroundColor = [UIColor clearColor];
-        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 28)];
-        _dateLabel.backgroundColor = kColor_7;
-        _dateLabel.textColor = kColor_10;
-        _dateLabel.font = kFont_2(12);
-        _dateLabel.textAlignment = NSTextAlignmentCenter;
-        _dateLabel.text = @"2017年6月7日 周三";
-        [headerView addSubview:_dateLabel];
-        _tableView.tableHeaderView = headerView;
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.tableHeaderView = [[UIView alloc] init];
+        CGFloat height = kScreen_Height - kNavigationHeight - kStatusHeight - 28*4 - 41 * 12;
+        if (height < 0) {
+            height = 0;
+        }
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, height)];
+        footerView.backgroundColor = kColor_2;
+        _tableView.tableFooterView = footerView;
     }
     return _tableView;
 }
@@ -65,30 +61,29 @@
 
 - (void)setupData{
     _viewModel = [[WPRecordViewModel alloc] init];
+    _statuses = _viewModel.statuses;
 }
 
 - (void)setupViews{
-    _statuses = _viewModel.statuses;
+    _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, 28)];
+    _dateLabel.backgroundColor = kColor_7;
+    _dateLabel.textColor = kColor_10;
+    _dateLabel.font = kFont_2(12);
+    _dateLabel.textAlignment = NSTextAlignmentCenter;
+    _dateLabel.text = @"2017年6月7日 周三";
+    [self.view addSubview:_dateLabel];
     [self.view addSubview:self.tableView];
 }
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == 5 || section == 6 || section == 8 || section == 9 || section == 10 || section == 12 || section == 13) {
+        return 1;
+    }else if (section == 2) {
         return 4;
     }else if (section == 4){
         return 2;
-    }else if (section == 5){
-        return 1;
-    }else if (section == 6){
-        return 1;
-    }else if (section == 8){
-        return 1;
-    }else if (section == 10){
-        return 1;
-    }else if (section == 12){
-        return 1;
     }
     return 0;
 }
@@ -110,35 +105,80 @@
     cell.backgroundColor = kColor_3;
     cell.contentView.backgroundColor = kColor_3;
     cell.layer.masksToBounds = YES;
+    cell.contentView.layer.masksToBounds = YES;
+    cell.column = 3;
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             cell.theme = @"颜色";
             cell.selectedTitle = @"深红";
-            cell.titles = @[@"淡红",@"鲜红",@"深红"];
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfColor];
             cell.line.hidden = YES;
         }else if (indexPath.row == 1){
+            cell.theme = @"流量";
+            cell.selectedTitle = @"较少";
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfFlow];
+            cell.line.hidden = NO;
         }else if (indexPath.row == 2){
-
+            cell.theme = @"痛经";
+            cell.selectedTitle = @"中度";
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDysmenorrhea];
+            cell.line.hidden = NO;
         }else{
-        
+            cell.theme = @"血块";
+            cell.selectedTitle = @"无";
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfBloodClot];
+            cell.line.hidden = NO;
         }
     }else if (indexPath.section == 4){
         if (indexPath.row == 0) {
-            
+            cell.theme = @"性状";
+            cell.selectedTitle = @"粘稠";
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCharacter];
+            cell.line.hidden = YES;
         }else{
-        
+            cell.theme = @"量";
+            cell.selectedTitle = @"较少";
+            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfQuantity];
+            cell.line.hidden = NO;
         }
     }else if (indexPath.section == 5){
-
+        cell.theme = @"";
+        cell.selectedTitle = @"避孕药";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfLove];
+        cell.line.hidden = YES;
     }else if (indexPath.section == 6){
-
+        cell.theme = @"";
+        cell.selectedTitle = @"无效";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCT];
+        cell.line.hidden = YES;
     }else if (indexPath.section == 8){
-
+        cell.theme = @"质量";
+        cell.selectedTitle = @"很好";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSleep];
+        cell.line.hidden = YES;
+    }else if (indexPath.section == 9){
+        cell.theme = @"";
+        cell.selectedTitle = @"平静";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfMood];
+        cell.column = 2;
+        cell.line.hidden = YES;
     }else if (indexPath.section == 10){
-        
+        cell.theme = @"时长";
+        cell.selectedTitle = @"0.5-1小时";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSport];
+        cell.line.hidden = YES;
     }else if (indexPath.section == 12){
-        
+        cell.theme = @"";
+        cell.selectedTitle = @"小酌";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrink];
+        cell.line.hidden = YES;
+    }else if (indexPath.section == 13){
+        cell.theme = @"";
+        cell.selectedTitle = @"中药";
+        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrug];
+        cell.line.hidden = YES;
     }
+    [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -151,6 +191,11 @@
 {
     WPRecordStatusModel *status = [_statuses objectAtIndex:indexPath.section];
     if (status.showDetail) {
+        if (indexPath.section == 9) {
+            return 164;
+        }else if (indexPath.section == 13){
+            return 82;
+        }
         return 41;
     }else{
         return 0;
