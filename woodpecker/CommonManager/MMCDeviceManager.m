@@ -357,7 +357,7 @@ Singleton_Implementation(MMCDeviceManager);
 
     [peripheral setDelegate:self];
 
-    [peripheral discoverServices:@[ [CBUUID UUIDWithString:SERVICE_UUID_MMCSERVICE] ]];
+    [peripheral discoverServices:@[ [CBUUID UUIDWithString:SERVICE_UUID_DEVICE_INFO], [CBUUID UUIDWithString:SERVICE_UUID_MMCSERVICE] ]];
 }
 
 - (void)didDisconnect:(CBPeripheral *)peripheral {
@@ -434,6 +434,12 @@ Singleton_Implementation(MMCDeviceManager);
                 [CBUUID UUIDWithString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE], [CBUUID UUIDWithString:CHARACT_UUID_STATUS_READ_NOTIFY]
             ]
                                      forService:service];
+        } else if ([[service.UUID.UUIDString lowercaseString] isEqualToString:SERVICE_UUID_DEVICE_INFO]) {
+            [peripheral discoverCharacteristics:@[
+                [CBUUID UUIDWithString:CHARACT_UUID_MODEL_NUM], [CBUUID UUIDWithString:CHARACT_UUID_HARDWARE_REV],
+                [CBUUID UUIDWithString:CHARACT_UUID_SOFTWARE_REV]
+            ]
+                                     forService:service];
         }
     }
 }
@@ -455,7 +461,8 @@ Singleton_Implementation(MMCDeviceManager);
         /* read values or set notification*/
         if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ_WRITE] ||
             [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_COUNT_READ] ||
-            [charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE]) {
+            [charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_MODEL_NUM] ||
+            [charactUUIDString isEqualToString:CHARACT_UUID_HARDWARE_REV] || [charactUUIDString isEqualToString:CHARACT_UUID_SOFTWARE_REV]) {
             if (Char.properties & CBCharacteristicPropertyRead) {
                 DDLogDebug(@"[Device Manager] Read value for Charactestic: %@", charactUUIDString);
                 [peripheral readValueForCharacteristic:Char];
@@ -642,6 +649,19 @@ Singleton_Implementation(MMCDeviceManager);
     //        }
     //        DDLogDebug(@"[Device Manager] get monitoring data state: %d, temperature: %d", state, temperature);
     //    }
+    else if (([charactUUIDString isEqualToString:CHARACT_UUID_MODEL_NUM])) {
+        NSString *modelNum = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        self.currentDevice.modelNum = modelNum;
+        DDLogDebug(@"[Device Manager] model num: %@", modelNum);
+    } else if (([charactUUIDString isEqualToString:CHARACT_UUID_HARDWARE_REV])) {
+        NSString *hardwareRev = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        self.currentDevice.hardwareRev = hardwareRev;
+        DDLogDebug(@"[Device Manager] hardware rev: %@", hardwareRev);
+    } else if (([charactUUIDString isEqualToString:CHARACT_UUID_SOFTWARE_REV])) {
+        NSString *softwareRev = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        self.currentDevice.softwareRev = softwareRev;
+        DDLogDebug(@"[Device Manager] software rev: %@", softwareRev);
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error {
