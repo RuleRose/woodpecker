@@ -79,6 +79,7 @@
                 WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
                 status.title = @"体重";
                 status.icon = @"icon-record-weight";
+                status.showDetailEnable = NO;
                 [_statuses addObject:status];
             }else if (i == 12){
                 WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
@@ -94,6 +95,7 @@
                 WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
                 status.title = @"备注";
                 status.icon = @"icon-record-note";
+                status.showDetailEnable = NO;
                 [_statuses addObject:status];
             }
         }

@@ -170,6 +170,7 @@
 		CC0E885D1F65874800EC5062 /* WPThermometerHardwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E885C1F65874800EC5062 /* WPThermometerHardwareViewController.m */; };
 		CC0E88601F65875D00EC5062 /* WPThermometerHardwareViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E885F1F65875D00EC5062 /* WPThermometerHardwareViewModel.m */; };
 		CC0E88631F65876B00EC5062 /* WPThermometerHardwareView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */; };
+		CC1053501F74061C00AF92DE /* CATransition+PageTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10534F1F74061C00AF92DE /* CATransition+PageTransition.m */; };
 		CC1134BC1F68107000AFD946 /* WPClockPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1134BB1F68107000AFD946 /* WPClockPopupView.m */; };
 		CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1134BE1F68287000AFD946 /* WPClockItemView.m */; };
 		CC123BFE1F6CC82B00795DCA /* WPCalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC123BFD1F6CC82B00795DCA /* WPCalendarDetailViewController.m */; };
@@ -454,6 +455,8 @@
 		CC0E885F1F65875D00EC5062 /* WPThermometerHardwareViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerHardwareViewModel.m; sourceTree = "<group>"; };
 		CC0E88611F65876B00EC5062 /* WPThermometerHardwareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerHardwareView.h; sourceTree = "<group>"; };
 		CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerHardwareView.m; sourceTree = "<group>"; };
+		CC10534E1F74061C00AF92DE /* CATransition+PageTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATransition+PageTransition.h"; sourceTree = "<group>"; };
+		CC10534F1F74061C00AF92DE /* CATransition+PageTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATransition+PageTransition.m"; sourceTree = "<group>"; };
 		CC1134BA1F68107000AFD946 /* WPClockPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPClockPopupView.h; sourceTree = "<group>"; };
 		CC1134BB1F68107000AFD946 /* WPClockPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPClockPopupView.m; sourceTree = "<group>"; };
 		CC1134BD1F68287000AFD946 /* WPClockItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPClockItemView.h; sourceTree = "<group>"; };
@@ -602,6 +605,8 @@
 				C1562FDE1F5065FE00D6CC30 /* NSDictionary */,
 				C1562FE31F5065FE00D6CC30 /* NSFileManager+Extensions.h */,
 				C1562FE41F5065FE00D6CC30 /* NSFileManager+Extensions.m */,
+				CC10534E1F74061C00AF92DE /* CATransition+PageTransition.h */,
+				CC10534F1F74061C00AF92DE /* CATransition+PageTransition.m */,
 				C1562FE51F5065FE00D6CC30 /* NSString */,
 				C1562FE81F5065FE00D6CC30 /* UIButton */,
 				C1562FEB1F5065FE00D6CC30 /* UIColor */,
@@ -1357,6 +1362,7 @@
 				C15630451F5065FE00D6CC30 /* XJFUIButton.m in Sources */,
 				CC0AAF5C1F6C2FE600FCCA6C /* WPCalendarCell.m in Sources */,
 				C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */,
+				CC1053501F74061C00AF92DE /* CATransition+PageTransition.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
 				CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */,

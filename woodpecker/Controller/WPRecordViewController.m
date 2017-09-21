@@ -220,6 +220,7 @@
         titleLabel.textColor = kColor_7_With_Alpha(0.8);
         titleLabel.text = status.title;
         [headerView addSubview:titleLabel];
+        headerView.backgroundColor = kColor_2;
         return headerView;
     }else{
         WPRecordHeaderView *headerView = [[WPRecordHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 41)];
