@@ -13,6 +13,7 @@
 #import "WPCalendarCell.h"
 #import "WPCalendarDetailViewController.h"
 #import "WPCalendarNoteView.h"
+#import "CATransition+PageTransition.h"
 
 @interface WPCalendarViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
 @property (nonatomic, strong) WPCalendarViewModel *viewModel;
@@ -71,6 +72,12 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
+}
+
+- (void)goBack:(UIButton *)sender{
+    CATransition *transition = [CATransition pushFromRight:nil];
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setupData{
@@ -206,29 +213,32 @@
 }
 
 
-- (void)configureCell:(__kindof WPCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
+- (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
-    if ([NSDate isDateInToday:date]) {
-        cell.selected = YES;
-    }else{
-        cell.selected = NO;
+    if ([cell isKindOfClass:[WPCalendarCell class]]) {
+        WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
+        if ([NSDate isDateInToday:date]) {
+            calendarCell.selected = YES;
+        }else{
+            calendarCell.selected = NO;
+        }
+        if (calendarCell.selected) {
+            calendarCell.titleLabel.font = kFont_6(16);
+            calendarCell.titleLabel.textColor = kColor_10;
+            calendarCell.subtitleLabel.textColor = kColor_10;
+            calendarCell.shapeLayer.fillColor = kColor_12.CGColor;
+            calendarCell.shapeLayer.opacity = 1;
+            
+        }else{
+            calendarCell.titleLabel.font = kFont_1(12);
+            calendarCell.subtitleLabel.textColor = kColor_7;
+            calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
+            calendarCell.shapeLayer.opacity = 0;
+        }
+        calendarCell.period = kPeriodTypeOfForecast;
+        calendarCell.shape = kPeriodShapeOfSingle;
+        [calendarCell setNeedsLayout];
     }
-    if (cell.selected) {
-        cell.titleLabel.font = kFont_6(16);
-        cell.titleLabel.textColor = kColor_10;
-        cell.subtitleLabel.textColor = kColor_10;
-        cell.shapeLayer.fillColor = kColor_12.CGColor;
-        cell.shapeLayer.opacity = 1;
-
-    }else{
-        cell.titleLabel.font = kFont_1(12);
-        cell.subtitleLabel.textColor = kColor_7;
-        cell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
-        cell.shapeLayer.opacity = 0;
-    }
-    cell.period = kPeriodTypeOfForecast;
-    cell.shape = kPeriodShapeOfSingle;
-    [cell setNeedsLayout];
 }
 
 

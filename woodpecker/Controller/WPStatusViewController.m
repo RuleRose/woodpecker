@@ -12,6 +12,7 @@
 #import "WPThermometerViewController.h"
 #import "WPRecordViewController.h"
 #import "WPCalendarViewController.h"
+#import "CATransition+PageTransition.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -42,7 +43,9 @@
 #pragma mark WPStatusViewDelegate
 - (void)showCalendar{
     WPCalendarViewController *calendarVC = [[WPCalendarViewController alloc] init];
-    [self.navigationController pushViewController:calendarVC animated:YES];
+    CATransition *transition = [CATransition moveInFromLeft:nil];
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController pushViewController:calendarVC animated:NO];
 }
 
 - (void)showTemperature{

@@ -30,6 +30,14 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_bottomLine) {
+        [_bottomLine removeFromSuperview];
+        _bottomLine = nil;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -51,6 +59,7 @@
         _bottomLine.backgroundColor = kColor_6;
         [self.navigationController.navigationBar addSubview:_bottomLine];
     }
+    _bottomLine.hidden = NO;
 }
 
 - (void)showStatusBar {
