@@ -12,6 +12,7 @@
 #import "WPThermometerUnitViewController.h"
 #import "WPThermometerHardwareViewController.h"
 #import "TableViewCell.h"
+#import "WPAlertPopupView.h"
 
 @interface WPThermometerViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -142,7 +143,17 @@
 }
 
 - (void)removeBtnPressed{
- 
+    WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
+    popView.title = @"确定解除体温计绑定？";
+    popView.cancelBlock = ^(MMPopupView *popupView) {
+        
+    };
+    popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
+        
+    };
+    [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -60,7 +60,7 @@
         [_confirmBtn setTitle:kLocalization(@"common_confirm") forState:UIControlStateNormal];
         [_confirmBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
         _confirmBtn.titleLabel.font = kFont_1(12);
-        [_confirmBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_confirmBtn addTarget:self action:@selector(confirmBtnPressed) forControlEvents:UIControlEventTouchUpInside];
         [_handleView addSubview:_confirmBtn];
         MJWeakSelf;
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -229,6 +229,10 @@
 }
 
 - (void)cancelBtnPressed{
+    [self hide];
+}
+
+- (void)confirmBtnPressed{
     [self hide];
 }
 /*

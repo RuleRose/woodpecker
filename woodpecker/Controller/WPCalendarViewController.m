@@ -77,7 +77,7 @@
 - (void)goBack:(UIButton *)sender{
     CATransition *transition = [CATransition pushFromRight:nil];
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)setupData{

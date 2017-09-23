@@ -194,6 +194,17 @@
 		CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */; };
 		CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */; };
 		CC7DA2301F762CBA00F56072 /* WPThermometerBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */; };
+		CC7DA2371F762EA400F56072 /* bind-ima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2311F762EA400F56072 /* bind-ima@2x.png */; };
+		CC7DA2381F762EA400F56072 /* bind-ima@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2321F762EA400F56072 /* bind-ima@3x.png */; };
+		CC7DA2391F762EA400F56072 /* remove-bind-ima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2331F762EA400F56072 /* remove-bind-ima@2x.png */; };
+		CC7DA23A1F762EA400F56072 /* remove-bind-ima@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2341F762EA400F56072 /* remove-bind-ima@3x.png */; };
+		CC7DA23B1F762EA400F56072 /* binding-ima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2351F762EA400F56072 /* binding-ima@2x.png */; };
+		CC7DA23C1F762EA400F56072 /* binding-ima@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2361F762EA400F56072 /* binding-ima@3x.png */; };
+		CC7DA23F1F76337500F56072 /* WPThermometerBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA23E1F76337500F56072 /* WPThermometerBindingViewController.m */; };
+		CC7DA2501F76364A00F56072 /* WPThermometerBindingViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA24D1F76364A00F56072 /* WPThermometerBindingViewModel.m */; };
+		CC7DA2511F76364A00F56072 /* WPThermometerRemoveViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA24F1F76364A00F56072 /* WPThermometerRemoveViewModel.m */; };
+		CC7DA2541F7636FC00F56072 /* WPThermometerRemoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA2531F7636FC00F56072 /* WPThermometerRemoveViewController.m */; };
+		CC7DA2571F763A5A00F56072 /* WPAlertPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA2561F763A5A00F56072 /* WPAlertPopupView.m */; };
 		CC88A5C01F6D4E7900B6BE86 /* WPCalendarNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC88A5BF1F6D4E7900B6BE86 /* WPCalendarNoteView.m */; };
 		CC88A5C31F6D4F2700B6BE86 /* WPCalendarNote.m in Sources */ = {isa = PBXBuildFile; fileRef = CC88A5C21F6D4F2700B6BE86 /* WPCalendarNote.m */; };
 /* End PBXBuildFile section */
@@ -504,6 +515,22 @@
 		CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusItemView.m; sourceTree = "<group>"; };
 		CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerBindViewController.h; sourceTree = "<group>"; };
 		CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerBindViewController.m; sourceTree = "<group>"; };
+		CC7DA2311F762EA400F56072 /* bind-ima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bind-ima@2x.png"; sourceTree = "<group>"; };
+		CC7DA2321F762EA400F56072 /* bind-ima@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bind-ima@3x.png"; sourceTree = "<group>"; };
+		CC7DA2331F762EA400F56072 /* remove-bind-ima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove-bind-ima@2x.png"; sourceTree = "<group>"; };
+		CC7DA2341F762EA400F56072 /* remove-bind-ima@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove-bind-ima@3x.png"; sourceTree = "<group>"; };
+		CC7DA2351F762EA400F56072 /* binding-ima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binding-ima@2x.png"; sourceTree = "<group>"; };
+		CC7DA2361F762EA400F56072 /* binding-ima@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binding-ima@3x.png"; sourceTree = "<group>"; };
+		CC7DA23D1F76337500F56072 /* WPThermometerBindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerBindingViewController.h; sourceTree = "<group>"; };
+		CC7DA23E1F76337500F56072 /* WPThermometerBindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerBindingViewController.m; sourceTree = "<group>"; };
+		CC7DA24C1F76364A00F56072 /* WPThermometerBindingViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerBindingViewModel.h; sourceTree = "<group>"; };
+		CC7DA24D1F76364A00F56072 /* WPThermometerBindingViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerBindingViewModel.m; sourceTree = "<group>"; };
+		CC7DA24E1F76364A00F56072 /* WPThermometerRemoveViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerRemoveViewModel.h; sourceTree = "<group>"; };
+		CC7DA24F1F76364A00F56072 /* WPThermometerRemoveViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerRemoveViewModel.m; sourceTree = "<group>"; };
+		CC7DA2521F7636FC00F56072 /* WPThermometerRemoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerRemoveViewController.h; sourceTree = "<group>"; };
+		CC7DA2531F7636FC00F56072 /* WPThermometerRemoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerRemoveViewController.m; sourceTree = "<group>"; };
+		CC7DA2551F763A5A00F56072 /* WPAlertPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAlertPopupView.h; sourceTree = "<group>"; };
+		CC7DA2561F763A5A00F56072 /* WPAlertPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAlertPopupView.m; sourceTree = "<group>"; };
 		CC88A5BE1F6D4E7900B6BE86 /* WPCalendarNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPCalendarNoteView.h; sourceTree = "<group>"; };
 		CC88A5BF1F6D4E7900B6BE86 /* WPCalendarNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPCalendarNoteView.m; sourceTree = "<group>"; };
 		CC88A5C11F6D4F2700B6BE86 /* WPCalendarNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPCalendarNote.h; sourceTree = "<group>"; };
@@ -832,6 +859,12 @@
 				C15466121F63E00500B5CCD9 /* WPLoginViewController.m */,
 				CC0E88401F65702200EC5062 /* WPThermometerViewController.h */,
 				CC0E88411F65702200EC5062 /* WPThermometerViewController.m */,
+				CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */,
+				CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */,
+				CC7DA23D1F76337500F56072 /* WPThermometerBindingViewController.h */,
+				CC7DA23E1F76337500F56072 /* WPThermometerBindingViewController.m */,
+				CC7DA2521F7636FC00F56072 /* WPThermometerRemoveViewController.h */,
+				CC7DA2531F7636FC00F56072 /* WPThermometerRemoveViewController.m */,
 				CC0E88491F6580EF00EC5062 /* WPThermometerClockViewController.h */,
 				CC0E884A1F6580EF00EC5062 /* WPThermometerClockViewController.m */,
 				CC0E88521F65861200EC5062 /* WPThermometerUnitViewController.h */,
@@ -844,8 +877,6 @@
 				CC0AAF551F6C233700FCCA6C /* WPCalendarViewController.m */,
 				CC123BFC1F6CC82B00795DCA /* WPCalendarDetailViewController.h */,
 				CC123BFD1F6CC82B00795DCA /* WPCalendarDetailViewController.m */,
-				CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */,
-				CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -877,6 +908,10 @@
 				CC0AAF581F6C234D00FCCA6C /* WPCalendarViewModel.m */,
 				CC123BFF1F6CC84500795DCA /* WPCalendarDetailViewModel.h */,
 				CC123C001F6CC84500795DCA /* WPCalendarDetailViewModel.m */,
+				CC7DA24C1F76364A00F56072 /* WPThermometerBindingViewModel.h */,
+				CC7DA24D1F76364A00F56072 /* WPThermometerBindingViewModel.m */,
+				CC7DA24E1F76364A00F56072 /* WPThermometerRemoveViewModel.h */,
+				CC7DA24F1F76364A00F56072 /* WPThermometerRemoveViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -900,8 +935,6 @@
 				CC0E88591F65863B00EC5062 /* WPThermometerUnitView.m */,
 				CC0E88611F65876B00EC5062 /* WPThermometerHardwareView.h */,
 				CC0E88621F65876B00EC5062 /* WPThermometerHardwareView.m */,
-				CC1134BA1F68107000AFD946 /* WPClockPopupView.h */,
-				CC1134BB1F68107000AFD946 /* WPClockPopupView.m */,
 				CC1134BD1F68287000AFD946 /* WPClockItemView.h */,
 				CC1134BE1F68287000AFD946 /* WPClockItemView.m */,
 				CC0AAF5A1F6C2FE600FCCA6C /* WPCalendarCell.h */,
@@ -918,6 +951,10 @@
 				CC1A54091F72B34200B3EF2E /* WPRecordMoodDetailCell.m */,
 				CC1A540B1F72B54900B3EF2E /* WPRecordSelectionButton.h */,
 				CC1A540C1F72B54900B3EF2E /* WPRecordSelectionButton.m */,
+				CC1134BA1F68107000AFD946 /* WPClockPopupView.h */,
+				CC1134BB1F68107000AFD946 /* WPClockPopupView.m */,
+				CC7DA2551F763A5A00F56072 /* WPAlertPopupView.h */,
+				CC7DA2561F763A5A00F56072 /* WPAlertPopupView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -934,6 +971,12 @@
 		C1FE07F91F5BCA100054A254 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				CC7DA2311F762EA400F56072 /* bind-ima@2x.png */,
+				CC7DA2321F762EA400F56072 /* bind-ima@3x.png */,
+				CC7DA2331F762EA400F56072 /* remove-bind-ima@2x.png */,
+				CC7DA2341F762EA400F56072 /* remove-bind-ima@3x.png */,
+				CC7DA2351F762EA400F56072 /* binding-ima@2x.png */,
+				CC7DA2361F762EA400F56072 /* binding-ima@3x.png */,
 				C15465DD1F63DEC500B5CCD9 /* arrow-me@2x.png */,
 				C15465DE1F63DEC500B5CCD9 /* arrow-me@3x.png */,
 				C15465DF1F63DEC500B5CCD9 /* arrow-status@2x.png */,
@@ -1160,11 +1203,14 @@
 				C14CA4051F4FB2B1007F50A1 /* Assets.xcassets in Resources */,
 				C15466051F63DEC500B5CCD9 /* icon-me-basic@2x.png in Resources */,
 				C1FE08371F5BCA3C0054A254 /* btn-navi-device-con@3x.png in Resources */,
+				CC7DA23A1F762EA400F56072 /* remove-bind-ima@3x.png in Resources */,
 				C154660F1F63DEC500B5CCD9 /* ima-logon@2x.png in Resources */,
 				C1FE08521F5BCA3C0054A254 /* icon-record-details@2x.png in Resources */,
 				C1FE08611F5BCA3C0054A254 /* icon-record-note@3x.png in Resources */,
+				CC7DA2371F762EA400F56072 /* bind-ima@2x.png in Resources */,
 				C1FE08541F5BCA3C0054A254 /* icon-record-drink@2x.png in Resources */,
 				C1FE08601F5BCA3C0054A254 /* icon-record-note@2x.png in Resources */,
+				CC7DA23C1F762EA400F56072 /* binding-ima@3x.png in Resources */,
 				C15465FC1F63DEC500B5CCD9 /* btn-me-avatar@3x.png in Resources */,
 				C15465FF1F63DEC500B5CCD9 /* icon-device-settings@2x.png in Resources */,
 				C1FE08451F5BCA3C0054A254 /* btn-tab-curve-u@3x.png in Resources */,
@@ -1190,6 +1236,7 @@
 				C1FE085E1F5BCA3C0054A254 /* icon-record-mucus@2x.png in Resources */,
 				C1FE08401F5BCA3C0054A254 /* btn-navi-status-today@2x.png in Resources */,
 				C154660B1F63DEC500B5CCD9 /* icon-me-shop@2x.png in Resources */,
+				CC7DA23B1F762EA400F56072 /* binding-ima@2x.png in Resources */,
 				C154660C1F63DEC500B5CCD9 /* icon-me-shop@3x.png in Resources */,
 				C1FE08411F5BCA3C0054A254 /* btn-navi-status-today@3x.png in Resources */,
 				C1FE085F1F5BCA3C0054A254 /* icon-record-mucus@3x.png in Resources */,
@@ -1197,6 +1244,7 @@
 				C15466091F63DEC500B5CCD9 /* icon-me-help@2x.png in Resources */,
 				C1FE083E1F5BCA3C0054A254 /* btn-navi-status-cale@2x.png in Resources */,
 				C1FE08621F5BCA3C0054A254 /* icon-record-sleep@2x.png in Resources */,
+				CC7DA2381F762EA400F56072 /* bind-ima@3x.png in Resources */,
 				C1FE084E1F5BCA3C0054A254 /* icon-info@2x.png in Resources */,
 				C15466011F63DEC500B5CCD9 /* icon-device-unit@2x.png in Resources */,
 				C1FE08531F5BCA3C0054A254 /* icon-record-details@3x.png in Resources */,
@@ -1213,6 +1261,7 @@
 				C15466081F63DEC500B5CCD9 /* icon-me-cycle@3x.png in Resources */,
 				C1FE08421F5BCA3C0054A254 /* btn-tab-curve-p@2x.png in Resources */,
 				C1FE08481F5BCA3C0054A254 /* btn-tab-me-u@2x.png in Resources */,
+				CC7DA2391F762EA400F56072 /* remove-bind-ima@2x.png in Resources */,
 				C1FE084D1F5BCA3C0054A254 /* btn-tab-status-u@3x.png in Resources */,
 				C1FE084B1F5BCA3C0054A254 /* btn-tab-status-s@3x.png in Resources */,
 				C154660D1F63DEC500B5CCD9 /* ima-alarm@2x.png in Resources */,
@@ -1307,6 +1356,7 @@
 			files = (
 				CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */,
 				CC0AAF4C1F6C230800FCCA6C /* FSCalendarDelegationFactory.m in Sources */,
+				CC7DA23F1F76337500F56072 /* WPThermometerBindingViewController.m in Sources */,
 				CC0AAF501F6C230800FCCA6C /* FSCalendarScopeHandle.m in Sources */,
 				C15630421F5065FE00D6CC30 /* XJFServerManager.m in Sources */,
 				CC0AAF451F6C230800FCCA6C /* FSCalendar.m in Sources */,
@@ -1323,6 +1373,7 @@
 				C15630321F5065FE00D6CC30 /* NSFileManager+Extensions.m in Sources */,
 				CC0AAF461F6C230800FCCA6C /* FSCalendarAppearance.m in Sources */,
 				CC88A5C31F6D4F2700B6BE86 /* WPCalendarNote.m in Sources */,
+				CC7DA2501F76364A00F56072 /* WPThermometerBindingViewModel.m in Sources */,
 				CC1A540A1F72B34200B3EF2E /* WPRecordMoodDetailCell.m in Sources */,
 				CC279D731F6AD77F003B5119 /* WPRecordViewModel.m in Sources */,
 				CC123BFE1F6CC82B00795DCA /* WPCalendarDetailViewController.m in Sources */,
@@ -1371,12 +1422,14 @@
 				CC1053501F74061C00AF92DE /* CATransition+PageTransition.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
+				CC7DA2541F7636FC00F56072 /* WPThermometerRemoveViewController.m in Sources */,
 				CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */,
 				CC0E88421F65702200EC5062 /* WPThermometerViewController.m in Sources */,
 				C15630471F5065FE00D6CC30 /* XJFUILabel.m in Sources */,
 				C15630431F5065FE00D6CC30 /* XJFBackgroundView.m in Sources */,
 				CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */,
 				CC0E88601F65875D00EC5062 /* WPThermometerHardwareViewModel.m in Sources */,
+				CC7DA2571F763A5A00F56072 /* WPAlertPopupView.m in Sources */,
 				CC0E885D1F65874800EC5062 /* WPThermometerHardwareViewController.m in Sources */,
 				CC0E88541F65861200EC5062 /* WPThermometerUnitViewController.m in Sources */,
 				C15630351F5065FE00D6CC30 /* UIColor+Hex.m in Sources */,
@@ -1386,6 +1439,7 @@
 				C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */,
 				C15847671F5E71E900D785A6 /* BleDevice.m in Sources */,
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
+				CC7DA2511F76364A00F56072 /* WPThermometerRemoveViewModel.m in Sources */,
 				C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */,
 				CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */,
 				C15630361F5065FE00D6CC30 /* UIImage+animatedGIF.m in Sources */,
