@@ -8,7 +8,7 @@
 
 #import "WPThermometerClockViewController.h"
 #import "WPThermometerClockViewModel.h"
-#import "TableViewCell.h"
+#import "WPTableViewCell.h"
 #import "WPClockPopupView.h"
 
 @interface WPThermometerClockViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -85,15 +85,15 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     NSString* identifier = @"ClockCell";
-    TableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    WPTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[WPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
-- (void)configureCell:(TableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
+- (void)configureCell:(WPTableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
 {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];

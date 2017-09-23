@@ -15,6 +15,7 @@
 #import "CATransition+PageTransition.h"
 #import "WPThermometerBindViewController.h"
 #import "WPThermometerRemoveViewController.h"
+#import "WPBasicInfoViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -51,13 +52,15 @@
 }
 
 - (void)showTemperature{
-    WPThermometerRemoveViewController *removeVC = [[WPThermometerRemoveViewController alloc] init];
-    [self.navigationController pushViewController:removeVC animated:YES];
+//    WPThermometerRemoveViewController *removeVC = [[WPThermometerRemoveViewController alloc] init];
+//    [self.navigationController pushViewController:removeVC animated:YES];
 
 //    WPThermometerBindViewController *bindVC = [[WPThermometerBindViewController alloc] init];
 //    [self.navigationController pushViewController:bindVC animated:YES];
 //    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
 //    [self.navigationController pushViewController:thermometerVC animated:YES];
+    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
+    [self.navigationController pushViewController:introVC animated:YES];
 }
 
 - (void)editTemperature{

@@ -8,7 +8,6 @@
 
 #import "WPRecordViewController.h"
 #import "WPRecordViewModel.h"
-#import "TableViewCell.h"
 #import "WPRecordHeaderView.h"
 #import "WPRecordStatusModel.h"
 #import "WPRecordDetailCell.h"

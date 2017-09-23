@@ -1,14 +1,14 @@
 //
-//  TableViewCell.m
+//  WPTableViewCell.m
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/11.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "WPTableViewCell.h"
 
-@implementation TableViewCell
+@implementation WPTableViewCell
 - (UIImageView *)icon{
     if (!_icon) {
         _icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
@@ -30,9 +30,12 @@
 {
     if (!_switchView) {
         _switchView = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 31, 18)];
+        _switchView.userInteractionEnabled = NO;
         _switchView.backgroundColor = [UIColor clearColor];
         _switchView.onTintColor = kColorFromRGB(0x60b0e3);
         _switchView.tintColor = kColorFromRGB(0xdcdcdc);
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchAction:)];
+        [self.contentView addGestureRecognizer:tap];
     }
     return _switchView;
 }
@@ -139,6 +142,16 @@
     _titleLabel.frame = CGRectMake(left, 0, (right - left - 8)/2, size.height);
     _detailLabel.frame = CGRectMake(_titleLabel.right + 8, 0, (right - left - 8)/2, size.height);
     _line.frame = CGRectMake(23, 0, size.width - 45, 0.5);
+}
+
+- (void)switchAction:(UITapGestureRecognizer*)tap
+{
+    CGPoint pos = [tap locationInView:self.contentView];
+    if (CGRectContainsPoint(_switchView.frame, pos)) {
+        if (_delegate && [_delegate respondsToSelector:@selector(switchAction:cell:)]) {
+            [_delegate switchAction:_switchView cell:self];
+        }
+    }
 }
 
 - (void)awakeFromNib {
