@@ -9,11 +9,8 @@
 #ifndef NetWorkAPI_h
 #define NetWorkAPI_h
 
-#define NETWORK_EXPRESS @"/iot/express/register/"
-#define NETWORK_ORDER @"/iot/order/get/"
-#define NETWORK_ORDER_UPDATE @"/iot/order/update/"
-#define NETWORK_ORDER_REGISTER @"/iot/order/register/"
-#define NETWORK_SERVER_TIME @"/iot/order/time/"
-#define NETWORK_TEMPERATURE_POST @"/iot/temperature/post/"
+#define USER_REGISTER @"/user/register/"
+#define USER_LOGIN @"/user/login/"
+#define USER_IS_ACTIVE @"/user/is_user_active/"
 
 #endif /* NetWorkAPI_h */

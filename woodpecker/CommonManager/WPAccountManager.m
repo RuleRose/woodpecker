@@ -44,6 +44,7 @@ Singleton_Implementation(WPAccountManager);
 }
 
 - (BOOL)isLogin {
+    DDLogDebug(@"userID:%@, token:%@", self.userID, self.userToken);
     return [self.account isLogin];
 }
 
@@ -104,6 +105,7 @@ Singleton_Implementation(WPAccountManager);
           self.userID = profile.userId;
           self.userNickName = profile.nickName;
           self.userAvatar = profile.userIcon;
+          DDLogDebug(@"userID:%@", self.userID);
 
           kDefaultSetValueForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
           kDefaultSetValueForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
