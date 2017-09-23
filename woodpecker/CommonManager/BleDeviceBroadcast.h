@@ -17,5 +17,10 @@
 
 @property(nonatomic, copy) NSString *MacAddr;
 @property(assign, nonatomic) NSInteger batteryLevelRaw;
+@property(nonatomic, copy) NSString *modelNum;
+@property(nonatomic, copy) NSString *hardwareRev;
+@property(nonatomic, copy) NSString *softwareRev;
+@property(nonatomic, copy) NSString *SN;
+@property(nonatomic, assign) NSInteger deviceID;
 
 @end

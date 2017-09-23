@@ -17,6 +17,7 @@
         _t1 = 0;
         _t2 = 0;
         _batteryLevelRaw = 0;
+        _SN = @"";
     }
 
     return self;

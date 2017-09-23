@@ -54,7 +54,7 @@
 }
 
 - (NSString *)getMacAddrString:(char[])macAddr {
-    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x", (unsigned char)macAddr[0], (unsigned char)macAddr[1], (unsigned char)macAddr[2],
+    return [NSString stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", (unsigned char)macAddr[0], (unsigned char)macAddr[1], (unsigned char)macAddr[2],
                                       (unsigned char)macAddr[3], (unsigned char)macAddr[4], (unsigned char)macAddr[5]];
 }
 @end
