@@ -11,7 +11,8 @@
 #import "WPThermometerClockViewController.h"
 #import "WPThermometerUnitViewController.h"
 #import "WPThermometerHardwareViewController.h"
-#import "TableViewCell.h"
+#import "WPTableViewCell.h"
+#import "WPAlertPopupView.h"
 
 @interface WPThermometerViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -81,15 +82,15 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     NSString* identifier = @"ThermometerCell";
-    TableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    WPTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[WPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
-- (void)configureCell:(TableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
+- (void)configureCell:(WPTableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
 {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];
@@ -142,7 +143,17 @@
 }
 
 - (void)removeBtnPressed{
- 
+    WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
+    popView.title = @"确定解除体温计绑定？";
+    popView.cancelBlock = ^(MMPopupView *popupView) {
+        
+    };
+    popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
+        
+    };
+    [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

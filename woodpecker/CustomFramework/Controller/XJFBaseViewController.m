@@ -50,6 +50,10 @@
 
 - (void)hideNavigationBar {
     [self.navigationController setNavigationBarHidden:YES];
+    if (_bottomLine) {
+        [_bottomLine removeFromSuperview];
+        _bottomLine = nil;
+    }
 }
 
 - (void)showNavigationBar {

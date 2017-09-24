@@ -1,29 +1,28 @@
 //
-//  WPClockPopupView.m
+//  WPBirthdayPopupView.m
 //  woodpecker
 //
-//  Created by QiWL on 2017/9/12.
+//  Created by QiWL on 2017/9/24.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPClockPopupView.h"
+#import "WPBirthdayPopupView.h"
 
-@interface WPClockPopupView()
+@interface WPBirthdayPopupView()
 @property (nonatomic, strong) UIDatePicker *timePicker;
 @end
 
-@implementation WPClockPopupView
+@implementation WPBirthdayPopupView
 - (instancetype)init
 {
     self = [super init];
     
     if ( self )
     {
-        self.type = MMPopupTypeSheet;
-        self.titleView.backgroundColor = kColor_1;
-        self.titleLabel.text = kLocalization(@"clock_wakeup_time");
-        self.titleLabel.font = kFont_1(12);
-        self.titleLabel.textColor = kColor_7;
+        self.titleView.backgroundColor = kColor_5;
+        self.titleLabel.text = @"出生日期";
+        self.titleLabel.font = kFont_1(14);
+        self.titleLabel.textColor = kColor_10;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
     }
     return self;
@@ -33,7 +32,7 @@
     [super setupViews];
     _timePicker = [[UIDatePicker alloc] init];
     _timePicker.backgroundColor = kColor_1;
-    _timePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+    _timePicker.datePickerMode = UIDatePickerModeDate;
     [self.contentView addSubview:_timePicker];
     [_timePicker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0.5);
@@ -49,8 +48,8 @@
 
 - (void)confirmBtnPressed{
     [super confirmBtnPressed];
-    if (_clockBlock) {
-        _clockBlock(self, _timePicker.date);
+    if (_birthdayBlock) {
+        _birthdayBlock(self, _timePicker.date);
     }
 }
 /*

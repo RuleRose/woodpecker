@@ -1,5 +1,5 @@
 //
-//  TableViewCell.h
+//  WPTableViewCell.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/11.
@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
     kCellRightModelSwitch
 };
 
-@interface TableViewCell : UITableViewCell
+@protocol WPTableViewCellDelegate;
+@interface WPTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *icon;
@@ -27,6 +28,13 @@ typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
 @property (nonatomic, strong) UISwitch *switchView;
 @property (nonatomic, assign) TableViewCellLeftModel leftModel;
 @property (nonatomic, assign) TableViewCellRightModel rightModel;
+@property (nonatomic, assign) id<WPTableViewCellDelegate> delegate;
 
 - (void)drawCellWithSize:(CGSize)size;
+@end
+
+@protocol WPTableViewCellDelegate <NSObject>
+@optional
+- (void)switchAction:(UISwitch*)sender cell:(WPTableViewCell*)cell;
+
 @end
