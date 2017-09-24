@@ -35,6 +35,6 @@ typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
 
 @protocol WPTableViewCellDelegate <NSObject>
 @optional
-- (void)switchAction:(UISwitch*)sender cell:(TableViewCell*)cell;
+- (void)switchAction:(UISwitch*)sender cell:(WPTableViewCell*)cell;
 
 @end

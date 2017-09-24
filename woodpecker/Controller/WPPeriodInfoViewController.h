@@ -1,5 +1,5 @@
 //
-//  WPMenstrualIntroViewController.h
+//  WPPeriodInfoViewController.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/23.
@@ -8,6 +8,6 @@
 
 #import "XJFBaseViewController.h"
 
-@interface WPMenstrualIntroViewController : XJFBaseViewController
+@interface WPPeriodInfoViewController : XJFBaseViewController
 
 @end

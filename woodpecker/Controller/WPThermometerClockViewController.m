@@ -128,6 +128,9 @@
 {
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
+        popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
+            
+        };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
 
         }];

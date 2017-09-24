@@ -9,6 +9,11 @@
 #import "WPPeriodViewController.h"
 #import "WPPeriodViewModel.h"
 #import "WPInfoSettingCell.h"
+#import "WPPeriodPopupView.h"
+#import "WPPeriodInfoViewController.h"
+#import "WPMenstrualPopupView.h"
+#import "WPMenstrualInfoViewController.h"
+#import "WPMenstrualRegularPopupView.h"
 
 @interface WPPeriodViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
@@ -130,11 +135,37 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.row == 0) {
-        
+        WPPeriodPopupView *popView = [[WPPeriodPopupView alloc] init];
+        popView.periodBlock = ^(MMPopupView *popupView, NSInteger period) {
+            
+        };
+        popView.showInfoBlock = ^(MMPopupView *popupView) {
+            WPPeriodInfoViewController *infoVC = [[WPPeriodInfoViewController alloc] init];
+            [self.navigationController pushViewController:infoVC animated:YES];
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }else if (indexPath.row == 1){
-    
+        WPMenstrualPopupView *popView = [[WPMenstrualPopupView alloc] init];
+        popView.menstrualBlock = ^(MMPopupView *popupView, NSInteger menstrual) {
+            
+        };
+        popView.showInfoBlock = ^(MMPopupView *popupView) {
+            WPMenstrualInfoViewController *infoVC = [[WPMenstrualInfoViewController alloc] init];
+            [self.navigationController pushViewController:infoVC animated:YES];
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }else if (indexPath.row == 2){
-    
+        WPMenstrualRegularPopupView *popView = [[WPMenstrualRegularPopupView alloc] init];
+        popView.regularBlock = ^(MMPopupView *popupView, BOOL regular) {
+            
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }
 }
 

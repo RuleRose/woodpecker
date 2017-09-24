@@ -6,8 +6,10 @@
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import <MMPopupView/MMPopupView.h>
+#import "WPSelectionPopupView.h"
+typedef void(^WPClockBlock)(MMPopupView *, NSDate *);
 
-@interface WPClockPopupView : MMPopupView
+@interface WPClockPopupView : WPSelectionPopupView
+@property (nonatomic, strong) WPClockBlock clockBlock;
 
 @end

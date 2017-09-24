@@ -1,19 +1,19 @@
 //
-//  WPMenstrualIntroViewController.m
+//  WPPeriodInfoViewController.m
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/23.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPMenstrualIntroViewController.h"
+#import "WPPeriodInfoViewController.h"
 
-@interface WPMenstrualIntroViewController ()
+@interface WPPeriodInfoViewController ()
 @property (nonatomic ,strong) UILabel *detailLabel;
 @property (nonatomic ,strong) UIImageView *iconView;
 @end
 
-@implementation WPMenstrualIntroViewController
+@implementation WPPeriodInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +32,14 @@
 - (void)setupViews{
     _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, 225*kScreen_Width/375.0)];
     _iconView.backgroundColor = [UIColor clearColor];
-    _iconView.image = kImage(@"ima-info-menstrual");
+    _iconView.image = kImage(@"ima-info-period");
     [self.view addSubview:_iconView];
     
     _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _iconView.bottom + 68, kScreen_Width - 30, 80)];
     _detailLabel.backgroundColor = [UIColor clearColor];
     _detailLabel.textColor = kColor_7_With_Alpha(0.8);
     _detailLabel.font = kFont_1(12);
-    _detailLabel.text = @"月经期指：从月经第一天到月经最后一天为止，通常为2-7天。";
+    _detailLabel.text = @"周期长度是指：从本次月经来潮开始到下次月经来潮第一天，并称为1个月经周期。\n一般的月经周期为28~30天，提前或错后7天都属于正常范围。";
     _detailLabel.numberOfLines = 0;
     [self.view addSubview:_detailLabel];
 }

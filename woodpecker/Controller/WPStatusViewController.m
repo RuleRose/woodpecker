@@ -16,6 +16,8 @@
 #import "WPThermometerBindViewController.h"
 #import "WPThermometerRemoveViewController.h"
 #import "WPBasicInfoViewController.h"
+#import "WPPeriodViewController.h"
+#import "WPBasicInfoViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;

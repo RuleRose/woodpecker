@@ -9,6 +9,9 @@
 #import "WPBasicInfoViewController.h"
 #import "WPBasicInfoViewModel.h"
 #import "WPInfoSettingCell.h"
+#import "WPHeightPopupView.h"
+#import "WPWeightPopupView.h"
+#import "WPBirthdayPopupView.h"
 
 @interface WPBasicInfoViewController ()<UITableViewDelegate, UITableViewDataSource, WPInfoSettingCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -80,7 +83,7 @@
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -142,9 +145,38 @@
         WPInfoSettingCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
     }else if (indexPath.row == 1){
-        
+        if (_activeTextField) {
+            [_activeTextField resignFirstResponder];
+        }
+        WPBirthdayPopupView *popView = [[WPBirthdayPopupView alloc] init];
+        popView.birthdayBlock = ^(MMPopupView *popupView, NSDate *birthday) {
+            
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }else if (indexPath.row == 2){
-        
+        if (_activeTextField) {
+            [_activeTextField resignFirstResponder];
+        }
+        WPHeightPopupView *popView = [[WPHeightPopupView alloc] init];
+        popView.heightBlock = ^(MMPopupView *popupView, NSInteger height) {
+            
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
+    }else if (indexPath.row == 3){
+        if (_activeTextField) {
+            [_activeTextField resignFirstResponder];
+        }
+        WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
+        popView.weightBlock = ^(MMPopupView *popupView, NSInteger height) {
+            
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }
 }
 
