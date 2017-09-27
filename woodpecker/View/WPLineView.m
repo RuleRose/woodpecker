@@ -41,13 +41,13 @@
         leftAxis.labelTextColor = kColorFromRGB(0x666666);
         leftAxis.labelFont = [UIFont systemFontOfSize:11.0f];
         leftAxis.drawGridLinesEnabled = YES;
-        leftAxis.drawZeroLineEnabled = NO;
-        leftAxis.granularityEnabled = NO;
+        leftAxis.drawZeroLineEnabled = YES;
+        leftAxis.granularityEnabled = YES;
         leftAxis.drawAxisLineEnabled = YES;
-        leftAxis.gridLineWidth = 2;
+        leftAxis.gridLineWidth = 0.5;
         leftAxis.axisMaximum = 40.0;
         leftAxis.axisMinimum = 35.0;
-        leftAxis.gridColor = kColorFromRGB(0xf6f6f6);
+        leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         leftAxis.valueFormatter = [[ChartDefaultAxisValueFormatter alloc] initWithFormatter:formatter];
@@ -61,10 +61,14 @@
     if (showRightYAxis) {
         rightAxis.labelTextColor = kColorFromRGB(0x666666);
         rightAxis.labelFont = [UIFont systemFontOfSize:11.0f];
-        rightAxis.drawGridLinesEnabled = NO;
-        rightAxis.granularityEnabled = NO;
+        rightAxis.drawGridLinesEnabled = YES;
+        rightAxis.granularityEnabled = YES;
         rightAxis.drawAxisLineEnabled = YES;
-        rightAxis.drawZeroLineEnabled = NO;
+        rightAxis.drawZeroLineEnabled = YES;
+        rightAxis.gridLineWidth = 0.5;
+        rightAxis.axisMaximum = 40.0;
+        rightAxis.axisMinimum = 35.0;
+        rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         rightAxis.valueFormatter = [[ChartDefaultAxisValueFormatter alloc] initWithFormatter:formatter];
@@ -82,8 +86,8 @@
         xAxis.drawAxisLineEnabled = YES;
         xAxis.granularity = 1.0;
         xAxis.labelPosition = XAxisLabelPositionBottom;
-        xAxis.gridLineWidth = 2;
-        xAxis.gridColor = kColorFromRGB(0xf6f6f6);
+        xAxis.gridLineWidth = 0.5;
+        xAxis.gridColor = kColor_16_With_Alpha(0.5);
         
     }
 }
@@ -130,6 +134,7 @@
 - (void)updateChartData{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    NSString *title;
     for (NSInteger i = 0; i < 4; i++ ) {
         //周期
         NSMutableArray *yVals = [[NSMutableArray alloc] init];
@@ -140,25 +145,32 @@
             [xVals addObject:[NSString stringWithFormat:@"%ld",i *5 + j]];
 
         }
-        LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:@"温度"];
-        dataSet.axisDependency = AxisDependencyLeft;
-        
-        UIColor *linefillColor = kColor_5;
-        if (i == 0 || i == 2) {
-            [dataSet setColor:kColor_5];
-            [dataSet setCircleColor:kColor_5];
-            dataSet.fillColor = kColor_5;
-            dataSet.highlightColor = kColor_5;
-            dataSet.circleHoleColor = kColor_5;
-            linefillColor = kColor_5;
+        UIColor *linefillColor = [UIColor clearColor];
+        UIColor *lineColor = [UIColor clearColor];
+        if (i == 0) {
+            title = @"月经期";
+            linefillColor = kColor_5_With_Alpha(0.5);
+            lineColor = kColor_5;
+        }else if (i ==1){
+            title = @"安全期";
+            linefillColor = kColor_17_With_Alpha(0.5);
+            lineColor = kColor_17;
+        }else if(i == 2){
+            title = @"易孕期";
+            linefillColor = kColor_18_With_Alpha(0.5);
+            lineColor = kColor_18;
         }else{
-            [dataSet setColor:kColor_17];
-            [dataSet setCircleColor:kColor_17];
-            dataSet.fillColor = kColor_17;
-            dataSet.highlightColor = kColor_17;
-            dataSet.circleHoleColor = kColor_17;
-            linefillColor = kColor_17;
+            title = @"排卵日";
+            linefillColor = kColor_15_With_Alpha(0.5);
+            lineColor = kColor_15;
         }
+        LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:title];
+        dataSet.axisDependency = AxisDependencyLeft;
+        [dataSet setColor:lineColor];
+        [dataSet setCircleColor:lineColor];
+        dataSet.fillColor = lineColor;
+        dataSet.highlightColor = lineColor;
+        dataSet.circleHoleColor = lineColor;
         NSArray *gradientColors = @[(id)kColor_10.CGColor,(id)linefillColor.CGColor];
         CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
         dataSet.lineWidth = 0.5;
