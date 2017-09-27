@@ -8,7 +8,7 @@
 
 #import "WPMainViewModel.h"
 #import "WPStatusViewController.h"
-#import "WPTemperatureRecordViewController.h"
+#import "WPTemperatureViewController.h"
 #import "WPMyInfoViewController.h"
 
 @implementation WPMainViewModel
@@ -21,7 +21,7 @@
         [statusVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-status-s"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [_controllerList addObject:statusVC];
         
-        WPTemperatureRecordViewController *temperatureRecord = [[WPTemperatureRecordViewController alloc] init];
+        WPTemperatureViewController *temperatureRecord = [[WPTemperatureViewController alloc] init];
         [temperatureRecord.tabBarItem setImage:[[UIImage imageNamed:@"btn-tab-curve-u"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [temperatureRecord.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-curve-p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [_controllerList addObject:temperatureRecord];

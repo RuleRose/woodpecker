@@ -139,7 +139,7 @@
 		C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE086B1F5BCA810054A254 /* WPMainViewController.m */; };
 		C1FE086F1F5BCA8D0054A254 /* WPMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE086E1F5BCA8D0054A254 /* WPMainViewModel.m */; };
 		C1FE087B1F5BCFE90054A254 /* WPStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */; };
-		C1FE087E1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */; };
+		C1FE087E1F5BCFFA0054A254 /* WPTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE087D1F5BCFFA0054A254 /* WPTemperatureViewController.m */; };
 		C1FE08811F5BD00A0054A254 /* WPMyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */; };
 		CC0AAF441F6C230800FCCA6C /* FSCalendar+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0AAF241F6C230800FCCA6C /* FSCalendar+Deprecated.m */; };
 		CC0AAF451F6C230800FCCA6C /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0AAF261F6C230800FCCA6C /* FSCalendar.m */; };
@@ -180,6 +180,11 @@
 		CC1A54071F72B2CA00B3EF2E /* WPRecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54061F72B2CA00B3EF2E /* WPRecordDetailCell.m */; };
 		CC1A540A1F72B34200B3EF2E /* WPRecordMoodDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54091F72B34200B3EF2E /* WPRecordMoodDetailCell.m */; };
 		CC1A540D1F72B54900B3EF2E /* WPRecordSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1A540C1F72B54900B3EF2E /* WPRecordSelectionButton.m */; };
+		CC1C4FD31F7BDA5600D4CAE8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1C4FCE1F7BDA4800D4CAE8 /* Charts.framework */; };
+		CC1C4FD41F7BDA5600D4CAE8 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CC1C4FCE1F7BDA4800D4CAE8 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CC1C4FDB1F7BDA9B00D4CAE8 /* woodpecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FDA1F7BDA9B00D4CAE8 /* woodpecker.swift */; };
+		CC1C4FDD1F7BDAB200D4CAE8 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FDC1F7BDAB200D4CAE8 /* BalloonMarker.swift */; };
+		CC1C4FE31F7BDC6B00D4CAE8 /* WPLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */; };
 		CC279D701F6AD2AB003B5119 /* WPRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */; };
 		CC279D731F6AD77F003B5119 /* WPRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */; };
 		CC5DA1BE1F66DE0F008AC242 /* WPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */; };
@@ -197,8 +202,7 @@
 		CC7214431F65184600AE2D82 /* MyInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214421F65184600AE2D82 /* MyInfoHeaderView.m */; };
 		CC7214461F65329E00AE2D82 /* WPStatusViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */; };
 		CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214481F6532D000AE2D82 /* WPStatusView.m */; };
-		CC72144C1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */; };
-		CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */; };
+		CC72144C1F6533E900AE2D82 /* WPTemperatureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC72144B1F6533E900AE2D82 /* WPTemperatureViewModel.m */; };
 		CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */; };
 		CC7DA2301F762CBA00F56072 /* WPThermometerBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */; };
 		CC7DA2371F762EA400F56072 /* bind-ima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2311F762EA400F56072 /* bind-ima@2x.png */; };
@@ -226,6 +230,51 @@
 		CC88A5C01F6D4E7900B6BE86 /* WPCalendarNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC88A5BF1F6D4E7900B6BE86 /* WPCalendarNoteView.m */; };
 		CC88A5C31F6D4F2700B6BE86 /* WPCalendarNote.m in Sources */ = {isa = PBXBuildFile; fileRef = CC88A5C21F6D4F2700B6BE86 /* WPCalendarNote.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC1C4FCD1F7BDA4800D4CAE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		CC1C4FCF1F7BDA4800D4CAE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06B120D51D811E6200D14B02;
+			remoteInfo = ChartsRealm;
+		};
+		CC1C4FD11F7BDA4800D4CAE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
+		CC1C4FD51F7BDA5600D4CAE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 06165F231D8110E600722320;
+			remoteInfo = Charts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CC1C4FD71F7BDA5600D4CAE8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CC1C4FD41F7BDA5600D4CAE8 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6C49084367002DCB90033864 /* libPods-woodpecker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-woodpecker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,8 +472,8 @@
 		C1FE086E1F5BCA8D0054A254 /* WPMainViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMainViewModel.m; sourceTree = "<group>"; };
 		C1FE08791F5BCFE90054A254 /* WPStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusViewController.h; sourceTree = "<group>"; };
 		C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusViewController.m; sourceTree = "<group>"; };
-		C1FE087C1F5BCFFA0054A254 /* WPTemperatureRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordViewController.h; sourceTree = "<group>"; };
-		C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordViewController.m; sourceTree = "<group>"; };
+		C1FE087C1F5BCFFA0054A254 /* WPTemperatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureViewController.h; sourceTree = "<group>"; };
+		C1FE087D1F5BCFFA0054A254 /* WPTemperatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureViewController.m; sourceTree = "<group>"; };
 		C1FE087F1F5BD00A0054A254 /* WPMyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMyInfoViewController.h; sourceTree = "<group>"; };
 		C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMyInfoViewController.m; sourceTree = "<group>"; };
 		CC0AAF241F6C230800FCCA6C /* FSCalendar+Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSCalendar+Deprecated.m"; sourceTree = "<group>"; };
@@ -505,6 +554,12 @@
 		CC1A54091F72B34200B3EF2E /* WPRecordMoodDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordMoodDetailCell.m; sourceTree = "<group>"; };
 		CC1A540B1F72B54900B3EF2E /* WPRecordSelectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordSelectionButton.h; sourceTree = "<group>"; };
 		CC1A540C1F72B54900B3EF2E /* WPRecordSelectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordSelectionButton.m; sourceTree = "<group>"; };
+		CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		CC1C4FD91F7BDA9A00D4CAE8 /* woodpecker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "woodpecker-Bridging-Header.h"; sourceTree = "<group>"; };
+		CC1C4FDA1F7BDA9B00D4CAE8 /* woodpecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = woodpecker.swift; sourceTree = "<group>"; };
+		CC1C4FDC1F7BDAB200D4CAE8 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
+		CC1C4FE11F7BDC6B00D4CAE8 /* WPLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLineView.h; sourceTree = "<group>"; };
+		CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLineView.m; sourceTree = "<group>"; };
 		CC279D6E1F6AD2AB003B5119 /* WPRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordViewController.h; sourceTree = "<group>"; };
 		CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordViewController.m; sourceTree = "<group>"; };
 		CC279D711F6AD77F003B5119 /* WPRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordViewModel.h; sourceTree = "<group>"; };
@@ -539,10 +594,8 @@
 		CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusViewModel.m; sourceTree = "<group>"; };
 		CC7214471F6532D000AE2D82 /* WPStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusView.h; sourceTree = "<group>"; };
 		CC7214481F6532D000AE2D82 /* WPStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusView.m; sourceTree = "<group>"; };
-		CC72144A1F6533E900AE2D82 /* WPTemperatureRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordViewModel.h; sourceTree = "<group>"; };
-		CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordViewModel.m; sourceTree = "<group>"; };
-		CC72144D1F6533F800AE2D82 /* WPTemperatureRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordView.h; sourceTree = "<group>"; };
-		CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordView.m; sourceTree = "<group>"; };
+		CC72144A1F6533E900AE2D82 /* WPTemperatureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureViewModel.h; sourceTree = "<group>"; };
+		CC72144B1F6533E900AE2D82 /* WPTemperatureViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureViewModel.m; sourceTree = "<group>"; };
 		CC7214531F653F1A00AE2D82 /* WPStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPStatusItemView.h; sourceTree = "<group>"; };
 		CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPStatusItemView.m; sourceTree = "<group>"; };
 		CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerBindViewController.h; sourceTree = "<group>"; };
@@ -594,6 +647,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */,
+				CC1C4FD31F7BDA5600D4CAE8 /* Charts.framework in Frameworks */,
 				C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */,
 				135676341C8E6BA53718F116 /* libPods-woodpecker.a in Frameworks */,
 			);
@@ -651,6 +705,8 @@
 			children = (
 				C14CA3FB1F4FB2B1007F50A1 /* AppDelegate.h */,
 				C14CA3FC1F4FB2B1007F50A1 /* AppDelegate.m */,
+				CC1C4FDA1F7BDA9B00D4CAE8 /* woodpecker.swift */,
+				CC1C4FDC1F7BDAB200D4CAE8 /* BalloonMarker.swift */,
 				C14CA3F91F4FB2B1007F50A1 /* main.m */,
 				C1562F0B1F505E6600D6CC30 /* PrefixHeader.pch */,
 				C1562FD11F5064DE00D6CC30 /* initServer.h */,
@@ -658,6 +714,7 @@
 				C14CA4041F4FB2B1007F50A1 /* Assets.xcassets */,
 				C14CA4091F4FB2B2007F50A1 /* Info.plist */,
 				C1562F101F50638800D6CC30 /* Localization.strings */,
+				CC1C4FD91F7BDA9A00D4CAE8 /* woodpecker-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -901,8 +958,8 @@
 				C1FE086B1F5BCA810054A254 /* WPMainViewController.m */,
 				C1FE08791F5BCFE90054A254 /* WPStatusViewController.h */,
 				C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */,
-				C1FE087C1F5BCFFA0054A254 /* WPTemperatureRecordViewController.h */,
-				C1FE087D1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m */,
+				C1FE087C1F5BCFFA0054A254 /* WPTemperatureViewController.h */,
+				C1FE087D1F5BCFFA0054A254 /* WPTemperatureViewController.m */,
 				C1FE087F1F5BD00A0054A254 /* WPMyInfoViewController.h */,
 				C1FE08801F5BD00A0054A254 /* WPMyInfoViewController.m */,
 				C15466111F63E00500B5CCD9 /* WPLoginViewController.h */,
@@ -950,8 +1007,8 @@
 				CC72143B1F65107000AE2D82 /* WPMyInfoViewModel.m */,
 				CC7214441F65329E00AE2D82 /* WPStatusViewModel.h */,
 				CC7214451F65329E00AE2D82 /* WPStatusViewModel.m */,
-				CC72144A1F6533E900AE2D82 /* WPTemperatureRecordViewModel.h */,
-				CC72144B1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m */,
+				CC72144A1F6533E900AE2D82 /* WPTemperatureViewModel.h */,
+				CC72144B1F6533E900AE2D82 /* WPTemperatureViewModel.m */,
 				CC0E88431F65703700EC5062 /* WPThermometerViewModel.h */,
 				CC0E88441F65703700EC5062 /* WPThermometerViewModel.m */,
 				CC0E884C1F65810500EC5062 /* WPThermometerClockViewModel.h */,
@@ -991,8 +1048,6 @@
 				CC7214421F65184600AE2D82 /* MyInfoHeaderView.m */,
 				CC7214471F6532D000AE2D82 /* WPStatusView.h */,
 				CC7214481F6532D000AE2D82 /* WPStatusView.m */,
-				CC72144D1F6533F800AE2D82 /* WPTemperatureRecordView.h */,
-				CC72144E1F6533F800AE2D82 /* WPTemperatureRecordView.m */,
 				CC7214531F653F1A00AE2D82 /* WPStatusItemView.h */,
 				CC7214541F653F1A00AE2D82 /* WPStatusItemView.m */,
 				CC0E88581F65863B00EC5062 /* WPThermometerUnitView.h */,
@@ -1033,6 +1088,8 @@
 				CC5EEF441F77AB3C009F4764 /* WPHeightPopupView.m */,
 				CC5EEF461F77AD1C009F4764 /* WPWeightPopupView.h */,
 				CC5EEF471F77AD1C009F4764 /* WPWeightPopupView.m */,
+				CC1C4FE11F7BDC6B00D4CAE8 /* WPLineView.h */,
+				CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1157,6 +1214,7 @@
 		CC0AAF221F6C22D200FCCA6C /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */,
 				CC0AAF231F6C230800FCCA6C /* FSCalendar */,
 			);
 			path = Vendors;
@@ -1201,6 +1259,16 @@
 			path = FSCalendar;
 			sourceTree = "<group>";
 		};
+		CC1C4FC81F7BDA4800D4CAE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC1C4FCE1F7BDA4800D4CAE8 /* Charts.framework */,
+				CC1C4FD01F7BDA4800D4CAE8 /* ChartsRealm.framework */,
+				CC1C4FD21F7BDA4800D4CAE8 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CC72142E1F64F4F600AE2D82 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1233,10 +1301,12 @@
 				C14CA3F31F4FB2B1007F50A1 /* Resources */,
 				3A9EFE5DB2E6716EF8F178A1 /* [CP] Embed Pods Frameworks */,
 				6CB423B2401950B243995168 /* [CP] Copy Pods Resources */,
+				CC1C4FD71F7BDA5600D4CAE8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CC1C4FD61F7BDA5600D4CAE8 /* PBXTargetDependency */,
 			);
 			name = woodpecker;
 			productName = woodpecker;
@@ -1254,6 +1324,7 @@
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -1269,12 +1340,42 @@
 			mainGroup = C14CA3EC1F4FB2B1007F50A1;
 			productRefGroup = C14CA3F61F4FB2B1007F50A1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC1C4FC81F7BDA4800D4CAE8 /* Products */;
+					ProjectRef = CC1C4FC71F7BDA4800D4CAE8 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C14CA3F41F4FB2B1007F50A1 /* woodpecker */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC1C4FCE1F7BDA4800D4CAE8 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = CC1C4FCD1F7BDA4800D4CAE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC1C4FD01F7BDA4800D4CAE8 /* ChartsRealm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ChartsRealm.framework;
+			remoteRef = CC1C4FCF1F7BDA4800D4CAE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC1C4FD21F7BDA4800D4CAE8 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = CC1C4FD11F7BDA4800D4CAE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C14CA3F31F4FB2B1007F50A1 /* Resources */ = {
@@ -1473,9 +1574,10 @@
 				CC5EEF421F77A8D8009F4764 /* WPMenstrualRegularPopupView.m in Sources */,
 				C15630491F5065FE00D6CC30 /* XJFUITextView.m in Sources */,
 				C156303D1F5065FE00D6CC30 /* XJFBaseModel.m in Sources */,
-				C1FE087E1F5BCFFA0054A254 /* WPTemperatureRecordViewController.m in Sources */,
+				C1FE087E1F5BCFFA0054A254 /* WPTemperatureViewController.m in Sources */,
 				CC0E88451F65703700EC5062 /* WPThermometerViewModel.m in Sources */,
 				C156303C1F5065FE00D6CC30 /* XJFBaseViewController.m in Sources */,
+				CC1C4FDB1F7BDA9B00D4CAE8 /* woodpecker.swift in Sources */,
 				CC5EEF3C1F77A699009F4764 /* WPMenstrualPopupView.m in Sources */,
 				CC0E88631F65876B00EC5062 /* WPThermometerHardwareView.m in Sources */,
 				CC1A54011F729D3F00B3EF2E /* WPRecordHeaderView.m in Sources */,
@@ -1516,6 +1618,7 @@
 				CC1053501F74061C00AF92DE /* CATransition+PageTransition.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
+				CC1C4FDD1F7BDAB200D4CAE8 /* BalloonMarker.swift in Sources */,
 				CC7DA2541F7636FC00F56072 /* WPThermometerRemoveViewController.m in Sources */,
 				CC1134BF1F68287000AFD946 /* WPClockItemView.m in Sources */,
 				CC7DA2741F76583C00F56072 /* WPInfoSettingCell.m in Sources */,
@@ -1538,7 +1641,6 @@
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
 				CC7DA2511F76364A00F56072 /* WPThermometerRemoveViewModel.m in Sources */,
 				C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */,
-				CC72144F1F6533F800AE2D82 /* WPTemperatureRecordView.m in Sources */,
 				C15630361F5065FE00D6CC30 /* UIImage+animatedGIF.m in Sources */,
 				C15630411F5065FE00D6CC30 /* XJFNetworkManager.m in Sources */,
 				CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */,
@@ -1554,16 +1656,25 @@
 				CC5EEF3F1F77A864009F4764 /* WPBirthdayPopupView.m in Sources */,
 				CC0E884B1F6580EF00EC5062 /* WPThermometerClockViewController.m in Sources */,
 				C15630311F5065FE00D6CC30 /* NSMutableDictionary+Extension.m in Sources */,
+				CC1C4FE31F7BDC6B00D4CAE8 /* WPLineView.m in Sources */,
 				C15466131F63E00500B5CCD9 /* WPLoginViewController.m in Sources */,
 				C15630481F5065FE00D6CC30 /* XJFUITextField.m in Sources */,
 				C14CA3FA1F4FB2B1007F50A1 /* main.m in Sources */,
 				CC0AAF4F1F6C230800FCCA6C /* FSCalendarHeaderView.m in Sources */,
 				CC7DA2711F76578200F56072 /* WPPeriodViewModel.m in Sources */,
-				CC72144C1F6533E900AE2D82 /* WPTemperatureRecordViewModel.m in Sources */,
+				CC72144C1F6533E900AE2D82 /* WPTemperatureViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC1C4FD61F7BDA5600D4CAE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = CC1C4FD51F7BDA5600D4CAE8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C1562F101F50638800D6CC30 /* Localization.strings */ = {
@@ -1675,8 +1786,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D763EE217E13AB564BD30CBB /* Pods-woodpecker.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1687,6 +1800,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1694,8 +1810,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BDF2555064146714148EC9B2 /* Pods-woodpecker.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1706,6 +1824,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
