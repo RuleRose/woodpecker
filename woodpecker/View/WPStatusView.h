@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WPStatusItemView.h"
+#import "WPStatusWheelView.h"
 
 @protocol WPStatusViewDelegate;
 @interface WPStatusView : UIView
@@ -21,7 +22,7 @@
 @property (nonatomic, strong) WPStatusItemView *indexView;
 @property (nonatomic, strong) WPStatusItemView *timeView;
 @property (nonatomic, strong) WPStatusItemView *recordView;
-
+@property (nonatomic, strong) WPStatusWheelView *wheelView;
 @property (nonatomic, assign) id<WPStatusViewDelegate> delegate;
 
 @end

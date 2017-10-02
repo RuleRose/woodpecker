@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kColor_10;
     [self setupViews];
     [self setupData];
     // Do any additional setup after loading the view.
