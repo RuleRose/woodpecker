@@ -7,6 +7,7 @@
 */
 "common_cancel" = "取消";
 "common_confirm" = "确定";
+"common_save" = "保存";
 
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";

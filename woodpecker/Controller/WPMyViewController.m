@@ -1,24 +1,23 @@
 //
-//  WPMyInfoViewController.m
+//  WPMyViewController.m
 //  woodpecker
 //
 //  Created by yongche on 17/9/3.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPMyInfoViewController.h"
-#import "WPMyInfoViewModel.h"
+#import "WPMyViewController.h"
 #import "WPTableViewCell.h"
-#import "MyInfoHeaderView.h"
+#import "WPMyHeaderView.h"
+#import "MyInfoViewController.h"
 
-@interface WPMyInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MyInfoHeaderViewDelegate>
+@interface WPMyViewController ()<UITableViewDataSource,UITableViewDelegate,MyInfoHeaderViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) WPMyInfoViewModel *viewModel;
-@property (nonatomic, strong) MyInfoHeaderView* headerView;
+@property (nonatomic, strong) WPMyHeaderView* headerView;
 
 @end
 
-@implementation WPMyInfoViewController
+@implementation WPMyViewController
 - (UITableView*)tableView
 {
     if (!_tableView) {
@@ -30,7 +29,7 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _headerView = [[MyInfoHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 157)];
+        _headerView = [[WPMyHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 157)];
         _headerView.backgroundColor = [UIColor clearColor];
         _headerView.delegate = self;
         _tableView.tableHeaderView = _headerView;
@@ -42,7 +41,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -50,10 +48,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self hideNavigationBar];
-}
-
-- (void)setupData{
-    _viewModel = [[WPMyInfoViewModel alloc] init];
 }
 
 - (void)setupViews{
@@ -157,6 +151,16 @@
         NSLog(@"selectedHelp");
 
     }
+}
+
+#pragma mark MyInfoHeaderViewDelegate
+- (void)selectedAvatar{
+
+}
+
+- (void)selectedAccount{
+    MyInfoViewController *infoVC = [[MyInfoViewController alloc] init];
+    [self.navigationController pushViewController:infoVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

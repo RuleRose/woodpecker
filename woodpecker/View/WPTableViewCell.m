@@ -26,6 +26,14 @@
     return _triIcon;
 }
 
+- (UIImageView *)imageIcon{
+    if (!_imageIcon) {
+        _imageIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        _imageIcon.backgroundColor = [UIColor clearColor];
+    }
+    return _imageIcon;
+}
+
 - (UISwitch*)switchView
 {
     if (!_switchView) {
@@ -95,10 +103,20 @@
             if (_switchView) {
                 _switchView.hidden = YES;
             }
+            if (_imageIcon) {
+                _imageIcon.hidden = YES;
+            }
             break;
         case kCellRightModelNext:
             [self.contentView addSubview:self.triIcon];
             self.triIcon.hidden = NO;
+            break;
+        case kCellRightModelImageNext:
+            [self.contentView addSubview:self.triIcon];
+            self.triIcon.hidden = NO;
+            [self.contentView addSubview:self.imageIcon];
+            _imageSize = CGSizeMake(25, 25);
+            _imageIcon.hidden = NO;
             break;
         case kCellRightModelSwitch:
             [self.contentView addSubview:self.switchView];
@@ -125,11 +143,16 @@
     }
     switch (_rightModel) {
         case kCellRightModelNone:
-            left = size.width - 25;
+            right = size.width - 25;
             break;
         case kCellRightModelNext:
             _triIcon.frame = CGRectMake(size.width - 32, (size.height - 13)/2, 7, 13);
             right = _triIcon.left - 10;
+            break;
+        case kCellRightModelImageNext:
+            _triIcon.frame = CGRectMake(size.width - 32, (size.height - 13)/2, 7, 13);
+            _imageIcon.frame = CGRectMake(_triIcon.left - _imageSize.width - 10, (size.height - _imageSize.height)/2, _imageSize.width, _imageSize.height);
+            right = _imageIcon.left - 10;
             break;
         case kCellRightModelSwitch:
             _switchView.frame = CGRectMake(size.width - 56, (size.height - 31)/2, 51, 31);

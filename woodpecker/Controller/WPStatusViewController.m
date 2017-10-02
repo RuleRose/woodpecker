@@ -18,6 +18,7 @@
 #import "WPBasicInfoViewController.h"
 #import "WPPeriodViewController.h"
 #import "WPBasicInfoViewController.h"
+#import "WPThermometerEditViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -59,14 +60,15 @@
 
 //    WPThermometerBindViewController *bindVC = [[WPThermometerBindViewController alloc] init];
 //    [self.navigationController pushViewController:bindVC animated:YES];
-//    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
-//    [self.navigationController pushViewController:thermometerVC animated:YES];
-    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
-    [self.navigationController pushViewController:introVC animated:YES];
+    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
+    [self.navigationController pushViewController:thermometerVC animated:YES];
+//    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
+//    [self.navigationController pushViewController:introVC animated:YES];
 }
 
 - (void)editTemperature{
-    
+    WPThermometerEditViewController *editVC = [[WPThermometerEditViewController alloc] init];
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 
 - (void)showRecord{

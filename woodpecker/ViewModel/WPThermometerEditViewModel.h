@@ -1,13 +1,13 @@
 //
-//  WPThermometerUnitViewModel.h
+//  WPThermometerEditViewModel.h
 //  woodpecker
 //
-//  Created by QiWL on 2017/9/10.
+//  Created by QiWL on 2017/10/2.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface WPThermometerUnitViewModel : NSObject
+@interface WPThermometerEditViewModel : NSObject
 
 @end

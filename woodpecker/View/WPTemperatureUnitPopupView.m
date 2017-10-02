@@ -1,30 +1,29 @@
 //
-//  WPMenstrualPopupView.m
+//  WPTemperatureUnitPopupView.m
 //  woodpecker
 //
-//  Created by QiWL on 2017/9/24.
+//  Created by QiWL on 2017/10/2.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPMenstrualPopupView.h"
-@interface WPMenstrualPopupView()<UIPickerViewDataSource,UIPickerViewDelegate>
+#import "WPTemperatureUnitPopupView.h"
+@interface WPTemperatureUnitPopupView()<UIPickerViewDataSource,UIPickerViewDelegate>
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UIView *markView;
-@property (nonatomic, strong) UIButton *infoBtn;
 
 @end
 
-@implementation WPMenstrualPopupView
+@implementation WPTemperatureUnitPopupView
 - (instancetype)init
 {
     self = [super init];
     
     if ( self )
     {
-        self.titleView.backgroundColor = kColor_5;
-        self.titleLabel.text = @"经期长度";
-        self.titleLabel.font = kFont_1(14);
-        self.titleLabel.textColor = kColor_10;
+        self.titleView.backgroundColor = kColor_1;
+        self.titleLabel.text = @"单位";
+        self.titleLabel.font = kFont_1(12);
+        self.titleLabel.textColor = kColor_7;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
     }
     
@@ -42,14 +41,9 @@
     _markView = [[UIView alloc] init];
     _markView.backgroundColor = kColor_5;
     [self.contentView addSubview:_markView];
-    _infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _infoBtn.backgroundColor = [UIColor clearColor];
-    [_infoBtn setImage:kImage(@"icon-info") forState:UIControlStateNormal];
-    [_infoBtn addTarget:self action:@selector(infoBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.titleView addSubview:_infoBtn];
     MJWeakSelf;
     [_pickerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
+        make.top.equalTo(@0.5);
         make.bottom.equalTo(@(-0.5));
         make.left.equalTo(@6);
         make.right.equalTo(@0);
@@ -60,14 +54,6 @@
         make.width.equalTo(@6);
         make.height.equalTo(@55);
     }];
-    
-    CGSize size = [@"周期长度" sizeWithFont:kFont_1(14)];
-    [_infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
-        make.bottom.equalTo(@0);
-        make.width.equalTo(@45);
-        make.left.equalTo(@((kScreen_Width + size.width)/2));
-    }];
 }
 
 
@@ -77,11 +63,15 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 100;
+    return 2;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%ld",(long)row];
+    if (row == 0) {
+        return @"华氏度°F";
+    }else{
+        return @"摄氏度°C";
+    }
 }
 
 #pragma mark UIPickerViewDelegate
@@ -97,14 +87,6 @@
     titleLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
     return titleLabel;
 }
-
-//- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component{
-//
-//    NSDictionary * attrDic = @{NSForegroundColorAttributeName:kColor_9,
-//                               NSFontAttributeName:kFont_3(18)};
-//    NSAttributedString * attrString = [[NSAttributedString alloc] initWithString: [self pickerView:pickerView titleForRow:row forComponent:component] attributes:attrDic];
-//    return attrString;
-//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
@@ -124,18 +106,12 @@
 
 - (void)confirmBtnPressed{
     [self hide];
-    NSInteger menstrual = [_pickerView selectedRowInComponent:0];
-    if (_menstrualBlock) {
-        _menstrualBlock(self, menstrual);
+    NSInteger unit = [_pickerView selectedRowInComponent:0];
+    if (_unitBlock) {
+        _unitBlock(self, unit);
     }
 }
 
-- (void)infoBtnPressed{
-    [self hide];
-    if (_showInfoBlock) {
-        _showInfoBlock(self);
-    }
-}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

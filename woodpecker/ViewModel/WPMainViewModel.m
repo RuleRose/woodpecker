@@ -9,7 +9,7 @@
 #import "WPMainViewModel.h"
 #import "WPStatusViewController.h"
 #import "WPTemperatureViewController.h"
-#import "WPMyInfoViewController.h"
+#import "WPMyViewController.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -26,10 +26,10 @@
         [temperatureRecord.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-curve-p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [_controllerList addObject:temperatureRecord];
 
-        WPMyInfoViewController *myInfo = [[WPMyInfoViewController alloc] init];
-        [myInfo.tabBarItem setImage:[[UIImage imageNamed:@"btn-tab-me-u"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        [myInfo.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-me-p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        [_controllerList addObject:myInfo];
+        WPMyViewController *myVC= [[WPMyViewController alloc] init];
+        [myVC.tabBarItem setImage:[[UIImage imageNamed:@"btn-tab-me-u"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [myVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-me-p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [_controllerList addObject:myVC];
     }
     return self;
 }

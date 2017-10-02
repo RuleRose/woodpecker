@@ -1,26 +1,23 @@
 //
-//  WPThermometerViewController.m
+//  MyInfoViewController.m
 //  woodpecker
 //
-//  Created by QiWL on 2017/9/10.
+//  Created by QiWL on 2017/10/2.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPThermometerViewController.h"
-#import "WPThermometerViewModel.h"
-#import "WPThermometerClockViewController.h"
-#import "WPTemperatureUnitPopupView.h"
-#import "WPThermometerHardwareViewController.h"
+#import "MyInfoViewController.h"
+#import "WPMyInfoViewModel.h"
 #import "WPTableViewCell.h"
-#import "WPAlertPopupView.h"
+#import "WPSheetView.h"
 
-@interface WPThermometerViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) UIButton *removeBtn;
-@property (nonatomic, strong) WPThermometerViewModel *viewModel;
+@property (nonatomic, strong) WPMyInfoViewModel *viewModel;
+
 @end
 
-@implementation WPThermometerViewController
+@implementation MyInfoViewController
 - (UITableView*)tableView
 {
     if (!_tableView) {
@@ -33,18 +30,7 @@
         _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = [[UIView alloc] init];
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 90)];
-        footerView.backgroundColor = [UIColor clearColor];
-        _removeBtn = [[UIButton alloc] initWithFrame:CGRectMake(37, 42, kScreen_Width - 74, 45)];
-        _removeBtn.backgroundColor = [UIColor clearColor];
-        _removeBtn.layer.borderColor = kColor_8.CGColor;
-        _removeBtn.layer.borderWidth = 0.5;
-        [_removeBtn setTitle:kLocalization(@"thermometer_remove_binding") forState:UIControlStateNormal];
-        [_removeBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
-        _removeBtn.titleLabel.font = kFont_1(15);
-        [_removeBtn addTarget:self action:@selector(removeBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:_removeBtn];
-        _tableView.tableFooterView = footerView;
+        _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
 }
@@ -52,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"体温计";
+    self.title = @"个人信息";
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -62,11 +48,10 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    
 }
 
 - (void)setupData{
-    _viewModel = [[WPThermometerViewModel alloc] init];
+    _viewModel = [[WPMyInfoViewModel alloc] init];
 }
 
 - (void)setupViews{
@@ -96,22 +81,24 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
-    cell.leftModel = kCellLeftModelIcon;
-    cell.rightModel = kCellRightModelNext;
+    cell.leftModel = kCellLeftModelNone;
     if (indexPath.row == 0) {
-        cell.icon.image = kImage(@"icon-device-alarm");
-        cell.titleLabel.text = kLocalization(@"thermometer_clock");
-        cell.detailLabel.text = @"05:30";
+        cell.rightModel = kCellRightModelImageNext;
+        cell.imageIcon.image = kImage(@"btn-me-avatar");
+        cell.imageSize = CGSizeMake(51, 51);
+        cell.titleLabel.text = @"头像";
+        cell.detailLabel.text = @"";
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
+        cell.rightModel = kCellRightModelNext;
         cell.icon.image = kImage(@"icon-device-unit");
-        cell.titleLabel.text = kLocalization(@"thermometer_unit");
-        cell.detailLabel.text = @"摄氏度°C";
+        cell.titleLabel.text = @"昵称";
+        cell.detailLabel.text = @"lanp";
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
-        cell.icon.image = kImage(@"icon-device-settings");
-        cell.titleLabel.text = kLocalization(@"thermometer_hardware");
-        cell.detailLabel.text = @"";
+        cell.rightModel = kCellRightModelNone;
+        cell.titleLabel.text = @"账号";
+        cell.detailLabel.text = @"18601000000";
         cell.line.hidden = NO;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
@@ -125,40 +112,45 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    return 41;
+    if (indexPath.row == 0) {
+        return 82;
+    }else{
+        return 41;
+    }
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.row == 0) {
-        WPThermometerClockViewController *clockVC = [[WPThermometerClockViewController alloc] init];
-        [self.navigationController pushViewController:clockVC animated:YES];
-    }else if (indexPath.row == 1){
-        WPTemperatureUnitPopupView *popView = [[WPTemperatureUnitPopupView alloc] init];
-        popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
-            
+        MMSheetViewConfig *config = [MMSheetViewConfig globalConfig];
+        config.defaultTextCancel = @"取消";
+        MMPopupItem *cameraItem = [[MMPopupItem alloc] init];
+        cameraItem.handler = ^(NSInteger index) {
+            [self showCamera];
         };
-        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+        cameraItem.title = @"拍照";
+        MMPopupItem *photoItem = [[MMPopupItem alloc] init];
+        photoItem.handler = ^(NSInteger index) {
+            [self showPhotos];
+        };
+        photoItem.title = @"从相册中选择";
+        WPSheetView *sheetView = [[WPSheetView alloc] initWithTitle:@"" items:@[cameraItem, photoItem]];
+        [sheetView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
+    }else if (indexPath.row == 1){
+        
     }else if (indexPath.row == 2){
-        WPThermometerHardwareViewController *hardwareVC = [[WPThermometerHardwareViewController alloc] init];
-        [self.navigationController pushViewController:hardwareVC animated:YES];
+    
     }
 }
 
-- (void)removeBtnPressed{
-    WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
-    popView.title = @"确定解除体温计绑定？";
-    popView.cancelBlock = ^(MMPopupView *popupView) {
-        
-    };
-    popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
-        
-    };
-    [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
-        
-    }];
+- (void)showCamera{
+
+}
+
+- (void)showPhotos{
+
 }
 
 - (void)didReceiveMemoryWarning {

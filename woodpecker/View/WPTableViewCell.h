@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, TableViewCellLeftModel) {
 typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
     kCellRightModelNone = 0,
     kCellRightModelNext,
+    kCellRightModelImageNext,
     kCellRightModelSwitch
 };
 
@@ -23,12 +24,14 @@ typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UIImageView *imageIcon;
 @property (nonatomic, strong) UIImageView *triIcon;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UISwitch *switchView;
 @property (nonatomic, assign) TableViewCellLeftModel leftModel;
 @property (nonatomic, assign) TableViewCellRightModel rightModel;
 @property (nonatomic, assign) id<WPTableViewCellDelegate> delegate;
+@property (nonatomic, assign) CGSize imageSize;
 
 - (void)drawCellWithSize:(CGSize)size;
 @end
