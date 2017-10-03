@@ -9,7 +9,12 @@
 #import "WPMyViewController.h"
 #import "WPTableViewCell.h"
 #import "WPMyHeaderView.h"
-#import "MyInfoViewController.h"
+#import "WPMyInfoViewController.h"
+#import "WPBasicInfoViewController.h"
+#import "WPPeriodViewController.h"
+#import "WPHelpViewController.h"
+#import "WPAboutViewController.h"
+#import "WPShoppingViewController.h"
 
 @interface WPMyViewController ()<UITableViewDataSource,UITableViewDelegate,MyInfoHeaderViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -136,20 +141,20 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.row == 1) {
-        NSLog(@"selectedBasic");
-
+        WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+        [self.navigationController pushViewController:basicVC animated:YES];
     }else if (indexPath.row == 2){
-        NSLog(@"selectedCycle");
-
+        WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
+        [self.navigationController pushViewController:periodVC animated:YES];
     }else if (indexPath.row == 4){
-        NSLog(@"selectedShop");
-
+        WPShoppingViewController *shoppingVC = [[WPShoppingViewController alloc] init];
+        [self.navigationController pushViewController:shoppingVC animated:YES];
     }else if (indexPath.row == 5){
-        NSLog(@"selectedAbout");
-
+        WPAboutViewController *aboutVC = [[WPAboutViewController alloc] init];
+        [self.navigationController pushViewController:aboutVC animated:YES];
     }else if (indexPath.row == 6){
-        NSLog(@"selectedHelp");
-
+        WPHelpViewController *helpVC = [[WPHelpViewController alloc] init];
+        [self.navigationController pushViewController:helpVC animated:YES];
     }
 }
 
@@ -159,7 +164,7 @@
 }
 
 - (void)selectedAccount{
-    MyInfoViewController *infoVC = [[MyInfoViewController alloc] init];
+    WPMyInfoViewController *infoVC = [[WPMyInfoViewController alloc] init];
     [self.navigationController pushViewController:infoVC animated:YES];
 }
 

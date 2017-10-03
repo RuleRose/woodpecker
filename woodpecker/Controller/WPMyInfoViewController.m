@@ -1,23 +1,24 @@
 //
-//  MyInfoViewController.m
+//  WPMyInfoViewController.m
 //  woodpecker
 //
 //  Created by QiWL on 2017/10/2.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "MyInfoViewController.h"
+#import "WPMyInfoViewController.h"
 #import "WPMyInfoViewModel.h"
 #import "WPTableViewCell.h"
 #import "WPSheetView.h"
+#import "WPNicknameViewController.h"
 
-@interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPMyInfoViewModel *viewModel;
 
 @end
 
-@implementation MyInfoViewController
+@implementation WPMyInfoViewController
 - (UITableView*)tableView
 {
     if (!_tableView) {
@@ -139,7 +140,8 @@
             
         }];
     }else if (indexPath.row == 1){
-        
+        WPNicknameViewController *nickVC = [[WPNicknameViewController alloc] init];
+        [self.navigationController pushViewController:nickVC animated:YES];
     }else if (indexPath.row == 2){
     
     }

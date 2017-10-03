@@ -11,14 +11,35 @@
 #import "FSCalendar.h"
 #import "WPCalendarCell.h"
 #import "NSDate+Extension.h"
+#import "WPTableViewCell.h"
 
-@interface WPCalendarDetailViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
+@interface WPCalendarDetailViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) WPCalendarDetailViewModel *viewModel;
 @property (nonatomic, strong) FSCalendar* calendar;
+@property (nonatomic, strong) UITableView* tableView;
 
 @end
 
 @implementation WPCalendarDetailViewController
+- (UITableView*)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _calendar.bottom, kScreen_Width, kScreen_Height - _calendar.bottom)];
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.scrollEnabled = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 10)];
+        headerView.backgroundColor = [UIColor clearColor];
+        _tableView.tableHeaderView = headerView;
+        _tableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _tableView;
+}
+
 - (FSCalendar*)calendar
 {
     if (!_calendar) {
@@ -78,6 +99,7 @@
 
 - (void)setupViews{
     [self.view addSubview:self.calendar];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -206,6 +228,72 @@
         cell.shapeLayer.opacity = 0;
     }
     [cell setNeedsLayout];
+}
+
+
+
+#pragma mark UITableViewDelegate & UITableViewDataSource
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    NSString* identifier = @"ClockCell";
+    WPTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[WPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+}
+- (void)configureCell:(WPTableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath
+{
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = kColor_10;
+    cell.layer.masksToBounds = YES;
+    cell.rightModel = kCellRightModelNone;
+    cell.leftModel = kCellLeftModelNone;
+    if (indexPath.row == 0) {
+        cell.titleLabel.text = @"周期第7天";
+        cell.detailLabel.text = @"安全期";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 1){
+        cell.titleLabel.text = @"基础体温";
+        cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 2){
+        cell.titleLabel.text = @"受孕指数";
+        cell.detailLabel.text = @"4%";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 3){
+        cell.titleLabel.text = @"距离易孕期";
+        cell.detailLabel.text = @"2天";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 4){
+        cell.titleLabel.text = @"当日记录";
+        cell.detailLabel.text = @"3项";
+        cell.line.hidden = YES;
+    }
+    [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return 41;
+}
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    
 }
 /*
 #pragma mark - Navigation

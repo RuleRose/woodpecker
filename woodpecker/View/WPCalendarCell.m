@@ -22,7 +22,7 @@
         markLayer.borderColor = [UIColor clearColor].CGColor;
         markLayer.borderWidth = 0.5;
         markLayer.actions = @{@"hidden":[NSNull null]};
-        [self.contentView.layer insertSublayer:markLayer below:self.titleLabel.layer];
+        [self.contentView.layer insertSublayer:markLayer below:self.shapeLayer];
         markLayer.masksToBounds = YES;
         self.markLayer = markLayer;
         self.markLayer.hidden = YES;
@@ -39,47 +39,43 @@
 - (void)layoutSublayersOfLayer:(CALayer *)layer
 {
     [super layoutSublayersOfLayer:layer];
-    if (!self.selected) {
-       self.shapeLayer.hidden = YES;
-            self.markLayer.hidden = NO;
-        switch (_period) {
-            case kPeriodTypeOfMenstrual:
-                self.markLayer.backgroundColor = kColor_13.CGColor;
-                self.markLayer.borderColor = kColor_13.CGColor;
-                break;
-            case kPeriodTypeOfPregnancy:
-                self.markLayer.backgroundColor = kColor_14_With_Alpha(0.1).CGColor;
-                self.markLayer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
-                break;
-            case kPeriodTypeOfForecast:
-                self.markLayer.backgroundColor = [UIColor clearColor].CGColor;
-                self.markLayer.borderColor = kColor_15.CGColor;
-                break;
-            case kPeriodTypeOfOviposit:
-                self.markLayer.backgroundColor = kColor_15.CGColor;
-                self.markLayer.borderColor = kColor_15.CGColor;
-                break;
-        }
-        switch (_shape) {
-            case kPeriodShapeOfRight:
-                self.markLayer.frame = CGRectMake(-12, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 12, 23);
-                break;
-            case kPeriodShapeOfLeft:
-                self.markLayer.frame = CGRectMake(0, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 12, 23);
-                break;
-            case kPeriodShapeOfSingle:
-                self.markLayer.frame = CGRectMake(0, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width, 23);
-                break;
-            case kPeriodShapeOfMiddle:
-                self.markLayer.frame = CGRectMake(-12, (self.titleLabel.top + self.titleLabel.height - 23)/2, self.width + 24, 23);
-                break;
-            case kPeriodShapeOfCircle:
-                self.markLayer.frame = CGRectMake((self.width - 23)/2, (self.height - 23)/2, 23, 23);
-                break;
-        }
-    }else{
-        self.shapeLayer.hidden = NO;
-        self.markLayer.hidden = YES;
+    self.shapeLayer.hidden = NO;
+    self.markLayer.hidden = NO;
+    switch (_period) {
+        case kPeriodTypeOfMenstrual:
+            self.markLayer.backgroundColor = kColor_13.CGColor;
+            self.markLayer.borderColor = kColor_13.CGColor;
+            break;
+        case kPeriodTypeOfPregnancy:
+            self.markLayer.backgroundColor = kColor_14_With_Alpha(0.1).CGColor;
+            self.markLayer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
+            break;
+        case kPeriodTypeOfForecast:
+            self.markLayer.backgroundColor = [UIColor clearColor].CGColor;
+            self.markLayer.borderColor = kColor_15.CGColor;
+            break;
+        case kPeriodTypeOfOviposit:
+            self.markLayer.backgroundColor = kColor_15.CGColor;
+            self.markLayer.borderColor = kColor_15.CGColor;
+            break;
+    }
+    CGFloat top = self.shapeLayer.frame.origin.y + (self.shapeLayer.frame.size.height - 23)/2;
+    switch (_shape) {
+        case kPeriodShapeOfRight:
+            self.markLayer.frame = CGRectMake(-12, top, self.width + 12, 23);
+            break;
+        case kPeriodShapeOfLeft:
+            self.markLayer.frame = CGRectMake(0, top, self.width + 12, 23);
+            break;
+        case kPeriodShapeOfSingle:
+            self.markLayer.frame = CGRectMake(0, top, self.width, 23);
+            break;
+        case kPeriodShapeOfMiddle:
+            self.markLayer.frame = CGRectMake(-12, top, self.width + 24, 23);
+            break;
+        case kPeriodShapeOfCircle:
+            self.markLayer.frame = CGRectMake((self.width - 23)/2, top, 23, 23);
+            break;
     }
 }
 /*

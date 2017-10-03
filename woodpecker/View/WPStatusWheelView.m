@@ -115,7 +115,7 @@
     }
     _pos = CGPointMake(contentOffsetY, contentOffsetY);
     CGPoint contentOffset = _collectionView.contentOffset;
-    return CGPointMake(contentOffset.x, contentOffsetY - 18);
+    return CGPointMake(contentOffset.x, contentOffsetY - 20);
 }
 
 /*

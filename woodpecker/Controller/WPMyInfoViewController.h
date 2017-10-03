@@ -1,5 +1,5 @@
 //
-//  MyInfoViewController.h
+//  WPMyInfoViewController.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/10/2.
@@ -8,6 +8,6 @@
 
 #import "XJFBaseViewController.h"
 
-@interface MyInfoViewController : XJFBaseViewController
+@interface WPMyInfoViewController : XJFBaseViewController
 
 @end
