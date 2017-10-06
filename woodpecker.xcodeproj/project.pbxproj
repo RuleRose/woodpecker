@@ -207,6 +207,10 @@
 		CC744E5A1F83194B00EDA2E3 /* WPAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E591F83194B00EDA2E3 /* WPAboutViewController.m */; };
 		CC744E5D1F83197200EDA2E3 /* WPHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E5C1F83197200EDA2E3 /* WPHelpViewController.m */; };
 		CC744E601F831B4F00EDA2E3 /* WPNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E5F1F831B4F00EDA2E3 /* WPNicknameViewController.m */; };
+		CC7722A11F87128E007D83B5 /* WPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722A01F87128E007D83B5 /* WPUserModel.m */; };
+		CC7722A91F87136D007D83B5 /* WPMenstrualRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722A81F87136D007D83B5 /* WPMenstrualRecordModel.m */; };
+		CC7722AF1F8713A9007D83B5 /* WPTemperatureRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722AE1F8713A9007D83B5 /* WPTemperatureRecordModel.m */; };
+		CC7722B21F87167D007D83B5 /* WPHardwareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722B11F87167D007D83B5 /* WPHardwareHelper.m */; };
 		CC7DA2301F762CBA00F56072 /* WPThermometerBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */; };
 		CC7DA2371F762EA400F56072 /* bind-ima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2311F762EA400F56072 /* bind-ima@2x.png */; };
 		CC7DA2381F762EA400F56072 /* bind-ima@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DA2321F762EA400F56072 /* bind-ima@3x.png */; };
@@ -614,6 +618,14 @@
 		CC744E5C1F83197200EDA2E3 /* WPHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHelpViewController.m; sourceTree = "<group>"; };
 		CC744E5E1F831B4F00EDA2E3 /* WPNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPNicknameViewController.h; sourceTree = "<group>"; };
 		CC744E5F1F831B4F00EDA2E3 /* WPNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPNicknameViewController.m; sourceTree = "<group>"; };
+		CC77229F1F87128E007D83B5 /* WPUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPUserModel.h; sourceTree = "<group>"; };
+		CC7722A01F87128E007D83B5 /* WPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPUserModel.m; sourceTree = "<group>"; };
+		CC7722A71F87136D007D83B5 /* WPMenstrualRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMenstrualRecordModel.h; sourceTree = "<group>"; };
+		CC7722A81F87136D007D83B5 /* WPMenstrualRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPMenstrualRecordModel.m; sourceTree = "<group>"; };
+		CC7722AD1F8713A9007D83B5 /* WPTemperatureRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureRecordModel.h; sourceTree = "<group>"; };
+		CC7722AE1F8713A9007D83B5 /* WPTemperatureRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureRecordModel.m; sourceTree = "<group>"; };
+		CC7722B01F87167D007D83B5 /* WPHardwareHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPHardwareHelper.h; sourceTree = "<group>"; };
+		CC7722B11F87167D007D83B5 /* WPHardwareHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHardwareHelper.m; sourceTree = "<group>"; };
 		CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPThermometerBindViewController.h; sourceTree = "<group>"; };
 		CC7DA22F1F762CBA00F56072 /* WPThermometerBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPThermometerBindViewController.m; sourceTree = "<group>"; };
 		CC7DA2311F762EA400F56072 /* bind-ima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bind-ima@2x.png"; sourceTree = "<group>"; };
@@ -977,6 +989,12 @@
 			children = (
 				CC1A54021F72A54000B3EF2E /* WPRecordStatusModel.h */,
 				CC1A54031F72A54000B3EF2E /* WPRecordStatusModel.m */,
+				CC77229F1F87128E007D83B5 /* WPUserModel.h */,
+				CC7722A01F87128E007D83B5 /* WPUserModel.m */,
+				CC7722A71F87136D007D83B5 /* WPMenstrualRecordModel.h */,
+				CC7722A81F87136D007D83B5 /* WPMenstrualRecordModel.m */,
+				CC7722AD1F8713A9007D83B5 /* WPTemperatureRecordModel.h */,
+				CC7722AE1F8713A9007D83B5 /* WPTemperatureRecordModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1073,6 +1091,8 @@
 				CCE0D9881F81C5730046C28A /* WPThermometerEditViewModel.m */,
 				CC0E887A1F81E233009634B3 /* WPCollectionViewWheelLayout.h */,
 				CC0E887B1F81E233009634B3 /* WPCollectionViewWheelLayout.m */,
+				CC7722B01F87167D007D83B5 /* WPHardwareHelper.h */,
+				CC7722B11F87167D007D83B5 /* WPHardwareHelper.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1697,12 +1717,15 @@
 				C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */,
 				CC7DA2601F76514800F56072 /* WPPeriodInfoViewController.m in Sources */,
 				C15847671F5E71E900D785A6 /* BleDevice.m in Sources */,
+				CC7722B21F87167D007D83B5 /* WPHardwareHelper.m in Sources */,
 				C15630331F5065FE00D6CC30 /* NSString+Extension.m in Sources */,
 				CC7DA2511F76364A00F56072 /* WPThermometerRemoveViewModel.m in Sources */,
 				C14CA3FD1F4FB2B1007F50A1 /* AppDelegate.m in Sources */,
 				C15630361F5065FE00D6CC30 /* UIImage+animatedGIF.m in Sources */,
 				C15630411F5065FE00D6CC30 /* XJFNetworkManager.m in Sources */,
 				CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */,
+				CC7722A11F87128E007D83B5 /* WPUserModel.m in Sources */,
+				CC7722AF1F8713A9007D83B5 /* WPTemperatureRecordModel.m in Sources */,
 				CC744E571F83191B00EDA2E3 /* WPShoppingViewController.m in Sources */,
 				CC7214461F65329E00AE2D82 /* WPStatusViewModel.m in Sources */,
 				C156303B1F5065FE00D6CC30 /* XJFBaseNavigationController.m in Sources */,
@@ -1722,6 +1745,7 @@
 				C14CA3FA1F4FB2B1007F50A1 /* main.m in Sources */,
 				CC0AAF4F1F6C230800FCCA6C /* FSCalendarHeaderView.m in Sources */,
 				CC7DA2711F76578200F56072 /* WPPeriodViewModel.m in Sources */,
+				CC7722A91F87136D007D83B5 /* WPMenstrualRecordModel.m in Sources */,
 				CC72144C1F6533E900AE2D82 /* WPTemperatureViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

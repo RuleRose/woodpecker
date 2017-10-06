@@ -103,6 +103,38 @@
     return self;
 }
 
+- (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme{
+    switch (theme) {
+        case kWPRecordThemeOfColor:
+            return @"颜色";
+        case kWPRecordThemeOfFlow:
+            return @"流量";
+        case kWPRecordThemeOfDysmenorrhea:
+            return @"痛经";
+        case kWPRecordThemeOfBloodClot:
+            return @"血块";
+        case kWPRecordThemeOfCharacter:
+            return @"性状";
+        case kWPRecordThemeOfQuantity:
+            return @"量";
+        case kWPRecordThemeOfLove:
+            return @"";
+        case kWPRecordThemeOfCT:
+            return @"";
+        case kWPRecordThemeOfSleep:
+            return @"质量";
+        case kWPRecordThemeOfMood:
+            return @"";
+        case kWPRecordThemeOfSport:
+            return @"时长";
+        case kWPRecordThemeOfDrink:
+            return @"";
+        case kWPRecordThemeOfDrug:
+            return @"";
+    }
+    return nil;
+}
+
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme{
     switch (theme) {
         case kWPRecordThemeOfColor:

@@ -10,5 +10,6 @@
 
 @interface WPRecordViewModel : NSObject
 @property (nonatomic,strong) NSMutableArray *statuses;
+- (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme;
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme;
 @end

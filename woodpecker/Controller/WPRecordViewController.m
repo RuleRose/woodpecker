@@ -108,71 +108,71 @@
     cell.column = 3;
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            cell.theme = @"颜色";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfColor];
             cell.selectedTitle = @"深红";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfColor];
             cell.line.hidden = YES;
         }else if (indexPath.row == 1){
-            cell.theme = @"流量";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfFlow];
             cell.selectedTitle = @"较少";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfFlow];
             cell.line.hidden = NO;
         }else if (indexPath.row == 2){
-            cell.theme = @"痛经";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDysmenorrhea];
             cell.selectedTitle = @"中度";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDysmenorrhea];
             cell.line.hidden = NO;
         }else{
-            cell.theme = @"血块";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfBloodClot];
             cell.selectedTitle = @"无";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfBloodClot];
             cell.line.hidden = NO;
         }
     }else if (indexPath.section == 4){
         if (indexPath.row == 0) {
-            cell.theme = @"性状";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfCharacter];
             cell.selectedTitle = @"粘稠";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCharacter];
             cell.line.hidden = YES;
         }else{
-            cell.theme = @"量";
+            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfQuantity];
             cell.selectedTitle = @"较少";
             cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfQuantity];
             cell.line.hidden = NO;
         }
     }else if (indexPath.section == 5){
-        cell.theme = @"";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfLove];
         cell.selectedTitle = @"避孕药";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfLove];
         cell.line.hidden = YES;
     }else if (indexPath.section == 6){
-        cell.theme = @"";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfCT];
         cell.selectedTitle = @"无效";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCT];
         cell.line.hidden = YES;
     }else if (indexPath.section == 8){
-        cell.theme = @"质量";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfSleep];
         cell.selectedTitle = @"很好";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSleep];
         cell.line.hidden = YES;
     }else if (indexPath.section == 9){
-        cell.theme = @"";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfMood];
         cell.selectedTitle = @"平静";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfMood];
         cell.column = 2;
         cell.line.hidden = YES;
     }else if (indexPath.section == 10){
-        cell.theme = @"时长";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfSport];
         cell.selectedTitle = @"0.5-1小时";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSport];
         cell.line.hidden = YES;
     }else if (indexPath.section == 12){
-        cell.theme = @"";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDrink];
         cell.selectedTitle = @"小酌";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrink];
         cell.line.hidden = YES;
     }else if (indexPath.section == 13){
-        cell.theme = @"";
+        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDrug];
         cell.selectedTitle = @"中药";
         cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrug];
         cell.line.hidden = YES;
