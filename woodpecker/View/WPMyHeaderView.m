@@ -1,14 +1,14 @@
 //
-//  MyInfoHeaderView.m
+//  WPMyHeaderView.m
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/10.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "MyInfoHeaderView.h"
+#import "WPMyHeaderView.h"
 
-@implementation MyInfoHeaderView
+@implementation WPMyHeaderView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

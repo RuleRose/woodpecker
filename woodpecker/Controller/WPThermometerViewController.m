@@ -9,7 +9,7 @@
 #import "WPThermometerViewController.h"
 #import "WPThermometerViewModel.h"
 #import "WPThermometerClockViewController.h"
-#import "WPThermometerUnitViewController.h"
+#import "WPTemperatureUnitPopupView.h"
 #import "WPThermometerHardwareViewController.h"
 #import "WPTableViewCell.h"
 #import "WPAlertPopupView.h"
@@ -24,7 +24,7 @@
 - (UITableView*)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, kScreen_Height - (kNavigationHeight + kStatusHeight))];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -134,8 +134,13 @@
         WPThermometerClockViewController *clockVC = [[WPThermometerClockViewController alloc] init];
         [self.navigationController pushViewController:clockVC animated:YES];
     }else if (indexPath.row == 1){
-        WPThermometerUnitViewController *unitVC = [[WPThermometerUnitViewController alloc] init];
-        [self.navigationController pushViewController:unitVC animated:YES];
+        WPTemperatureUnitPopupView *popView = [[WPTemperatureUnitPopupView alloc] init];
+        popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
+            
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
     }else if (indexPath.row == 2){
         WPThermometerHardwareViewController *hardwareVC = [[WPThermometerHardwareViewController alloc] init];
         [self.navigationController pushViewController:hardwareVC animated:YES];

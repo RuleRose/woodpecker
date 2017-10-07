@@ -1,5 +1,5 @@
 //
-//  MyInfoHeaderView.h
+//  WPMyHeaderView.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/9/10.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol MyInfoHeaderViewDelegate;
-@interface MyInfoHeaderView : UIView
+@interface WPMyHeaderView : UIView
 @property(nonatomic, strong) UILabel *titleLabel;
 @property(nonatomic, strong) UIView *contentView;
 @property(nonatomic, strong) UIImageView *avatar;

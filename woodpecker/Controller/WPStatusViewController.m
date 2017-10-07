@@ -18,6 +18,7 @@
 #import "WPBasicInfoViewController.h"
 #import "WPPeriodViewController.h"
 #import "WPBasicInfoViewController.h"
+#import "WPThermometerEditViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -29,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kColor_10;
     [self setupViews];
     [self setupData];
     // Do any additional setup after loading the view.
@@ -59,14 +61,15 @@
 
 //    WPThermometerBindViewController *bindVC = [[WPThermometerBindViewController alloc] init];
 //    [self.navigationController pushViewController:bindVC animated:YES];
-//    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
-//    [self.navigationController pushViewController:thermometerVC animated:YES];
-    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
-    [self.navigationController pushViewController:introVC animated:YES];
+    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
+    [self.navigationController pushViewController:thermometerVC animated:YES];
+//    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
+//    [self.navigationController pushViewController:introVC animated:YES];
 }
 
 - (void)editTemperature{
-    
+    WPThermometerEditViewController *editVC = [[WPThermometerEditViewController alloc] init];
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 
 - (void)showRecord{

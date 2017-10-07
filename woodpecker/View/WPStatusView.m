@@ -18,6 +18,9 @@
 }
 
 - (void)setupViews{
+    _wheelView = [[WPStatusWheelView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
+    _wheelView.backgroundColor = [UIColor clearColor];
+    [self addSubview:_wheelView];
     _calendarBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 33, 33)];
     _calendarBtn.backgroundColor = [UIColor clearColor];
     [_calendarBtn setImage:kImage(@"btn-navi-status-cale") forState:UIControlStateNormal];

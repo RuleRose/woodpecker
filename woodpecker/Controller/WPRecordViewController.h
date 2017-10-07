@@ -7,7 +7,8 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "WPMenstrualRecordModel.h"
 
 @interface WPRecordViewController : XJFBaseViewController
-
+@property(nonatomic, strong)WPMenstrualRecordModel *menstrual;
 @end

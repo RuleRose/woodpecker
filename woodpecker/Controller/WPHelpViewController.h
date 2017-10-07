@@ -1,13 +1,13 @@
 //
-//  WPMyInfoViewController.h
+//  WPHelpViewController.h
 //  woodpecker
 //
-//  Created by QiWL on 2017/10/2.
+//  Created by QiWL on 2017/10/3.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
 #import "XJFBaseViewController.h"
 
-@interface WPMyInfoViewController : XJFBaseViewController
+@interface WPHelpViewController : XJFBaseViewController
 
 @end

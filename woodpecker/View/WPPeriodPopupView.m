@@ -37,6 +37,7 @@
     [super setupViews];
     _pickerView = [[UIPickerView alloc] init];
     _pickerView.backgroundColor = kColor_1;
+    _pickerView.showsSelectionIndicator = YES;
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
     [self.contentView addSubview:_pickerView];

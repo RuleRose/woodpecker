@@ -1,5 +1,5 @@
 //
-//  WPMyInfoViewController.h
+//  WPThermometerEditViewController.h
 //  woodpecker
 //
 //  Created by QiWL on 2017/10/2.
@@ -8,6 +8,6 @@
 
 #import "XJFBaseViewController.h"
 
-@interface WPMyInfoViewController : XJFBaseViewController
+@interface WPThermometerEditViewController : XJFBaseViewController
 
 @end

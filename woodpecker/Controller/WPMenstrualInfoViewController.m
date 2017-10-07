@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_10;
-    self.title = @"周期长度";
+    self.title = @"月经长度";
     [self setupViews];
     // Do any additional setup after loading the view.
 }

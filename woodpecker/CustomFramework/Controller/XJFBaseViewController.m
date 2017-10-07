@@ -28,6 +28,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : kFont_1(14), NSForegroundColorAttributeName : kColor_7_With_Alpha(0.8) };
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self.view addSubview:[[UIView alloc] init]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
