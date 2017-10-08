@@ -32,9 +32,8 @@
 - (void)setupViews{
     
     _layout = [[WPCollectionViewWheelLayout alloc] init];
-    _layout.cellSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
-                                                          collectionViewLayout:_layout];
+    _layout.cellSize = CGSizeMake(300, 300);
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake((self.width - 300)/2, self.height - 300, 300, 300) collectionViewLayout:_layout];
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.backgroundColor = [UIColor clearColor];
@@ -63,7 +62,7 @@
     self.shapeLayer = [CAShapeLayer layer];
     self.shapeLayer.masksToBounds = YES;
     self.shapeLayer.frame = CGRectMake(0, 0, 406, 250);//设置shapeLayer的尺寸和位置
-    self.shapeLayer.position = CGPointMake((self.frame.size.width - self.layout.radius)/2 + 25, 287.5);
+    self.shapeLayer.position = CGPointMake((self.width - self.layout.radius)/2 + 25, self.height - 300 + self.layout.radius - 28 - 2.5);
     self.shapeLayer.fillColor = [UIColor clearColor].CGColor;//填充颜色为ClearColor
     //设置线条的宽度和颜色
     self.shapeLayer.lineWidth = 1.0f;
@@ -115,7 +114,7 @@
     }
     _pos = CGPointMake(contentOffsetY, contentOffsetY);
     CGPoint contentOffset = _collectionView.contentOffset;
-    return CGPointMake(contentOffset.x, contentOffsetY - 20);
+    return CGPointMake(contentOffset.x, contentOffsetY*(300.0/self.width));
 }
 
 /*
