@@ -14,6 +14,7 @@
 {
     self = [super init];
     if (self) {
+        _eventDic = [[NSMutableDictionary alloc] init];
         _statuses = [[NSMutableArray alloc] init];
         for (NSInteger i = 0; i < 15; i ++) {
             if (i == 0) {
@@ -109,9 +110,9 @@
             return @"颜色";
         case kWPRecordThemeOfFlow:
             return @"流量";
-        case kWPRecordThemeOfDysmenorrhea:
+        case kWPRecordThemeOfPain:
             return @"痛经";
-        case kWPRecordThemeOfBloodClot:
+        case kWPRecordThemeOfGore:
             return @"血块";
         case kWPRecordThemeOfCharacter:
             return @"性状";
@@ -141,9 +142,9 @@
             return @[@"淡红",@"鲜红",@"深红"];
         case kWPRecordThemeOfFlow:
             return @[@"较少",@"中等",@"较多"];
-        case kWPRecordThemeOfDysmenorrhea:
+        case kWPRecordThemeOfPain:
             return @[@"轻度",@"中度",@"重度"];
-        case kWPRecordThemeOfBloodClot:
+        case kWPRecordThemeOfGore:
             return @[@"无",@"较少",@"较多"];
         case kWPRecordThemeOfCharacter:
             return @[@"发干",@"粘稠",@"拉丝"];
@@ -165,5 +166,74 @@
             return @[@"中药",@"感冒药",@"止疼药",@"消炎药",@"肠胃药",@"避孕药"];
     }
     return nil;
+}
+
+- (NSString *)getEvenTTypeWithRecordTheme:(WPRecordTheme)theme{
+    switch (theme) {
+        case kWPRecordThemeOfColor:
+            return @"color";
+        case kWPRecordThemeOfFlow:
+            return @"flow";
+        case kWPRecordThemeOfPain:
+            return @"pain";
+        case kWPRecordThemeOfGore:
+            return @"gore";
+        case kWPRecordThemeOfCharacter:
+            return @"mucus_prob";
+        case kWPRecordThemeOfQuantity:
+            return @"mucus_flow";
+        case kWPRecordThemeOfLove:
+            return @"love";
+        case kWPRecordThemeOfCT:
+            return @"test_paper";
+        case kWPRecordThemeOfSleep:
+            return @"quality";
+        case kWPRecordThemeOfMood:
+            return @"motion";
+        case kWPRecordThemeOfSport:
+            return @"time";
+        case kWPRecordThemeOfDrink:
+            return @"status";
+        case kWPRecordThemeOfDrug:
+            return @"type";
+        case kWPRecordThemeOfComments:
+            return @"comments";
+    }
+}
+
+- (NSString *)getDetailWithRecordTheme:(WPRecordTheme)theme index:(NSInteger)index{
+    NSArray *details;
+    switch (theme) {
+        case kWPRecordThemeOfColor:
+            details = @[@"L",@"F",@"D"];
+        case kWPRecordThemeOfFlow:
+            details = @[@"F",@"N",@"M"];
+        case kWPRecordThemeOfPain:
+            details = @[@"F",@"N",@"M"];
+        case kWPRecordThemeOfGore:
+            details = @[@"F",@"N",@"M"];
+        case kWPRecordThemeOfCharacter:
+            return @"性状";
+        case kWPRecordThemeOfQuantity:
+            return @"量";
+        case kWPRecordThemeOfLove:
+            return @"";
+        case kWPRecordThemeOfCT:
+            return @"";
+        case kWPRecordThemeOfSleep:
+            return @"质量";
+        case kWPRecordThemeOfMood:
+            return @"";
+        case kWPRecordThemeOfSport:
+            return @"时长";
+        case kWPRecordThemeOfDrink:
+            return @"";
+        case kWPRecordThemeOfDrug:
+            return @"";
+    }
+    if ([details count] > index) {
+        return [details objectAtIndex:index];
+    }
+    return @"";
 }
 @end

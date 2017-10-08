@@ -9,5 +9,7 @@
 #import "WPUserModel.h"
 
 @implementation WPUserModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"pid":@"user_id"};
+}
 @end

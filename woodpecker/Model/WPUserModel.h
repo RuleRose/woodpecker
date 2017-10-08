@@ -9,14 +9,15 @@
 #import "XJFBaseModel.h"
 
 @interface WPUserModel : XJFBaseModel
-@property(nonatomic, copy)NSString *peroid; //周期
-@property(nonatomic, copy)NSString *menstrual; //经期
-@property(nonatomic, copy)NSString *nikename; //经期
-@property(nonatomic, copy)NSString *account; //经期
-@property(nonatomic, copy)NSString *image; //经期
-@property(nonatomic, copy)NSString *weight; //经期
-@property(nonatomic, copy)NSString *height; //经期
-@property(nonatomic, copy)NSString *unit; //经期
-@property(nonatomic, copy)NSString *clock; //经期
+@property(nonatomic, copy)NSString *account_type;
+@property(nonatomic, copy)NSString *account_id;
+@property(nonatomic, copy)NSString *time_registered;
+@property(nonatomic, copy)NSString *nick_name;
+@property(nonatomic, copy)NSString *birthday;
+@property(nonatomic, copy)NSString *height;
+@property(nonatomic, copy)NSString *weight;
+@property(nonatomic, copy)NSString *avatar;
+@property(nonatomic, copy)NSString *profile_id;
+@property(nonatomic, copy)NSString *device_id;
 
 @end

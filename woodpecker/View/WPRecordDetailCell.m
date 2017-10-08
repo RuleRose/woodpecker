@@ -62,10 +62,9 @@
         selectionBtn.titleLabel.font = kFont_1(12);
         [selectionBtn setTitle:title forState:UIControlStateNormal];
         [selectionBtn setTitle:title forState:UIControlStateNormal];
-        if ([title isEqualToString:_selectedTitle]) {
+        if (_selectedIndex == i) {
             [selectionBtn setTitleColor:kColor_10 forState:UIControlStateNormal];
             selectionBtn.backgroundColor = kColor_7_With_Alpha(0.8);
-            
         }else{
             [selectionBtn setTitleColor:kColor_7_With_Alpha(0.8) forState:UIControlStateNormal];
             selectionBtn.backgroundColor = [UIColor clearColor];

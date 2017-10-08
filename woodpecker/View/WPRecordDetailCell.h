@@ -12,7 +12,7 @@
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic, strong)NSArray *titles;
 @property(nonatomic, strong)NSString *theme;
-@property(nonatomic, strong)NSString *selectedTitle;
+@property(nonatomic, assign)NSInteger selectedIndex;
 @property(nonatomic, strong)UIView *line;
 @property(nonatomic, strong)UIView *selectionView;
 @property(nonatomic, assign)NSInteger column;
