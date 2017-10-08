@@ -201,6 +201,50 @@
     self.navigationItem.leftBarButtonItems = @[leftSpaceItem, leftbutton];
 }
 
+- (void)setMoreBarButtonWithTitle:(NSString *)title color:(UIColor *)color{
+    if (self.navigationController.viewControllers.count <= 1) {
+        return;
+    }
+    //设置返回按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(moreBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 44, 44)];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:color forState:UIControlStateNormal];
+    [button.titleLabel setFont:kFont_1(14)];
+    UIBarButtonItem *rightbutton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem* rightSpaceItem = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                      target:nil
+                                      action:nil];
+    rightSpaceItem.width = -15;
+    self.navigationItem.rightBarButtonItems = @[rightSpaceItem, rightbutton];
+}
+
+- (void)setMoreBarButtonWithImage:(UIImage *)image{
+    if (self.navigationController.viewControllers.count <= 1) {
+        return;
+    }
+    //设置返回按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(moreBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 44, 44)];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:image forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:kFont_1(14)];
+    UIBarButtonItem *rightbutton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem* rightSpaceItem = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                      target:nil
+                                      action:nil];
+    rightSpaceItem.width = -15;
+    self.navigationItem.rightBarButtonItems = @[rightSpaceItem, rightbutton];
+}
+
+- (void)moreBarButtonPressed:(UIButton *)sender{
+
+}
+
 //返回
 - (void)goBack:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];

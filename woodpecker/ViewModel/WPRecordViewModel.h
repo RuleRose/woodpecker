@@ -10,10 +10,11 @@
 
 @interface WPRecordViewModel : NSObject
 @property (nonatomic,strong) NSMutableArray *statuses;
-@property (nonatomic,strong) NSMutableDictionary *eventDic;
+@property (nonatomic,strong) NSMutableDictionary *themeDic;
 - (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme;
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme;
-- (NSString *)getEvenTTypeWithRecordTheme:(WPRecordTheme)theme;
+- (NSString *)getThemeTypeWithRecordTheme:(WPRecordTheme)theme;
 - (NSString *)getDetailWithRecordTheme:(WPRecordTheme)theme index:(NSInteger)index;
-
+- (NSInteger)getDetailIndexWithRecordTheme:(WPRecordTheme)theme;
+- (void)setTheme:(WPRecordTheme)theme index:(NSInteger)index;
 @end

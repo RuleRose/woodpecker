@@ -34,25 +34,27 @@
     [self.contentView addSubview:_line];
 }
 
-- (void)setTheme:(NSString *)theme{
+- (void)setTheme:(WPRecordTheme)theme{
     _theme = theme;
-    _titleLabel.text = theme;
+    _titleLabel.text = [_viewModel getThemeWithRecordTheme:theme];
+    _selectedIndex = [_viewModel getDetailIndexWithRecordTheme:theme];
+    _details = [_viewModel getTitlesWithRecordTheme:theme];
 }
 
 - (void)drawCellWithSize:(CGSize)size{
     for (UIView *subView in _selectionView.subviews) {
         [subView removeFromSuperview];
     }
-    if (_titles.count < _column) {
-        _column = _titles.count;
+    if (_details.count < _column) {
+        _column = _details.count;
     }
     if (_column <= 0) {
         return;
     }
     CGFloat originX = size.width - _column * 75 - 7;;
     CGFloat originY = 8;
-    for (NSInteger i = 0; i < _titles.count; i ++) {
-        NSString *title = [_titles objectAtIndex:i];
+    for (NSInteger i = 0; i < _details.count; i ++) {
+        NSString *title = [_details objectAtIndex:i];
         CGFloat x = originX + (i%_column) * 75;
         CGFloat y = originY +  41*((NSInteger)(i/_column));
         WPRecordSelectionButton *selectionBtn = [[WPRecordSelectionButton alloc] initWithFrame:CGRectMake(x, y, 60, 25)];
@@ -61,7 +63,7 @@
         selectionBtn.layer.borderWidth = 0.5;
         selectionBtn.titleLabel.font = kFont_1(12);
         [selectionBtn setTitle:title forState:UIControlStateNormal];
-        [selectionBtn setTitle:title forState:UIControlStateNormal];
+        selectionBtn.index = i;
         if (_selectedIndex == i) {
             [selectionBtn setTitleColor:kColor_10 forState:UIControlStateNormal];
             selectionBtn.backgroundColor = kColor_7_With_Alpha(0.8);
@@ -77,8 +79,32 @@
 
 }
 
+- (void)resetDetails{
+    for (UIView *subView in _selectionView.subviews) {
+        if ([subView isKindOfClass:[WPRecordSelectionButton class]]) {
+            WPRecordSelectionButton *selectionBtn = (WPRecordSelectionButton *)subView;
+            if (_selectedIndex == selectionBtn.index) {
+                [selectionBtn setTitleColor:kColor_10 forState:UIControlStateNormal];
+                selectionBtn.backgroundColor = kColor_7_With_Alpha(0.8);
+            }else{
+                [selectionBtn setTitleColor:kColor_7_With_Alpha(0.8) forState:UIControlStateNormal];
+                selectionBtn.backgroundColor = [UIColor clearColor];
+            }
+        }
+    }
+}
+
 - (void)selectionBtnPressed:(WPRecordSelectionButton *)sender{
-    
+    if (sender.index == _selectedIndex) {
+        if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:index:cell:)]) {
+            [_delegate selectTheme:_theme index:-1 cell:self];
+        }
+    }else{
+        if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:index:cell:)]) {
+            [_delegate selectTheme:_theme index:sender.index cell:self];
+        }
+    }
+
 }
 
 - (void)awakeFromNib {
