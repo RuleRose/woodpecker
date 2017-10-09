@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WPUserModel.h"
 
 @protocol MyInfoHeaderViewDelegate;
 @interface WPMyHeaderView : UIView
@@ -16,6 +17,7 @@
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UILabel *accountLabel;
 @property(nonatomic, strong) UIImageView *triIcon;
+@property(nonatomic, strong) WPUserModel *userinfo;
 
 @property(nonatomic, assign) id<MyInfoHeaderViewDelegate> delegate;
 

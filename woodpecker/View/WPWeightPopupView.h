@@ -7,7 +7,7 @@
 //
 
 #import "WPSelectionPopupView.h"
-typedef void(^WPWeightBlock)(MMPopupView *, NSInteger);
+typedef void(^WPWeightBlock)(MMPopupView *, NSInteger, NSInteger);
 
 @interface WPWeightPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPWeightBlock weightBlock;

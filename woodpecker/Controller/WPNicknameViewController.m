@@ -21,6 +21,7 @@
     self.view.backgroundColor = kColor_2;
     self.title = @"昵称";
     [self setupViews];
+    [self loadData];
     // Do any additional setup after loading the view.
 }
 
@@ -69,16 +70,22 @@
     _saveBtn.titleLabel.font = kFont_1(12);
     [_saveBtn addTarget:self action:@selector(saveBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saveBtn];
-    
-    
+}
+
+- (void)loadData{
+    _textField.text = _userinfo.nick_name;
 }
 
 - (void)cancelBtnPressed{
-    
+    [_textField resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)saveBtnPressed{
-    
+    [_textField resignFirstResponder];
+    _userinfo.nick_name = _textField.text;
+    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_ACCOUNT_USER];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

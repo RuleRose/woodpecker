@@ -13,10 +13,10 @@
 @property(nonatomic, copy)NSString *account_id;
 @property(nonatomic, copy)NSString *time_registered;
 @property(nonatomic, copy)NSString *nick_name;
+@property(nonatomic, copy)NSString *avatar;
 @property(nonatomic, copy)NSString *birthday;
 @property(nonatomic, copy)NSString *height;
 @property(nonatomic, copy)NSString *weight;
-@property(nonatomic, copy)NSString *avatar;
 @property(nonatomic, copy)NSString *profile_id;
 @property(nonatomic, copy)NSString *device_id;
 

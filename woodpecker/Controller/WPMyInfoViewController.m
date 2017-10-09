@@ -49,6 +49,7 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
+    [_tableView reloadData];
 }
 
 - (void)setupData{
@@ -90,16 +91,17 @@
         cell.titleLabel.text = @"头像";
         cell.detailLabel.text = @"";
         cell.line.hidden = YES;
+        [cell.imageIcon leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
         cell.icon.image = kImage(@"icon-device-unit");
         cell.titleLabel.text = @"昵称";
-        cell.detailLabel.text = @"lanp";
+        cell.detailLabel.text = _userinfo.nick_name;
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"账号";
-        cell.detailLabel.text = @"18601000000";
+        cell.detailLabel.text = _userinfo.account_id;
         cell.line.hidden = NO;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
@@ -141,6 +143,7 @@
         }];
     }else if (indexPath.row == 1){
         WPNicknameViewController *nickVC = [[WPNicknameViewController alloc] init];
+        nickVC.userinfo = _userinfo;
         [self.navigationController pushViewController:nickVC animated:YES];
     }else if (indexPath.row == 2){
     

@@ -7,7 +7,9 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "WPUserModel.h"
 
 @interface WPMyInfoViewController : XJFBaseViewController
+@property(nonatomic, strong) WPUserModel *userinfo;
 
 @end
