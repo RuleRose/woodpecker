@@ -10,4 +10,5 @@
 
 @interface WPLoginViewModel : NSObject
 - (void)login;
++ (void)registerWithAccountID:(NSString*)account_id type:(NSString*)account_type nickname:(NSString*)nikename avatar:(NSString *)avatar success:(void (^)(NSString* user_id))success failure:(void (^)(NSError* error))failure;
 @end

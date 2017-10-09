@@ -10,6 +10,7 @@
 #import "WPLoginView.h"
 #import "WPLoginViewModel.h"
 #import "WPMainViewController.h"
+#import "WPAccountManager.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -59,15 +60,15 @@
 
 #pragma mark WPLoginViewDelegate
 - (void)login{
-    [_viewModel login];
+    if ([[WPAccountManager defaultInstance] isLogin]) {
+        [self registerAccount];
+    }else{
+        [_viewModel login];
+    }
 }
 
 - (void)loginSuccess{
-    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:mainVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
+    [self registerAccount];
 }
 
 - (void)loginFailed{
@@ -79,6 +80,23 @@
 }
 
 - (void)tokenExpire{
+
+}
+
+- (void)registerAccount{
+    [WPLoginViewModel registerWithAccountID:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
+        if (![NSString leie_isBlankString:user_id]) {
+            kDefaultSetValueForKey(user_id, USER_DEFAULT_USER_ID);
+            WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+            [viewControllers removeAllObjects];
+            [viewControllers addObject:mainVC];
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
 
 }
 
