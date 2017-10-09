@@ -96,7 +96,11 @@
     } failure:^(NSError *error) {
         
     }];
-    
+    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [viewControllers removeAllObjects];
+    [viewControllers addObject:mainVC];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
 
 }
 
