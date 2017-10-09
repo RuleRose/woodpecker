@@ -1,15 +1,15 @@
 //
-//  WPUserModel.m
+//  WPEventModel.m
 //  woodpecker
 //
-//  Created by QiWL on 2017/10/6.
+//  Created by QiWL on 2017/10/8.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPUserModel.h"
+#import "WPEventModel.h"
 
-@implementation WPUserModel
+@implementation WPEventModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"pid":@"user_id"};
+    return @{@"pid":@"event_id"};
 }
 @end

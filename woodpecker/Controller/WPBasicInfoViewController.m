@@ -12,6 +12,8 @@
 #import "WPHeightPopupView.h"
 #import "WPWeightPopupView.h"
 #import "WPBirthdayPopupView.h"
+#import "WPPeriodViewController.h"
+#import "NSDate+Extension.h"
 
 @interface WPBasicInfoViewController ()<UITableViewDelegate, UITableViewDataSource, WPInfoSettingCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -55,11 +57,19 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
+    if (_isLogin) {
+        self.navigationItem.rightBarButtonItems = @[];
+    }else{
+        [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+    }
     
 }
 
 - (void)setupData{
     _viewModel = [[WPBasicInfoViewModel alloc] init];
+    if (!_userinfo) {
+       _userinfo = [[WPUserModel alloc] init];
+    }
 }
 
 - (void)setupViews{
@@ -74,10 +84,26 @@
     [self.view addSubview:_nextBtn];
     [self.view addSubview:self.tableView];
     _nextBtn.frame = CGRectMake((kScreen_Width - 300)/2, _tableView.bottom + 69, 300, 45);
+    _nextBtn.hidden = !_isLogin;
+}
+
+- (void)moreBarButtonPressed:(UIButton *)sender{
+    [_activeTextField resignFirstResponder];
+    _userinfo.nick_name = _activeTextField.text;
+    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_ACCOUNT_USER];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)nextBtnPressed{
-    [_activeTextField resignFirstResponder];
+    if (_activeTextField) {
+        [_activeTextField resignFirstResponder];
+        _userinfo.nick_name = _activeTextField.text;
+    }
+
+    WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
+    periodVC.userinfo = _userinfo;
+    periodVC.isLogin = _isLogin;
+    [self.navigationController pushViewController:periodVC animated:YES];
 }
 
 #pragma mark UITableViewDataSource
@@ -105,22 +131,22 @@
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"昵称";
-        cell.textField.text = @"4";
+        cell.textField.text = _userinfo.nick_name;
         cell.line.hidden = YES;
         cell.textField.enabled = YES;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = @"出生日期";
-        cell.textField.text = @"3";
+        cell.textField.text = _userinfo.birthday;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
         cell.titleLabel.text = @"身高";
-        cell.textField.text = @"2";
+        cell.textField.text = _userinfo.height;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 3){
         cell.titleLabel.text = @"体重";
-        cell.textField.text = @"1";
+        cell.textField.text = _userinfo.weight;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }
@@ -150,7 +176,8 @@
         }
         WPBirthdayPopupView *popView = [[WPBirthdayPopupView alloc] init];
         popView.birthdayBlock = ^(MMPopupView *popupView, NSDate *birthday) {
-            
+            _userinfo.birthday = [NSDate stringFromDate:birthday];
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
@@ -161,7 +188,8 @@
         }
         WPHeightPopupView *popView = [[WPHeightPopupView alloc] init];
         popView.heightBlock = ^(MMPopupView *popupView, NSInteger height) {
-            
+            _userinfo.height = [NSString stringWithFormat:@"%ld",(long)height];
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
@@ -171,8 +199,9 @@
             [_activeTextField resignFirstResponder];
         }
         WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
-        popView.weightBlock = ^(MMPopupView *popupView, NSInteger height) {
-            
+        popView.weightBlock = ^(MMPopupView *popupView, NSInteger weight1, NSInteger weight2) {
+            _userinfo.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             

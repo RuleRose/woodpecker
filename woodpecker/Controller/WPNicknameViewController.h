@@ -7,7 +7,8 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "WPUserModel.h"
 
 @interface WPNicknameViewController : XJFBaseViewController
-
+@property(nonatomic, strong) WPUserModel *userinfo;
 @end

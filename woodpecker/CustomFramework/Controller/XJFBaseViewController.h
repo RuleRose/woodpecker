@@ -36,8 +36,10 @@
 
 //设置返回按钮
 - (void)setBackBarButton;
+- (void)setMoreBarButtonWithTitle:(NSString *)title color:(UIColor *)color;
+- (void)setMoreBarButtonWithImage:(UIImage *)image;
 - (void)goBack:(UIButton *)sender;
-
+- (void)moreBarButtonPressed:(UIButton *)sender;
 - (void)navigationBarLineHidden:(BOOL)hidden;
 
 //让左边第一个 bar button item 旋转

@@ -25,16 +25,17 @@ typedef NS_ENUM(NSUInteger, PeriodShapeType) {
 typedef NS_ENUM(NSUInteger, WPRecordTheme) {
     kWPRecordThemeOfColor = 0, //颜色
     kWPRecordThemeOfFlow,      //流量
-    kWPRecordThemeOfDysmenorrhea, //痛经
-    kWPRecordThemeOfBloodClot, //血块
-    kWPRecordThemeOfCharacter, //性状
-    kWPRecordThemeOfQuantity, //量
+    kWPRecordThemeOfPain,      //痛经
+    kWPRecordThemeOfGore, //血块
+    kWPRecordThemeOfMucusProb, //性状
+    kWPRecordThemeOfMucusFlow, //量
     kWPRecordThemeOfLove, //同房记录
     kWPRecordThemeOfCT, //排卵试纸
     kWPRecordThemeOfSleep, //睡眠
     kWPRecordThemeOfMood, //情绪
     kWPRecordThemeOfSport, //运动时长
     kWPRecordThemeOfDrink, //饮酒
-    kWPRecordThemeOfDrug//服药
+    kWPRecordThemeOfDrug,//服药
+    kWPRecordThemeOfComments//备注
 };
 #endif /* UtilsEnum_h */

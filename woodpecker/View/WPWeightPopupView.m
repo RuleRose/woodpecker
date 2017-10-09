@@ -109,9 +109,10 @@
 
 - (void)confirmBtnPressed{
     [self hide];
-    NSInteger weight = [_pickerView selectedRowInComponent:0];
+    NSInteger weight1 = [_pickerView selectedRowInComponent:0];
+    NSInteger weight2 = [_pickerView selectedRowInComponent:1];
     if (_weightBlock) {
-        _weightBlock(self, weight);
+        _weightBlock(self, weight1,weight2);
     }
 }
 /*

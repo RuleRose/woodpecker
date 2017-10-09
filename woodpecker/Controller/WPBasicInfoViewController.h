@@ -7,7 +7,10 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "WPUserModel.h"
 
 @interface WPBasicInfoViewController : XJFBaseViewController
+@property(nonatomic, strong) WPUserModel *userinfo;
+@property(nonatomic, assign) BOOL isLogin;
 
 @end

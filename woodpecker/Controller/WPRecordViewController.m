@@ -12,7 +12,7 @@
 #import "WPRecordStatusModel.h"
 #import "WPRecordDetailCell.h"
 
-@interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate>
+@interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate,WPRecordDetailCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPRecordViewModel *viewModel;
 @property (nonatomic, strong) UILabel *dateLabel;
@@ -56,6 +56,11 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
+    [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+}
+
+- (void)moreBarButtonPressed:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setupData{
@@ -106,77 +111,54 @@
     cell.layer.masksToBounds = YES;
     cell.contentView.layer.masksToBounds = YES;
     cell.column = 3;
+    cell.indexPath = indexPath;
+    cell.viewModel = _viewModel;
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfColor];
-            cell.selectedTitle = @"深红";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfColor];
+            cell.theme = kWPRecordThemeOfColor;
             cell.line.hidden = YES;
         }else if (indexPath.row == 1){
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfFlow];
-            cell.selectedTitle = @"较少";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfFlow];
+            cell.theme = kWPRecordThemeOfFlow;
             cell.line.hidden = NO;
         }else if (indexPath.row == 2){
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDysmenorrhea];
-            cell.selectedTitle = @"中度";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDysmenorrhea];
+            cell.theme = kWPRecordThemeOfPain;
             cell.line.hidden = NO;
         }else{
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfBloodClot];
-            cell.selectedTitle = @"无";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfBloodClot];
+            cell.theme = kWPRecordThemeOfGore;
             cell.line.hidden = NO;
         }
     }else if (indexPath.section == 4){
         if (indexPath.row == 0) {
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfCharacter];
-            cell.selectedTitle = @"粘稠";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCharacter];
+            cell.theme = kWPRecordThemeOfMucusProb;
             cell.line.hidden = YES;
         }else{
-            cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfQuantity];
-            cell.selectedTitle = @"较少";
-            cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfQuantity];
+            cell.theme = kWPRecordThemeOfMucusFlow;
             cell.line.hidden = NO;
         }
     }else if (indexPath.section == 5){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfLove];
-        cell.selectedTitle = @"避孕药";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfLove];
+        cell.theme = kWPRecordThemeOfLove;
         cell.line.hidden = YES;
     }else if (indexPath.section == 6){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfCT];
-        cell.selectedTitle = @"无效";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfCT];
+        cell.theme = kWPRecordThemeOfCT;
         cell.line.hidden = YES;
     }else if (indexPath.section == 8){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfSleep];
-        cell.selectedTitle = @"很好";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSleep];
+        cell.theme = kWPRecordThemeOfSleep;
         cell.line.hidden = YES;
     }else if (indexPath.section == 9){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfMood];
-        cell.selectedTitle = @"平静";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfMood];
+        cell.theme = kWPRecordThemeOfMood;
         cell.column = 2;
         cell.line.hidden = YES;
     }else if (indexPath.section == 10){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfSport];
-        cell.selectedTitle = @"0.5-1小时";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfSport];
+        cell.theme = kWPRecordThemeOfSport;
         cell.line.hidden = YES;
     }else if (indexPath.section == 12){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDrink];
-        cell.selectedTitle = @"小酌";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrink];
+        cell.theme = kWPRecordThemeOfDrink;
         cell.line.hidden = YES;
     }else if (indexPath.section == 13){
-        cell.theme = [_viewModel getThemeWithRecordTheme:kWPRecordThemeOfDrug];
-        cell.selectedTitle = @"中药";
-        cell.titles = [_viewModel getTitlesWithRecordTheme:kWPRecordThemeOfDrug];
+        cell.theme = kWPRecordThemeOfDrug;
         cell.line.hidden = YES;
     }
+    cell.delegate = self;
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 
@@ -243,6 +225,13 @@
 #pragma mark WPRecordHeaderViewDelegate
 - (void)showRecordHeader:(WPRecordHeaderView *)headerView{
    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark WPRecordDetailCellDelegate
+- (void)selectTheme:(WPRecordTheme)theme index:(NSInteger)index cell:(WPRecordDetailCell *)cell{
+    [_viewModel setTheme:theme index:index];
+    cell.theme = theme;
+    [cell resetDetails];
 }
 
 - (void)didReceiveMemoryWarning {

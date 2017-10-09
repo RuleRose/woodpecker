@@ -38,13 +38,13 @@
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = kColor_7_With_Alpha(0.8);
     _nameLabel.font = kFont_3(16);
-    _nameLabel.text = @"LAN";
+    _nameLabel.text = @"";
     [_contentView addSubview:_nameLabel];
     _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatar.right + 15, _nameLabel.bottom, self.width, 32)];
     _accountLabel.backgroundColor = [UIColor clearColor];
     _accountLabel.textColor = kColor_7_With_Alpha(0.8);
     _accountLabel.font = kFont_1(12);
-    _accountLabel.text = @"账号: 186010000000";
+    _accountLabel.text = @"账号: ";
     [_contentView addSubview:_accountLabel];
     _triIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.width - 32,  35, 7, 13)];
     _triIcon.backgroundColor = [UIColor clearColor];
@@ -52,6 +52,17 @@
     [_contentView addSubview:_triIcon];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [_contentView addGestureRecognizer:tap];
+}
+
+- (void)setUserinfo:(WPUserModel *)userinfo{
+    _userinfo = userinfo;
+    _nameLabel.text = _userinfo.nick_name;
+    if ([NSString leie_isBlankString:_userinfo.account_id]) {
+        _accountLabel.text = @"账号: ";
+    }else{
+        _accountLabel.text = [NSString stringWithFormat:@"账号：%@",_userinfo.account_id];
+    }
+    [_avatar leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
 }
 
 - (void)tap:(UITapGestureRecognizer *)gestureRecognizer{

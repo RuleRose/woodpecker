@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WPRecordSelectionButton : UIButton
-@property(nonatomic,strong)NSString *theme;
-@property(nonatomic,strong)NSString *title;
+@property(nonatomic,assign)NSInteger index;
 
 @end

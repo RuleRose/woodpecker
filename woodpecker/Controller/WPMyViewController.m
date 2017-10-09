@@ -15,11 +15,14 @@
 #import "WPHelpViewController.h"
 #import "WPAboutViewController.h"
 #import "WPShoppingViewController.h"
+#import "WPUserModel.h"
+#import "WPProfileModel.h"
 
 @interface WPMyViewController ()<UITableViewDataSource,UITableViewDelegate,MyInfoHeaderViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPMyHeaderView* headerView;
-
+@property (nonatomic, strong) WPUserModel *userinfo;
+@property (nonatomic, strong) WPProfileModel *profile;
 @end
 
 @implementation WPMyViewController
@@ -53,10 +56,21 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self hideNavigationBar];
+    [self loadData];
+
 }
 
 - (void)setupViews{
     [self.view addSubview:self.tableView];
+}
+
+- (void)loadData{
+    _userinfo = [[WPUserModel alloc] init];
+    [_userinfo loadDataFromkeyValues:[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_ACCOUNT_USER]];
+    _profile = [[WPProfileModel alloc] init];
+    [_profile loadDataFromkeyValues:[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_PROFILE]];
+    _headerView.userinfo = _userinfo;
+    [_tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource
@@ -103,7 +117,11 @@
     }else if (indexPath.row == 2){
         cell.icon.image = kImage(@"icon-me-cycle");
         cell.titleLabel.text = kLocalization(@"me_cycle");
-        cell.detailLabel.text = @"29天";
+        if ([NSString leie_isBlankString:_profile.period]) {
+             cell.detailLabel.text = @"";
+        }else{
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@天",_profile.period];
+        }
         cell.line.hidden = NO;
     }else if (indexPath.row == 4){
         cell.icon.image = kImage(@"icon-me-shop");
@@ -142,6 +160,7 @@
 {
     if (indexPath.row == 1) {
         WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+        basicVC.userinfo = _userinfo;
         [self.navigationController pushViewController:basicVC animated:YES];
     }else if (indexPath.row == 2){
         WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
@@ -165,6 +184,7 @@
 
 - (void)selectedAccount{
     WPMyInfoViewController *infoVC = [[WPMyInfoViewController alloc] init];
+    infoVC.userinfo = _userinfo;
     [self.navigationController pushViewController:infoVC animated:YES];
 }
 
