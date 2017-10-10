@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPUserModel.h"
 
 @interface WPMainViewModel : NSObject
 @property (nonatomic,strong) NSMutableArray *controllerList;
+- (void)getAccount:(void (^)(WPUserModel *user))result;
 @end

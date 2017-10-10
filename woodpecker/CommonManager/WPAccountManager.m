@@ -61,10 +61,9 @@ Singleton_Implementation(WPAccountManager);
 - (void)passportDidLogin:(id)note {
     DDLogDebug(@"passport login succeeded, token:%@", self.account.accessToken);
     self.userToken = self.account.accessToken;
-    kDefaultSetValueForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
+    kDefaultSetObjectForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
     [self.account save];
     [self fetchProfile];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
 }
 
 //登录失败
@@ -107,9 +106,10 @@ Singleton_Implementation(WPAccountManager);
           self.userAvatar = profile.userIcon;
           DDLogDebug(@"userID:%@", self.userID);
 
-          kDefaultSetValueForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
-          kDefaultSetValueForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-          kDefaultSetValueForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
+          kDefaultSetObjectForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
+          kDefaultSetObjectForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+          kDefaultSetObjectForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
+          [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
       }
     }];
 }

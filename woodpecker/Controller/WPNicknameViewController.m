@@ -84,7 +84,7 @@
 - (void)saveBtnPressed{
     [_textField resignFirstResponder];
     _userinfo.nick_name = _textField.text;
-    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_ACCOUNT_USER];
+    kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
     [self.navigationController popViewControllerAnimated:YES];
 }
 

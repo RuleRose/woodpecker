@@ -8,6 +8,7 @@
 
 #import "WPMainViewController.h"
 #import "UIImage+Extension.h"
+#import "WPNetInterface.h"
 
 @interface WPMainViewController ()
 
@@ -30,6 +31,13 @@
 - (void)setupData {
     self.viewModel = [[WPMainViewModel alloc] init];
     self.viewControllers = self.viewModel.controllerList;
+}
+
+- (void)updateUserInfo{
+    //补充信息
+    [_viewModel getAccount:^(WPUserModel *user) {
+     
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

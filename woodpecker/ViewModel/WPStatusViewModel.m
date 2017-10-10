@@ -15,7 +15,7 @@
     if (self) {
         _temps = [[NSMutableArray alloc] init];
         _profile = [[WPProfileModel alloc] init];
-        [_profile loadDataFromkeyValues:[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_PROFILE]];
+        [_profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
     }
     return self;
 }

@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPUserModel.h"
+#import "WPProfileModel.h"
 
 @interface WPPeriodViewModel : NSObject
-
+- (void)updateUserinfo:(WPUserModel *)userinfo reuslt:(void (^)(BOOL success))result;
+- (void)registerProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result;
+- (void)updateProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result;
 @end

@@ -16,6 +16,7 @@
 #import "WPMenstrualRegularPopupView.h"
 #import "WPMenstrualLastperiodPopupView.h"
 #import "NSDate+Extension.h"
+#import "WPMainViewController.h"
 
 @interface WPPeriodViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
@@ -87,15 +88,32 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
-    [[NSUserDefaults standardUserDefaults] setObject:[_profile transToDictionary] forKey:USER_DEFAULT_PROFILE];
-    [self.navigationController popViewControllerAnimated:YES];
+    [_viewModel updateProfile:_profile reuslt:^(BOOL success) {
+        if (success) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 - (void)finishBtnPressed{
-    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_PROFILE];
-    [[NSUserDefaults standardUserDefaults] setObject:[_profile transToDictionary] forKey:USER_DEFAULT_PROFILE];
-    [self.navigationController popViewControllerAnimated:YES];
-
+    //上传userinfo 和 profile
+    if (![NSString leie_isBlankString:_profile.menstruation] && ![NSString leie_isBlankString:_profile.period] && ![NSString leie_isBlankString:_profile.lastperiod]) {
+        [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
+            if (success) {
+                [_viewModel registerProfile:_profile reuslt:^(BOOL success) {
+                    if (success) {
+                        kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                }];
+            }
+        }];
+    }
+    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [viewControllers removeAllObjects];
+    [viewControllers addObject:mainVC];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
 }
 
 #pragma mark UITableViewDataSource

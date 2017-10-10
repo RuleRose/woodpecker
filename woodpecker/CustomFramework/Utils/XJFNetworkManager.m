@@ -144,13 +144,11 @@ static NSURL *_baseurl = nil;
 
     // 注入验证强制更新参数
     [self ForceUpdateDetectInject:needCheck];
-    NSString *reqURL = [XJFServerManager shareManager].serverURL;
-    reqURL = [reqURL stringByAppendingString:path];
     @weakify(self);
     //    发起请求
     switch (method) {
         case GET: {
-            return [self GET:reqURL
+            return [self GET:path
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -197,22 +195,23 @@ static NSURL *_baseurl = nil;
             //                  //                  !showError || [self showError:error];
             //                  block(nil, error);
             //                }];
+            NSString *reqURL = [NSString stringWithFormat:@"http://%@", [XJFServerManager shareManager].serverURL];
+            reqURL = [reqURL stringByAppendingString:path];
             NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:reqURL parameters:nil error:nil];
             [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
             [req setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
             [req setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
-
             req.timeoutInterval = 60.0f;
             [req setHTTPBody:[tempParams mj_JSONData]];
             [[self dataTaskWithRequest:req
                      completionHandler:^(NSURLResponse *_Nonnull response, id _Nullable responseObject, NSError *_Nullable error) {
                        if (!error) {
                            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                               DDLogDebug(@"\n===========response===========\n%@:\n%@", path, responseObject);
                                if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
                                    block(responseObject, nil);
                                } else {
-                                   DDLogDebug(@"\n===========response===========\n%@:\n%@", path, [responseObject leie_getObjectByPath:@"message"]);
                                    block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
                                }
                            } else {
@@ -227,7 +226,7 @@ static NSURL *_baseurl = nil;
             break;
         }
         case PUT: {
-            return [self PUT:reqURL
+            return [self PUT:path
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -252,7 +251,7 @@ static NSURL *_baseurl = nil;
             break;
         }
         case DELETE: {
-            return [self DELETE:reqURL
+            return [self DELETE:path
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -424,7 +423,7 @@ static NSURL *_baseurl = nil;
     NSString *token = [self.requestSerializer valueForHTTPHeaderField:@"AccessToken"];
     [request setValue:token forHTTPHeaderField:@"AccessToken"];
 
-    __block NSURLSessionDownloadTask *task = [self downloadTaskWithRequest:request
+    NSURLSessionDownloadTask *task = [self downloadTaskWithRequest:request
         progress:nil
         destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
           return [NSURL fileURLWithPath:file];
