@@ -45,9 +45,10 @@ static NSURL *_baseurl = nil;
     //超时设置
     self.requestSerializer.timeoutInterval = 60.0f;
 
-    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
-
+//    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
+    [self.requestSerializer setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
+    [self.requestSerializer setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
     self.securityPolicy.allowInvalidCertificates = YES;
     return self;
 }
@@ -143,11 +144,13 @@ static NSURL *_baseurl = nil;
 
     // 注入验证强制更新参数
     [self ForceUpdateDetectInject:needCheck];
+    NSString *reqURL = [XJFServerManager shareManager].serverURL;
+    reqURL = [reqURL stringByAppendingString:path];
     @weakify(self);
     //    发起请求
     switch (method) {
         case GET: {
-            return [self GET:path
+            return [self GET:reqURL
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -194,11 +197,12 @@ static NSURL *_baseurl = nil;
             //                  //                  !showError || [self showError:error];
             //                  block(nil, error);
             //                }];
-            NSString *reqURL = [NSString stringWithFormat:@"http://%@", [XJFServerManager shareManager].serverURL];
-            reqURL = [reqURL stringByAppendingString:path];
             NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:reqURL parameters:nil error:nil];
             [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [req setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
+            [req setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
+
             req.timeoutInterval = 60.0f;
             [req setHTTPBody:[tempParams mj_JSONData]];
             [[self dataTaskWithRequest:req
@@ -223,7 +227,7 @@ static NSURL *_baseurl = nil;
             break;
         }
         case PUT: {
-            return [self PUT:path
+            return [self PUT:reqURL
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -248,7 +252,7 @@ static NSURL *_baseurl = nil;
             break;
         }
         case DELETE: {
-            return [self DELETE:path
+            return [self DELETE:reqURL
                 parameters:tempParams
                 success:^(NSURLSessionTask *task, id responseObject) {
                   @strongify(self);
@@ -420,7 +424,7 @@ static NSURL *_baseurl = nil;
     NSString *token = [self.requestSerializer valueForHTTPHeaderField:@"AccessToken"];
     [request setValue:token forHTTPHeaderField:@"AccessToken"];
 
-    NSURLSessionDownloadTask *task = [self downloadTaskWithRequest:request
+    __block NSURLSessionDownloadTask *task = [self downloadTaskWithRequest:request
         progress:nil
         destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
           return [NSURL fileURLWithPath:file];

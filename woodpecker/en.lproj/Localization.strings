@@ -25,3 +25,6 @@
 "clock_measurement" = "测温提醒";
 "clock_wakeup_time" = "唤醒时间";
 "clock_prompt" = "设置闹钟后\n体温计将在指定时间提醒您测温";
+
+
+"alert_common_request_failed" = "请求失败";

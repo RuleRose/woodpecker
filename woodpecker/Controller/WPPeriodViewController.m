@@ -14,6 +14,8 @@
 #import "WPMenstrualPopupView.h"
 #import "WPMenstrualInfoViewController.h"
 #import "WPMenstrualRegularPopupView.h"
+#import "WPMenstrualLastperiodPopupView.h"
+#import "NSDate+Extension.h"
 
 @interface WPPeriodViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
@@ -54,11 +56,18 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    
+    if (_isLogin) {
+        self.navigationItem.rightBarButtonItems = @[];
+    }else{
+        [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+    }
 }
 
 - (void)setupData{
     _viewModel = [[WPPeriodViewModel alloc] init];
+    if (!_profile) {
+        _profile = [[WPProfileModel alloc] init];
+    }
 }
 
 - (void)setupViews{
@@ -73,9 +82,19 @@
     [self.view addSubview:_finishBtn];
     [self.view addSubview:self.tableView];
     _finishBtn.frame = CGRectMake((kScreen_Width - 300)/2, _tableView.bottom + 69, 300, 45);
+    _finishBtn.hidden = !_isLogin;
+
+}
+
+- (void)moreBarButtonPressed:(UIButton *)sender{
+    [[NSUserDefaults standardUserDefaults] setObject:[_profile transToDictionary] forKey:USER_DEFAULT_PROFILE];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)finishBtnPressed{
+    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_PROFILE];
+    [[NSUserDefaults standardUserDefaults] setObject:[_profile transToDictionary] forKey:USER_DEFAULT_PROFILE];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -104,17 +123,17 @@
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"周期长度";
-        cell.textField.text = @"1";
+        cell.textField.text = _profile.period;
         cell.line.hidden = YES;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = @"经期长度";
-        cell.textField.text = @"2";
+        cell.textField.text = _profile.menstruation;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
         cell.titleLabel.text = @"末次经期首日";
-        cell.textField.text = @"3";
+        cell.textField.text = _profile.lastperiod;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }
@@ -137,7 +156,8 @@
     if (indexPath.row == 0) {
         WPPeriodPopupView *popView = [[WPPeriodPopupView alloc] init];
         popView.periodBlock = ^(MMPopupView *popupView, NSInteger period) {
-            
+            _profile.period = [NSString stringWithFormat:@"%ld",(long)period];
+            [_tableView reloadData];
         };
         popView.showInfoBlock = ^(MMPopupView *popupView) {
             WPPeriodInfoViewController *infoVC = [[WPPeriodInfoViewController alloc] init];
@@ -149,7 +169,8 @@
     }else if (indexPath.row == 1){
         WPMenstrualPopupView *popView = [[WPMenstrualPopupView alloc] init];
         popView.menstrualBlock = ^(MMPopupView *popupView, NSInteger menstrual) {
-            
+            _profile.menstruation = [NSString stringWithFormat:@"%ld",(long)menstrual];
+            [_tableView reloadData];
         };
         popView.showInfoBlock = ^(MMPopupView *popupView) {
             WPMenstrualInfoViewController *infoVC = [[WPMenstrualInfoViewController alloc] init];
@@ -159,9 +180,10 @@
             
         }];
     }else if (indexPath.row == 2){
-        WPMenstrualRegularPopupView *popView = [[WPMenstrualRegularPopupView alloc] init];
-        popView.regularBlock = ^(MMPopupView *popupView, BOOL regular) {
-            
+        WPMenstrualLastperiodPopupView *popView = [[WPMenstrualLastperiodPopupView alloc] init];
+        popView.lastperiodBlock = ^(MMPopupView *popupView, NSDate *lastperiod) {
+            _profile.lastperiod = [NSDate stringFromDate:lastperiod];
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             

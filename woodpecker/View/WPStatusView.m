@@ -18,26 +18,13 @@
 }
 
 - (void)setupViews{
-    _wheelView = [[WPStatusWheelView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
-    _wheelView.backgroundColor = [UIColor clearColor];
-    [self addSubview:_wheelView];
-    _calendarBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 33, 33)];
-    _calendarBtn.backgroundColor = [UIColor clearColor];
-    [_calendarBtn setImage:kImage(@"btn-navi-status-cale") forState:UIControlStateNormal];
-    [_calendarBtn addTarget:self action:@selector(calendarBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_calendarBtn];
-    _tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 53, 20, 33, 33)];
-    _tempBtn.backgroundColor = [UIColor clearColor];
-    [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
-    [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_tempBtn];
-    _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 320, self.width - 50, 33)];
+    _dateLabel = [[UILabel alloc] init];
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.textColor = kColor_7;
     _dateLabel.font = kFont_2(23);
     _dateLabel.text = @"6月7日";
     [self addSubview:_dateLabel];
-    _periodLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, _dateLabel.bottom, self.width - 50, 35)];
+    _periodLabel = [[UILabel alloc] init];
     _periodLabel.backgroundColor = [UIColor clearColor];
     _periodLabel.textColor = kColor_7;
     _periodLabel.font = kFont_2(23);
@@ -60,11 +47,9 @@
     [_tempEditBtn setImage:kImage(@"icon-status-edit") forState:UIControlStateNormal];
     [_tempEditBtn addTarget:self action:@selector(tempEditBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempEditBtn];
-    
-    CGSize size = [@"36.50" sizeWithFont:kFont_4(84)];
-    _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
-    _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
-    _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
+    _wheelView = [[WPStatusWheelView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
+    _wheelView.backgroundColor = [UIColor clearColor];
+    [self addSubview:_wheelView];
     _indexView = [[WPStatusItemView alloc] initWithFrame:CGRectMake(0, kScreen_Height - 170, (kScreen_Width - 125)/2, 80)];
     _indexView.backgroundColor = [UIColor clearColor];
     [self addSubview:_indexView];
@@ -80,6 +65,24 @@
     UIView *rightLine = [[UIView alloc] initWithFrame:CGRectMake(_timeView.right, _indexView.top + 16, 0.5, 47)];
     rightLine.backgroundColor = kColor_9_With_Alpha(0.1);
     [self addSubview:rightLine];
+    
+    _calendarBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 33, 33)];
+    _calendarBtn.backgroundColor = [UIColor clearColor];
+    [_calendarBtn setImage:kImage(@"btn-navi-status-cale") forState:UIControlStateNormal];
+    [_calendarBtn addTarget:self action:@selector(calendarBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_calendarBtn];
+    _tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 53, 20, 33, 33)];
+    _tempBtn.backgroundColor = [UIColor clearColor];
+    [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
+    [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_tempBtn];
+    
+    CGSize size = [@"36.50" sizeWithFont:kFont_4(84)];
+    _dateLabel.frame = CGRectMake(25, kScreen_Height - 400, self.width - 50, 33);
+    _periodLabel.frame = CGRectMake(25, _dateLabel.bottom, self.width - 50, 35);
+    _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
+    _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
+    _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
     
     [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
     [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];

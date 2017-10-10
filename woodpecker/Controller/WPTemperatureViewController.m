@@ -9,12 +9,14 @@
 #import "WPTemperatureViewController.h"
 #import "WPTemperatureViewModel.h"
 #import "WPLineView.h"
+#import "WPTemperatureDetailView.h"
 
 @interface WPTemperatureViewController ()
 @property(nonatomic, strong) UILabel *titleLabel;
 @property(nonatomic, strong) UIButton *switchBtn;
 @property(nonatomic, strong) WPLineView *lineView;
 @property(nonatomic, strong) WPTemperatureViewModel *viewModel;
+@property(nonatomic, strong) WPTemperatureDetailView *lineDetailView;
 @end
 
 @implementation WPTemperatureViewController
@@ -25,7 +27,14 @@
     [self setupData];
     [self setupViews];
     [_lineView updateChartData];
+    [_lineDetailView.lineView updateChartData];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_lineView updateChartData];
+    [_lineDetailView.lineView updateChartData];
 }
 
 - (void)setupData{
@@ -47,11 +56,19 @@
     [self.view addSubview:_switchBtn];
     _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(32, 111, kScreen_Width - 64, kScreen_Width - 64)];
     _lineView.backgroundColor = [UIColor clearColor];
+    _lineView.showCount = 7;
     [self.view addSubview:_lineView];
+    _lineDetailView = [[WPTemperatureDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
+    _lineDetailView.backgroundColor = [UIColor clearColor];
+    [self.navigationController.view addSubview:_lineDetailView];
+    _lineDetailView.hidden = YES;
 }
 
 - (void)switchBtnPressed{
-
+    _lineDetailView.hidden = !_lineDetailView.hidden;
+    if (!_lineDetailView.hidden) {
+        [_lineDetailView.lineView updateChartData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

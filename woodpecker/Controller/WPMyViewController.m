@@ -164,6 +164,7 @@
         [self.navigationController pushViewController:basicVC animated:YES];
     }else if (indexPath.row == 2){
         WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
+        periodVC.profile = _profile;
         [self.navigationController pushViewController:periodVC animated:YES];
     }else if (indexPath.row == 4){
         WPShoppingViewController *shoppingVC = [[WPShoppingViewController alloc] init];

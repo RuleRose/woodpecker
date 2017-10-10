@@ -8,8 +8,10 @@
 
 #import "XJFBaseViewController.h"
 #import "WPUserModel.h"
+#import "WPProfileModel.h"
 
 @interface WPPeriodViewController : XJFBaseViewController
 @property(nonatomic, strong) WPUserModel *userinfo;
+@property(nonatomic, strong) WPProfileModel *profile;
 @property(nonatomic, assign) BOOL isLogin;
 @end

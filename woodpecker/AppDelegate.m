@@ -11,6 +11,7 @@
 #import "initServer.h"
 #import "WPLoginViewController.h"
 #import "WPAccountManager.h"
+#import "XJFServerManager.h"
 
 @interface AppDelegate ()
 
@@ -23,12 +24,21 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = kColor_10;
+    [initServer load];
 
     // Override point for customization after application launch.
     if ([[WPAccountManager defaultInstance] isLogin]) {
         //主页
-        WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-        _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:mainVC];
+       NSString *user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+        if ([NSString leie_isBlankString:user_id]) {
+            //登录
+            WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
+            _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:loginVC];
+        }else{
+            WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+            _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:mainVC];
+        }
+
     }else{
         //登录
         WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];

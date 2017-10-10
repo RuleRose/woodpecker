@@ -101,7 +101,8 @@
         self.showRightYAxis = NO;
         self.showLeftYAxis = YES;
         self.showXAxis = YES;
-        self.showCount = 7.0;
+        self.scaleX = -1;
+        self.xIndex = -1;
     }
     return self;
 }
@@ -202,12 +203,7 @@
             index = _xIndex + 3;
         }
         [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
-//        if (_delegate && [_delegate respondsToSelector:@selector(scaleLine:scaleX:scaleY:)]) {
-//            [_delegate scaleLine:self scaleX:scale scaleY:1];
-//        }
-//        if (_delegate && [_delegate respondsToSelector:@selector(scrollLine:lowestVisibleXIndex:highestVisibleXIndex:)]) {
-//            [_delegate scrollLine:self lowestVisibleXIndex:_chartView.lowestVisibleX highestVisibleXIndex:_chartView.highestVisibleX];
-//        }
+
     }else{
         [_chartView zoomWithScaleX:1 scaleY:1 xValue:xVals.count yValue:0 axis:AxisDependencyLeft];
     }
