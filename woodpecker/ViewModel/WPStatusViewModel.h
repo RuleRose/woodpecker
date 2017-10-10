@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPProfileModel.h"
 
 @interface WPStatusViewModel : NSObject
+@property(nonatomic,strong)NSMutableArray *temps;
+@property(nonatomic,strong)WPProfileModel *profile;
 
 @end

@@ -10,5 +10,6 @@
 
 @interface WPStatusWheelCell : UICollectionViewCell
 @property (strong, nonatomic) UILabel *textLabel;
+@property(nonatomic, assign) PeriodType period_type;
 
 @end
