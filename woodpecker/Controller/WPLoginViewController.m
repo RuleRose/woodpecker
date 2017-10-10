@@ -84,23 +84,15 @@
 }
 
 - (void)registerAccount{
-    [WPLoginViewModel registerWithAccountID:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
-        if (![NSString leie_isBlankString:user_id]) {
-            kDefaultSetValueForKey(user_id, USER_DEFAULT_USER_ID);
+    [_viewModel registerAccount:^(BOOL success) {
+        if (success) {
             WPMainViewController *mainVC = [[WPMainViewController alloc] init];
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
             [viewControllers removeAllObjects];
             [viewControllers addObject:mainVC];
             [self.navigationController setViewControllers:viewControllers animated:YES];
         }
-    } failure:^(NSError *error) {
-        
     }];
-    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:mainVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
 
 }
 
