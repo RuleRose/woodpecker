@@ -28,7 +28,10 @@
     if (avatar) {
         [params setObject:avatar forKey:@"account_avatar"];
     }
-    [[XJFNetworkManager shareManager] requestWithPath:@"user/register/" requestParams:params networkMethod:POST autoShowError:YES callback:^(id data, NSError *error) {
+//    [[XJFNetworkManager shareManager] requestWithPath:@"user/register/" requestParams:params networkMethod:POST autoShowError:YES callback:^(id data, NSError *error) {
+    
+//    }];
+    [[XJFNetworkManager shareManager] requestWithPath:USER_REGISTER requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         
     }];
 }

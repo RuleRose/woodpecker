@@ -64,7 +64,6 @@ Singleton_Implementation(WPAccountManager);
     kDefaultSetValueForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
     [self.account save];
     [self fetchProfile];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
 }
 
 //登录失败
@@ -110,6 +109,7 @@ Singleton_Implementation(WPAccountManager);
           kDefaultSetValueForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
           kDefaultSetValueForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
           kDefaultSetValueForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
+          [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
       }
     }];
 }
