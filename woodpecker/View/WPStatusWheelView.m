@@ -141,6 +141,7 @@
     self.offset = [self offset:self.location to:currentLocation];
     NSLog(@"offset %f", self.offset);
     CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    NSLog(@"collectionview offset %f, %f", collectionViewOffset.x, collectionViewOffset.y);
     
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y + self.offset*5)];
     self.location = currentLocation;
@@ -150,6 +151,9 @@
 
 - (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event {
     [super endTrackingWithTouch:touch withEvent:event];
+    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    CGFloat offsetY = round(collectionViewOffset.y / 300) * 300;
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
 }
 
 -(CGFloat)offset:(CGPoint)fromPoint to:(CGPoint)toPoint{
