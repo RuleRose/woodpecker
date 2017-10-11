@@ -69,7 +69,7 @@
     _viewModel = [[WPBasicInfoViewModel alloc] init];
     if (!_userinfo) {
        _userinfo = [[WPUserModel alloc] init];
-       _userinfo.pid = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+        _userinfo.pid = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
     }
 }
 

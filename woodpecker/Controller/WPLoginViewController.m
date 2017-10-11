@@ -85,7 +85,7 @@
 }
 
 - (void)registerAccount{
-    NSString *user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+    NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
     if ([NSString leie_isBlankString:user_id]) {
         [_viewModel registerAccount:^(BOOL success) {
             if (success) {

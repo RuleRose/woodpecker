@@ -36,7 +36,7 @@
 }
 
 - (void)getAccount:(void (^)(WPUserModel *user))result{
-    [WPNetInterface getUserinfoWithUserId:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) password:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
+    [WPNetInterface getUserinfoWithUserId:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID) password:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
         WPUserModel *user;
         if (userDic) {
             kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
