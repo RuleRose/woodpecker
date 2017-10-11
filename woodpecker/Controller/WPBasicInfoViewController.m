@@ -90,7 +90,6 @@
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_activeTextField resignFirstResponder];
-    _userinfo.nick_name = _activeTextField.text;
     if ([NSString leie_isBlankString:_userinfo.nick_name] && [NSString leie_isBlankString:_userinfo.birthday]) {
         [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
             if (success) {
@@ -224,7 +223,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField*)textField cell:(WPInfoSettingCell*)cell{
-
+    _userinfo.nick_name = _activeTextField.text;
 }
 
 - (void)didReceiveMemoryWarning {

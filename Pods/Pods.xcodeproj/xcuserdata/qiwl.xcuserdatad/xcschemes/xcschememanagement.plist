@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,12 +92,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<key>009CC02864B09984AF44F45F10EC9020</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0ADF3D47456E3EBCF6C30D95C247953F</key>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0C8DCC51770FA2BA227B37266BA1ED5C</key>
+		<key>110BE967075DC754D0E0FCF1F184AFB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,12 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2FAA69BA7A2364FE449F2BDEA6326528</key>
+		<key>252F1C4BF3C91E67F867B321FB179DE9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4194961A11C91853D8F81ABF06C50C34</key>
+		<key>2923CD98B103969165FE483E43AB9592</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,12 +132,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7795A7BB4C09CB8B28FBCDE74A2FCA49</key>
+		<key>7F3ABBCE8B56C4CCFA2EBC4AA9B436F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8FAFD1E3DE0B399882DEA4B61F961FD5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>904F4F27FD314010A3812EB2A9306183</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,17 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C3319A9399CF84E7C7AECDA75D9A3FA9</key>
+		<key>D054F75CDD6A201788ACE72A2E4F1F3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E6706BEDFF1B78BA7797F06437EF8FFF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E6DC241F475BAC43BD5DE3921689A3D7</key>
+		<key>D2A7E50CD77DB6187A639DC38BC0730A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

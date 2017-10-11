@@ -58,5 +58,11 @@
 
     _textLabel.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     _textLabel.font = kFont_2(23*self.frame.size.width/56.0);
+    if (self.frame.size.width >= 56.0) {
+        if (_delegate && [_delegate respondsToSelector:@selector(showStatusCell:)]) {
+            [_delegate showStatusCell:self];
+        }
+    }
+
 }
 @end
