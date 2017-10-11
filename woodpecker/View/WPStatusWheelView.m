@@ -9,8 +9,9 @@
 #import "WPStatusWheelView.h"
 #import "WPCollectionViewWheelLayout.h"
 #import "WPStatusWheelCell.h"
+#import "NSDate+Extension.h"
 
-@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource,WPStatusWheelCellDelegate>
 @property(nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic, assign)CGPoint pos;
 @property(nonatomic, assign)CGFloat offsetY;
@@ -24,6 +25,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        if (_startDate) {
+            _startDate = [NSDate date];
+        }
         [self setupViews];
     }
     return self;
@@ -42,16 +46,15 @@
     _collectionView.pagingEnabled = YES;
     _collectionView.clipsToBounds = YES;
     [_collectionView registerClass:[WPStatusWheelCell class] forCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class])];
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-    _scrollView.backgroundColor = [UIColor clearColor];
-    _scrollView.contentSize = CGSizeMake(self.frame.size.height*18, self.frame.size.height*18);
-    _scrollView.delegate = self;
-    _scrollView.pagingEnabled = YES;
-    _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.showsHorizontalScrollIndicator = NO;
+//    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+//    _scrollView.backgroundColor = [UIColor clearColor];
+//    _scrollView.delegate = self;
+//    _scrollView.pagingEnabled = NO;
+//    _scrollView.showsVerticalScrollIndicator = NO;
+//    _scrollView.showsHorizontalScrollIndicator = NO;
     [self drawLine];
     [self addSubview:_collectionView];
-    [self addSubview:_scrollView];
+//    [self addSubview:_scrollView];
 }
 
 - (void)drawLine{
@@ -76,14 +79,22 @@
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 10;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
-    cell.textLabel.text = @"今天";
+    NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
+    if (indexPath.row == days + 2 + 10) {
+        cell.textLabel.text = @"今天";
+    }else{
+        cell.textLabel.text = @"";
+
+    }
+    NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
     cell.period_type = kPeriodTypeOfMenstrual;
+    cell.date = date;
     if (indexPath.row < 2) {
         cell.hidden = YES;
     }else{
@@ -97,26 +108,34 @@
 
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView == _scrollView) {
-        CGPoint currentPoint = scrollView.contentOffset;
-        CGPoint offset = [self offsetWithCurrentPos:currentPoint];
-        [_collectionView setContentOffset:offset];
-        [_scrollView setContentOffset:_pos];
+#pragma mark WPStatusWheelCellDelegate
+- (void)showStatusCell:(WPStatusWheelCell *)cell{
+    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate::)]) {
+        [_delegate showDetailDate:cell.date];
     }
+    //cell.date
 }
 
-- (CGPoint)offsetWithCurrentPos:(CGPoint)currentPoint{
-    CGFloat contentOffsetY = currentPoint.y;
-    if (fabs(currentPoint.y - _pos.y) > fabs(currentPoint.x -_pos.x)) {
-        contentOffsetY = currentPoint.y;
-    }else{
-        contentOffsetY = currentPoint.x;
-    }
-    _pos = CGPointMake(contentOffsetY, contentOffsetY);
-    CGPoint contentOffset = _collectionView.contentOffset;
-    return CGPointMake(contentOffset.x, contentOffsetY*(300.0/self.width));
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (scrollView == _scrollView) {
+//        CGPoint currentPoint = scrollView.contentOffset;
+//        CGPoint offset = [self offsetWithCurrentPos:currentPoint];
+//        [_collectionView setContentOffset:offset];
+//        [_scrollView setContentOffset:_pos];
+//    }
+//}
+//
+//- (CGPoint)offsetWithCurrentPos:(CGPoint)currentPoint{
+//    CGFloat contentOffsetY = currentPoint.y;
+//    if (fabs(currentPoint.y - _pos.y) > fabs(currentPoint.x -_pos.x)) {
+//        contentOffsetY = currentPoint.y;
+//    }else{
+//        contentOffsetY = currentPoint.x;
+//    }
+//    _pos = CGPointMake(contentOffsetY, contentOffsetY);
+//    CGPoint contentOffset = _collectionView.contentOffset;
+//    return CGPointMake(contentOffset.x, contentOffsetY*(300.0/self.width));
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.

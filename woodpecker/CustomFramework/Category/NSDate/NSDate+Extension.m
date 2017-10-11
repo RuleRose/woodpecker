@@ -174,4 +174,23 @@
     }
     return NO;
 }
+
++ (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
+    NSDateComponents *components = [[self calendar] components:NSCalendarUnitDay
+                                                     fromDate:fromDate
+                                                       toDate:toDate
+                                                      options:0];
+    return components.day;
+}
+
++ (NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date
+{
+    if (!date) return nil;
+    NSDateComponents *components = self.components;
+    components.day = days;
+    NSDate *d = [[self calendar] dateByAddingComponents:components toDate:date options:0];
+    components.day = NSIntegerMax;
+    return d;
+}
 @end
