@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WPStatusWheelView : UIView
+@interface WPStatusWheelView : UIControl
 
 @end

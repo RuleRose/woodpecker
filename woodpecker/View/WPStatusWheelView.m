@@ -12,9 +12,10 @@
 
 @interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic, assign)CGPoint pos;
-@property(nonatomic, assign)CGFloat offsetY;
-@property(nonatomic, strong)UIScrollView *scrollView;
+//@property(nonatomic, assign)CGPoint pos;
+@property(nonatomic, assign) CGFloat offset;
+@property(nonatomic, assign) CGPoint location;
+//@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
 @end
@@ -41,17 +42,18 @@
     _collectionView.delegate = self;
     _collectionView.pagingEnabled = YES;
     _collectionView.clipsToBounds = YES;
+    _collectionView.userInteractionEnabled = NO;
     [_collectionView registerClass:[WPStatusWheelCell class] forCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class])];
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-    _scrollView.backgroundColor = [UIColor clearColor];
-    _scrollView.contentSize = CGSizeMake(self.frame.size.height*18, self.frame.size.height*18);
-    _scrollView.delegate = self;
-    _scrollView.pagingEnabled = YES;
-    _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.showsHorizontalScrollIndicator = NO;
+//    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+//    _scrollView.backgroundColor = [UIColor clearColor];
+//    _scrollView.contentSize = CGSizeMake(self.frame.size.height*18, self.frame.size.height*18);
+//    _scrollView.delegate = self;
+//    _scrollView.pagingEnabled = YES;
+//    _scrollView.showsVerticalScrollIndicator = NO;
+//    _scrollView.showsHorizontalScrollIndicator = NO;
     [self drawLine];
     [self addSubview:_collectionView];
-    [self addSubview:_scrollView];
+//    [self addSubview:_scrollView];
 }
 
 - (void)drawLine{
@@ -97,26 +99,26 @@
 
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView == _scrollView) {
-        CGPoint currentPoint = scrollView.contentOffset;
-        CGPoint offset = [self offsetWithCurrentPos:currentPoint];
-        [_collectionView setContentOffset:offset];
-        [_scrollView setContentOffset:_pos];
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (scrollView == _scrollView) {
+//        CGPoint currentPoint = scrollView.contentOffset;
+//        CGPoint offset = [self offsetWithCurrentPos:currentPoint];
+//        [_collectionView setContentOffset:offset];
+//        [_scrollView setContentOffset:_pos];
+//    }
+//}
 
-- (CGPoint)offsetWithCurrentPos:(CGPoint)currentPoint{
-    CGFloat contentOffsetY = currentPoint.y;
-    if (fabs(currentPoint.y - _pos.y) > fabs(currentPoint.x -_pos.x)) {
-        contentOffsetY = currentPoint.y;
-    }else{
-        contentOffsetY = currentPoint.x;
-    }
-    _pos = CGPointMake(contentOffsetY, contentOffsetY);
-    CGPoint contentOffset = _collectionView.contentOffset;
-    return CGPointMake(contentOffset.x, contentOffsetY*(300.0/self.width));
-}
+//- (CGPoint)offsetWithCurrentPos:(CGPoint)currentPoint{
+//    CGFloat contentOffsetY = currentPoint.y;
+//    if (fabs(currentPoint.y - _pos.y) > fabs(currentPoint.x -_pos.x)) {
+//        contentOffsetY = currentPoint.y;
+//    }else{
+//        contentOffsetY = currentPoint.x;
+//    }
+//    _pos = CGPointMake(contentOffsetY, contentOffsetY);
+//    CGPoint contentOffset = _collectionView.contentOffset;
+//    return CGPointMake(contentOffset.x, contentOffsetY*(300.0/self.width));
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -126,4 +128,34 @@
 }
 */
 
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(nullable UIEvent *)event {
+    [super beginTrackingWithTouch:touch withEvent:event];
+    self.location = [touch locationInView:self];
+
+    return YES;
+}
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    [super continueTrackingWithTouch:touch withEvent:event];
+    CGPoint currentLocation = [touch locationInView:self];
+    self.offset = [self offset:self.location to:currentLocation];
+    NSLog(@"offset %f", self.offset);
+    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y + self.offset*5)];
+    self.location = currentLocation;
+    
+    return YES;
+}
+
+- (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event {
+    [super endTrackingWithTouch:touch withEvent:event];
+}
+
+-(CGFloat)offset:(CGPoint)fromPoint to:(CGPoint)toPoint{
+    CGFloat offsetX = toPoint.x - fromPoint.x;
+    CGFloat offsetY = toPoint.y - fromPoint.y;
+    
+    return offsetX + offsetY;
+}
 @end
