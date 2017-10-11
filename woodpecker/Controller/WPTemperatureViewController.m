@@ -67,7 +67,7 @@
 - (void)switchBtnPressed{
     _lineDetailView.hidden = !_lineDetailView.hidden;
     if (!_lineDetailView.hidden) {
-        [_lineDetailView.lineView updateChartData];
+        [_lineDetailView.lineView updateChartData:_viewModel.temps];
     }
 }
 

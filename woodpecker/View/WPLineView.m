@@ -9,6 +9,9 @@
 #import "WPLineView.h"
 #import "woodpecker-Swift.h"
 #import <Charts/Charts.h>
+#import "WPTemperatureModel.h"
+#import "NSDate+Extension.h"
+
 @interface WPLineView ()<ChartViewDelegate>
 @property (nonatomic, strong) LineChartView *chartView;
 @property (nonatomic, strong) BalloonMarker *marker;
@@ -132,61 +135,78 @@
     [_chartView animateWithXAxisDuration:0];
 }
 
-- (void)updateChartData{
+- (void)updateChartData:(NSArray *)temps{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
-    NSString *title;
-    for (NSInteger i = 0; i < 4; i++ ) {
-        //周期
-        NSMutableArray *yVals = [[NSMutableArray alloc] init];
-        for (NSInteger j = 0; j < 6; j++){
-            //日期
-            CGFloat temperature = 35+ i + j/5.0;
-            [yVals addObject:[[ChartDataEntry alloc] initWithX:(i *5 + j) y:temperature]];
-            [xVals addObject:[NSString stringWithFormat:@"%ld",i *5 + j]];
-
+    if (temps.count > 0) {
+        WPTemperatureModel *startTemp = temps.firstObject;
+        WPTemperatureModel *endTemp = temps.lastObject;
+        NSDate *startDate = [NSDate dateFromString:startTemp.time format:@"yyyy MM dd"];
+        NSDate *endDate = [NSDate dateFromString:endTemp.time format:@"yyyy MM dd"];
+        NSInteger days = [NSDate daysFromDate:startDate toDate:endDate];
+        for (NSInteger i = 0; i <= days; i ++) {
+            NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
+            [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
         }
-        UIColor *linefillColor = [UIColor clearColor];
-        UIColor *lineColor = [UIColor clearColor];
-        if (i == 0) {
-            title = @"月经期";
-            linefillColor = kColor_5_With_Alpha(0.5);
-            lineColor = kColor_5;
-        }else if (i ==1){
-            title = @"安全期";
-            linefillColor = kColor_17_With_Alpha(0.5);
-            lineColor = kColor_17;
-        }else if(i == 2){
-            title = @"易孕期";
-            linefillColor = kColor_18_With_Alpha(0.5);
-            lineColor = kColor_18;
-        }else{
-            title = @"排卵日";
-            linefillColor = kColor_15_With_Alpha(0.5);
-            lineColor = kColor_15;
+        WPTemperatureModel *preTemp;
+        for (WPTemperatureModel *temp in temps) {
+         
         }
-        LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:title];
-        dataSet.axisDependency = AxisDependencyLeft;
-        [dataSet setColor:lineColor];
-        [dataSet setCircleColor:lineColor];
-        dataSet.fillColor = lineColor;
-        dataSet.highlightColor = lineColor;
-        dataSet.circleHoleColor = lineColor;
-        NSArray *gradientColors = @[(id)kColor_10.CGColor,(id)linefillColor.CGColor];
-        CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
-        dataSet.lineWidth = 0.5;
-        dataSet.drawCircleHoleEnabled = YES;
-        dataSet.drawCubicEnabled = NO;
-        dataSet.circleRadius = 3;
-        dataSet.circleHoleRadius = 1.5;
-        dataSet.drawVerticalHighlightIndicatorEnabled = YES;
-        dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
-        dataSet.drawValuesEnabled = NO;
-        dataSet.highlightLineWidth = 0.5;
-        dataSet.fillAlpha = 1.0;
-        dataSet.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];
-        dataSet.drawFilledEnabled = YES;
-        [dataSets addObject:dataSet];
+        
+        NSString *title;
+        for (NSInteger i = 0; i < 4; i++ ) {
+            //周期
+            NSMutableArray *yVals = [[NSMutableArray alloc] init];
+            for (NSInteger j = 0; j < 6; j++){
+                //日期
+                CGFloat temperature = 35+ i + j/5.0;
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:(i *5 + j) y:temperature]];
+                [xVals addObject:[NSString stringWithFormat:@"%ld",i *5 + j]];
+                
+            }
+            UIColor *linefillColor = [UIColor clearColor];
+            UIColor *lineColor = [UIColor clearColor];
+            if (i == 0) {
+                title = @"月经期";
+                linefillColor = kColor_5_With_Alpha(0.5);
+                lineColor = kColor_5;
+            }else if (i ==1){
+                title = @"安全期";
+                linefillColor = kColor_17_With_Alpha(0.5);
+                lineColor = kColor_17;
+            }else if(i == 2){
+                title = @"易孕期";
+                linefillColor = kColor_18_With_Alpha(0.5);
+                lineColor = kColor_18;
+            }else{
+                title = @"排卵日";
+                linefillColor = kColor_15_With_Alpha(0.5);
+                lineColor = kColor_15;
+            }
+            LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:title];
+            dataSet.axisDependency = AxisDependencyLeft;
+            [dataSet setColor:lineColor];
+            [dataSet setCircleColor:lineColor];
+            dataSet.fillColor = lineColor;
+            dataSet.highlightColor = lineColor;
+            dataSet.circleHoleColor = lineColor;
+            NSArray *gradientColors = @[(id)kColor_10.CGColor,(id)linefillColor.CGColor];
+            CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
+            dataSet.lineWidth = 0.5;
+            dataSet.drawCircleHoleEnabled = YES;
+            dataSet.drawCubicEnabled = NO;
+            dataSet.circleRadius = 3;
+            dataSet.circleHoleRadius = 1.5;
+            dataSet.drawVerticalHighlightIndicatorEnabled = YES;
+            dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
+            dataSet.drawValuesEnabled = NO;
+            dataSet.highlightLineWidth = 0.5;
+            dataSet.fillAlpha = 1.0;
+            dataSet.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];
+            dataSet.drawFilledEnabled = YES;
+            [dataSets addObject:dataSet];
+        }
+    
     }
     LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
     [data setValueTextColor:UIColor.whiteColor];

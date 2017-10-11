@@ -163,7 +163,7 @@
     CGPoint collectionViewOffset = self.collectionView.contentOffset;
     NSLog(@"collectionview offset %f, %f", collectionViewOffset.x, collectionViewOffset.y);
     
-    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*5)];
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*1)];
     self.location = currentLocation;
     
     return YES;
