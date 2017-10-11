@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @protocol WPStatusWheelViewDelegate;
-@interface WPStatusWheelView : UIView
+@interface WPStatusWheelView : UIControl
 @property(nonatomic, strong)NSDate *startDate;
-@property(nonatomic, assign) id<WPStatusWheelViewDelegate> delegate;
 
+@property(nonatomic, assign) id<WPStatusWheelViewDelegate> delegate;
 @end
 @protocol WPStatusWheelViewDelegate <NSObject>
 @optional
