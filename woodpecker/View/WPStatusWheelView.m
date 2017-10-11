@@ -13,9 +13,10 @@
 
 @interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource,WPStatusWheelCellDelegate>
 @property(nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic, assign)CGPoint pos;
-@property(nonatomic, assign)CGFloat offsetY;
-@property(nonatomic, strong)UIScrollView *scrollView;
+//@property(nonatomic, assign)CGPoint pos;
+@property(nonatomic, assign) CGFloat offset;
+@property(nonatomic, assign) CGPoint location;
+//@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
 @end
@@ -45,11 +46,13 @@
     _collectionView.delegate = self;
     _collectionView.pagingEnabled = YES;
     _collectionView.clipsToBounds = YES;
+    _collectionView.userInteractionEnabled = NO;
     [_collectionView registerClass:[WPStatusWheelCell class] forCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class])];
 //    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
 //    _scrollView.backgroundColor = [UIColor clearColor];
 //    _scrollView.delegate = self;
-//    _scrollView.pagingEnabled = NO;
+//    _scrollView.contentSize = CGSizeMake(self.frame.size.height*18, self.frame.size.height*18);
+//    _scrollView.pagingEnabled = YES;
 //    _scrollView.showsVerticalScrollIndicator = NO;
 //    _scrollView.showsHorizontalScrollIndicator = NO;
     [self drawLine];
@@ -110,10 +113,9 @@
 
 #pragma mark WPStatusWheelCellDelegate
 - (void)showStatusCell:(WPStatusWheelCell *)cell{
-    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate::)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:)]) {
         [_delegate showDetailDate:cell.date];
     }
-    //cell.date
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -124,7 +126,7 @@
 //        [_scrollView setContentOffset:_pos];
 //    }
 //}
-//
+
 //- (CGPoint)offsetWithCurrentPos:(CGPoint)currentPoint{
 //    CGFloat contentOffsetY = currentPoint.y;
 //    if (fabs(currentPoint.y - _pos.y) > fabs(currentPoint.x -_pos.x)) {
@@ -145,4 +147,33 @@
 }
 */
 
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(nullable UIEvent *)event {
+    [super beginTrackingWithTouch:touch withEvent:event];
+    self.location = [touch locationInView:self];
+
+    return YES;
+}
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    [super continueTrackingWithTouch:touch withEvent:event];
+    CGPoint currentLocation = [touch locationInView:self];
+    self.offset = [self offset:self.location to:currentLocation];
+    NSLog(@"offset %f", self.offset);
+    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y + self.offset*5)];
+    self.location = currentLocation;
+    
+    return YES;
+}
+
+- (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event {
+    [super endTrackingWithTouch:touch withEvent:event];
+}
+
+-(CGFloat)offset:(CGPoint)fromPoint to:(CGPoint)toPoint{
+    CGFloat offsetX = toPoint.x - fromPoint.x;
+    CGFloat offsetY = toPoint.y - fromPoint.y;
+    return offsetX + offsetY;
+}
 @end
