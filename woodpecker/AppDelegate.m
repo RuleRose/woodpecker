@@ -29,7 +29,7 @@
     // Override point for customization after application launch.
     if ([[WPAccountManager defaultInstance] isLogin]) {
         //主页
-        NSString *user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+        NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
         if ([NSString leie_isBlankString:user_id]) {
             //登录
             WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];

@@ -105,7 +105,7 @@ Singleton_Implementation(WPAccountManager);
           self.userNickName = profile.nickName;
           self.userAvatar = profile.userIcon;
           DDLogDebug(@"userID:%@", self.userID);
-
+          
           kDefaultSetObjectForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
           kDefaultSetObjectForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
           kDefaultSetObjectForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
@@ -115,9 +115,9 @@ Singleton_Implementation(WPAccountManager);
 }
 
 - (void)loadUserDefaultValue {
-    self.userToken = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN);
-    self.userID = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID);
-    self.userNickName = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-    self.userAvatar = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+    self.userToken = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    self.userID = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    self.userNickName = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    self.userAvatar = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
 }
 @end

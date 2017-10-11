@@ -15,7 +15,7 @@
 {
     self = [super init];
     if (self) {
-        _user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+        _user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
         NSDictionary *userDic = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER);
         if (userDic) {
             _user = [[WPUserModel alloc] init];
@@ -30,7 +30,7 @@
 }
 
 - (void)registerAccount:(void (^)(BOOL success))result{
-    [WPNetInterface registerWithAccountID:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
+    [WPNetInterface registerWithAccountID:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
         _user_id = user_id;
         if (![NSString leie_isBlankString:user_id]) {
             kDefaultSetObjectForKey(user_id, USER_DEFAULT_USER_ID);
@@ -50,7 +50,7 @@
 }
 
 - (void)getAccount:(void (^)(WPUserModel *user))result{
-    [WPNetInterface getUserinfoWithUserId:_user_id password:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
+    [WPNetInterface getUserinfoWithUserId:_user_id password:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
         if (userDic) {
             kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
             _user = [[WPUserModel alloc] init];
