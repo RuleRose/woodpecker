@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface WPTemperatureViewModel : NSObject
-
+@property(nonatomic, strong)NSMutableArray *temps;
 @end

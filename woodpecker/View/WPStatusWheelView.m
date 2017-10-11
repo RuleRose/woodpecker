@@ -98,6 +98,7 @@
     NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
     cell.period_type = kPeriodTypeOfMenstrual;
     cell.date = date;
+    cell.delegate = self;
     if (indexPath.row < 2) {
         cell.hidden = YES;
     }else{
