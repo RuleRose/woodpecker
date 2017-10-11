@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPUserModel.h"
 
 @interface WPLoginViewModel : NSObject
+@property(nonatomic, strong)NSString *user_id;
+@property(nonatomic, strong)WPUserModel *user;
+
+
 - (void)login;
-+ (void)registerWithAccountID:(NSString*)account_id type:(NSString*)account_type nickname:(NSString*)nikename avatar:(NSString *)avatar success:(void (^)(NSString* user_id))success failure:(void (^)(NSError* error))failure;
+- (void)registerAccount:(void (^)(BOOL success))result;
+- (void)getAccount:(void (^)(WPUserModel *user))result;
+
 @end

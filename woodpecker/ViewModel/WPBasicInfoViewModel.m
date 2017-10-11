@@ -7,7 +7,19 @@
 //
 
 #import "WPBasicInfoViewModel.h"
+#import "WPNetInterface.h"
 
 @implementation WPBasicInfoViewModel
-
+- (void)updateUserinfo:(WPUserModel *)userinfo reuslt:(void (^)(BOOL success))result{
+    [WPNetInterface updateUserInfoWithUserID:userinfo.pid nickname:userinfo.nick_name birthday:userinfo.birthday height:userinfo.height weight:userinfo.weight success:^(BOOL success) {
+        kDefaultSetObjectForKey([userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
+        if (result) {
+            result(success);
+        }
+    } failure:^(NSError *error) {
+        if (result) {
+            result(NO);
+        }
+    }];
+}
 @end

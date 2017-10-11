@@ -69,6 +69,7 @@
     _viewModel = [[WPBasicInfoViewModel alloc] init];
     if (!_userinfo) {
        _userinfo = [[WPUserModel alloc] init];
+       _userinfo.pid = kDefaultValueForKey(USER_DEFAULT_USER_ID);
     }
 }
 
@@ -90,8 +91,14 @@
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_activeTextField resignFirstResponder];
     _userinfo.nick_name = _activeTextField.text;
-    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo transToDictionary] forKey:USER_DEFAULT_ACCOUNT_USER];
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([NSString leie_isBlankString:_userinfo.nick_name] && [NSString leie_isBlankString:_userinfo.birthday]) {
+        [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
+            if (success) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }
+
 }
 
 - (void)nextBtnPressed{
@@ -99,11 +106,12 @@
         [_activeTextField resignFirstResponder];
         _userinfo.nick_name = _activeTextField.text;
     }
-
-    WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
-    periodVC.userinfo = _userinfo;
-    periodVC.isLogin = _isLogin;
-    [self.navigationController pushViewController:periodVC animated:YES];
+    if (![NSString leie_isBlankString:_userinfo.birthday] && ![NSString leie_isBlankString:_userinfo.nick_name]) {
+        WPPeriodViewController *periodVC = [[WPPeriodViewController alloc] init];
+        periodVC.userinfo = _userinfo;
+        periodVC.isLogin = _isLogin;
+        [self.navigationController pushViewController:periodVC animated:YES];
+    }
 }
 
 #pragma mark UITableViewDataSource

@@ -73,7 +73,7 @@
 }
 
 + (NSString *)stringFromDate:(NSDate *)date{
-    return [NSDate stringFromDate:date format:@"yyyy-MM-dd"];
+    return [NSDate stringFromDate:date format:@"yyyy MM dd"];
 }
 
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)format{

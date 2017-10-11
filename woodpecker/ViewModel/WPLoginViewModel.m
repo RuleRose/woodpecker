@@ -8,31 +8,64 @@
 
 #import "WPLoginViewModel.h"
 #import "WPAccountManager.h"
+#import "WPNetInterface.h"
 
 @implementation WPLoginViewModel
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+        NSDictionary *userDic = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER);
+        if (userDic) {
+            _user = [[WPUserModel alloc] init];
+            [_user loadDataFromkeyValues:userDic];
+        }
+    }
+    return self;
+}
+
 - (void)login{
     [[WPAccountManager defaultInstance] login];
 }
 
-+ (void)registerWithAccountID:(NSString*)account_id type:(NSString*)account_type nickname:(NSString*)nikename avatar:(NSString *)avatar success:(void (^)(NSString* user_id))success failure:(void (^)(NSError* error))failure{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    if (account_id) {
-        [params setObject:account_id forKey:@"account_id"];
-    }
-    if (account_type) {
-        [params setObject:account_type forKey:@"account_type"];
-    }
-    if (nikename) {
-        [params setObject:nikename forKey:@"account_nickname"];
-    }
-    if (avatar) {
-        [params setObject:avatar forKey:@"account_avatar"];
-    }
-//    [[XJFNetworkManager shareManager] requestWithPath:@"user/register/" requestParams:params networkMethod:POST autoShowError:YES callback:^(id data, NSError *error) {
-    
-//    }];
-    [[XJFNetworkManager shareManager] requestWithPath:USER_REGISTER requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
-        
+- (void)registerAccount:(void (^)(BOOL success))result{
+    [WPNetInterface registerWithAccountID:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
+        _user_id = user_id;
+        if (![NSString leie_isBlankString:user_id]) {
+            kDefaultSetObjectForKey(user_id, USER_DEFAULT_USER_ID);
+            if (result) {
+                result(YES);
+            }
+        }else{
+            if (result) {
+                result(NO);
+            }
+        }
+    } failure:^(NSError *error) {
+        if (result) {
+            result(NO);
+        }
+    }];
+}
+
+- (void)getAccount:(void (^)(WPUserModel *user))result{
+    [WPNetInterface getUserinfoWithUserId:_user_id password:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
+        if (userDic) {
+            kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
+            _user = [[WPUserModel alloc] init];
+            [_user loadDataFromkeyValues:userDic];
+        }else{
+            _user = nil;
+            kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
+        }
+        if (result) {
+            result(_user);
+        }
+    } failure:^(NSError *error) {
+        if (result) {
+            result(_user);
+        }
     }];
 }
 /*

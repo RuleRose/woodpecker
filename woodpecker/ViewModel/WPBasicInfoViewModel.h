@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPUserModel.h"
 
 @interface WPBasicInfoViewModel : NSObject
+- (void)updateUserinfo:(WPUserModel *)userinfo reuslt:(void (^)(BOOL success))result;
 
 @end

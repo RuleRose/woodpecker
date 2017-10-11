@@ -66,9 +66,9 @@
 
 - (void)loadData{
     _userinfo = [[WPUserModel alloc] init];
-    [_userinfo loadDataFromkeyValues:[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_ACCOUNT_USER]];
+    [_userinfo loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     _profile = [[WPProfileModel alloc] init];
-    [_profile loadDataFromkeyValues:[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_PROFILE]];
+    [_profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
     _headerView.userinfo = _userinfo;
     [_tableView reloadData];
 }

@@ -82,7 +82,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
-    cell.textLabel.text = @(indexPath.row).stringValue;
+    cell.textLabel.text = @"今天";
+    cell.period_type = kPeriodTypeOfMenstrual;
     if (indexPath.row < 2) {
         cell.hidden = YES;
     }else{

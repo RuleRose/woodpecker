@@ -125,6 +125,14 @@
     [[NSUserDefaults standardUserDefaults] setValue:value forKey:key]; \
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+#define kDefaultObjectForKey(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define kDefaultSetObjectForKey(object, key)                             \
+[[NSUserDefaults standardUserDefaults] setObject:object forKey:key]; \
+[[NSUserDefaults standardUserDefaults] synchronize];
+
+#define kDefaultRemoveForKey(key) [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+
+
 #pragma mark - 真机模拟器
 #if TARGET_IPHONE_SIMULATOR
 #define SIMULATOR 1

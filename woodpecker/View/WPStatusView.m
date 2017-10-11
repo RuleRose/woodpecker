@@ -78,7 +78,11 @@
     [self addSubview:_tempBtn];
     
     CGSize size = [@"36.50" sizeWithFont:kFont_4(84)];
-    _dateLabel.frame = CGRectMake(25, kScreen_Height - 400, self.width - 50, 33);
+    if (kDevice_is_iPhone5 || kDevice_is_iPhone4) {
+        _dateLabel.frame = CGRectMake(25, kScreen_Height - 350, self.width - 50, 33);
+    }else{
+        _dateLabel.frame = CGRectMake(25, kScreen_Height - 400, self.width - 50, 33);
+    }
     _periodLabel.frame = CGRectMake(25, _dateLabel.bottom, self.width - 50, 35);
     _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
     _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);

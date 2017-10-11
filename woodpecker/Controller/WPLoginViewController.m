@@ -11,6 +11,7 @@
 #import "WPLoginViewModel.h"
 #import "WPMainViewController.h"
 #import "WPAccountManager.h"
+#import "WPBasicInfoViewController.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -84,24 +85,33 @@
 }
 
 - (void)registerAccount{
-    [WPLoginViewModel registerWithAccountID:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) type:@"M" nickname:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME) avatar:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR) success:^(NSString *user_id) {
-        if (![NSString leie_isBlankString:user_id]) {
-            kDefaultSetValueForKey(user_id, USER_DEFAULT_USER_ID);
+    NSString *user_id = kDefaultValueForKey(USER_DEFAULT_USER_ID);
+    if ([NSString leie_isBlankString:user_id]) {
+        [_viewModel registerAccount:^(BOOL success) {
+            if (success) {
+                [self updateUserData];
+            }
+        }];
+    }else{
+        [self updateUserData];
+    }
+}
+
+- (void)updateUserData{
+    [_viewModel getAccount:^(WPUserModel *user) {
+        if (user) {
             WPMainViewController *mainVC = [[WPMainViewController alloc] init];
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
             [viewControllers removeAllObjects];
             [viewControllers addObject:mainVC];
             [self.navigationController setViewControllers:viewControllers animated:YES];
+        }else{
+            //补充信息
+            WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+            basicVC.isLogin = YES;
+            [self.navigationController pushViewController:basicVC animated:YES];
         }
-    } failure:^(NSError *error) {
-        
     }];
-    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:mainVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
-
 }
 
 - (void)didReceiveMemoryWarning {

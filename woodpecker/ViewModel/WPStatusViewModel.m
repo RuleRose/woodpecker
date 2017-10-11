@@ -9,5 +9,14 @@
 #import "WPStatusViewModel.h"
 
 @implementation WPStatusViewModel
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _temps = [[NSMutableArray alloc] init];
+        _profile = [[WPProfileModel alloc] init];
+        [_profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+    }
+    return self;
+}
 @end

@@ -188,6 +188,7 @@
 		CC1C4FE31F7BDC6B00D4CAE8 /* WPLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */; };
 		CC279D701F6AD2AB003B5119 /* WPRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */; };
 		CC279D731F6AD77F003B5119 /* WPRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */; };
+		CC2839281F8CF8C4008A2E9F /* WPNetInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */; };
 		CC5DA1BE1F66DE0F008AC242 /* WPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */; };
 		CC5EEF341F77879F009F4764 /* WPPeriodPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF331F77879F009F4764 /* WPPeriodPopupView.m */; };
 		CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF361F778E0C009F4764 /* WPSelectionPopupView.m */; };
@@ -586,6 +587,8 @@
 		CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordViewController.m; sourceTree = "<group>"; };
 		CC279D711F6AD77F003B5119 /* WPRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordViewModel.h; sourceTree = "<group>"; };
 		CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordViewModel.m; sourceTree = "<group>"; };
+		CC2839261F8CF8C4008A2E9F /* WPNetInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPNetInterface.h; sourceTree = "<group>"; };
+		CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPNetInterface.m; sourceTree = "<group>"; };
 		CC5DA1BC1F66DE0F008AC242 /* WPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTableViewCell.h; sourceTree = "<group>"; };
 		CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTableViewCell.m; sourceTree = "<group>"; };
 		CC5EEF321F77879F009F4764 /* WPPeriodPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPPeriodPopupView.h; sourceTree = "<group>"; };
@@ -746,6 +749,7 @@
 		C14CA3F71F4FB2B1007F50A1 /* woodpecker */ = {
 			isa = PBXGroup;
 			children = (
+				CC2839231F8CF8B2008A2E9F /* Interface */,
 				C1430E111F6F644400AE472B /* Utils */,
 				CC0AAF221F6C22D200FCCA6C /* Vendors */,
 				C15847601F5E71C200D785A6 /* CommonManager */,
@@ -1369,6 +1373,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CC2839231F8CF8B2008A2E9F /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				CC2839261F8CF8C4008A2E9F /* WPNetInterface.h */,
+				CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
 		CC72142E1F64F4F600AE2D82 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1731,6 +1744,7 @@
 				CC0E887F1F81E2AF009634B3 /* WPStatusWheelCell.m in Sources */,
 				C15630401F5065FE00D6CC30 /* XJFHUDManager.m in Sources */,
 				C156303F1F5065FE00D6CC30 /* XJFDBOperator.m in Sources */,
+				CC2839281F8CF8C4008A2E9F /* WPNetInterface.m in Sources */,
 				CC744E5A1F83194B00EDA2E3 /* WPAboutViewController.m in Sources */,
 				CC1C4FDD1F7BDAB200D4CAE8 /* BalloonMarker.swift in Sources */,
 				CC7DA2541F7636FC00F56072 /* WPThermometerRemoveViewController.m in Sources */,

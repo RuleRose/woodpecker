@@ -10,6 +10,7 @@
 #import "WPStatusViewController.h"
 #import "WPTemperatureViewController.h"
 #import "WPMyViewController.h"
+#import "WPNetInterface.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -32,5 +33,23 @@
         [_controllerList addObject:myVC];
     }
     return self;
+}
+
+- (void)getAccount:(void (^)(WPUserModel *user))result{
+    [WPNetInterface getUserinfoWithUserId:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID) password:kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
+        WPUserModel *user;
+        if (userDic) {
+            kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
+            user = [[WPUserModel alloc] init];
+            [user loadDataFromkeyValues:userDic];
+        }
+        if (result) {
+            result(user);
+        }
+    } failure:^(NSError *error) {
+        if (result) {
+            result(nil);
+        }
+    }];
 }
 @end
