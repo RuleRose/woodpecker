@@ -34,7 +34,6 @@
             //登录
             WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
             _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:loginVC];
-            
         }else{
             NSDictionary *userDic = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER);
             if (userDic) {

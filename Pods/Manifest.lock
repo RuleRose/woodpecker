@@ -31,10 +31,11 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
+  - IQKeyboardManager (5.0.3)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
-  - MJRefresh (3.1.12)
+  - MJRefresh (3.1.14)
   - MMPopupView (1.7.2):
     - Masonry
   - ReactiveCocoa (2.5):
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
   - CocoaLumberjack (~> 2.3.0)
   - FMDB (~> 2.6.2)
+  - IQKeyboardManager
   - Masonry (~> 1.0.1)
   - MBProgressHUD (~> 1.0.0)
   - MJExtension (~> 3.0.11)
@@ -75,10 +77,11 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  IQKeyboardManager: dc5b18b47e5170e4d150bb86dbee8c8a2fc48997
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
@@ -88,6 +91,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: e630156eed7333b39a8a2ac2a58ee34e4c9050f8
+PODFILE CHECKSUM: 54573f32bac734a859136862848fe12d7b6d9597
 
 COCOAPODS: 1.3.1

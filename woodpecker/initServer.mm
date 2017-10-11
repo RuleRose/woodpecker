@@ -9,6 +9,7 @@
 #import "initServer.h"
 #import "MMCDeviceManager.h"
 #import "WPAccountManager.h"
+#import "IQKeyboardManager.h"
 
 @implementation initServer
 + (void)load {
@@ -44,6 +45,11 @@
       //加载DDLog
       [DDLog addLogger:[DDASLLogger sharedInstance]];
       [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+        manager.enable = YES;
+        manager.shouldResignOnTouchOutside = YES;
+        manager.shouldToolbarUsesTextFieldTintColor = YES;
+        manager.enableAutoToolbar = NO;
     });
 }
 
