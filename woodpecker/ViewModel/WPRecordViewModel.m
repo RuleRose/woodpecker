@@ -17,7 +17,6 @@
     self = [super init];
     if (self) {
         _statuses = [[NSMutableArray alloc] init];
-        _themeDic = [[NSMutableDictionary alloc] init];
         [self setupDatas];
     }
     return self;
@@ -109,12 +108,6 @@
             [_statuses addObject:status];
         }
     }
-    //eventDic
-    NSArray *events;
-    for (WPEventModel *eventModel in events) {
-        [_themeDic setObject:eventModel.detail forKey:eventModel.theme_type];
-    }
-    
 }
 
 - (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme{
@@ -224,28 +217,61 @@
     return @"";
 }
 
-- (NSInteger)getDetailIndexWithRecordTheme:(WPRecordTheme)theme{
-    NSString *theme_type = [self getThemeTypeWithRecordTheme:theme];
-    NSString *detail = [_themeDic objectForKey:theme_type];
+- (NSInteger)getSelectedIndexWithRecordTheme:(WPRecordTheme)theme detai:(NSString *)detail{
     NSArray *details = [self getDetailsWithTheme:theme];
-    if (details && ![NSString leie_isBlankString:detail]) {
-        if ([details containsObject:detail]) {
-            return [details indexOfObject:detail];
-        }else{
-            return -1;
-        }
-    }else{
-        return -1;
+    if (![NSString leie_isBlankString:detail] && details && [details containsObject:detail]) {
+        return [details indexOfObject:detail];
     }
+    return -1;
 }
 
 - (void)setTheme:(WPRecordTheme)theme index:(NSInteger)index{
     NSArray *details = [self getDetailsWithTheme:theme];
-    NSString *theme_type = [self getThemeTypeWithRecordTheme:theme];
     if ([details count] > index && index >= 0) {
-        [_themeDic setObject:[details objectAtIndex:index] forKey:theme_type];
-    }else{
-        [_themeDic removeObjectForKey:theme_type];
+        NSString *detail = [details objectAtIndex:index];
+        switch (theme) {
+            case kWPRecordThemeOfColor:
+                _event.color = detail;
+                break;
+            case kWPRecordThemeOfFlow:
+                _event.flow = detail;
+                break;
+            case kWPRecordThemeOfPain:
+                _event.pain = detail;
+                break;
+            case kWPRecordThemeOfGore:
+                _event.gore = detail;
+                break;
+            case kWPRecordThemeOfMucusProb:
+                _event.mucus_prob = detail;
+                break;
+            case kWPRecordThemeOfMucusFlow:
+                _event.mucus_flow = detail;
+                break;
+            case kWPRecordThemeOfLove:
+                _event.love = detail;
+                break;
+            case kWPRecordThemeOfCT:
+                _event.ct = detail;
+                break;
+            case kWPRecordThemeOfSleep:
+                _event.sleep = detail;
+                break;
+            case kWPRecordThemeOfMood:
+                _event.mood = detail;
+                break;
+            case kWPRecordThemeOfSport:
+                _event.sport = detail;
+                break;
+            case kWPRecordThemeOfDrink:
+                _event.drink = detail;
+                break;
+            case kWPRecordThemeOfDrug:
+                _event.drug = detail;
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -295,5 +321,53 @@
             break;
     }
     return details;
+}
+
+- (NSString *)getDetailWithEventTheme:(WPRecordTheme)theme{
+    NSString *detail= nil;
+    switch (theme) {
+        case kWPRecordThemeOfColor:
+            detail = _event.color;
+            break;
+        case kWPRecordThemeOfFlow:
+            detail = _event.flow;
+            break;
+        case kWPRecordThemeOfPain:
+            detail = _event.pain;
+            break;
+        case kWPRecordThemeOfGore:
+            detail = _event.gore;
+            break;
+        case kWPRecordThemeOfMucusProb:
+            detail = _event.mucus_prob;
+            break;
+        case kWPRecordThemeOfMucusFlow:
+            detail = _event.mucus_flow;
+            break;
+        case kWPRecordThemeOfLove:
+            detail = _event.love;
+            break;
+        case kWPRecordThemeOfCT:
+            detail = _event.ct;
+            break;
+        case kWPRecordThemeOfSleep:
+            detail = _event.sleep;
+            break;
+        case kWPRecordThemeOfMood:
+            detail = _event.mood;
+            break;
+        case kWPRecordThemeOfSport:
+            detail = _event.sport;
+            break;
+        case kWPRecordThemeOfDrink:
+            detail = _event.drink;
+            break;
+        case kWPRecordThemeOfDrug:
+            detail = _event.drug;
+            break;
+        default:
+            break;
+    }
+    return detail;
 }
 @end

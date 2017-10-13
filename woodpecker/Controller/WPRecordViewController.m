@@ -64,7 +64,11 @@
 }
 
 - (void)setupData{
+    if (!_event) {
+        _event = [[WPEventModel alloc] init];
+    }
     _viewModel = [[WPRecordViewModel alloc] init];
+    _viewModel.event = _event;
     _statuses = _viewModel.statuses;
 }
 
@@ -229,9 +233,7 @@
 
 #pragma mark WPRecordDetailCellDelegate
 - (void)selectTheme:(WPRecordTheme)theme index:(NSInteger)index cell:(WPRecordDetailCell *)cell{
-    [_viewModel setTheme:theme index:index];
-    cell.theme = theme;
-    [cell resetDetails];
+
 }
 
 - (void)didReceiveMemoryWarning {

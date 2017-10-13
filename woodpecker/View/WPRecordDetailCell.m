@@ -34,14 +34,11 @@
     [self.contentView addSubview:_line];
 }
 
-- (void)setTheme:(WPRecordTheme)theme{
-    _theme = theme;
-    _titleLabel.text = [_viewModel getThemeWithRecordTheme:theme];
-    _selectedIndex = [_viewModel getDetailIndexWithRecordTheme:theme];
-    _details = [_viewModel getTitlesWithRecordTheme:theme];
-}
-
 - (void)drawCellWithSize:(CGSize)size{
+    _titleLabel.text = [_viewModel getThemeWithRecordTheme:_theme];
+    NSString *detail = [_viewModel getDetailWithEventTheme:_theme];
+    _selectedIndex =  [_viewModel getSelectedIndexWithRecordTheme:_theme detai:detail];
+    _details = [_viewModel getTitlesWithRecordTheme:_theme];
     for (UIView *subView in _selectionView.subviews) {
         [subView removeFromSuperview];
     }
@@ -80,6 +77,8 @@
 }
 
 - (void)resetDetails{
+    NSString *detail = [_viewModel getDetailWithEventTheme:_theme];
+    _selectedIndex =  [_viewModel getSelectedIndexWithRecordTheme:_theme detai:detail];
     for (UIView *subView in _selectionView.subviews) {
         if ([subView isKindOfClass:[WPRecordSelectionButton class]]) {
             WPRecordSelectionButton *selectionBtn = (WPRecordSelectionButton *)subView;
@@ -96,15 +95,15 @@
 
 - (void)selectionBtnPressed:(WPRecordSelectionButton *)sender{
     if (sender.index == _selectedIndex) {
-        if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:index:cell:)]) {
-            [_delegate selectTheme:_theme index:-1 cell:self];
-        }
+        _selectedIndex = -1;
     }else{
-        if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:index:cell:)]) {
-            [_delegate selectTheme:_theme index:sender.index cell:self];
-        }
+        _selectedIndex = sender.index;
     }
-
+    [_viewModel setTheme:_theme index:_selectedIndex];
+    [self resetDetails];
+    if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:index:cell:)]) {
+        [_delegate selectTheme:_theme index:_selectedIndex cell:self];
+    }
 }
 
 - (void)awakeFromNib {

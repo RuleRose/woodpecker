@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WPRecordViewModel.h"
+#import "WPEventModel.h"
 
 @protocol WPRecordDetailCellDelegate;
 @interface WPRecordDetailCell : UITableViewCell
@@ -21,6 +22,7 @@
 @property(nonatomic, strong) NSIndexPath* indexPath;
 @property(nonatomic, strong) WPRecordViewModel *viewModel;
 @property(nonatomic, assign) id<WPRecordDetailCellDelegate> delegate;
+@property(nonatomic, strong) NSString *detail;
 
 - (void)drawCellWithSize:(CGSize)size;
 - (void)resetDetails;
