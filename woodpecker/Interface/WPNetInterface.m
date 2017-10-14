@@ -7,6 +7,8 @@
 //
 
 #import "WPNetInterface.h"
+#import "WPTemperatureModel.h"
+#import "NSDate+Extension.h"
 
 @implementation WPNetInterface
 + (void)registerWithAccountID:(NSString*)account_id type:(NSString*)account_type nickname:(NSString*)nikename avatar:(NSString *)avatar success:(void (^)(NSString* user_id))success failure:(void (^)(NSError* error))failure{
@@ -69,6 +71,25 @@
             NSDictionary *profileDic = [data objectForKey:@"profile"];
             if (success) {
                 success(profileDic);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)getDeviceWithId:(NSString*)device_id success:(void (^)(NSDictionary* deviceDic))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (device_id) {
+        [params setObject:device_id forKey:@"device_id"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:DEVICE_GET requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
+        if (!error) {
+            NSDictionary *deviceDic = [data objectForKey:@"device"];
+            if (success) {
+                success(deviceDic);
             }
         }else{
             if (failure) {
@@ -157,6 +178,103 @@
         [params setObject:extra_data forKey:@"extra_data"];
     }
     [[XJFNetworkManager shareManager] requestWithPath:PROFILE_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)registerDevice:(NSString*)mac_addr num:(NSString*)model_num software_rev:(NSString*)software_rev hardware_rev:(NSString *)hardware_rev success:(void (^)(NSString* device_id))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (mac_addr) {
+        [params setObject:mac_addr forKey:@"mac_addr"];
+    }
+    if (model_num) {
+        [params setObject:model_num forKey:@"model_num"];
+    }
+    if (software_rev) {
+        [params setObject:software_rev forKey:@"software_rev"];
+    }
+    if (hardware_rev) {
+        [params setObject:hardware_rev forKey:@"hardware_rev"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:DEVICE_REGISTER requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            NSString *device_id = [NSString stringWithFormat:@"%@",[data objectForKey:@"device_id"]];
+            if (success) {
+                success(device_id);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)bindDevice:(NSString*)user_id device_id:(NSString*)device_id start_dindex:(NSString*)start_dindex success:(void (^)(BOOL bind))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (device_id) {
+        [params setObject:device_id forKey:@"device_id"];
+    }
+    if (start_dindex) {
+        [params setObject:start_dindex forKey:@"start_dindex"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:BINGDING_BIND requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)unbindDevice:(NSString*)user_id success:(void (^)(BOOL unbind))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:BINGDING_UNBIND requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)postTemps:(NSArray*)temps user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableArray *temperatures = [[NSMutableArray alloc] init];
+    for (WPTemperatureModel *temp in temps) {
+        WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+        [temperature loadDataFromkeyValues:[temp transToDictionary]];
+        NSDate *date = [NSDate dateFromTimestampStr:temperature.time];
+        temperature.time = [NSDate UTCStringFromDate:date format:@"yyyy MM dd HH:mm:ss"];
+        [temperatures addObject:temperature];
+    }
+    [params setObject:[WPTemperatureModel mj_keyValuesArrayWithObjectArray:temperatures ignoredKeys:@[ @"sync", @"pid" ]] forKey:@"temperatures"];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:TEMPERATURE_POST requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         if (!error) {
             if (success) {
                 success(YES);

@@ -17,6 +17,7 @@
 + (NSInteger)weekdayOfDate:(NSDate*)date;
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSString *)stringFromDate:(NSDate *)date;
++ (NSString *)UTCStringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)format;
 + (NSString *)timestampFromDate:(NSDate *)date;
 + (NSDate *)dateFromTimestampStr:(NSString *)timestampStr;

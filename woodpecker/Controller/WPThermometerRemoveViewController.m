@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"正在绑定";
+    self.title = @"体温计";
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -70,7 +70,10 @@
         
     };
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
-        
+        [_viewModel unBindDeviceSuccess:^(BOOL finished) {
+            [self.navigationController popViewControllerAnimated:YES];
+
+        }];
     };
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         

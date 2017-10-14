@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "WPProfileModel.h"
+#import "WPUserModel.h"
+#import "WPDeviceModel.h"
 
 @interface WPStatusViewModel : NSObject
 @property(nonatomic,strong)NSMutableArray *temps;
 @property(nonatomic,strong)WPProfileModel *profile;
+@property(nonatomic,strong)WPUserModel *user;
+@property(nonatomic,strong)WPDeviceModel *device;
 
+- (void)bindDevice;
+- (void)syncTempDataFromIndex:(NSInteger)index;
+- (void)syncTempData;
 @end

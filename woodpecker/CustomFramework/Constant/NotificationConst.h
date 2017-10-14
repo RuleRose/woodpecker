@@ -30,4 +30,9 @@ extern NSString* const WPNotificationKeyLoginFailed;
 extern NSString* const WPNotificationKeyLoginCancel;
 extern NSString* const WPNotificationKeyLogoutSuccess;
 extern NSString* const WPNotificationKeyTokenExpire;
+
+extern NSString* const WPNotificationKeyUpdateProfile;
+extern NSString* const WPNotificationKeyUpdateDevice;
+
+
 @end

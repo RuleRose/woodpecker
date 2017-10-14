@@ -25,4 +25,7 @@ NSString* const WPNotificationKeyLoginCancel = @"WPNotificationKeyLoginCancel";
 NSString* const WPNotificationKeyLogoutSuccess = @"WPNotificationKeyLogoutSuccess";
 NSString* const WPNotificationKeyTokenExpire = @"WPNotificationKeyTokenExpire";
 
+
+NSString* const WPNotificationKeyUpdateProfile = @"WPNotificationKeyUpdateProfile";
+NSString* const WPNotificationKeyUpdateDevice = @"WPNotificationKeyUpdateDevice";
 @end

@@ -37,16 +37,16 @@
 - (void)setupViews{
     
     _layout = [[WPCollectionViewWheelLayout alloc] init];
-    _layout.cellSize = CGSizeMake(300, 300);
+    _layout.cellSize = CGSizeMake(56, 56);
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake((self.width - 300)/2, self.height - 300, 300, 300) collectionViewLayout:_layout];
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
-    _collectionView.pagingEnabled = YES;
+    _collectionView.pagingEnabled = NO;
     _collectionView.clipsToBounds = YES;
-    _collectionView.userInteractionEnabled = NO;
+//    _collectionView.userInteractionEnabled = NO;
     [_collectionView registerClass:[WPStatusWheelCell class] forCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class])];
 //    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
 //    _scrollView.backgroundColor = [UIColor clearColor];
@@ -119,6 +119,7 @@
     }
 }
 
+//
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 //    if (scrollView == _scrollView) {
 //        CGPoint currentPoint = scrollView.contentOffset;
@@ -148,44 +149,44 @@
 }
 */
 
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(nullable UIEvent *)event {
-    [super beginTrackingWithTouch:touch withEvent:event];
-    self.location = [touch locationInView:self];
-
-    return YES;
-}
-
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    [super continueTrackingWithTouch:touch withEvent:event];
-    CGPoint currentLocation = [touch locationInView:self];
-    self.offset = [self offset:self.location to:currentLocation];
-    NSLog(@"offset %f", self.offset);
-    CGPoint collectionViewOffset = self.collectionView.contentOffset;
-    NSLog(@"collectionview offset %f, %f", collectionViewOffset.x, collectionViewOffset.y);
-    
-    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*1)];
-    self.location = currentLocation;
-    
-    return YES;
-}
-
-- (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event {
-    [super endTrackingWithTouch:touch withEvent:event];
-    CGPoint collectionViewOffset = self.collectionView.contentOffset;
-    NSInteger index = round(collectionViewOffset.y / 300);
-    if (index < 0) {
-        index = 0;
-    }else if(index > 15){
-        index = 15;
-    }
-    CGFloat offsetY = index * 300;
-    
-    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
-}
-
--(CGFloat)offset:(CGPoint)fromPoint to:(CGPoint)toPoint{
-    CGFloat offsetX = toPoint.x - fromPoint.x;
-    CGFloat offsetY = toPoint.y - fromPoint.y;
-    return offsetX + offsetY;
-}
+//- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(nullable UIEvent *)event {
+//    [super beginTrackingWithTouch:touch withEvent:event];
+//    self.location = [touch locationInView:self];
+//
+//    return YES;
+//}
+//
+//- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+//    [super continueTrackingWithTouch:touch withEvent:event];
+//    CGPoint currentLocation = [touch locationInView:self];
+//    self.offset = [self offset:self.location to:currentLocation];
+//    NSLog(@"offset %f", self.offset);
+//    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+//    NSLog(@"collectionview offset %f, %f", collectionViewOffset.x, collectionViewOffset.y);
+//    
+//    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*1)];
+//    self.location = currentLocation;
+//    
+//    return YES;
+//}
+//
+//- (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event {
+//    [super endTrackingWithTouch:touch withEvent:event];
+//    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+//    NSInteger index = round(collectionViewOffset.y / 300);
+//    if (index < 0) {
+//        index = 0;
+//    }else if(index > 15){
+//        index = 15;
+//    }
+//    CGFloat offsetY = index * 300;
+//    
+//    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
+//}
+//
+//-(CGFloat)offset:(CGPoint)fromPoint to:(CGPoint)toPoint{
+//    CGFloat offsetX = toPoint.x - fromPoint.x;
+//    CGFloat offsetY = toPoint.y - fromPoint.y;
+//    return offsetX + offsetY;
+//}
 @end

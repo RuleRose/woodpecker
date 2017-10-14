@@ -608,7 +608,7 @@ Singleton_Implementation(MMCDeviceManager);
     } else if ([charactUUIDString isEqualToString:CHARACT_UUID_STATUS_READ_NOTIFY]) {
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
-        DDLogDebug(@"[Device Manager] status: %d", status);
+        DDLogDebug(@"[Device Manager] device read status: %d", status);
     }
     //    else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
     //        int16_t state;
@@ -679,7 +679,7 @@ Singleton_Implementation(MMCDeviceManager);
     if ([charactUUIDString isEqualToString:CHARACT_UUID_STATUS_READ_NOTIFY]) {
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
-        DDLogDebug(@"[Device Manager] status: %d", status);
+        DDLogDebug(@"[Device Manager] device read status: %d", status);
     }
 }
 

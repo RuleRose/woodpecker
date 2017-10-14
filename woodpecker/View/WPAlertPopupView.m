@@ -30,21 +30,22 @@
         _titleLabel.font = kFont_1(12);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleLabel];
-        _cancelBtn = [[UIButton alloc] init];
-        _cancelBtn.backgroundColor = kColor_10;
-        [_cancelBtn setTitle:@"是" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
-        _cancelBtn.titleLabel.font = kFont_1(12);
-        [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_cancelBtn];
-        
         _confirmBtn = [[UIButton alloc] init];
         _confirmBtn.backgroundColor = kColor_10;
-        [_confirmBtn setTitle:@"否" forState:UIControlStateNormal];
+        [_confirmBtn setTitle:@"是" forState:UIControlStateNormal];
         [_confirmBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
         _confirmBtn.titleLabel.font = kFont_1(12);
         [_confirmBtn addTarget:self action:@selector(confirmBtnPressed) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_confirmBtn];
+        
+        _cancelBtn = [[UIButton alloc] init];
+        _cancelBtn.backgroundColor = kColor_10;
+        [_cancelBtn setTitle:@"否" forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.font = kFont_1(12);
+        [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_cancelBtn];
+
         MJWeakSelf;
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width);
@@ -57,21 +58,21 @@
             make.right.equalTo(@0);
             make.height.equalTo(@64);
         }];
-        
-        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.titleLabel.mas_bottom);
-            make.left.equalTo(@24);
-            make.right.equalTo(weakSelf.confirmBtn.mas_left).offset(0.5);
-            make.width.equalTo(weakSelf.confirmBtn.mas_width);
-            make.height.equalTo(@40);
-        }];
         [_confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.titleLabel.mas_bottom);
+            make.left.equalTo(@24);
+            make.right.equalTo(weakSelf.cancelBtn.mas_left).offset(-0.5);
+            make.height.equalTo(@40);
+
+        }];
+        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.titleLabel.mas_bottom);
             make.right.equalTo(@(-24));
-            make.left.equalTo(weakSelf.confirmBtn.mas_left).offset(0.5);
+            make.left.equalTo(weakSelf.confirmBtn.mas_right).offset(0.5);
             make.width.equalTo(weakSelf.confirmBtn.mas_width);
             make.height.equalTo(@40);
         }];
+
     }
     
     return self;
@@ -125,17 +126,17 @@
 }
 
 - (void)cancelBtnPressed{
-    [self hide];
     if (_cancelBlock) {
         _cancelBlock(self);
     }
+    [self hide];
 }
 
 - (void)confirmBtnPressed{
-    [self hide];
     if (_confirmBlock) {
         _confirmBlock(self,YES);
     }
+    [self hide];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

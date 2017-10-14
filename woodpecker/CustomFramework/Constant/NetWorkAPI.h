@@ -18,4 +18,11 @@
 #define PROFILE_UPDATE @"/mmcpecker/api/profile/update/"
 #define PROFILE_GET @"/mmcpecker/api/profile/get/"
 
+#define DEVICE_REGISTER @"/mmcpecker/api/device/register/"
+#define BINGDING_BIND @"/mmcpecker/api/binding/bind/"
+#define BINGDING_UNBIND @"/mmcpecker/api/binding/unbind/"
+#define DEVICE_GET @"/mmcpecker/api/device/get/"
+
+#define TEMPERATURE_POST @"/mmcpecker/api/temperature/post/"
+
 #endif /* NetWorkAPI_h */

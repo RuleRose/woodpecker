@@ -16,5 +16,6 @@
 @property(nonatomic, copy)NSString *gindex;//温度的全局index
 @property(nonatomic, copy)NSString *lastupdate;//最近一次更新的时间
 @property(nonatomic, copy)NSString *removed;//是否被删除
+@property(nonatomic, copy)NSString *sync;//是否上传
 
 @end
