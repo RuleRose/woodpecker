@@ -36,7 +36,10 @@
             _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:loginVC];
         }else{
             NSDictionary *userDic = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER);
-            if (userDic) {
+            NSDictionary *profileDic = kDefaultObjectForKey(USER_DEFAULT_PROFILE);
+            NSString *profile_id1 = [userDic objectForKey:@"profile_id"];
+            NSString *profile_id2 = [profileDic objectForKey:@"profile_id"];
+            if (userDic && profileDic && ([profile_id1 integerValue] == [profile_id2 integerValue])) {
                 WPMainViewController *mainVC = [[WPMainViewController alloc] init];
                 _navigationC = [[XJFBaseNavigationController alloc] initWithRootViewController:mainVC];
             }else{

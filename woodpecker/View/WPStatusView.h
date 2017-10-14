@@ -11,7 +11,7 @@
 #import "WPStatusWheelView.h"
 
 @protocol WPStatusViewDelegate;
-@interface WPStatusView : UIView
+@interface WPStatusView : UIView<WPStatusWheelViewDelegate>
 @property (nonatomic, strong) UIButton *calendarBtn;
 @property (nonatomic, strong) UIButton *tempBtn;
 @property (nonatomic, strong) UIButton *tempEditBtn;

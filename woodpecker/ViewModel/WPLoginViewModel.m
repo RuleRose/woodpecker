@@ -68,6 +68,26 @@
         }
     }];
 }
+
+- (void)getProfile:(NSString *)profile_id success:(void (^)(WPProfileModel *profile))result{
+    [WPNetInterface getProfileWithId:profile_id success:^(NSDictionary *profileDic) {
+        WPProfileModel *profile = nil;
+        if (profileDic) {
+            kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
+            profile = [[WPProfileModel alloc] init];
+            [profile loadDataFromkeyValues:profileDic];
+        }else{
+            kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
+        }
+        if (result) {
+            result(profile);
+        }
+    } failure:^(NSError *error) {
+        if (result) {
+            result(nil);
+        }
+    }];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

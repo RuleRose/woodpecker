@@ -113,14 +113,6 @@
             }
         }];
     }
-    
-    kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
-    kDefaultSetObjectForKey([_profile transToDictionary], USER_DEFAULT_PROFILE);
-    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:mainVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
 }
 
 #pragma mark UITableViewDataSource

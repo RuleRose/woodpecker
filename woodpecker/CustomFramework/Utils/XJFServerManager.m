@@ -21,6 +21,6 @@ static XJFServerManager *_shareManager = nil;
 }
 
 - (void)loadSettingsConfig {
-    _serverURL = @"wp.mmc-data.com/mmcpecker/api";
+    _serverURL = @"wp.mmc-data.com";
 }
 @end

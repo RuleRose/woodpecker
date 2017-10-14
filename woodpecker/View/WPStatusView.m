@@ -49,6 +49,7 @@
     [self addSubview:_tempEditBtn];
     _wheelView = [[WPStatusWheelView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
     _wheelView.backgroundColor = [UIColor clearColor];
+    _wheelView.delegate = self;
     [self addSubview:_wheelView];
     _indexView = [[WPStatusItemView alloc] initWithFrame:CGRectMake(0, kScreen_Height - 170, (kScreen_Width - 125)/2, 80)];
     _indexView.backgroundColor = [UIColor clearColor];
@@ -120,6 +121,11 @@
     }
 }
 
+
+#pragma mark WPStatusWheelViewDelegate
+- (void)showDetailDate:(NSDate *)date{
+    NSLog(@"%@",date);
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

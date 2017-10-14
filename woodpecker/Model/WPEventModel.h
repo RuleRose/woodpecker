@@ -9,12 +9,24 @@
 #import "XJFBaseModel.h"
 
 @interface WPEventModel : XJFBaseModel
-@property(nonatomic, copy)NSString *date;
-@property(nonatomic, copy)NSString *type;
-@property(nonatomic, copy)NSString *theme_type;
-@property(nonatomic, copy)NSString *detail;
-@property(nonatomic, copy)NSString *extra_data;
+@property(nonatomic, copy)NSString *start;//经期开始
+@property(nonatomic, copy)NSString *color;//颜色
+@property(nonatomic, copy)NSString *flow;//流量
+@property(nonatomic, copy)NSString *pain; //痛经
+@property(nonatomic, copy)NSString *gore;//血块
+@property(nonatomic, copy)NSString *mucus_prob;//性状
+@property(nonatomic, copy)NSString *mucus_flow;//量
+@property(nonatomic, copy)NSString *love;//同房记录
+@property(nonatomic, copy)NSString *ct;//排卵试纸
+@property(nonatomic, copy)NSString *sleep;//睡眠
+@property(nonatomic, copy)NSString *mood;//情绪
+@property(nonatomic, copy)NSString *sport;//运动时长
+@property(nonatomic, copy)NSString *drink;//饮酒
+@property(nonatomic, copy)NSString *drug;//服药
+@property(nonatomic, copy)NSString *comments;//备注
+@property(nonatomic, copy)NSString *lastupdate; //最近一次更新的时间
+@property(nonatomic, copy)NSString *date; //事件日期（2017 07 18）
+@property(nonatomic, copy)NSString *extra_data; //额外数据（可选）
 @property(nonatomic, copy)NSString *software_rev;
-@property(nonatomic, copy)NSString *lastupdate;
-@property(nonatomic, copy)NSString *removed;
+
 @end

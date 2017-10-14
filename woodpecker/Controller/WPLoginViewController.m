@@ -99,15 +99,25 @@
 
 - (void)updateUserData{
     [_viewModel getAccount:^(WPUserModel *user) {
-        if (user) {
-            WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-            [viewControllers removeAllObjects];
-            [viewControllers addObject:mainVC];
-            [self.navigationController setViewControllers:viewControllers animated:YES];
+        if (user && ![NSString leie_isBlankString:user.profile_id]) {
+            [_viewModel getProfile:user.profile_id success:^(WPProfileModel *profile) {
+                if (profile) {
+                    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+                    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+                    [viewControllers removeAllObjects];
+                    [viewControllers addObject:mainVC];
+                    [self.navigationController setViewControllers:viewControllers animated:YES];
+                }else{
+                    WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+                    basicVC.userinfo = user;
+                    basicVC.isLogin = YES;
+                    [self.navigationController pushViewController:basicVC animated:YES];
+                }
+            }];
         }else{
             //补充信息
             WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+            basicVC.userinfo = user;
             basicVC.isLogin = YES;
             [self.navigationController pushViewController:basicVC animated:YES];
         }

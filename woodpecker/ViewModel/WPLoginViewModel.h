@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WPUserModel.h"
+#import "WPProfileModel.h"
 
 @interface WPLoginViewModel : NSObject
 @property(nonatomic, strong)NSString *user_id;
@@ -17,5 +18,6 @@
 - (void)login;
 - (void)registerAccount:(void (^)(BOOL success))result;
 - (void)getAccount:(void (^)(WPUserModel *user))result;
+- (void)getProfile:(NSString *)profile_id success:(void (^)(WPProfileModel *profile))result;
 
 @end

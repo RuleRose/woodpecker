@@ -18,5 +18,5 @@
 @property(nonatomic,assign) CGFloat scaleX;
 @property(nonatomic,assign) NSInteger xIndex;
 
-- (void)updateChartData;
+- (void)updateChartData:(NSArray *)temps;
 @end

@@ -98,6 +98,7 @@
     NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
     cell.period_type = kPeriodTypeOfMenstrual;
     cell.date = date;
+    cell.delegate = self;
     if (indexPath.row < 2) {
         cell.hidden = YES;
     }else{
@@ -162,7 +163,7 @@
     CGPoint collectionViewOffset = self.collectionView.contentOffset;
     NSLog(@"collectionview offset %f, %f", collectionViewOffset.x, collectionViewOffset.y);
     
-    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*5)];
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, collectionViewOffset.y - self.offset*1)];
     self.location = currentLocation;
     
     return YES;

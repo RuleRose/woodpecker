@@ -63,6 +63,5 @@
             [_delegate showStatusCell:self];
         }
     }
-
 }
 @end

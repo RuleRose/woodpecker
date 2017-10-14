@@ -9,5 +9,12 @@
 #import "WPTemperatureViewModel.h"
 
 @implementation WPTemperatureViewModel
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _temps = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
 @end
