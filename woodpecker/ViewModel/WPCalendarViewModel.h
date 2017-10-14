@@ -10,4 +10,6 @@
 
 @interface WPCalendarViewModel : NSObject
 
+
+- (PeriodType)getPeriodWithDate:(NSDate *)date;
 @end

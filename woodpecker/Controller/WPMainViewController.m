@@ -9,7 +9,6 @@
 #import "WPMainViewController.h"
 #import "UIImage+Extension.h"
 #import "WPNetInterface.h"
-#import "WPConnectDeviceManager.h"
 
 @interface WPMainViewController ()
 
@@ -23,7 +22,6 @@
     [self.tabBar setBackgroundImage:[UIImage drawImageWithSize:CGSizeMake(kScreen_Width, 45) color:kColor_4]];
     // Do any additional setup after loading the view.
     [self updateUserInfo];
-    [[WPConnectDeviceManager defaultInstance] startTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

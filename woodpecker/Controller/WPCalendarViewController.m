@@ -110,7 +110,7 @@
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate dateFromString:@"2016-07-08" format:@"yyyy-MM-dd"];
+    return [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
@@ -235,7 +235,7 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        calendarCell.period = kPeriodTypeOfForecast;
+        calendarCell.period = [_viewModel getPeriodWithDate:date];
         calendarCell.shape = kPeriodShapeOfSingle;
         [calendarCell setNeedsLayout];
     }

@@ -11,6 +11,9 @@
 #import "WPTemperatureViewController.h"
 #import "WPMyViewController.h"
 #import "WPNetInterface.h"
+#import "WPConnectDeviceManager.h"
+#import "WPEventModel.h"
+#import "NSDate+Extension.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -65,6 +68,12 @@
                 kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
                 _profile = [[WPProfileModel alloc] init];
                 [_profile loadDataFromkeyValues:profileDic];
+                WPEventModel *event = [[WPEventModel alloc] init];
+                event.status = @"1";
+                NSDate *date = [NSDate dateFromString:_profile.lastperiod format:@"yyyy MM dd"];
+                event.date = [NSDate timestampFromDate:date];
+                event.pid = event.date;
+                [event insertToDB];
             }else{
                 _profile = nil;
                 kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
@@ -84,12 +93,13 @@
                 _device = [[WPDeviceModel alloc] init];
                 [_device loadDataFromkeyValues:deviceDic];
                 [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyUpdateDevice object:nil];
+                [[WPConnectDeviceManager defaultInstance] startTimer];
             }else{
                 _device = nil;
                 kDefaultRemoveForKey(USER_DEFAULT_DEVICE);
             }
         } failure:^(NSError *error) {
-            
+            [[WPConnectDeviceManager defaultInstance] startTimer];
         }];
     }
 }

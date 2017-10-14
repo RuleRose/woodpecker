@@ -58,6 +58,9 @@
             self.markLayer.backgroundColor = kColor_15.CGColor;
             self.markLayer.borderColor = kColor_15.CGColor;
             break;
+        default:
+            self.markLayer.hidden = YES;
+            break;
     }
     CGFloat top = self.shapeLayer.frame.origin.y + (self.shapeLayer.frame.size.height - 23)/2;
     switch (_shape) {
@@ -75,6 +78,9 @@
             break;
         case kPeriodShapeOfCircle:
             self.markLayer.frame = CGRectMake((self.width - 23)/2, top, 23, 23);
+            break;
+        default:
+            self.markLayer.hidden = YES;
             break;
     }
 }

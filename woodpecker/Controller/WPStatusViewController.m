@@ -62,12 +62,12 @@
     [_statusView updateState];
     if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
         [[WPConnectDeviceManager defaultInstance] stopTimer];
-        [_viewModel.user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-        if ([NSString leie_isBlankString:_viewModel.user.device_id]) {
+        WPUserModel *user = [[WPUserModel alloc] init];
+        [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+        if ([NSString leie_isBlankString:user.device_id]) {
             [_viewModel bindDevice];
         }else{
-            //获取该设备最后一条本地温度信息dindex
-            [_viewModel syncTempDataFromIndex:0];
+            [_viewModel syncTempData];
         }
     }else if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE){
         [[WPConnectDeviceManager defaultInstance] startTimer];
@@ -77,7 +77,7 @@
 - (void)updateState{
     if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
         //上传
-        [_viewModel syncTempData];
+        [_viewModel syncTempDataToService];
     }
 }
 
@@ -86,12 +86,20 @@
     NSNumber *index = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_INDEX];
     NSNumber *timestamp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_TIME];
     NSNumber *temp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_VALUE];
+    WPDeviceModel *device = [[WPDeviceModel alloc] init];
+    [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
     WPTemperatureModel *temperature =[[WPTemperatureModel alloc] init];
     temperature.dindex = [index stringValue];
-    temperature.device_id = _viewModel.device.pid;
+    temperature.device_id = device.pid;
     temperature.time = [timestamp stringValue];
+    temperature.pid = temperature.time;
     temperature.temp = [temp stringValue];
-    [temperature insertToDB];
+    temperature.device = @"1";
+    if ([temperature.time length] == 9) {
+        [temperature insertToDB];
+    }
+    
+    //不同设备同步获取最后一个device数据
 }
 
 #pragma mark WPStatusViewDelegate

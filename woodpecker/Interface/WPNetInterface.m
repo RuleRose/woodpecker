@@ -8,6 +8,7 @@
 
 #import "WPNetInterface.h"
 #import "WPTemperatureModel.h"
+#import "NSDate+ext.h"
 #import "NSDate+Extension.h"
 
 @implementation WPNetInterface
@@ -266,7 +267,7 @@
     for (WPTemperatureModel *temp in temps) {
         WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
         [temperature loadDataFromkeyValues:[temp transToDictionary]];
-        NSDate *date = [NSDate dateFromTimestampStr:temperature.time];
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time integerValue]];
         temperature.time = [NSDate UTCStringFromDate:date format:@"yyyy MM dd HH:mm:ss"];
         [temperatures addObject:temperature];
     }

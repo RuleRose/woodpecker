@@ -9,6 +9,8 @@
 #import "WPLoginViewModel.h"
 #import "WPAccountManager.h"
 #import "WPNetInterface.h"
+#import "WPEventModel.h"
+#import "NSDate+Extension.h"
 
 @implementation WPLoginViewModel
 - (instancetype)init
@@ -76,6 +78,12 @@
             kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
             profile = [[WPProfileModel alloc] init];
             [profile loadDataFromkeyValues:profileDic];
+            WPEventModel *event = [[WPEventModel alloc] init];
+            event.status = @"1";
+            NSDate *date = [NSDate dateFromString:profile.lastperiod format:@"yyyy MM dd"];
+            event.date = [NSDate timestampFromDate:date];
+            event.pid = event.date;
+            [event insertToDB];
         }else{
             kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
         }
