@@ -12,6 +12,7 @@
 #import "WPLoginViewController.h"
 #import "WPAccountManager.h"
 #import "XJFServerManager.h"
+#import "WPDatabaseTableManager.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +26,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = kColor_10;
     [initServer load];
+    [[WPDatabaseTableManager defaultInstance] initDatabase];
 
     // Override point for customization after application launch.
     if ([[WPAccountManager defaultInstance] isLogin]) {

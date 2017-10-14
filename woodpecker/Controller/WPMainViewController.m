@@ -35,10 +35,7 @@
 }
 
 - (void)updateUserInfo{
-    //补充信息
-    [_viewModel getAccount:^(WPUserModel *user) {
-     
-    }];
+    [_viewModel updateData];
 }
 
 - (void)didReceiveMemoryWarning {

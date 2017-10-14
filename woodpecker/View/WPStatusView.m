@@ -7,6 +7,8 @@
 //
 
 #import "WPStatusView.h"
+#import "MMCDeviceManager.h"
+
 @implementation WPStatusView
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -74,7 +76,7 @@
     [self addSubview:_calendarBtn];
     _tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 53, 20, 33, 33)];
     _tempBtn.backgroundColor = [UIColor clearColor];
-    [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
+    [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
     [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempBtn];
     
@@ -121,6 +123,33 @@
     }
 }
 
+- (void)updateState{
+    WPUserModel *user = [[WPUserModel alloc] init];
+    [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+    switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {
+        case STATE_DEVICE_SCANNING:
+        case STATE_DEVICE_CONNECTING:
+        case STATE_DEVICE_DISCONNECTING:
+            [_tempBtn setImage:kImage(@"btn-navi-device-connecting") forState:UIControlStateNormal];
+
+            break;
+        case STATE_DEVICE_CONNECTED:
+            [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
+            break;
+        default:
+            if ([NSString leie_isBlankString:user.device_id] ) {
+                [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
+            }else{
+                [_tempBtn setImage:kImage(@"btn-navi-device-nc") forState:UIControlStateNormal];
+            }
+            break;
+    }
+    
+}
+
+- (void)bindDevice{
+
+}
 
 #pragma mark WPStatusWheelViewDelegate
 - (void)showDetailDate:(NSDate *)date{

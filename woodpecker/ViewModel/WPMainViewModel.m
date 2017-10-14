@@ -11,6 +11,9 @@
 #import "WPTemperatureViewController.h"
 #import "WPMyViewController.h"
 #import "WPNetInterface.h"
+#import "WPConnectDeviceManager.h"
+#import "WPEventModel.h"
+#import "NSDate+Extension.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -31,25 +34,73 @@
         [myVC.tabBarItem setImage:[[UIImage imageNamed:@"btn-tab-me-u"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [myVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"btn-tab-me-p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [_controllerList addObject:myVC];
+        NSDictionary *userDic = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER);
+        NSDictionary *profileDic = kDefaultObjectForKey(USER_DEFAULT_PROFILE);
+        NSDictionary *deviceDic = kDefaultObjectForKey(USER_DEFAULT_DEVICE);
+        [_user loadDataFromkeyValues:userDic];
+        [_profile loadDataFromkeyValues:profileDic];
+        [_device loadDataFromkeyValues:deviceDic];
     }
     return self;
 }
 
-- (void)getAccount:(void (^)(WPUserModel *user))result{
+- (void)updateData{
     [WPNetInterface getUserinfoWithUserId:kDefaultObjectForKey(USER_DEFAULT_USER_ID) password:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
-        WPUserModel *user;
         if (userDic) {
             kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
-            user = [[WPUserModel alloc] init];
-            [user loadDataFromkeyValues:userDic];
-        }
-        if (result) {
-            result(user);
+            _user = [[WPUserModel alloc] init];
+            [_user loadDataFromkeyValues:userDic];
+            [self getProfile];
+            [self getDevice];
+        }else{
+            _user = nil;
+            kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
         }
     } failure:^(NSError *error) {
-        if (result) {
-            result(nil);
-        }
+        
     }];
+}
+
+- (void)getProfile{
+    if (![NSString leie_isBlankString:_user.profile_id]) {
+        [WPNetInterface getProfileWithId:_user.profile_id success:^(NSDictionary *profileDic) {
+            if (profileDic) {
+                kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
+                _profile = [[WPProfileModel alloc] init];
+                [_profile loadDataFromkeyValues:profileDic];
+                WPEventModel *event = [[WPEventModel alloc] init];
+                event.status = @"1";
+                NSDate *date = [NSDate dateFromString:_profile.lastperiod format:@"yyyy MM dd"];
+                event.date = [NSDate timestampFromDate:date];
+                event.pid = event.date;
+                [event insertToDB];
+            }else{
+                _profile = nil;
+                kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyUpdateProfile object:nil];
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
+
+- (void)getDevice{
+    if (![NSString leie_isBlankString:_user.device_id]) {
+        [WPNetInterface getDeviceWithId:_user.device_id success:^(NSDictionary *deviceDic) {
+            if (deviceDic) {
+                kDefaultSetObjectForKey(deviceDic, USER_DEFAULT_DEVICE);
+                _device = [[WPDeviceModel alloc] init];
+                [_device loadDataFromkeyValues:deviceDic];
+                [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyUpdateDevice object:nil];
+                [[WPConnectDeviceManager defaultInstance] startTimer];
+            }else{
+                _device = nil;
+                kDefaultRemoveForKey(USER_DEFAULT_DEVICE);
+            }
+        } failure:^(NSError *error) {
+            [[WPConnectDeviceManager defaultInstance] startTimer];
+        }];
+    }
 }
 @end

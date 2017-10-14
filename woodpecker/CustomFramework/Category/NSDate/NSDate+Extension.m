@@ -84,7 +84,7 @@
 
 + (NSString *)timestampFromDate:(NSDate *)date{
     if (date) {
-        return [NSString stringWithFormat:@"%0.0f",[date timeIntervalSince1970]*1000];
+        return [NSString stringWithFormat:@"%0.0f",[date timeIntervalSince1970]];
     }else{
         return @"";
     }
@@ -92,7 +92,7 @@
 
 + (NSDate *)dateFromTimestampStr:(NSString *)timestampStr{
     if (![NSString leie_isBlankString:timestampStr]) {
-        return [NSDate dateWithTimeIntervalSince1970:[timestampStr longLongValue]/1000];
+        return [NSDate dateWithTimeIntervalSince1970:[timestampStr longLongValue]];
     }else{
         return nil;
     }
@@ -192,5 +192,19 @@
     NSDate *d = [[self calendar] dateByAddingComponents:components toDate:date options:0];
     components.day = NSIntegerMax;
     return d;
+}
+
++ (NSDateFormatter *)UTCFormatter{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.calendar = [self calendar];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    formatter.locale = [NSLocale currentLocale];
+    return formatter;
+}
+
++ (NSString *)UTCStringFromDate:(NSDate *)date format:(NSString *)format{
+    NSDateFormatter *formatter = [self UTCFormatter];
+    formatter.dateFormat = format;
+    return [formatter stringFromDate:date];
 }
 @end

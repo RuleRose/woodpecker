@@ -15,10 +15,13 @@
 #import "CATransition+PageTransition.h"
 #import "WPThermometerBindViewController.h"
 #import "WPThermometerRemoveViewController.h"
-#import "WPBasicInfoViewController.h"
-#import "WPPeriodViewController.h"
-#import "WPBasicInfoViewController.h"
 #import "WPThermometerEditViewController.h"
+#import "WPConnectDeviceManager.h"
+#import "MMCDeviceManager.h"
+#import "WPTemperatureModel.h"
+#import "XJFDBManager.h"
+#import "WPThermometerRemoveViewController.h"
+#import "WPThermometerViewController.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -34,6 +37,14 @@
     [self setupViews];
     [self setupData];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_statusView updateState];
 }
 
 - (void)setupData{
@@ -47,6 +58,50 @@
     [self.view addSubview:_statusView];
 }
 
+- (void)updateConnectionState{
+    [_statusView updateState];
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
+        [[WPConnectDeviceManager defaultInstance] stopTimer];
+        WPUserModel *user = [[WPUserModel alloc] init];
+        [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+        if ([NSString leie_isBlankString:user.device_id]) {
+            [_viewModel bindDevice];
+        }else{
+            [_viewModel syncTempData];
+        }
+    }else if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE){
+        [[WPConnectDeviceManager defaultInstance] startTimer];
+    }
+}
+
+- (void)updateState{
+    if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
+        //上传
+        [_viewModel syncTempDataToService];
+    }
+}
+
+- (void)receiveTemperature:(NSNotification *)notification{
+    NSDictionary *userinfo = [notification userInfo];
+    NSNumber *index = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_INDEX];
+    NSNumber *timestamp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_TIME];
+    NSNumber *temp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_VALUE];
+    WPDeviceModel *device = [[WPDeviceModel alloc] init];
+    [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
+    WPTemperatureModel *temperature =[[WPTemperatureModel alloc] init];
+    temperature.dindex = [index stringValue];
+    temperature.device_id = device.pid;
+    temperature.time = [timestamp stringValue];
+    temperature.pid = temperature.time;
+    temperature.temp = [temp stringValue];
+    temperature.device = @"1";
+    if ([temperature.time length] == 9) {
+        [temperature insertToDB];
+    }
+    
+    //不同设备同步获取最后一个device数据
+}
+
 #pragma mark WPStatusViewDelegate
 - (void)showCalendar{
     WPCalendarViewController *calendarVC = [[WPCalendarViewController alloc] init];
@@ -56,15 +111,37 @@
 }
 
 - (void)showTemperature{
-//    WPThermometerRemoveViewController *removeVC = [[WPThermometerRemoveViewController alloc] init];
-//    [self.navigationController pushViewController:removeVC animated:YES];
+    WPUserModel *user = [[WPUserModel alloc] init];
+    [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+    switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {
+        case STATE_DEVICE_SCANNING:
+        case STATE_DEVICE_CONNECTING:
+        case STATE_DEVICE_DISCONNECTING:
+            
+            break;
+        case STATE_DEVICE_CONNECTED:
+        {
+            WPThermometerViewController *removeVC = [[WPThermometerViewController alloc] init];
+            [self.navigationController pushViewController:removeVC animated:YES];
+        }
+            break;
+        default:
+            if ([NSString leie_isBlankString:user.device_id] ) {
+                WPThermometerBindViewController *bindVC = [[WPThermometerBindViewController alloc] init];
+                [self.navigationController pushViewController:bindVC animated:YES];
+            }else{
+                WPThermometerRemoveViewController *removeVC = [[WPThermometerRemoveViewController alloc] init];
+                [self.navigationController pushViewController:removeVC animated:YES];
+            }
+            break;
+    }
+    
 
-//    WPThermometerBindViewController *bindVC = [[WPThermometerBindViewController alloc] init];
-//    [self.navigationController pushViewController:bindVC animated:YES];
-    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
-    [self.navigationController pushViewController:thermometerVC animated:YES];
-//    WPBasicInfoViewController *introVC = [[WPBasicInfoViewController alloc] init];
-//    [self.navigationController pushViewController:introVC animated:YES];
+
+
+//    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
+//    [self.navigationController pushViewController:thermometerVC animated:YES];
+
 }
 
 - (void)editTemperature{

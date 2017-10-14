@@ -9,7 +9,4 @@
 #import "WPEventModel.h"
 
 @implementation WPEventModel
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"pid":@"event_id"};
-}
 @end

@@ -12,7 +12,9 @@ typedef NS_ENUM(NSUInteger, PeriodType) {
     kPeriodTypeOfMenstrual = 0, //月经期
     kPeriodTypeOfPregnancy, //易孕期
     kPeriodTypeOfForecast, //预测经期
-    kPeriodTypeOfOviposit //排卵日
+    kPeriodTypeOfOviposit, //排卵日
+    kPeriodTypeOfSafe //安全期
+
 };
 typedef NS_ENUM(NSUInteger, PeriodShapeType) {
     kPeriodShapeOfRight = 0,

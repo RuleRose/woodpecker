@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface WPThermometerRemoveViewModel : NSObject
+- (void)unBindDeviceSuccess:(void (^)(BOOL finished))result;
 
 @end

@@ -17,6 +17,7 @@
 + (NSInteger)weekdayOfDate:(NSDate*)date;
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSString *)stringFromDate:(NSDate *)date;
++ (NSString *)UTCStringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)format;
 + (NSString *)timestampFromDate:(NSDate *)date;
 + (NSDate *)dateFromTimestampStr:(NSString *)timestampStr;
@@ -26,4 +27,6 @@
 + (BOOL)isDate:(NSDate *)date1 equalToDate:(NSDate *)date2 toCalendarUnit:(NSCalendarUnit)unit;
 + (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 + (NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date;
++ (BOOL)isDateAfterToday:(NSDate *)date;
+
 @end
