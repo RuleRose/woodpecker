@@ -9,11 +9,13 @@
 #ifndef NetWorkAPI_h
 #define NetWorkAPI_h
 
-#define USER_REGISTER @"/user/register/"
-#define USER_LOGIN @"/user/login/"
-#define USER_IS_ACTIVE @"/user/is_user_active/"
-#define USER_UPDATE @"/user/update/"
+#define USER_REGISTER @"/mmcpecker/api/user/register/"
+#define USER_LOGIN @"/mmcpecker/api/user/login/"
+#define USER_IS_ACTIVE @"/mmcpecker/api/user/is_user_active/"
+#define USER_UPDATE @"/mmcpecker/api/user/update/"
 
-#define PROFILE_REGISTER @"/profile/register/"
-#define PROFILE_UPDATE @"/profile/update/"
+#define PROFILE_REGISTER @"/mmcpecker/api/profile/register/"
+#define PROFILE_UPDATE @"/mmcpecker/api/profile/update/"
+#define PROFILE_GET @"/mmcpecker/api/profile/get/"
+
 #endif /* NetWorkAPI_h */

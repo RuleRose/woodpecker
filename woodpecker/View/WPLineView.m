@@ -149,6 +149,7 @@
             [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
         }
         WPTemperatureModel *preTemp;
+        PeriodType *periodType = kPeriodTypeOfMenstrual;
         for (WPTemperatureModel *temp in temps) {
          
         }

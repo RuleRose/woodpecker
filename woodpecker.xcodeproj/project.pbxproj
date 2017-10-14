@@ -1027,14 +1027,14 @@
 		C199D3A01F51463500431AF2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C15466111F63E00500B5CCD9 /* WPLoginViewController.h */,
+				C15466121F63E00500B5CCD9 /* WPLoginViewController.m */,
 				C1FE086A1F5BCA810054A254 /* WPMainViewController.h */,
 				C1FE086B1F5BCA810054A254 /* WPMainViewController.m */,
 				C1FE08791F5BCFE90054A254 /* WPStatusViewController.h */,
 				C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */,
 				C1FE087C1F5BCFFA0054A254 /* WPTemperatureViewController.h */,
 				C1FE087D1F5BCFFA0054A254 /* WPTemperatureViewController.m */,
-				C15466111F63E00500B5CCD9 /* WPLoginViewController.h */,
-				C15466121F63E00500B5CCD9 /* WPLoginViewController.m */,
 				CC0E88401F65702200EC5062 /* WPThermometerViewController.h */,
 				CC0E88411F65702200EC5062 /* WPThermometerViewController.m */,
 				CC7DA22E1F762CBA00F56072 /* WPThermometerBindViewController.h */,
@@ -1432,9 +1432,9 @@
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 45S27PPGAF;
+						DevelopmentTeam = VHXL69WFQ8;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1924,7 +1924,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				DEVELOPMENT_TEAM = 45S27PPGAF;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VHXL69WFQ8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1933,10 +1934,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "731c9fa0-7ea0-44c3-b53a-76cad89fd98d";
-				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1952,7 +1953,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				DEVELOPMENT_TEAM = 45S27PPGAF;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VHXL69WFQ8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1961,10 +1963,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "731c9fa0-7ea0-44c3-b53a-76cad89fd98d";
-				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

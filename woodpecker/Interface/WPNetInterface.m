@@ -47,8 +47,28 @@
     }
     [[XJFNetworkManager shareManager] requestWithPath:USER_LOGIN requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
         if (!error) {
+            NSDictionary *userDic = [data objectForKey:@"user"];
             if (success) {
-                success(data);
+                success(userDic);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)getProfileWithId:(NSString*)profile_id success:(void (^)(NSDictionary* profileDic))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (profile_id) {
+        [params setObject:profile_id forKey:@"profile_id"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:PROFILE_GET requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
+        if (!error) {
+            NSDictionary *profileDic = [data objectForKey:@"profile"];
+            if (success) {
+                success(profileDic);
             }
         }else{
             if (failure) {
