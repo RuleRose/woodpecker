@@ -9,7 +9,4 @@
 #import "WPProfileModel.h"
 
 @implementation WPProfileModel
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"pid":@"profile_id"};
-}
 @end

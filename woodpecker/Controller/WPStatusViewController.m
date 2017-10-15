@@ -90,7 +90,7 @@
     [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
     WPTemperatureModel *temperature =[[WPTemperatureModel alloc] init];
     temperature.dindex = [index stringValue];
-    temperature.device_id = device.pid;
+    temperature.device_id = device.device_id;
     temperature.time = [timestamp stringValue];
     temperature.pid = temperature.time;
     temperature.temp = [temp stringValue];

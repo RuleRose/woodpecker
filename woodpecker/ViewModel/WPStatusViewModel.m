@@ -32,11 +32,11 @@
     NSString *modelNum = [MMCDeviceManager defaultInstance].currentDevice.modelNum;
     NSString *MacAddr = [MMCDeviceManager defaultInstance].currentDevice.MacAddr;
     [WPNetInterface registerDevice:MacAddr num:modelNum software_rev:softwareRev hardware_rev:hardwareRev success:^(NSString *device_id) {
-        [WPNetInterface bindDevice:user.pid device_id:device_id start_dindex:@"0" success:^(BOOL bind) {
+        [WPNetInterface bindDevice:user.user_id device_id:device_id start_dindex:@"0" success:^(BOOL bind) {
             user.device_id = device_id;
             kDefaultSetObjectForKey([user transToDictionary], USER_DEFAULT_ACCOUNT_USER);
             WPDeviceModel *device = [[WPDeviceModel alloc] init];
-            device.pid = device_id;
+            device.device_id = device_id;
             device.mac_addr = softwareRev;
             device.hardware_rev = hardwareRev;
             device.model_num = modelNum;
@@ -51,9 +51,12 @@
 }
 
 - (void)syncTempDataFromIndex:(NSInteger)index{
-    [[MMCDeviceManager defaultInstance] syncDataFromIndex:index callback:^(NSInteger sendState) {
-        
-    }];
+    //连接成功后，马上同步数据会失败，需要时间发现服务和属性
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[MMCDeviceManager defaultInstance] syncDataFromIndex:index callback:^(NSInteger sendState) {
+            
+        }];
+    });
 }
 
 - (void)syncTempData{
@@ -80,7 +83,7 @@
     NSArray *temps = [XJFDBManager searchModelsWithCondition:temp andpage:-1 andOrderby:nil isAscend:YES];
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-    [WPNetInterface postTemps:temps user_id:user.pid success:^(BOOL finished) {
+    [WPNetInterface postTemps:temps user_id:user.user_id success:^(BOOL finished) {
         for (WPTemperatureModel *temperature in temps) {
             temperature.sync = @"1";
             [temperature updateToDBDependsOn:nil];

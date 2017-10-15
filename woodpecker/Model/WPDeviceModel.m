@@ -9,7 +9,5 @@
 #import "WPDeviceModel.h"
 
 @implementation WPDeviceModel
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"pid":@"device_id"};
-}
+
 @end

@@ -59,7 +59,7 @@
     [self.view addSubview:_loginView];
 }
 
-#pragma mark WPLoginViewDelegate
+#pragma mark - WPLoginViewDelegate
 - (void)login{
     if ([[WPAccountManager defaultInstance] isLogin]) {
         [self registerAccount];
@@ -68,6 +68,7 @@
     }
 }
 
+#pragma mark - MI account login callback
 - (void)loginSuccess{
     [self registerAccount];
 }

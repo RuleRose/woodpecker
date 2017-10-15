@@ -17,6 +17,7 @@
 @property(nonatomic, copy)NSString *birthday;
 @property(nonatomic, copy)NSString *height;
 @property(nonatomic, copy)NSString *weight;
+@property(nonatomic, copy)NSString *user_id;
 @property(nonatomic, copy)NSString *profile_id;
 @property(nonatomic, copy)NSString *device_id;
 

@@ -27,12 +27,12 @@ Singleton_Implementation(WPConnectDeviceManager);
     NSDictionary *deviceDic = kDefaultObjectForKey(USER_DEFAULT_DEVICE);
     [_device loadDataFromkeyValues:deviceDic];
     if (![NSString leie_isBlankString:_device.mac_addr] && [MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
-        if (self.timer) [self stopTimer];
+        if (self.timer)
+            [self stopTimer];
         self.timer = [NSTimer timerWithTimeInterval:60*5 target:self selector:@selector(connectDevice) userInfo:nil repeats:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.timer fire];
         });
-//        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
 }
 
