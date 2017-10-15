@@ -11,7 +11,7 @@
 #import "WPStatusWheelCell.h"
 #import "NSDate+Extension.h"
 
-@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource,WPStatusWheelCellDelegate>
+@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource, WPStatusWheelCellDelegate>
 @property(nonatomic, strong)UICollectionView *collectionView;
 //@property(nonatomic, assign)CGPoint pos;
 @property(nonatomic, assign) CGFloat offset;
@@ -120,6 +120,32 @@
 {
 
 }
+
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSLog(@"end scrolling");
+    [self pageCollectionView:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self pageCollectionView:scrollView];
+    }
+}
+
+- (void)pageCollectionView:(UIScrollView *)scrollView{
+    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    NSInteger index = round(collectionViewOffset.y / 56);
+    if (index < 0) {
+        index = 0;
+    }else if(index > ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 6)){
+        index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 6);
+    }
+    CGFloat offsetY = index * 56;
+    
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
+}
+
 
 #pragma mark WPStatusWheelCellDelegate
 - (void)showStatusCell:(WPStatusWheelCell *)cell{
