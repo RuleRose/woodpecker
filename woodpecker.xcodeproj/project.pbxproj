@@ -77,6 +77,7 @@
 		C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476B1F5E71F200D785A6 /* MMCBluetoothManager.m */; };
 		C158476F1F5E71F200D785A6 /* MMCDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */; };
 		C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */; };
+		C15A3C271F931EF100224484 /* NSTimeZone+ext.m in Sources */ = {isa = PBXBuildFile; fileRef = C15A3C261F931EF100224484 /* NSTimeZone+ext.m */; };
 		C160117A1F5F8AB600F7B900 /* WPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C16011791F5F8AB600F7B900 /* WPAccountManager.m */; };
 		C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */; };
 		C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */; };
@@ -428,6 +429,8 @@
 		C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCDeviceManager.m; sourceTree = "<group>"; };
 		C15847721F5E85F100D785A6 /* BluetoothConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConst.h; sourceTree = "<group>"; };
 		C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiBluetoothFramework.framework; sourceTree = "<group>"; };
+		C15A3C251F931EF100224484 /* NSTimeZone+ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+ext.h"; sourceTree = "<group>"; };
+		C15A3C261F931EF100224484 /* NSTimeZone+ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ext.m"; sourceTree = "<group>"; };
 		C16011781F5F8AB600F7B900 /* WPAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAccountManager.h; sourceTree = "<group>"; };
 		C16011791F5F8AB600F7B900 /* WPAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAccountManager.m; sourceTree = "<group>"; };
 		C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiPassport.framework; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 				C1562FDB1F5065FE00D6CC30 /* NSDate+ext.m */,
 				C1562FDC1F5065FE00D6CC30 /* NSDate+Extension.h */,
 				C1562FDD1F5065FE00D6CC30 /* NSDate+Extension.m */,
+				C15A3C251F931EF100224484 /* NSTimeZone+ext.h */,
+				C15A3C261F931EF100224484 /* NSTimeZone+ext.m */,
 			);
 			path = NSDate;
 			sourceTree = "<group>";
@@ -1738,6 +1743,7 @@
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
 				CC0AAF481F6C230800FCCA6C /* FSCalendarCell.m in Sources */,
 				C15630441F5065FE00D6CC30 /* XJFSeperatorLineView.m in Sources */,
+				C15A3C271F931EF100224484 /* NSTimeZone+ext.m in Sources */,
 				CC1A54041F72A54000B3EF2E /* WPRecordStatusModel.m in Sources */,
 				CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */,
 				CC1134BC1F68107000AFD946 /* WPClockPopupView.m in Sources */,
