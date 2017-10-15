@@ -38,7 +38,7 @@ Singleton_Implementation(MMCDeviceManager);
     if (_deviceState != deviceState) {
         _preDeviceState = _deviceState;
         _deviceState = deviceState;
-        DDLogDebug(@"[Device Manager] device state change to: %ld", _deviceState);
+        DDLogDebug(@"[Device Manager] device sync state change to: %ld", _deviceState);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyDeviceState object:nil userInfo:nil];
     }
@@ -55,6 +55,7 @@ Singleton_Implementation(MMCDeviceManager);
         _deviceState = MMC_STATE_IDLE;
         _preDeviceState = MMC_STATE_IDLE;
         _alarmTimeInterval = -1;
+        _lastRecordIndex = NON_OBJECT_DEFAULT_VALUE;
     }
     return self;
 }
@@ -156,7 +157,8 @@ Singleton_Implementation(MMCDeviceManager);
 }
 
 - (void)syncDataFromIndex:(NSInteger)index callback:(void (^)(NSInteger sendState))callback {
-    if (self.currentDevice || MMC_STATE_SYNC != self.deviceState) {
+    if (self.currentDevice && MMC_STATE_SYNC != self.deviceState &&
+        (self.lastRecordIndex == NON_OBJECT_DEFAULT_VALUE || index < self.lastRecordIndex)) {
         if (callback) {
             callback(0);
         }
@@ -272,6 +274,8 @@ Singleton_Implementation(MMCDeviceManager);
             } break;
             case STATE_DISCONNECTED: {
                 self.deviceConnectionState = STATE_DEVICE_NONE;
+                self.lastRecordIndex = NON_OBJECT_DEFAULT_VALUE;
+                self.currentDevice = nil;
             } break;
 
             default:

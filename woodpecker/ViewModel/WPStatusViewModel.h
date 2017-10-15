@@ -13,6 +13,8 @@
 
 @interface WPStatusViewModel : NSObject
 @property(nonatomic,strong)NSMutableArray *temps;
+@property (nonatomic,assign) Boolean isBindNewDevice;
+@property (nonatomic,copy) NSString *syncFromTime;
 - (void)bindDevice;
 - (void)syncTempDataFromIndex:(NSInteger)index;
 - (void)syncTempDataToService;

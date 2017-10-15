@@ -34,7 +34,7 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
     [[MMCDeviceManager defaultInstance] startScanAndConnect:^(NSInteger sendState) {
         
     }];
@@ -49,7 +49,7 @@
     _viewModel = [[WPThermometerBindingViewModel alloc] init];
 }
 
-- (void)updateState{
+- (void)updateConnectionState{
     if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
         [[XJFHUDManager defaultInstance] showTextHUD:@"连接成功"];
         [self.navigationController popToRootViewControllerAnimated:YES];

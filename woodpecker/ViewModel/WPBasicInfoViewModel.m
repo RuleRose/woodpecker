@@ -11,7 +11,7 @@
 
 @implementation WPBasicInfoViewModel
 - (void)updateUserinfo:(WPUserModel *)userinfo reuslt:(void (^)(BOOL success))result{
-    [WPNetInterface updateUserInfoWithUserID:userinfo.pid nickname:userinfo.nick_name birthday:userinfo.birthday height:userinfo.height weight:userinfo.weight success:^(BOOL success) {
+    [WPNetInterface updateUserInfoWithUserID:userinfo.user_id nickname:userinfo.nick_name birthday:userinfo.birthday height:userinfo.height weight:userinfo.weight success:^(BOOL success) {
         kDefaultSetObjectForKey([userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
         if (result) {
             result(success);

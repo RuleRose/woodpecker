@@ -14,7 +14,7 @@
 - (void)unBindDeviceSuccess:(void (^)(BOOL finished))result{
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-    [WPNetInterface unbindDevice:user.pid success:^(BOOL unbind) {
+    [WPNetInterface unbindDevice:user.user_id success:^(BOOL unbind) {
         user.device_id = nil;
         kDefaultSetObjectForKey([user transToDictionary], USER_DEFAULT_ACCOUNT_USER);
         kDefaultRemoveForKey(USER_DEFAULT_DEVICE);

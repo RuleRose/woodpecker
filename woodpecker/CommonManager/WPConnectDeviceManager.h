@@ -7,11 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WPDeviceModel.h"
 
 @interface WPConnectDeviceManager : NSObject
 Singleton_Interface(WPConnectDeviceManager);
-@property(nonatomic, strong)WPDeviceModel *device;
 
 //开启定时器
 - (void)startTimer;

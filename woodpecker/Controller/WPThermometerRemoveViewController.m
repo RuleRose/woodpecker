@@ -72,7 +72,6 @@
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
         [_viewModel unBindDeviceSuccess:^(BOOL finished) {
             [self.navigationController popViewControllerAnimated:YES];
-
         }];
     };
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
