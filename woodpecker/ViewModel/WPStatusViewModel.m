@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         _temps = [[NSMutableArray alloc] init];
+        _isBindNewDevice = NO;
     }
     return self;
 }
@@ -32,7 +33,21 @@
     NSString *modelNum = [MMCDeviceManager defaultInstance].currentDevice.modelNum;
     NSString *MacAddr = [MMCDeviceManager defaultInstance].currentDevice.MacAddr;
     [WPNetInterface registerDevice:MacAddr num:modelNum software_rev:softwareRev hardware_rev:hardwareRev success:^(NSString *device_id) {
+        @weakify(self);
         [WPNetInterface bindDevice:user.user_id device_id:device_id start_dindex:@"0" success:^(BOOL bind) {
+            @strongify(self);
+            self.isBindNewDevice = YES;
+            WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
+            temp.sync = nil;
+            temp.device = @"1";
+            NSArray *arr = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:NO];
+            temp = arr.firstObject;
+            if (temp) {
+                self.syncFromTime = temp.time;
+            }else{
+                self.syncFromTime = nil;
+            }
+            
             user.device_id = device_id;
             kDefaultSetObjectForKey([user transToDictionary], USER_DEFAULT_ACCOUNT_USER);
             WPDeviceModel *device = [[WPDeviceModel alloc] init];
@@ -67,7 +82,7 @@
         WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
         temp.sync = nil;
         temp.device_id = user.device_id;
-        NSArray *arr = [XJFDBManager searchModelsWithCondition:temp andpage:-1 andOrderby:@"time" isAscend:NO];
+        NSArray *arr = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:NO];
         temp = arr.firstObject;
         if (temp) {
             [self syncTempDataFromIndex:[temp.dindex integerValue]];

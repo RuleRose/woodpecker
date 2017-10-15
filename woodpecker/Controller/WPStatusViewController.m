@@ -64,6 +64,7 @@
         [[WPConnectDeviceManager defaultInstance] stopTimer];
         WPUserModel *user = [[WPUserModel alloc] init];
         [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+        self.viewModel.isBindNewDevice = NO;
         if ([NSString leie_isBlankString:user.device_id]) {
             [_viewModel bindDevice];
         }else{
@@ -95,7 +96,13 @@
     temperature.pid = temperature.time;
     temperature.temp = [temp stringValue];
     temperature.device = @"1";
+    
     if ([temperature.time length] == 9) {
+        if (self.viewModel.isBindNewDevice && self.viewModel.syncFromTime) {
+            if ([temperature.time longLongValue] < [self.viewModel.syncFromTime longLongValue]) {
+                return;
+            }
+        }
         [temperature insertToDB];
     }
     
