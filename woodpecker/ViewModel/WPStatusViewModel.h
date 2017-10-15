@@ -20,5 +20,5 @@
 - (void)syncTempDataToService;
 - (void)syncTempData;
 - (NSDate *)getStartDate;
-
+- (NSInteger)eventCountAtDate:(NSDate *)date;
 @end

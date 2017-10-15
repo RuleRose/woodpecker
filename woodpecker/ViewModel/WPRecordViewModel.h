@@ -19,4 +19,7 @@
 - (NSInteger)getSelectedIndexWithRecordTheme:(WPRecordTheme)theme detai:(NSString *)detail;
 - (void)setTheme:(WPRecordTheme)theme index:(NSInteger)index;
 - (NSString *)getDetailWithEventTheme:(WPRecordTheme)theme;
+
+- (WPEventModel *)getEventWithDate:(NSDate *)date;
+- (void)updateEvent:(WPEventModel *)event date:(NSDate *)date success:(void (^)(BOOL success))result;
 @end

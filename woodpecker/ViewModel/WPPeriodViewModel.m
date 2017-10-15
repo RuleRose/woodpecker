@@ -33,7 +33,7 @@
         NSDate *date = [NSDate dateFromString:profile.lastperiod format:@"yyyy MM dd"];
         event.date = [NSDate timestampFromDate:date];
         event.pid = event.date;
-        [event insertToDB];
+        [event insertOrupdateToDBDependsOn:nil];
         if (result) {
             result(YES);
         }

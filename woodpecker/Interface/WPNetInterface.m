@@ -287,4 +287,104 @@
         }
     }];
 }
+
++ (void)postEvents:(NSArray *)eventsStr user_id:(NSString*)user_id  success:(void (^)(NSArray *events))success failure:(void (^)(NSError* error))failure{
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (eventsStr) {
+        [params setObject:eventsStr forKey:@"events"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:EVENT_POST requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *events = [data objectForKey:@"events"];
+            if (success) {
+                success(events);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)updateEvent:(NSString *)event_id user_id:(NSString*)user_id description:(NSString *)description extra_data:(NSString *)extra_data success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (event_id) {
+        [params setObject:event_id forKey:@"event_id"];
+    }
+    if (description) {
+        [params setObject:description forKey:@"description"];
+    }
+    if (extra_data) {
+        [params setObject:extra_data forKey:@"extra_data"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:EVENT_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)getTemperaturesWithUserId:(NSString*)user_id startTime:(NSString *)start_update_time end_update_time:(NSString *)end_update_time success:(void (^)(NSArray* temperatures))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (start_update_time) {
+        [params setObject:start_update_time forKey:@"start_update_time"];
+    }
+    if (end_update_time) {
+        [params setObject:end_update_time forKey:@"end_update_time"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:TEMPERATURE_GET requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *temperatures = [data objectForKey:@"temperatures"];
+            if (success) {
+                success(temperatures);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)updateTemperatureWithUserId:(NSString*)user_id gindex:(NSString *)gindex temp:(NSString *)temp success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (gindex) {
+        [params setObject:gindex forKey:@"gindex"];
+    }
+    if (temp) {
+        [params setObject:temp forKey:@"temp"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:TEMPERATURE_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *temperatures = [data objectForKey:@"temperatures"];
+            if (success) {
+                success(temperatures);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
 @end

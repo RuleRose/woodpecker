@@ -29,4 +29,14 @@
 @property(nonatomic, copy)NSString *extra_data; //额外数据（可选）
 @property(nonatomic, copy)NSString *software_rev;
 
+@property(nonatomic, copy)NSString *event_type; //event_id
+@property(nonatomic, copy)NSString *event_type1;
+@property(nonatomic, copy)NSString *event_type2;
+@property(nonatomic, copy)NSString *event_type3;
+@property(nonatomic, copy)NSString *event_type4;
+@property(nonatomic, copy)NSString *event_type5;
+@property(nonatomic, copy)NSString *event_type6;
+@property(nonatomic, copy)NSString *event_type7;
+@property(nonatomic, copy)NSString *event_type8;
+
 @end

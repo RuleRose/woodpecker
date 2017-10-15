@@ -24,5 +24,11 @@
 #define DEVICE_GET @"/mmcpecker/api/device/get/"
 
 #define TEMPERATURE_POST @"/mmcpecker/api/temperature/post/"
+#define TEMPERATURE_GET @"/mmcpecker/api/temperature/get/"
+#define TEMPERATURE_UPDATE @"/mmcpecker/api/temperature/update/"
+
+
+#define EVENT_POST @"/mmcpecker/api/event/post/"
+#define EVENT_UPDATE @"/mmcpecker/api/event/update/"
 
 #endif /* NetWorkAPI_h */

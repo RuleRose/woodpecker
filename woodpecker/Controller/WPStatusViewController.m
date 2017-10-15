@@ -34,12 +34,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_10;
-    [self setupViews];
     [self setupData];
+    [self setupViews];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -56,6 +58,7 @@
     _statusView = [[WPStatusView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
     _statusView.backgroundColor = [UIColor clearColor];
     _statusView.delegate = self;
+    _statusView.viewModel = _viewModel;
     [self.view addSubview:_statusView];
 }
 
@@ -110,6 +113,10 @@
     //不同设备同步获取最后一个device数据
 }
 
+- (void)getTemperature{
+    [_viewModel syncTempData];
+}
+
 #pragma mark WPStatusViewDelegate
 - (void)showCalendar{
     WPCalendarViewController *calendarVC = [[WPCalendarViewController alloc] init];
@@ -153,8 +160,9 @@
     [self.navigationController pushViewController:editVC animated:YES];
 }
 
-- (void)showRecord{
+- (void)showEventWithDate:(NSDate *)date{
     WPRecordViewController *recordVC = [[WPRecordViewController alloc] init];
+    recordVC.eventDate = date;
     [self.navigationController pushViewController:recordVC animated:YES];
 }
 

@@ -9,6 +9,8 @@
 #import "WPStatusView.h"
 #import "MMCDeviceManager.h"
 #import "NSDate+Extension.h"
+#import "WPEventModel.h"
+#import "XJFDBManager.h"
 
 @implementation WPStatusView
 - (instancetype)initWithFrame:(CGRect)frame
@@ -92,7 +94,7 @@
     
     [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
     [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
-    [_recordView setTitle:@"记录" detail:@"3" unit:@"项" showNext:YES];
+    [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
 }
@@ -103,8 +105,8 @@
 }
 
 - (void)showRecord{
-    if (_delegate && [_delegate respondsToSelector:@selector(showRecord)]) {
-        [_delegate showRecord];
+    if (_delegate && [_delegate respondsToSelector:@selector(showEventWithDate:)]) {
+        [_delegate showEventWithDate:_selectedDate];
     }
 }
 
@@ -147,7 +149,7 @@
             }
             break;
     }
-    
+    _wheelView.startDate = _selectedDate;
 }
 
 - (void)bindDevice{
@@ -156,6 +158,7 @@
 
 #pragma mark WPStatusWheelViewDelegate
 - (void)showDetailDate:(NSDate *)date period:(PeriodType)period_type{
+    _selectedDate = date;
     _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
     switch (period_type) {
         case kPeriodTypeOfForecast:
@@ -175,7 +178,8 @@
             _periodLabel.text = @"安全期";
             break;
     }
-
+    //取某天的记录
+    [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)[_viewModel eventCountAtDate:date]] unit:@"项" showNext:YES];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

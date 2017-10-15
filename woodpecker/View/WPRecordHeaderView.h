@@ -27,4 +27,5 @@
 @protocol WPRecordHeaderViewDelegate <NSObject>
 @optional
 - (void)showRecordHeader:(WPRecordHeaderView *)headerView;
+- (void)swithBtnChanged:(WPRecordHeaderView *)headerView on:(BOOL)isOn;
 @end

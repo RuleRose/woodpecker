@@ -33,6 +33,7 @@
         _switchView.backgroundColor = [UIColor clearColor];
         _switchView.onTintColor = kColorFromRGB(0x60b0e3);
         _switchView.tintColor = kColorFromRGB(0xdcdcdc);
+        [_switchView addTarget:self action:@selector(switchViewChanged:) forControlEvents:UIControlEventValueChanged];
     }
     return _switchView;
 }
@@ -132,6 +133,12 @@
     self.detailLabel.text = _status.detail;
     self.icon.image= kImage(_status.icon);
     _line.hidden = !_status.showLine;
+}
+
+- (void)switchViewChanged:(UISwitch *)swithView{
+    if (_delegate && [_delegate respondsToSelector:@selector(swithBtnChanged:on:)]) {
+        [_delegate swithBtnChanged:self on:swithView.on];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

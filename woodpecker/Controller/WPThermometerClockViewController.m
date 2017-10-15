@@ -10,6 +10,8 @@
 #import "WPThermometerClockViewModel.h"
 #import "WPTableViewCell.h"
 #import "WPClockPopupView.h"
+#import "MMCDeviceManager.h"
+#import "NSDate+ext.h"
 
 @interface WPThermometerClockViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -129,13 +131,14 @@
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
-            
+            [[MMCDeviceManager defaultInstance] writeAlarm:[clock timeIntervalSince2000] timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
+                
+            }];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
-
+            
         }];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {

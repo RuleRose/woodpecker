@@ -60,14 +60,22 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
+    _event.date =  [NSDate stringFromDate:_eventDate format:@"yyyy MM dd"];
+    _event.pid = _event.date;
+    [_event insertOrupdateToDBDependsOn:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setupData{
+    if (!_eventDate) {
+        _eventDate = [NSDate date];
+    }
+ 
+    _viewModel = [[WPRecordViewModel alloc] init];
+    _event =  [_viewModel getEventWithDate:_eventDate];
     if (!_event) {
         _event = [[WPEventModel alloc] init];
     }
-    _viewModel = [[WPRecordViewModel alloc] init];
     _viewModel.event = _event;
     _statuses = _viewModel.statuses;
 }
@@ -213,6 +221,9 @@
         headerView.status = status;
         headerView.section = section;
         headerView.delegate = self;
+        if (headerView.showSwitch) {
+            headerView.switchView.on = [_event.status boolValue];
+        }
         return headerView;
     }
 }
@@ -222,13 +233,17 @@
     
 }
 
-- (void)removeBtnPressed{
-    
-}
-
 #pragma mark WPRecordHeaderViewDelegate
 - (void)showRecordHeader:(WPRecordHeaderView *)headerView{
    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)swithBtnChanged:(WPRecordHeaderView *)headerView on:(BOOL)isOn{
+    if (isOn) {
+        _event.status = @"1";
+    }else{
+        _event.status = @"";
+    }
 }
 
 #pragma mark WPRecordDetailCellDelegate
