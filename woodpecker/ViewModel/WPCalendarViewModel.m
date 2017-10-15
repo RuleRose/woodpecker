@@ -8,16 +8,8 @@
 
 #import "WPCalendarViewModel.h"
 #import "XJFDBManager.h"
-#import "WPEventModel.h"
-#import "WPUserModel.h"
-#import "WPProfileModel.h"
-#import "NSDate+Extension.h"
 
 @interface WPCalendarViewModel ()
-@property(nonatomic, strong)WPUserModel *user;
-@property(nonatomic, strong)WPProfileModel *profile;
-@property(nonatomic, strong)NSArray *startEvents;
-@property(nonatomic, strong)NSArray *endEvents;
 
 @end
 

@@ -79,7 +79,7 @@
     [self setupViews];
     // Do any additional setup after loading the view.
     if (!_selectedDate) {
-        _selectedDate = [NSDate date];
+        self.selectedDate = [NSDate date];
     }
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
@@ -102,6 +102,13 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)goBack:(UIButton *)sender{
+    if (_delegate && [_delegate respondsToSelector:@selector(updateSelectedDate:)]) {
+        [_delegate updateSelectedDate:_selectedDate];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -112,7 +119,7 @@
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate dateFromString:@"2016-07-08" format:@"yyyy-MM-dd"];
+    return [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
@@ -160,6 +167,7 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
+    self.selectedDate = date;
     [self configureVisibleCells];
 }
 
@@ -214,23 +222,63 @@
 
 - (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
-    if (cell.selected) {
-        cell.titleLabel.font = kFont_6(16);
-        cell.titleLabel.textColor = kColor_10;
-        cell.subtitleLabel.textColor = kColor_10;
-        cell.shapeLayer.fillColor = kColor_12.CGColor;
-        cell.shapeLayer.opacity = 1;
-        
-    }else{
-        cell.titleLabel.font = kFont_1(12);
-        cell.subtitleLabel.textColor = kColor_7;
-        cell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
-        cell.shapeLayer.opacity = 0;
+    if ([cell isKindOfClass:[WPCalendarCell class]]) {
+        WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
+        if (calendarCell.selected) {
+            calendarCell.titleLabel.font = kFont_6(16);
+            calendarCell.titleLabel.textColor = kColor_10;
+            calendarCell.subtitleLabel.textColor = kColor_10;
+            calendarCell.shapeLayer.fillColor = kColor_12.CGColor;
+            calendarCell.shapeLayer.opacity = 1;
+            
+        }else{
+            calendarCell.titleLabel.font = kFont_1(12);
+            calendarCell.subtitleLabel.textColor = kColor_7;
+            calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
+            calendarCell.shapeLayer.opacity = 0;
+        }
+        PeriodType period = [_viewModel getPeriodWithDate:date];
+        calendarCell.period = period;
+        if (period == kPeriodTypeOfOviposit) {
+            calendarCell.shape = kPeriodShapeOfCircle;
+        }else{
+            NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
+            NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
+            PeriodType tomorrow_period = [_viewModel getPeriodWithDate:tomorrow];
+            PeriodType yesterday_period = [_viewModel getPeriodWithDate:yesterday];
+            NSInteger weekday = [NSDate weekdayOfDate:date];
+            if (weekday == 1) {
+                if (tomorrow_period == period) {
+                    calendarCell.shape = kPeriodShapeOfLeft;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }else if (weekday == 7){
+                if (yesterday_period == period) {
+                    calendarCell.shape = kPeriodShapeOfRight;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }else{
+                if ((yesterday_period == period) && (tomorrow_period == period)) {
+                    calendarCell.shape = kPeriodShapeOfMiddle;
+                }else if(yesterday_period == period){
+                    calendarCell.shape = kPeriodShapeOfRight;
+                }else if(tomorrow_period == period){
+                    calendarCell.shape = kPeriodShapeOfLeft;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }
+        }
+        [calendarCell setNeedsLayout];
     }
-    [cell setNeedsLayout];
 }
 
-
+- (void)setSelectedDate:(NSDate *)selectedDate{
+    _selectedDate = selectedDate;
+    [_tableView reloadData];
+}
 
 #pragma mark UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
@@ -257,27 +305,45 @@
     cell.layer.masksToBounds = YES;
     cell.rightModel = kCellRightModelNone;
     cell.leftModel = kCellLeftModelNone;
-    if (indexPath.row == 0) {
-        cell.titleLabel.text = @"周期第7天";
-        cell.detailLabel.text = @"安全期";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 1){
-        cell.titleLabel.text = @"基础体温";
-        cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"受孕指数";
-        cell.detailLabel.text = @"4%";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 3){
-        cell.titleLabel.text = @"距离易孕期";
-        cell.detailLabel.text = @"2天";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 4){
-        cell.titleLabel.text = @"当日记录";
-        cell.detailLabel.text = @"3项";
-        cell.line.hidden = YES;
-    }
+    [_viewModel getPeriodWithData:_selectedDate block:^(PeriodType period_type, NSInteger period_days, NSInteger pregnancy_days) {
+        if (indexPath.row == 0) {
+            cell.titleLabel.text = [NSString stringWithFormat:@"周期第%ld天",(long)period_days];
+            switch (period_type) {
+                case kPeriodTypeOfForecast:
+                    cell.detailLabel.text = @"预测经期";
+                    break;
+                case kPeriodTypeOfOviposit:
+                    cell.detailLabel.text = @"排卵日";
+                    break;
+                case kPeriodTypeOfMenstrual:
+                    cell.detailLabel.text = @"月经期";
+                    break;
+                case kPeriodTypeOfPregnancy:
+                    cell.detailLabel.text = @"易孕期";
+                    break;
+                case kPeriodTypeOfSafe:
+                    cell.detailLabel.text = @"安全期";
+                    break;
+            }
+            cell.line.hidden = YES;
+        }else if (indexPath.row == 1){
+            cell.titleLabel.text = @"基础体温";
+            cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
+            cell.line.hidden = YES;
+        }else if (indexPath.row == 2){
+            cell.titleLabel.text = @"受孕指数";
+            cell.detailLabel.text = @"4%";
+            cell.line.hidden = YES;
+        }else if (indexPath.row == 3){
+            cell.titleLabel.text = @"距离易孕期";
+            cell.detailLabel.text = [NSString stringWithFormat:@"%ld天",(long)pregnancy_days];
+            cell.line.hidden = YES;
+        }else if (indexPath.row == 4){
+            cell.titleLabel.text = @"当日记录";
+            cell.detailLabel.text = @"3项";
+            cell.line.hidden = YES;
+        }
+    }];
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 

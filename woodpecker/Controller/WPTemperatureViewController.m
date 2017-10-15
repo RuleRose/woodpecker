@@ -26,15 +26,16 @@
     self.view.backgroundColor = kColor_2;
     [self setupData];
     [self setupViews];
-//    [_lineView updateChartData];
-//    [_lineDetailView.lineView updateChartData];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [_lineView updateChartData];
-//    [_lineDetailView.lineView updateChartData];
+    [_viewModel getTempsBlock:^(NSMutableArray *sortTemps) {
+        [_lineView updateChartData:sortTemps];
+        [_lineDetailView.lineView updateChartData:sortTemps];
+    }];
+
 }
 
 - (void)setupData{
@@ -66,9 +67,6 @@
 
 - (void)switchBtnPressed{
     _lineDetailView.hidden = !_lineDetailView.hidden;
-    if (!_lineDetailView.hidden) {
-        [_lineDetailView.lineView updateChartData:_viewModel.temps];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
