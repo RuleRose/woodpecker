@@ -8,6 +8,7 @@
 
 #import "WPStatusView.h"
 #import "MMCDeviceManager.h"
+#import "NSDate+Extension.h"
 
 @implementation WPStatusView
 - (instancetype)initWithFrame:(CGRect)frame
@@ -24,13 +25,11 @@
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.textColor = kColor_7;
     _dateLabel.font = kFont_2(23);
-    _dateLabel.text = @"6月7日";
     [self addSubview:_dateLabel];
     _periodLabel = [[UILabel alloc] init];
     _periodLabel.backgroundColor = [UIColor clearColor];
     _periodLabel.textColor = kColor_7;
     _periodLabel.font = kFont_2(23);
-    _periodLabel.text = @"安全期";
     [self addSubview:_periodLabel];
     _tempLabel = [[UILabel alloc] init];
     _tempLabel.backgroundColor = [UIColor clearColor];
@@ -96,7 +95,11 @@
     [_recordView setTitle:@"记录" detail:@"3" unit:@"项" showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
+}
 
+- (void)setStartDate:(NSDate *)startDate{
+    _startDate = startDate;
+    _wheelView.startDate = startDate;
 }
 
 - (void)showRecord{
@@ -152,8 +155,27 @@
 }
 
 #pragma mark WPStatusWheelViewDelegate
-- (void)showDetailDate:(NSDate *)date{
-    NSLog(@"%@",date);
+- (void)showDetailDate:(NSDate *)date period:(PeriodType)period_type{
+    _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
+    switch (period_type) {
+        case kPeriodTypeOfForecast:
+            _periodLabel.text = @"预测经期";
+            break;
+        case kPeriodTypeOfMenstrual:
+             _periodLabel.text = @"月经期";
+            break;
+        case kPeriodTypeOfOviposit:
+             _periodLabel.text = @"排卵日";
+            break;
+            
+        case kPeriodTypeOfPregnancy:
+             _periodLabel.text = @"易孕期";
+            break;
+        default:
+            _periodLabel.text = @"安全期";
+            break;
+    }
+
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -55,7 +55,7 @@
             if (![NSDate isDate:date equalToDate:tempDate toCalendarUnit:NSCalendarUnitDay]) {
              //不是同一天判断是否连续
                 NSInteger days = [NSDate daysFromDate:date toDate:tempDate];
-                if (days == 1 && days == -1) {
+                if (days <= 1 && days >= -1) {
                     //连续
                     //判断两天是否在同一个期间
                     PeriodType periodType = [self getPeriodWithDate:date];
@@ -65,15 +65,16 @@
                         tempDate = date;
                         tempType = periodType;
                     }else{
-                        [sortTemp addObject:temps];
+                        [temps addObject:temperature];
                         temps = [[NSMutableArray alloc] init];
+                        [sortTemp addObject:temps];
                         [temps addObject:temperature];
                         tempDate = date;
                         tempType = periodType;
                     }
                 }else{
-                    [sortTemp addObject:temps];
                     temps = [[NSMutableArray alloc] init];
+                    [sortTemp addObject:temps];
                     PeriodType periodType = [self getPeriodWithDate:date];
                     temperature.period_type = periodType;
                     [temps addObject:temperature];
@@ -82,6 +83,7 @@
                 }
             }
         }else{
+            [sortTemp addObject:temps];
             PeriodType periodType = [self getPeriodWithDate:date];
             temperature.period_type = periodType;
             [temps addObject:temperature];

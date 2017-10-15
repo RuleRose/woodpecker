@@ -13,7 +13,6 @@
 {
     self = [super init];
     if (self) {
-        _sync = @"0"; //0未上传 1已上传
     }
     return self;
 }

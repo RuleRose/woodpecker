@@ -10,8 +10,11 @@
 #import "WPCollectionViewWheelLayout.h"
 #import "WPStatusWheelCell.h"
 #import "NSDate+Extension.h"
+#import "WPEventModel.h"
+#import "WPUserModel.h"
+#import "WPProfileModel.h"
 
-@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource, WPStatusWheelCellDelegate>
+@interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong)UICollectionView *collectionView;
 //@property(nonatomic, assign)CGPoint pos;
 @property(nonatomic, assign) CGFloat offset;
@@ -19,6 +22,8 @@
 //@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
+@property(nonatomic, strong)NSArray *startEvents;
+@property(nonatomic, strong)NSArray *endEvents;
 @end
 
 @implementation WPStatusWheelView
@@ -26,7 +31,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        if (_startDate) {
+        if (!_startDate) {
             _startDate = [NSDate date];
         }
         [self setupViews];
@@ -79,26 +84,39 @@
     [self.layer addSublayer:self.shapeLayer];
 }
 
+- (void)setStartDate:(NSDate *)startDate{
+    _startDate = startDate;
+    if (!_startDate) {
+        _startDate = [NSDate date];
+    }
+    WPEventModel *event = [[WPEventModel alloc] init];
+    event.status = @"1"; //start
+    _startEvents = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:@"date" isAscend:NO];
+    event.status = @"2"; //end
+    _endEvents = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:@"date" isAscend:NO];
+    [_collectionView reloadData];
+    [self scrollToBottom];
+}
+
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 10;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 6;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
     NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
-    if (indexPath.row == days + 2 + 10) {
+    NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
+    if (indexPath.row == days + 3) {
         cell.textLabel.text = @"今天";
     }else{
-        cell.textLabel.text = @"";
+        cell.textLabel.text = [NSDate stringFromDate:date format:@"M/d" ];
 
     }
-    NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
-    cell.period_type = kPeriodTypeOfMenstrual;
+    cell.period_type = [self getPeriodWithDate:date];
     cell.date = date;
-    cell.delegate = self;
     if (indexPath.row < 2) {
         cell.hidden = YES;
     }else{
@@ -110,6 +128,16 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
+}
+
+- (void)scrollToBottom{
+    CGPoint collectionViewOffset = self.collectionView.contentOffset;
+    NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 1);
+    CGFloat offsetY = index * 56;
+    [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY) animated:YES];
+    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
+        [_delegate showDetailDate:[NSDate date] period:[self getPeriodWithDate:[NSDate date]]];
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -129,19 +157,67 @@
     NSInteger index = round(collectionViewOffset.y / 56);
     if (index < 0) {
         index = 0;
-    }else if(index > ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 6)){
-        index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 6);
+    }else if(index > ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5)){
+        index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5);
     }
     CGFloat offsetY = index * 56;
     
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
+    
+    NSDate *date = [NSDate dateByAddingDays:index toDate:_startDate];
+    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
+        [_delegate showDetailDate:date period:[self getPeriodWithDate:date]];
+    }
 }
 
-
-#pragma mark WPStatusWheelCellDelegate
-- (void)showStatusCell:(WPStatusWheelCell *)cell{
-    if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:)]) {
-        [_delegate showDetailDate:cell.date];
+- (PeriodType)getPeriodWithDate:(NSDate *)date{
+    NSTimeInterval timestamp = [date timeIntervalSince1970];
+    WPEventModel *startEvent;
+    for (WPEventModel *event in _startEvents) {
+        if ([event.date longLongValue] <= timestamp) {
+            startEvent = event;
+            break;
+        }
+    }
+    if (startEvent) {
+        WPProfileModel *profile = [[WPProfileModel alloc] init];
+        [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+        if ([profile.period integerValue] > 0) {
+            NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:[startEvent.date longLongValue]];
+            NSInteger days = [NSDate daysFromDate:startDate toDate:date];
+            startDate = [NSDate dateByAddingDays:-(days%([profile.period integerValue])) toDate:date];
+            NSTimeInterval startTime = [startDate timeIntervalSince1970];
+            WPEventModel *endEvent;
+            for (WPEventModel *event in _endEvents) {
+                if (([event.date longLongValue] >= [startEvent.date longLongValue]) && ([event.date longLongValue] <= startTime + [profile.period longLongValue])) {
+                    endEvent = event;
+                    break;
+                }
+            }
+            days = [NSDate daysFromDate:startDate toDate:date];
+            NSInteger menstruation = [profile.menstruation integerValue];
+            if (endEvent) {
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:[endEvent.date longLongValue]];
+                menstruation = [NSDate daysFromDate:startDate toDate:endDate];
+            }
+            if (days <= menstruation) {
+                if ([NSDate isDateAfterToday:date]) {
+                    return kPeriodTypeOfForecast;
+                }else{
+                    return kPeriodTypeOfMenstrual;
+                }
+            }else if(days == [profile.period integerValue] - 14){
+                return kPeriodTypeOfOviposit;
+            }else if ((days >= [profile.period integerValue] - 19) && (days <= [profile.period integerValue] - 10)){
+                return kPeriodTypeOfPregnancy;
+            }else{
+                return kPeriodTypeOfSafe;
+            }
+        }else{
+            return kPeriodTypeOfSafe;
+        }
+    }else{
+        return kPeriodTypeOfSafe;
     }
 }
 
