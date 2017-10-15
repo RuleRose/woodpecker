@@ -92,7 +92,7 @@ Singleton_Implementation(MMCDeviceManager);
     }
 }
 
-- (void)writeAlarm:(NSInteger)alarmInterval callback:(void (^)(NSInteger sendState))callback {
+- (void)writeAlarm:(NSInteger)alarmInterval timeZone:(NSInteger)timeZone callback:(void (^)(NSInteger sendState))callback {
     if (self.currentDevice) {
         if (callback) {
             callback(0);
@@ -104,8 +104,10 @@ Singleton_Implementation(MMCDeviceManager);
         [data appendBytes:&repeat length:sizeof(int8_t)];
         int8_t isOn = 1;
         [data appendBytes:&isOn length:sizeof(int8_t)];
-        int16_t reserve = 0;
-        [data appendBytes:&reserve length:sizeof(int16_t)];
+        int8_t timeZone = timeZone;
+        [data appendBytes:&timeZone length:sizeof(int8_t)];
+        int8_t reserve = 0;
+        [data appendBytes:&reserve length:sizeof(int8_t)];
         [self writeCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_ALARM_READ_WRITE data:data];
     } else {
         if (callback) {
