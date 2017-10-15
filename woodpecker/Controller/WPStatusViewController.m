@@ -107,7 +107,7 @@
                 return;
             }
         }
-        [temperature insertToDB];
+        [temperature insertOrupdateToDBDependsOn:nil];
     }
     
     //不同设备同步获取最后一个device数据

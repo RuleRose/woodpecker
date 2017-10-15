@@ -73,10 +73,9 @@
                 [_profile loadDataFromkeyValues:profileDic];
                 WPEventModel *event = [[WPEventModel alloc] init];
                 event.status = @"1";
-                NSDate *date = [NSDate dateFromString:_profile.lastperiod format:@"yyyy MM dd"];
-                event.date = [NSDate timestampFromDate:date];
+                event.date = _profile.lastperiod;
                 event.pid = event.date;
-                [event insertToDB];
+                [event insertOrupdateToDBDependsOn:nil];
             }else{
                 _profile = nil;
                 kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
@@ -113,7 +112,7 @@
         for (NSDictionary *tempDic in temperatures) {
             WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
             [temp loadDataFromkeyValues:tempDic];
-            [temp insertToDB];
+            [temp insertOrupdateToDBDependsOn:nil];
         }
         kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];

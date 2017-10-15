@@ -174,7 +174,9 @@
     NSTimeInterval timestamp = [date timeIntervalSince1970];
     WPEventModel *startEvent;
     for (WPEventModel *event in _startEvents) {
-        if ([event.date longLongValue] <= timestamp) {
+        NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
+        NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
+        if (event_timestamp <= timestamp) {
             startEvent = event;
             break;
         }
@@ -183,13 +185,15 @@
         WPProfileModel *profile = [[WPProfileModel alloc] init];
         [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
         if ([profile.period integerValue] > 0) {
-            NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:[startEvent.date longLongValue]];
+            NSDate *startDate = [NSDate dateFromString:startEvent.date format:@"yyyy MM dd"];
             NSInteger days = [NSDate daysFromDate:startDate toDate:date];
             startDate = [NSDate dateByAddingDays:-(days%([profile.period integerValue])) toDate:date];
             NSTimeInterval startTime = [startDate timeIntervalSince1970];
             WPEventModel *endEvent;
             for (WPEventModel *event in _endEvents) {
-                if (([event.date longLongValue] >= [startEvent.date longLongValue]) && ([event.date longLongValue] <= startTime + [profile.period longLongValue])) {
+                NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
+                NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
+                if ((event_timestamp >= startTime) && (event_timestamp <= startTime + [profile.period longLongValue])) {
                     endEvent = event;
                     break;
                 }
@@ -197,7 +201,7 @@
             days = [NSDate daysFromDate:startDate toDate:date];
             NSInteger menstruation = [profile.menstruation integerValue];
             if (endEvent) {
-                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:[endEvent.date longLongValue]];
+                NSDate *endDate = [NSDate dateFromString:endEvent.date format:@"yyyy MM dd"];
                 menstruation = [NSDate daysFromDate:startDate toDate:endDate];
             }
             if (days <= menstruation) {
