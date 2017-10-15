@@ -11,10 +11,15 @@
 #import "WPTableViewCell.h"
 #import "WPSheetView.h"
 #import "WPNicknameViewController.h"
+#import "TZImagePickerController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <Photos/Photos.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPMyInfoViewModel *viewModel;
+@property(nonatomic,strong)UIImage* photo;
 
 @end
 
@@ -91,7 +96,11 @@
         cell.titleLabel.text = @"头像";
         cell.detailLabel.text = @"";
         cell.line.hidden = YES;
-        [cell.imageIcon leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
+        if (_photo) {
+            cell.imageIcon.image = _photo;
+        }else{
+            [cell.imageIcon leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
+        }
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
         cell.icon.image = kImage(@"icon-device-unit");
@@ -102,6 +111,12 @@
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"账号";
         cell.detailLabel.text = _userinfo.account_id;
+        NSString *account_id = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+        if (!account_id) {
+            cell.detailLabel.text = @"";
+        }else{
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@",account_id];
+        }
         cell.line.hidden = NO;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
@@ -149,11 +164,65 @@
 }
 
 - (void)showCamera{
-    
+    NSString * mediaType = AVMediaTypeVideo;
+    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
+        [[XJFHUDManager defaultInstance] showTextHUD:@"此应用没有权限使用您的相机功能，您可以在“隐私设置”中启用访问"];
+
+    }else{
+        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
+            picker.delegate = self;
+            picker.allowsEditing = YES;//设置可编辑
+            picker.sourceType = sourceType;
+            picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+            [self presentViewController:picker animated:YES completion:^{
+                
+            }];
+        }else{
+            [[XJFHUDManager defaultInstance] showTextHUD:@"不能使用相机功能"];
+        }
+    }
+
 }
 
 - (void)showPhotos{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:picker.sourceType];
+        picker.delegate = self;
+        picker.allowsEditing = NO;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+    }else{
+        [[XJFHUDManager defaultInstance] showTextHUD:@"不能浏览本地相册"];
+    }
+}
 
+
+#pragma mark UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    _photo = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //图片存入相册
+    if (_photo) {
+        [self selectedImage:_photo];
+        [_tableView reloadData];
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)selectedImage:(UIImage *)photo{
+    if (photo) {
+        [_viewModel uploadAvatar:photo success:^(BOOL finished) {
+            [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

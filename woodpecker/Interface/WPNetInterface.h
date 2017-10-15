@@ -36,4 +36,5 @@
 
 + (void)updateTemperatureWithUserId:(NSString*)user_id gindex:(NSString *)gindex temp:(NSString *)temp success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
 
++ (void)uploadAvatar:(UIImage *)vavtar user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
 @end

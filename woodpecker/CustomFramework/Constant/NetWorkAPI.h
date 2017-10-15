@@ -31,4 +31,7 @@
 #define EVENT_POST @"/mmcpecker/api/event/post/"
 #define EVENT_UPDATE @"/mmcpecker/api/event/update/"
 
+
+#define AVATAR_POST @"/mmcpecker/api/avatar/post/"
+
 #endif /* NetWorkAPI_h */

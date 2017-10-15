@@ -57,24 +57,29 @@
 - (void)setUserinfo:(WPUserModel *)userinfo{
     _userinfo = userinfo;
     _nameLabel.text = _userinfo.nick_name;
-    if ([NSString leie_isBlankString:_userinfo.account_id]) {
+    NSString *account_id = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    if (!account_id) {
         _accountLabel.text = @"账号: ";
     }else{
-        _accountLabel.text = [NSString stringWithFormat:@"账号：%@",_userinfo.account_id];
+        _accountLabel.text = [NSString stringWithFormat:@"账号：%@",account_id];
     }
     [_avatar leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
 }
 
 - (void)tap:(UITapGestureRecognizer *)gestureRecognizer{
-    CGPoint pos = [gestureRecognizer locationInView:_contentView];
-    if (CGRectContainsPoint(CGRectMake(0, 0, _avatar.width + 30, _contentView.height), pos)) {
-        if (_delegate && [_delegate respondsToSelector:@selector(selectedAvatar)]) {
-            [_delegate selectedAvatar];
-        }
-    }else{
-        if (_delegate && [_delegate respondsToSelector:@selector(selectedAccount)]) {
-            [_delegate selectedAccount];
-        }
+//    CGPoint pos = [gestureRecognizer locationInView:_contentView];
+//    if (CGRectContainsPoint(CGRectMake(0, 0, _avatar.width + 30, _contentView.height), pos)) {
+//        if (_delegate && [_delegate respondsToSelector:@selector(selectedAvatar)]) {
+//            [_delegate selectedAvatar];
+//        }
+//    }else{
+//        if (_delegate && [_delegate respondsToSelector:@selector(selectedAccount)]) {
+//            [_delegate selectedAccount];
+//        }
+//    }
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(selectedAccount)]) {
+        [_delegate selectedAccount];
     }
 }
 /*

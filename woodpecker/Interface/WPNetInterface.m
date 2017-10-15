@@ -387,4 +387,26 @@
         }
     }];
 }
+
++ (void)uploadAvatar:(UIImage *)vavtar user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    NSData *data  = UIImageJPEGRepresentation(vavtar, 1.0);
+    [[XJFNetworkManager shareManager] requestWithMethod:POST url:AVATAR_POST parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:@"filename" fileName:[NSString stringWithFormat:@"%@.jpg",[NSString leie_UUID]] mimeType:@"image/jpeg"];
+
+    } progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (success) {
+            success(YES);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
 @end
