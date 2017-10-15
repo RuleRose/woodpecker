@@ -256,7 +256,7 @@ Singleton_Implementation(MMCDeviceManager);
                 self.deviceConnectionState = STATE_DEVICE_SCANNING;
             } break;
             case STATE_SCAN_TIMEOUT: {
-                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_scan_time_out")];
+//                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_scan_time_out")];
                 self.deviceConnectionState = STATE_DEVICE_NONE;
             } break;
             case STATE_SCAN_STOPPED: {
@@ -265,7 +265,7 @@ Singleton_Implementation(MMCDeviceManager);
                 self.deviceConnectionState = STATE_DEVICE_CONNECTING;
             } break;
             case STATE_CONNECT_TIMEOUT: {
-                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_connect_time_out")];
+//                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_connect_time_out")];
                 self.deviceConnectionState = STATE_DEVICE_NONE;
             } break;
             case STATE_DISCONNECTING: {
