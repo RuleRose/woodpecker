@@ -17,7 +17,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = NSTextAlignmentCenter;
-        label.font = kFont_2(23);
+        label.font = kFont_2(20);
         [self.contentView addSubview:label];
         self.textLabel = label;
         self.backgroundColor = [UIColor clearColor];
@@ -32,7 +32,7 @@
     _period_type = period_type;
     switch (_period_type) {
         case kPeriodTypeOfForecast:
-            self.backgroundColor = kColor_15;
+            self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_15.CGColor;
 
             break;
@@ -41,12 +41,16 @@
             self.layer.borderColor = kColor_15.CGColor;
             break;
         case kPeriodTypeOfMenstrual:
-            self.backgroundColor = kColor_10;
+            self.backgroundColor = kColor_13;
             self.layer.borderColor = kColor_13.CGColor;
             break;
         case kPeriodTypeOfPregnancy:
             self.backgroundColor = kColor_14_With_Alpha(0.1);
             self.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
+            break;
+        case kPeriodTypeOfSafe:
+            self.backgroundColor = kColor_10;
+            self.layer.borderColor = kColor_10.CGColor;
             break;
     }
 }
@@ -57,11 +61,6 @@
     self.layer.borderWidth = self.frame.size.width/10;
 
     _textLabel.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    _textLabel.font = kFont_2(23*self.frame.size.width/56.0);
-    if (self.frame.size.width >= 56.0) {
-        if (_delegate && [_delegate respondsToSelector:@selector(showStatusCell:)]) {
-            [_delegate showStatusCell:self];
-        }
-    }
+    _textLabel.font = kFont_2(20*self.frame.size.width/56.0);
 }
 @end

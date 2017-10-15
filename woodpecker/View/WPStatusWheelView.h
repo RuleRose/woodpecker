@@ -16,5 +16,5 @@
 @end
 @protocol WPStatusWheelViewDelegate <NSObject>
 @optional
-- (void)showDetailDate:(NSDate *)date;
+- (void)showDetailDate:(NSDate *)date period:(PeriodType)period_type;
 @end
