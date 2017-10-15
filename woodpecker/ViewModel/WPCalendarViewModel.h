@@ -7,9 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPEventModel.h"
+#import "WPUserModel.h"
+#import "WPProfileModel.h"
+#import "NSDate+Extension.h"
 
 @interface WPCalendarViewModel : NSObject
-
-
+@property(nonatomic, strong)WPUserModel *user;
+@property(nonatomic, strong)WPProfileModel *profile;
+@property(nonatomic, strong)NSArray *startEvents;
+@property(nonatomic, strong)NSArray *endEvents;
 - (PeriodType)getPeriodWithDate:(NSDate *)date;
 @end

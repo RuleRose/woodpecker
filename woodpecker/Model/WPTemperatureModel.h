@@ -19,4 +19,6 @@
 @property(nonatomic, copy)NSString *sync;//是否上传 1代表已上传
 @property(nonatomic, copy)NSString *device; //温度是否是来自设备 1代表来自设备
 
+@property(nonatomic, assign)PeriodType period_type; //周期信息
+
 @end

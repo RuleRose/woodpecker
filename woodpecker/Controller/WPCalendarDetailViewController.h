@@ -8,6 +8,13 @@
 
 #import "XJFBaseViewController.h"
 
+@protocol WPCalendarDetailDelegate;
 @interface WPCalendarDetailViewController : XJFBaseViewController
 @property(nonatomic,strong)NSDate *selectedDate;
+@property(nonatomic, assign) id<WPCalendarDetailDelegate> delegate;
+
+@end
+@protocol WPCalendarDetailDelegate <NSObject>
+@optional
+- (void)updateSelectedDate:(NSDate *)date;
 @end
