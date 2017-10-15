@@ -1442,9 +1442,9 @@
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 45S27PPGAF;
+						DevelopmentTeam = VHXL69WFQ8;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1936,8 +1936,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				DEVELOPMENT_TEAM = 45S27PPGAF;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VHXL69WFQ8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1946,10 +1946,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9be868-3258-4954-8303-53cf022d8968";
-				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1965,8 +1965,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VHXL69WFQ8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1975,10 +1975,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9be868-3258-4954-8303-53cf022d8968";
-				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

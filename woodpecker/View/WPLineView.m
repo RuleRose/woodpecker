@@ -155,7 +155,7 @@
                 NSInteger days = [NSDate daysFromDate:startDate toDate:date];
                 period_type = temp.period_type;
                 CGFloat temperature = [temp.temp floatValue];
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:days y:temperature]];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:days y:temperature/100.0]];
             }
             NSString *title = @"安全期";
             UIColor *linefillColor = [UIColor clearColor];

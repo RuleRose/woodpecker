@@ -19,4 +19,6 @@
 - (void)syncTempDataFromIndex:(NSInteger)index;
 - (void)syncTempDataToService;
 - (void)syncTempData;
+- (NSDate *)getStartDate;
+
 @end

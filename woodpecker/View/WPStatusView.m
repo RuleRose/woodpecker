@@ -96,7 +96,11 @@
     [_recordView setTitle:@"记录" detail:@"3" unit:@"项" showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
+}
 
+- (void)setStartDate:(NSDate *)startDate{
+    _startDate = startDate;
+    _wheelView.startDate = startDate;
 }
 
 - (void)showRecord{

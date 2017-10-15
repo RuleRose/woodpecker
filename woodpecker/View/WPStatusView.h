@@ -25,6 +25,8 @@
 @property (nonatomic, strong) WPStatusItemView *recordView;
 @property (nonatomic, strong) WPStatusWheelView *wheelView;
 @property (nonatomic, assign) id<WPStatusViewDelegate> delegate;
+@property (nonatomic, strong) NSDate *startDate;
+
 - (void)updateState;
 @end
 @protocol WPStatusViewDelegate <NSObject>

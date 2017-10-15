@@ -38,7 +38,6 @@
             @strongify(self);
             self.isBindNewDevice = YES;
             WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
-            temp.sync = nil;
             temp.device = @"1";
             NSArray *arr = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:NO];
             temp = arr.firstObject;
@@ -80,7 +79,6 @@
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     if (![NSString leie_isBlankString:user.device_id]) {
         WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
-        temp.sync = nil;
         temp.device_id = user.device_id;
         NSArray *arr = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:NO];
         temp = arr.firstObject;
@@ -106,5 +104,16 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+
+- (NSDate *)getStartDate{
+    WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
+    NSArray *temps = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:YES];
+    WPTemperatureModel *startTemp = temps.firstObject;
+    if (startTemp) {
+        return [NSDate dateWithTimeIntervalSince2000:[startTemp.time longLongValue]];
+    }
+    return nil;
 }
 @end

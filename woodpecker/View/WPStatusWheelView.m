@@ -26,7 +26,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        if (_startDate) {
+        if (!_startDate) {
             _startDate = [NSDate date];
         }
         [self setupViews];
@@ -79,17 +79,26 @@
     [self.layer addSublayer:self.shapeLayer];
 }
 
+- (void)setStartDate:(NSDate *)startDate{
+    _startDate = startDate;
+    if (!_startDate) {
+        _startDate = [NSDate date];
+
+    }
+    [_collectionView reloadData];
+}
+
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5 + 10;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
     NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
-    if (indexPath.row == days + 2 + 10) {
+    if (indexPath.row == days + 2) {
         cell.textLabel.text = @"今天";
     }else{
         cell.textLabel.text = @"";

@@ -45,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [_statusView updateState];
+    _statusView.startDate = [_viewModel getStartDate];
 }
 
 - (void)setupData{
@@ -96,7 +97,7 @@
     temperature.pid = temperature.time;
     temperature.temp = [temp stringValue];
     temperature.device = @"1";
-    
+    temperature.sync = @"0";
     if ([temperature.time length] == 9) {
         if (self.viewModel.isBindNewDevice && self.viewModel.syncFromTime) {
             if ([temperature.time longLongValue] < [self.viewModel.syncFromTime longLongValue]) {
@@ -142,10 +143,6 @@
             }
             break;
     }
-    
-
-
-
 //    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
 //    [self.navigationController pushViewController:thermometerVC animated:YES];
 
