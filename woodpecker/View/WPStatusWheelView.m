@@ -101,7 +101,7 @@
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 6;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +109,7 @@
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
     NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
     NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
-    if (indexPath.row == days + 3) {
+    if (indexPath.row == days + 2) {
         cell.textLabel.text = @"今天";
     }else{
         cell.textLabel.text = [NSDate stringFromDate:date format:@"M/d" ];
@@ -132,7 +132,7 @@
 
 - (void)scrollToBottom{
     CGPoint collectionViewOffset = self.collectionView.contentOffset;
-    NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 1);
+    NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]]);
     CGFloat offsetY = index * 56;
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY) animated:YES];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
@@ -174,7 +174,9 @@
     NSTimeInterval timestamp = [date timeIntervalSince1970];
     WPEventModel *startEvent;
     for (WPEventModel *event in _startEvents) {
-        if ([event.date longLongValue] <= timestamp) {
+        NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
+        NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
+        if (event_timestamp <= timestamp) {
             startEvent = event;
             break;
         }
@@ -183,13 +185,15 @@
         WPProfileModel *profile = [[WPProfileModel alloc] init];
         [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
         if ([profile.period integerValue] > 0) {
-            NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:[startEvent.date longLongValue]];
+            NSDate *startDate = [NSDate dateFromString:startEvent.date format:@"yyyy MM dd"];
             NSInteger days = [NSDate daysFromDate:startDate toDate:date];
             startDate = [NSDate dateByAddingDays:-(days%([profile.period integerValue])) toDate:date];
             NSTimeInterval startTime = [startDate timeIntervalSince1970];
             WPEventModel *endEvent;
             for (WPEventModel *event in _endEvents) {
-                if (([event.date longLongValue] >= [startEvent.date longLongValue]) && ([event.date longLongValue] <= startTime + [profile.period longLongValue])) {
+                NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
+                NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
+                if ((event_timestamp >= startTime) && (event_timestamp <= startTime + [profile.period longLongValue])) {
                     endEvent = event;
                     break;
                 }
@@ -197,7 +201,7 @@
             days = [NSDate daysFromDate:startDate toDate:date];
             NSInteger menstruation = [profile.menstruation integerValue];
             if (endEvent) {
-                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:[endEvent.date longLongValue]];
+                NSDate *endDate = [NSDate dateFromString:endEvent.date format:@"yyyy MM dd"];
                 menstruation = [NSDate daysFromDate:startDate toDate:endDate];
             }
             if (days <= menstruation) {

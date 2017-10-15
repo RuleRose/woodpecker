@@ -80,10 +80,9 @@
             [profile loadDataFromkeyValues:profileDic];
             WPEventModel *event = [[WPEventModel alloc] init];
             event.status = @"1";
-            NSDate *date = [NSDate dateFromString:profile.lastperiod format:@"yyyy MM dd"];
-            event.date = [NSDate timestampFromDate:date];
+            event.date = profile.lastperiod ;
             event.pid = event.date;
-            [event insertToDB];
+            [event insertOrupdateToDBDependsOn:nil];
         }else{
             kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
         }

@@ -86,9 +86,27 @@
     _dateLabel.textColor = kColor_10;
     _dateLabel.font = kFont_2(12);
     _dateLabel.textAlignment = NSTextAlignmentCenter;
-    _dateLabel.text = @"2017年6月7日 周三";
     [self.view addSubview:_dateLabel];
     [self.view addSubview:self.tableView];
+    NSString *dateStr = [NSDate stringFromDate:_eventDate format:@"yyyy年M月d日"];
+    NSString *weekStr = @"";
+    NSInteger weekday = [NSDate weekdayOfDate:_eventDate];
+    if (weekday == 1) {
+        weekStr = @"周日";
+    }else if (weekday == 2) {
+        weekStr = @"周一";
+    }else if (weekday == 3) {
+        weekStr = @"周二";
+    }else if (weekday == 4) {
+        weekStr = @"周三";
+    }else if (weekday == 5) {
+        weekStr = @"周四";
+    }else if (weekday == 6) {
+        weekStr = @"周五";
+    }else{
+        weekStr = @"周六";
+    }
+    _dateLabel.text = [NSString stringWithFormat:@"%@ %@",dateStr , weekStr];
 }
 
 #pragma mark UITableViewDataSource
