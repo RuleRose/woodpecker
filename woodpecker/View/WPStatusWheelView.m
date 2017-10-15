@@ -101,7 +101,7 @@
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 6;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +109,7 @@
     WPStatusWheelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class]) forIndexPath:indexPath];
     NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
     NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
-    if (indexPath.row == days + 3) {
+    if (indexPath.row == days + 2) {
         cell.textLabel.text = @"今天";
     }else{
         cell.textLabel.text = [NSDate stringFromDate:date format:@"M/d" ];
@@ -132,7 +132,7 @@
 
 - (void)scrollToBottom{
     CGPoint collectionViewOffset = self.collectionView.contentOffset;
-    NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 1);
+    NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]]);
     CGFloat offsetY = index * 56;
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY) animated:YES];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
