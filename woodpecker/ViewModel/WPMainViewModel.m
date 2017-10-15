@@ -14,6 +14,8 @@
 #import "WPConnectDeviceManager.h"
 #import "WPEventModel.h"
 #import "NSDate+Extension.h"
+#import "WPTemperatureModel.h"
+#import "MMCDeviceManager.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -59,6 +61,7 @@
     } failure:^(NSError *error) {
         
     }];
+    [self getTemperatures];
 }
 
 - (void)getProfile{
@@ -105,8 +108,18 @@
 }
 
 - (void)getTemperatures{
-    if (![NSString leie_isBlankString:_user.device_id]) {
-    
-    }
+    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
+    [WPNetInterface getTemperaturesWithUserId:_user.user_id startTime:temp_updatetime end_update_time:nil success:^(NSArray *temperatures) {
+        for (NSDictionary *tempDic in temperatures) {
+            WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
+            [temp loadDataFromkeyValues:tempDic];
+            [temp insertToDB];
+        }
+        kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
+        [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
+    } failure:^(NSError *error) {
+        kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
+        [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
+    }];
 }
 @end

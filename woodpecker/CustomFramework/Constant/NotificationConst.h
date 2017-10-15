@@ -33,6 +33,6 @@ extern NSString* const WPNotificationKeyTokenExpire;
 
 extern NSString* const WPNotificationKeyUpdateProfile;
 extern NSString* const WPNotificationKeyUpdateDevice;
-
+extern NSString* const WPNotificationKeyGetTemp;
 
 @end

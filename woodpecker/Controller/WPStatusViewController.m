@@ -40,6 +40,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -109,6 +111,10 @@
     }
     
     //不同设备同步获取最后一个device数据
+}
+
+- (void)getTemperature{
+    [_viewModel syncTempData];
 }
 
 #pragma mark WPStatusViewDelegate

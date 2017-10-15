@@ -28,4 +28,7 @@ NSString* const WPNotificationKeyTokenExpire = @"WPNotificationKeyTokenExpire";
 
 NSString* const WPNotificationKeyUpdateProfile = @"WPNotificationKeyUpdateProfile";
 NSString* const WPNotificationKeyUpdateDevice = @"WPNotificationKeyUpdateDevice";
+NSString* const WPNotificationKeyGetTemp = @"WPNotificationKeyGetTemp";
+
+
 @end
