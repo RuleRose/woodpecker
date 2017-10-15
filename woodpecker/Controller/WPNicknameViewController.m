@@ -7,6 +7,7 @@
 //
 
 #import "WPNicknameViewController.h"
+#import "WPNetInterface.h"
 
 @interface WPNicknameViewController ()
 @property (nonatomic, strong) UITextField *textField;
@@ -84,8 +85,12 @@
 - (void)saveBtnPressed{
     [_textField resignFirstResponder];
     _userinfo.nick_name = _textField.text;
-    kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
-    [self.navigationController popViewControllerAnimated:YES];
+    [WPNetInterface updateUserInfoWithUserID:_userinfo.pid nickname:_userinfo.nick_name birthday:nil height:nil weight:nil success:^(BOOL success) {
+        kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

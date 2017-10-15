@@ -135,54 +135,54 @@
     [_chartView animateWithXAxisDuration:0];
 }
 
-- (void)updateChartData:(NSArray *)temps{
+- (void)updateChartData:(NSArray *)sortTemps{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
-    if (temps.count > 0) {
-        WPTemperatureModel *startTemp = temps.firstObject;
-        WPTemperatureModel *endTemp = temps.lastObject;
-        NSDate *startDate = [NSDate dateFromString:startTemp.time format:@"yyyy MM dd"];
-        NSDate *endDate = [NSDate dateFromString:endTemp.time format:@"yyyy MM dd"];
-        NSInteger days = [NSDate daysFromDate:startDate toDate:endDate];
+    if (sortTemps.count > 0) {
+        WPTemperatureModel *lastTemp = [[sortTemps lastObject] lastObject];
+        NSDate *startDate = [NSDate dateWithTimeIntervalSince2000:[lastTemp.time longLongValue]];
+        NSInteger days = [NSDate daysFromDate:startDate toDate:[NSDate date]];
         for (NSInteger i = 0; i <= days; i ++) {
             NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
             [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
         }
-        WPTemperatureModel *preTemp;
-        PeriodType *periodType = kPeriodTypeOfMenstrual;
-        for (WPTemperatureModel *temp in temps) {
-         
-        }
-        
-        NSString *title;
-        for (NSInteger i = 0; i < 4; i++ ) {
-            //周期
+        for (NSArray *temps in sortTemps) {
+            //每一段
             NSMutableArray *yVals = [[NSMutableArray alloc] init];
-            for (NSInteger j = 0; j < 6; j++){
-                //日期
-                CGFloat temperature = 35+ i + j/5.0;
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:(i *5 + j) y:temperature]];
-                [xVals addObject:[NSString stringWithFormat:@"%ld",i *5 + j]];
-                
+            PeriodType period_type = kPeriodTypeOfSafe;
+            for (WPTemperatureModel *temp in temps) {
+                NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temp.time longLongValue]];
+                NSInteger days = [NSDate daysFromDate:startDate toDate:date];
+                period_type = temp.period_type;
+                CGFloat temperature = [temp.temp floatValue];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:days y:temperature]];
             }
+            NSString *title = @"安全期";
             UIColor *linefillColor = [UIColor clearColor];
             UIColor *lineColor = [UIColor clearColor];
-            if (i == 0) {
-                title = @"月经期";
-                linefillColor = kColor_5_With_Alpha(0.5);
-                lineColor = kColor_5;
-            }else if (i ==1){
-                title = @"安全期";
-                linefillColor = kColor_17_With_Alpha(0.5);
-                lineColor = kColor_17;
-            }else if(i == 2){
-                title = @"易孕期";
-                linefillColor = kColor_18_With_Alpha(0.5);
-                lineColor = kColor_18;
-            }else{
-                title = @"排卵日";
-                linefillColor = kColor_15_With_Alpha(0.5);
-                lineColor = kColor_15;
+            switch (period_type) {
+                case kPeriodTypeOfForecast:
+                case kPeriodTypeOfMenstrual:
+                    title = @"月经期";
+                    linefillColor = kColor_5_With_Alpha(0.5);
+                    lineColor = kColor_5;
+                    break;
+                case kPeriodTypeOfOviposit:
+                    title = @"排卵日";
+                    linefillColor = kColor_15_With_Alpha(0.5);
+                    lineColor = kColor_15;
+                    break;
+
+                case kPeriodTypeOfPregnancy:
+                    title = @"易孕期";
+                    linefillColor = kColor_18_With_Alpha(0.5);
+                    lineColor = kColor_18;
+                    break;
+                default:
+                    title = @"安全期";
+                    linefillColor = kColor_17_With_Alpha(0.5);
+                    lineColor = kColor_17;
+                    break;
             }
             LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:title];
             dataSet.axisDependency = AxisDependencyLeft;
@@ -207,7 +207,6 @@
             dataSet.drawFilledEnabled = YES;
             [dataSets addObject:dataSet];
         }
-    
     }
     LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
     [data setValueTextColor:UIColor.whiteColor];

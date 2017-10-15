@@ -10,5 +10,7 @@
 #import "WPTemperatureModel.h"
 
 @interface WPTemperatureViewModel : NSObject
-@property(nonatomic, strong)NSMutableArray *temps;//有序温度WPTemperatureModel,按时间升序
+- (PeriodType)getPeriodWithDate:(NSDate *)date;
+- (void)getTempsBlock:(void (^)(NSMutableArray *sortTemps))result;
+
 @end

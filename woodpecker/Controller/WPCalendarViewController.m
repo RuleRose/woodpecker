@@ -15,11 +15,13 @@
 #import "WPCalendarNoteView.h"
 #import "CATransition+PageTransition.h"
 
-@interface WPCalendarViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
+@interface WPCalendarViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, WPCalendarDetailDelegate>
 @property (nonatomic, strong) WPCalendarViewModel *viewModel;
 @property (nonatomic, strong) FSCalendar* calendar;
 @property (nonatomic, strong) FSCalendarWeekdayView* weekdayView;
 @property (nonatomic, strong) WPCalendarNoteView *noteView;
+@property(nonatomic,strong)NSDate *selectedDate;
+
 @end
 
 @interface FSCalendarWeekdayView (Extension)
@@ -50,7 +52,7 @@
         _calendar.weekdayHeight = 0;
         _calendar.rowHeight = 48;
         _calendar.headerHeight = 56;
-        _calendar.swipeToChooseGesture.enabled = NO;
+        _calendar.swipeToChooseGesture.enabled = YES;
         _calendar.calendarHeaderView.hidden = YES;
         _calendar.today = [NSDate date];
         [_calendar registerClass:[WPCalendarCell class] forCellReuseIdentifier:@"cell"];
@@ -72,6 +74,10 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
+    [_calendar selectDate:_selectedDate];
+    _calendar.currentPage = _selectedDate;
+    [self configureVisibleCells];
+    [_calendar reloadData];
 }
 
 - (void)goBack:(UIButton *)sender{
@@ -82,6 +88,9 @@
 
 - (void)setupData{
     _viewModel = [[WPCalendarViewModel alloc] init];
+    if (!_selectedDate) {
+        _selectedDate = [NSDate date];
+    }
 }
 
 - (void)setupViews{
@@ -158,10 +167,13 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
+    _selectedDate = date;
     WPCalendarDetailViewController *detailVC = [[WPCalendarDetailViewController alloc] init];
     detailVC.selectedDate = date;
+    detailVC.delegate = self;
     [self.navigationController pushViewController:detailVC animated:YES
      ];
+    [self configureVisibleCells];
 }
 
 - (void)calendar:(FSCalendar *)calendar didDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
@@ -217,11 +229,6 @@
 {
     if ([cell isKindOfClass:[WPCalendarCell class]]) {
         WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
-        if ([NSDate isDateInToday:date]) {
-            calendarCell.selected = YES;
-        }else{
-            calendarCell.selected = NO;
-        }
         if (calendarCell.selected) {
             calendarCell.titleLabel.font = kFont_6(16);
             calendarCell.titleLabel.textColor = kColor_10;
@@ -235,12 +242,48 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        calendarCell.period = [_viewModel getPeriodWithDate:date];
-        calendarCell.shape = kPeriodShapeOfSingle;
+        PeriodType period = [_viewModel getPeriodWithDate:date];
+        calendarCell.period = period;
+        if (period == kPeriodTypeOfOviposit) {
+            calendarCell.shape = kPeriodShapeOfCircle;
+        }else{
+            NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
+            NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
+            PeriodType tomorrow_period = [_viewModel getPeriodWithDate:tomorrow];
+            PeriodType yesterday_period = [_viewModel getPeriodWithDate:yesterday];
+            NSInteger weekday = [NSDate weekdayOfDate:date];
+            if (weekday == 1) {
+                if (tomorrow_period == period) {
+                    calendarCell.shape = kPeriodShapeOfLeft;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }else if (weekday == 7){
+                if (yesterday_period == period) {
+                    calendarCell.shape = kPeriodShapeOfRight;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }else{
+                if ((yesterday_period == period) && (tomorrow_period == period)) {
+                    calendarCell.shape = kPeriodShapeOfMiddle;
+                }else if(yesterday_period == period){
+                    calendarCell.shape = kPeriodShapeOfRight;
+                }else if(tomorrow_period == period){
+                    calendarCell.shape = kPeriodShapeOfLeft;
+                }else{
+                    calendarCell.shape = kPeriodShapeOfSingle;
+                }
+            }
+        }
         [calendarCell setNeedsLayout];
     }
 }
 
+#pragma mark WPCalendarDetailDelegate
+- (void)updateSelectedDate:(NSDate *)date{
+    _selectedDate = date;
+}
 
 /*
 #pragma mark - Navigation

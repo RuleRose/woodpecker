@@ -145,13 +145,11 @@
         WPNicknameViewController *nickVC = [[WPNicknameViewController alloc] init];
         nickVC.userinfo = _userinfo;
         [self.navigationController pushViewController:nickVC animated:YES];
-    }else if (indexPath.row == 2){
-    
     }
 }
 
 - (void)showCamera{
-
+    
 }
 
 - (void)showPhotos{

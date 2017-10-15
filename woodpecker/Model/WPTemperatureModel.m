@@ -17,4 +17,8 @@
     }
     return self;
 }
+
++ (NSMutableArray *)mj_ignoredPropertyNames{
+    return [[NSMutableArray alloc] initWithObjects:@"period_type", nil];
+}
 @end
