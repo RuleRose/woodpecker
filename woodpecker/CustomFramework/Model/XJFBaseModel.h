@@ -78,6 +78,9 @@
  *  @return 执行结果
  */
 - (BOOL)updateToDBDependsOn:(NSArray *)keys;
+
+- (BOOL)insertOrupdateToDBDependsOn:(NSArray *)keys;
+
 ///**
 // *  将model从本地数据库删除
 // *  keys   是根据哪些参数来删除 如果传nil 则会根据所有参数来删除

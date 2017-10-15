@@ -9,6 +9,7 @@
 #import "WPRecordViewModel.h"
 #import "WPRecordStatusModel.h"
 #import "WPEventModel.h"
+#import "WPNetInterface.h"
 
 @implementation WPRecordViewModel
 
@@ -369,5 +370,43 @@
             break;
     }
     return detail;
+}
+
+- (WPEventModel *)getEventWithDate:(NSDate *)date{
+    WPEventModel *event =[[WPEventModel alloc] init];
+    event.pid = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+    NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
+    return events.firstObject;
+}
+
+- (void)updateEvent:(WPEventModel *)event date:(NSDate *)date success:(void (^)(BOOL success))result{
+//    WPEventModel *origin_event = [self getEventWithDate:date];
+//    if (![NSString leie_isBlankString:event.status]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.color] || ![NSString leie_isBlankString:event.flow] || ![NSString leie_isBlankString:event.pain] || ![NSString leie_isBlankString:event.gore]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.mucus_prob] || ![NSString leie_isBlankString:event.mucus_flow] || ![NSString leie_isBlankString:event.love] || ![NSString leie_isBlankString:event.ct]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.sleep]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.mood]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.sport]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.drink]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.drug]) {
+//        count ++;
+//    }
+//    if (![NSString leie_isBlankString:event.comments]) {
+//        count ++;
+//    }
 }
 @end

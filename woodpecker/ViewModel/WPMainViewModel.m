@@ -103,4 +103,10 @@
         }];
     }
 }
+
+- (void)getTemperatures{
+    if (![NSString leie_isBlankString:_user.device_id]) {
+    
+    }
+}
 @end

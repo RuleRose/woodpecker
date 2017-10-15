@@ -13,5 +13,6 @@
 @interface WPRecordViewController : XJFBaseViewController
 @property(nonatomic, strong)WPMenstrualRecordModel *menstrual;
 @property(nonatomic, strong)WPEventModel *event;
+@property(nonatomic, strong)NSDate *eventDate;
 
 @end

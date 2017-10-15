@@ -34,8 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_10;
-    [self setupViews];
     [self setupData];
+    [self setupViews];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
@@ -56,6 +56,7 @@
     _statusView = [[WPStatusView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
     _statusView.backgroundColor = [UIColor clearColor];
     _statusView.delegate = self;
+    _statusView.viewModel = _viewModel;
     [self.view addSubview:_statusView];
 }
 
@@ -153,8 +154,9 @@
     [self.navigationController pushViewController:editVC animated:YES];
 }
 
-- (void)showRecord{
+- (void)showEventWithDate:(NSDate *)date{
     WPRecordViewController *recordVC = [[WPRecordViewController alloc] init];
+    recordVC.eventDate = date;
     [self.navigationController pushViewController:recordVC animated:YES];
 }
 
