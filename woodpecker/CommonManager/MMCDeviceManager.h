@@ -38,7 +38,7 @@ Singleton_Interface(MMCDeviceManager);
 - (void)startScanAndConnectWithMac:(NSString *)mac callback:(void (^)(NSInteger sendState))callback;
 - (void)stopScan:(void (^)(NSInteger sendState))callback;
 - (void)disconnect:(void (^)(NSInteger sendState))callback;
-- (void)writeAlarm:(NSInteger)alarmInterval callback:(void (^)(NSInteger sendState))callback;
+- (void)writeAlarm:(NSInteger)alarmInterval timeZone:(NSInteger)timeZone callback:(void (^)(NSInteger sendState))callback;
 - (void)turnOffAlarm:(void (^)(NSInteger sendState))callback;
 - (void)centigradeAsUnit:(BOOL)isCentigrade callback:(void (^)(NSInteger sendState))callback;
 - (void)syncDataFromIndex:(NSInteger)index callback:(void (^)(NSInteger sendState))callback;  // index是下一个要返回的值，直到最后一个数据。
