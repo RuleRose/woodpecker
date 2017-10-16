@@ -89,28 +89,14 @@
 - (void)receiveTemperature:(NSNotification *)notification{
     NSDictionary *userinfo = [notification userInfo];
     NSNumber *index = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_INDEX];
-    NSNumber *timestamp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_TIME];
+    NSNumber *time = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_TIME];
     NSNumber *temp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_VALUE];
-    WPDeviceModel *device = [[WPDeviceModel alloc] init];
-    [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
-    WPTemperatureModel *temperature =[[WPTemperatureModel alloc] init];
-    temperature.dindex = [index stringValue];
-    temperature.device_id = device.device_id;
-    temperature.time = [timestamp stringValue];
-    temperature.pid = temperature.time;
-    temperature.temp = [temp stringValue];
-    temperature.device = @"1";
-    temperature.sync = @"0";
-    if ([temperature.time length] == 9) {
-        if (self.viewModel.isBindNewDevice && self.viewModel.syncFromTime) {
-            if ([temperature.time longLongValue] < [self.viewModel.syncFromTime longLongValue]) {
-                return;
-            }
+    if (self.viewModel.isBindNewDevice && self.viewModel.syncFromTime) {
+        if ([time longLongValue] < [self.viewModel.syncFromTime longLongValue]) {
+            return;
         }
-        [temperature insertOrupdateToDBDependsOn:nil];
     }
-    
-    //不同设备同步获取最后一个device数据
+    [_viewModel insertTemperature:temp index:index time:time];
 }
 
 - (void)getTemperature{

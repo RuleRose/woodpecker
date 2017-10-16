@@ -49,7 +49,7 @@
     NSMutableArray *sortTemp = [[NSMutableArray alloc] init];
     NSMutableArray *temps = [[NSMutableArray alloc] init];
     for (WPTemperatureModel *temperature in temperatures) {
-        NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time longLongValue]];
+        NSDate *date = [NSDate dateFromString:temperature.date format:@"yyyy MM dd"];
         if (tempDate) {
             //判断两个日期是否是同一天
             if (![NSDate isDate:date equalToDate:tempDate toCalendarUnit:NSCalendarUnitDay]) {

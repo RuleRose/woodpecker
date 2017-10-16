@@ -107,12 +107,20 @@
 }
 
 - (void)getTemperatures{
-    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
+//    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
+    //开始时间当前设备最后一条温度的时间
+    WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+    NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:0 andOrderby:@"time" isAscend:NO];
+    WPTemperatureModel *localTemp = tempsArr.firstObject;
+    NSString *temp_updatetime = nil;
+    if (localTemp) {
+        temp_updatetime = localTemp.time;
+    }
     [WPNetInterface getTemperaturesWithUserId:_user.user_id startTime:temp_updatetime end_update_time:nil success:^(NSArray *temperatures) {
         for (NSDictionary *tempDic in temperatures) {
             WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
             [temp loadDataFromkeyValues:tempDic];
-            [temp insertOrupdateToDBDependsOn:nil];
+            [self insertTemperature:temp];
         }
         kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
@@ -120,5 +128,30 @@
         kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
     }];
+}
+
+- (void)insertTemperature:(WPTemperatureModel *)temp{
+    if (temp.time.length == 9) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temp.time longLongValue]];
+        if (date) {
+            WPDeviceModel *device = [[WPDeviceModel alloc] init];
+            [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
+            WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+            temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+            NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
+            WPTemperatureModel *localTemp = tempsArr.firstObject;
+            temp.date = temperature.date;
+            if (localTemp) {
+                if ([temp.time longLongValue] >= [localTemp.time longLongValue]) {
+                    //替换当前记录
+                    [XJFDBManager deleteModel:localTemp dependOnKeys:nil];
+                    [temp insertToDB];
+                }
+            }else{
+                //插入当前时间
+                [temp insertToDB];
+            }
+        }
+    }
 }
 @end
