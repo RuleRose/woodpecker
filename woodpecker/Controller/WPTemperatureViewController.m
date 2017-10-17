@@ -10,6 +10,7 @@
 #import "WPTemperatureViewModel.h"
 #import "WPLineView.h"
 #import "WPTemperatureDetailView.h"
+#import "WPTempNoteView.h"
 
 @interface WPTemperatureViewController ()
 @property(nonatomic, strong) UILabel *titleLabel;
@@ -17,6 +18,8 @@
 @property(nonatomic, strong) WPLineView *lineView;
 @property(nonatomic, strong) WPTemperatureViewModel *viewModel;
 @property(nonatomic, strong) WPTemperatureDetailView *lineDetailView;
+@property (nonatomic, strong) WPTempNoteView *noteView;
+
 @end
 
 @implementation WPTemperatureViewController
@@ -63,6 +66,9 @@
     _lineDetailView.backgroundColor = [UIColor clearColor];
     [self.navigationController.view addSubview:_lineDetailView];
     _lineDetailView.hidden = YES;
+    _noteView = [[WPTempNoteView alloc] initWithFrame:CGRectMake(0, _lineView.bottom, kScreen_Width, 52)];
+    _noteView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_noteView];
 }
 
 - (void)switchBtnPressed{

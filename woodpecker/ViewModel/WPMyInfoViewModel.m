@@ -7,8 +7,21 @@
 //
 
 #import "WPMyInfoViewModel.h"
+#import "WPNetInterface.h"
+#import "WPUserModel.h"
 
 @implementation WPMyInfoViewModel
+- (void)uploadAvatar:(UIImage *)avatar success:(void (^)(BOOL finished))result{
+    WPUserModel *userinfo = [[WPUserModel alloc] init];
+    [userinfo loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+    [WPNetInterface uploadAvatar:avatar user_id:userinfo.user_id success:^(BOOL finished) {
+        if (result) {
+            result(YES);
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

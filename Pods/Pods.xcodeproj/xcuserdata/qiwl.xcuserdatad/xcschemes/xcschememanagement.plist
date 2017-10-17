@@ -89,14 +89,14 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TZImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>009CC02864B09984AF44F45F10EC9020</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
@@ -107,22 +107,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>110BE967075DC754D0E0FCF1F184AFB7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1A9298B32F31A61F3742650B19EE27BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>252F1C4BF3C91E67F867B321FB179DE9</key>
+		<key>3FCD501A7E2BCD045D3321C178CFB476</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2923CD98B103969165FE483E43AB9592</key>
+		<key>55EB6CFDDDF62F87831E0F97AA004AEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F3ABBCE8B56C4CCFA2EBC4AA9B436F5</key>
+		<key>66769CAA870F1CBA68E8725C2E25678B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FAFD1E3DE0B399882DEA4B61F961FD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,17 +152,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A5F704EB50147364214B547977933C71</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A83D444B541DBB0E02F8B60083668545</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ADA1954759CB5B36D0CE1C81274AFC30</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AFAFB55453D161D2BB5CFB30C68A54D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D054F75CDD6A201788ACE72A2E4F1F3C</key>
+		<key>C906DA22901D395F6F775FADB541D00A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D2A7E50CD77DB6187A639DC38BC0730A</key>
+		<key>D832410773C778DE461996AC7632B60F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDBF35AC4FCF3CB1EEB80DD16E661E37</key>
 		<dict>
 			<key>primary</key>
 			<true/>

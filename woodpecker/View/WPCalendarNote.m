@@ -56,6 +56,11 @@
             _colorNote.layer.borderColor = kColor_15.CGColor;
             _colorNote.backgroundColor = kColor_15;
             break;
+        case kPeriodTypeOfSafe:
+            _titleLabel.text = @"安全期";
+            _colorNote.layer.borderColor = kColor_17.CGColor;
+            _colorNote.backgroundColor = kColor_17;
+            break;
     }
    CGSize size = [_titleLabel.text sizeWithFont:kFont_1(12)];
     _colorNote.frame = CGRectMake((self.width - size.width - 21)/2, (self.height - 14)/2, 14, 14);

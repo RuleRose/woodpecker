@@ -100,7 +100,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupViews];
-        self.showLegend = YES;
+        self.showLegend = NO;
         self.showRightYAxis = NO;
         self.showLeftYAxis = YES;
         self.showXAxis = YES;

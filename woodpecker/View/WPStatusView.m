@@ -36,8 +36,7 @@
     _tempLabel = [[UILabel alloc] init];
     _tempLabel.backgroundColor = [UIColor clearColor];
     _tempLabel.textColor = kColor_7;
-    _tempLabel.font = kFont_4(84);
-    _tempLabel.text = @"36.50";
+    _tempLabel.text = @"尚未测温";
     [self addSubview:_tempLabel];
     _tempUnitLabel = [[UILabel alloc] init];
     _tempUnitLabel.backgroundColor = [UIColor clearColor];
@@ -80,8 +79,24 @@
     [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
     [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempBtn];
+
     
-    CGSize size = [@"36.50" sizeWithFont:kFont_4(84)];
+    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
+    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
+    [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
+    [_recordView addGestureRecognizer:tap];
+}
+
+- (void)resetTemp:(NSString *)temp{
+    if ([NSString leie_isBlankString:temp]) {
+        temp = @"尚未测温";
+        _tempLabel.font = kFont_4(48);
+    }else{
+        _tempLabel.font = kFont_4(84);
+    }
+    _tempLabel.text = temp;
+    CGSize size = [_tempLabel.text sizeWithFont:_tempLabel.font];
     if (kDevice_is_iPhone5 || kDevice_is_iPhone4) {
         _dateLabel.frame = CGRectMake(25, kScreen_Height - 350, self.width - 50, 33);
     }else{
@@ -91,12 +106,6 @@
     _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
     _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
     _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
-    
-    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
-    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
-    [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
-    [_recordView addGestureRecognizer:tap];
 }
 
 - (void)setStartDate:(NSDate *)startDate{
@@ -180,6 +189,9 @@
     }
     //取某天的记录
     [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)[_viewModel eventCountAtDate:date]] unit:@"项" showNext:YES];
+    //某日温度
+    WPTemperatureModel *temp = [_viewModel getTempWithDate:date];
+    [self resetTemp:temp.temp];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

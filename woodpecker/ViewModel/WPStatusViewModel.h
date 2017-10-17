@@ -10,6 +10,7 @@
 #import "WPProfileModel.h"
 #import "WPUserModel.h"
 #import "WPDeviceModel.h"
+#import "WPTemperatureModel.h"
 
 @interface WPStatusViewModel : NSObject
 @property(nonatomic,strong)NSMutableArray *temps;
@@ -21,4 +22,6 @@
 - (void)syncTempData;
 - (NSDate *)getStartDate;
 - (NSInteger)eventCountAtDate:(NSDate *)date;
+- (WPTemperatureModel *)getTempWithDate:(NSDate *)date;
+- (void)insertTemperature:(NSNumber *)temp index:(NSNumber *)index time:(NSNumber *)time;
 @end

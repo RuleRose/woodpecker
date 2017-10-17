@@ -200,6 +200,7 @@
 		CC5EEF421F77A8D8009F4764 /* WPMenstrualRegularPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF411F77A8D8009F4764 /* WPMenstrualRegularPopupView.m */; };
 		CC5EEF451F77AB3C009F4764 /* WPHeightPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF441F77AB3C009F4764 /* WPHeightPopupView.m */; };
 		CC5EEF481F77AD1C009F4764 /* WPWeightPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF471F77AD1C009F4764 /* WPWeightPopupView.m */; };
+		CC6FCAFE1F942B7A0028291D /* WPTempNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6FCAFD1F942B7A0028291D /* WPTempNoteView.m */; };
 		CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214241F64E92C00AE2D82 /* WPLoginView.m */; };
 		CC7214281F64E96300AE2D82 /* WPLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214271F64E96300AE2D82 /* WPLoginViewModel.m */; };
 		CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7214311F64F55200AE2D82 /* UIView+Extensions.m */; };
@@ -613,6 +614,8 @@
 		CC5EEF441F77AB3C009F4764 /* WPHeightPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHeightPopupView.m; sourceTree = "<group>"; };
 		CC5EEF461F77AD1C009F4764 /* WPWeightPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPWeightPopupView.h; sourceTree = "<group>"; };
 		CC5EEF471F77AD1C009F4764 /* WPWeightPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPWeightPopupView.m; sourceTree = "<group>"; };
+		CC6FCAFC1F942B7A0028291D /* WPTempNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTempNoteView.h; sourceTree = "<group>"; };
+		CC6FCAFD1F942B7A0028291D /* WPTempNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTempNoteView.m; sourceTree = "<group>"; };
 		CC7214231F64E92C00AE2D82 /* WPLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginView.h; sourceTree = "<group>"; };
 		CC7214241F64E92C00AE2D82 /* WPLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLoginView.m; sourceTree = "<group>"; };
 		CC7214261F64E96300AE2D82 /* WPLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLoginViewModel.h; sourceTree = "<group>"; };
@@ -1204,6 +1207,8 @@
 				CCE0D9911F81D9F00046C28A /* WPSheetView.m */,
 				CC1649381F8BA75E00CD7BFE /* WPTemperatureDetailView.h */,
 				CC1649391F8BA75E00CD7BFE /* WPTemperatureDetailView.m */,
+				CC6FCAFC1F942B7A0028291D /* WPTempNoteView.h */,
+				CC6FCAFD1F942B7A0028291D /* WPTempNoteView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1450,6 +1455,11 @@
 						DevelopmentTeam = VHXL69WFQ8;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1632,6 +1642,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-woodpecker/Pods-woodpecker-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1808,6 +1819,7 @@
 				C15630481F5065FE00D6CC30 /* XJFUITextField.m in Sources */,
 				C14CA3FA1F4FB2B1007F50A1 /* main.m in Sources */,
 				CC0AAF4F1F6C230800FCCA6C /* FSCalendarHeaderView.m in Sources */,
+				CC6FCAFE1F942B7A0028291D /* WPTempNoteView.m in Sources */,
 				CC181A751F91EAC500B7E7E9 /* WPDatabaseTableManager.m in Sources */,
 				CC7DA2711F76578200F56072 /* WPPeriodViewModel.m in Sources */,
 				CC7722A91F87136D007D83B5 /* WPMenstrualRecordModel.m in Sources */,

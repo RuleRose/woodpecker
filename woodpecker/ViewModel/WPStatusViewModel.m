@@ -13,6 +13,7 @@
 #import "XJFDBManager.h"
 #import "WPTemperatureModel.h"
 #import "WPEventModel.h"
+#import "XJFDBManager.h"
 
 @implementation WPStatusViewModel
 - (instancetype)init
@@ -183,5 +184,48 @@
         count ++;
     }
     return count;
+}
+
+- (WPTemperatureModel *)getTempWithDate:(NSDate *)date{
+    if (date) {
+        WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+        temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+        NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
+        return tempsArr.firstObject;
+    }
+    return nil;
+}
+
+- (void)insertTemperature:(NSNumber *)temp index:(NSNumber *)index time:(NSNumber *)time{
+    if (time && temp && index) {
+        if ([time stringValue].length == 9) {
+            NSDate *date = [NSDate dateWithTimeIntervalSince2000:[time longLongValue]];
+            if (date) {
+                WPDeviceModel *device = [[WPDeviceModel alloc] init];
+                [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
+                WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+                temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+                NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
+                WPTemperatureModel *localTemp = tempsArr.firstObject;
+                temperature.dindex = [index stringValue];
+                temperature.device_id = device.device_id;
+                temperature.time = [time stringValue];
+                temperature.pid = temperature.time;
+                temperature.temp = [NSString stringWithFormat:@"%0.2f",([temp integerValue]/100.0)];
+                temperature.device = @"1";
+                temperature.sync = @"0";
+                if (localTemp) {
+                    if ([time longLongValue] >= [localTemp.time longLongValue]) {
+                        //替换当前记录
+                        [XJFDBManager deleteModel:localTemp dependOnKeys:nil];
+                        [temperature insertToDB];
+                    }
+                }else{
+                    //插入当前时间
+                    [temperature insertToDB];
+                }
+            }
+        }
+    }
 }
 @end

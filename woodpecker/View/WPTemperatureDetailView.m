@@ -22,7 +22,7 @@
     _contentView = [[UIView alloc] initWithFrame:CGRectMake((self.width - self.height)/2, (self.height - self.width)/2, self.height, self.width)];
     _contentView.backgroundColor = kColor_2;
     [self addSubview:_contentView];
-    _lineView = [[WPLineView alloc] initWithFrame:_contentView.bounds];
+    _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(20, 0, _contentView.width - 20, _contentView.height - 20)];
     _lineView.backgroundColor = [UIColor clearColor];
     [_contentView addSubview:_lineView];
     _switchBtn = [[UIButton alloc] initWithFrame:CGRectMake(_contentView.width - 64, 18, 64, 44)];
