@@ -13,9 +13,9 @@
 #import "MMCDeviceManager.h"
 #import "NSDate+ext.h"
 
-@interface WPThermometerClockViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface WPThermometerClockViewController ()<UITableViewDataSource,UITableViewDelegate,WPTableViewCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
-@property(nonatomic, strong) WPThermometerClockViewModel *viewModel;
+@property (nonatomic, strong) WPThermometerClockViewModel *viewModel;
 @end
 
 @implementation WPThermometerClockViewController
@@ -104,14 +104,21 @@
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelSwitch;
         cell.titleLabel.text = kLocalization(@"clock_measurement");
-        cell.detailLabel.text = @"05:30";
+        cell.switchView.on = [[MMCDeviceManager defaultInstance] alarmIsOn];
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
         cell.titleLabel.text = kLocalization(@"clock_wakeup_time");
-        cell.detailLabel.text = @"未设置";
+        NSInteger alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
+        if (date) {
+            cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
+        }else{
+            cell.detailLabel.text = @"未设置";
+        }
         cell.line.hidden = NO;
     }
+    cell.delegate = self;
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 
@@ -131,11 +138,23 @@
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
-            [[MMCDeviceManager defaultInstance] writeAlarm:[clock timeIntervalSince2000] timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
-                
-            }];
+            [MMCDeviceManager defaultInstance].alarmTimeInterval = [clock timeIntervalSince2000];
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
+    }
+}
+
+- (void)switchAction:(UISwitch*)sender cell:(WPTableViewCell*)cell{
+    if (sender.on) {
+        [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
+            sender.on =  [[MMCDeviceManager defaultInstance] alarmIsOn];
+            [_tableView reloadData];
+        }];
+    }else{
+        [[MMCDeviceManager defaultInstance] turnOffAlarm:^(NSInteger sendState) {
             
         }];
     }
