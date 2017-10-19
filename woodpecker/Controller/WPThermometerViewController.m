@@ -13,6 +13,7 @@
 #import "WPThermometerHardwareViewController.h"
 #import "WPTableViewCell.h"
 #import "WPAlertPopupView.h"
+#import "MMCDeviceManager.h"
 
 @interface WPThermometerViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -62,7 +63,7 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    
+    [_tableView reloadData];
 }
 
 - (void)setupData{
@@ -101,12 +102,23 @@
     if (indexPath.row == 0) {
         cell.icon.image = kImage(@"icon-device-alarm");
         cell.titleLabel.text = kLocalization(@"thermometer_clock");
-        cell.detailLabel.text = @"05:30";
+        NSInteger alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
+        if (date) {
+            cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
+        }else{
+            cell.detailLabel.text = @"未设置";
+        }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.icon.image = kImage(@"icon-device-unit");
         cell.titleLabel.text = kLocalization(@"thermometer_unit");
-        cell.detailLabel.text = @"摄氏度°C";
+        NSNumber *unit_f = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UNIT_F);
+        if ([unit_f boolValue]) {
+            cell.detailLabel.text = @"华氏度°F";
+        }else{
+            cell.detailLabel.text = @"摄氏度°C";
+        }
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
         cell.icon.image = kImage(@"icon-device-settings");
@@ -134,9 +146,15 @@
         WPThermometerClockViewController *clockVC = [[WPThermometerClockViewController alloc] init];
         [self.navigationController pushViewController:clockVC animated:YES];
     }else if (indexPath.row == 1){
+        MJWeakSelf;
         WPTemperatureUnitPopupView *popView = [[WPTemperatureUnitPopupView alloc] init];
         popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
-            
+            if (unit == 0) {
+                kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_UNIT_F);
+            }else{
+                kDefaultSetObjectForKey([NSNumber numberWithBool:NO], TEMPERATURE_DEFAULT_UNIT_F);
+            }
+            [weakSelf.tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             

@@ -136,8 +136,8 @@
             }
             break;
     }
-//    WPThermometerViewController *thermometerVC = [[WPThermometerViewController alloc] init];
-//    [self.navigationController pushViewController:thermometerVC animated:YES];
+//    WPThermometerViewController *removeVC = [[WPThermometerViewController alloc] init];
+//    [self.navigationController pushViewController:removeVC animated:YES];
 
 }
 
