@@ -22,6 +22,9 @@
 // 是否包含中文字符
 - (BOOL)leie_containChinese;
 
++ (NSString*)convertToJSONData:(id)infoDict;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
+
 @end
 
 @interface NSString (leie_Kit)

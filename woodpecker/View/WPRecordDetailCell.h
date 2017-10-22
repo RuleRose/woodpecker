@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WPRecordViewModel.h"
-#import "WPEventModel.h"
 
 @protocol WPRecordDetailCellDelegate;
 @interface WPRecordDetailCell : UITableViewCell

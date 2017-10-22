@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WPEventModel.h"
 #import "WPUserModel.h"
 #import "WPProfileModel.h"
 #import "NSDate+Extension.h"

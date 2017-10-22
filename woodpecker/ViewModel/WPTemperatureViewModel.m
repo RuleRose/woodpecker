@@ -11,7 +11,6 @@
 #import "WPTemperatureModel.h"
 #import "WPUserModel.h"
 #import "WPProfileModel.h"
-#import "WPEventModel.h"
 #import "NSDate+Extension.h"
 #import "NSDate+ext.h"
 #import "WPPeriodModel.h"

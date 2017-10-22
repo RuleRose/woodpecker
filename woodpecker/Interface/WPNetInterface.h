@@ -33,6 +33,11 @@
 
 + (void)updateEvent:(NSString *)event_id user_id:(NSString*)user_id description:(NSString *)description extra_data:(NSString *)extra_data success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
 
++ (void)deleteEvent:(NSString *)event_id user_id:(NSString*)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
+
++ (void)getEvent:(NSString*)user_id start_update_time:(NSString *)start_update_time end_update_time:(NSString *)end_update_time success:(void (^)(NSArray *events))success failure:(void (^)(NSError* error))failure;
+
+
 + (void)getTemperaturesWithUserId:(NSString*)user_id startTime:(NSString *)start_update_time end_update_time:(NSString *)end_update_time success:(void (^)(NSArray* temperatures))success failure:(void (^)(NSError* error))failure;
 
 + (void)updateTemperatureWithUserId:(NSString*)user_id gindex:(NSString *)gindex temp:(NSString *)temp success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
