@@ -79,7 +79,6 @@
             profile = [[WPProfileModel alloc] init];
             [profile loadDataFromkeyValues:profileDic];
             WPEventModel *event = [[WPEventModel alloc] init];
-            event.status = @"1";
             event.date = profile.lastperiod ;
             event.pid = event.date;
             [event insertOrupdateToDBDependsOn:nil];

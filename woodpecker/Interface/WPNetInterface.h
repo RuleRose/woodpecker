@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WPProfileModel.h"
+#import "WPPeriodModel.h"
 
 @interface WPNetInterface : NSObject
 + (void)registerWithAccountID:(NSString*)account_id type:(NSString*)account_type nickname:(NSString*)nikename avatar:(NSString *)avatar success:(void (^)(NSString* user_id))success failure:(void (^)(NSError* error))failure;
@@ -37,4 +38,12 @@
 + (void)updateTemperatureWithUserId:(NSString*)user_id gindex:(NSString *)gindex temp:(NSString *)temp success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
 
 + (void)uploadAvatar:(UIImage *)vavtar user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
+
+
++ (void)postPeriod:(NSString *)user_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure;
++ (void)updatePeriod:(NSString *)period_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure;
++ (void)deletePeriod:(NSString *)period_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
+
++ (void)getPeriod:(NSString *)period_id start_update_time:(NSString*)start_update_time end_update_time:(NSString*)end_update_time  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
+
 @end

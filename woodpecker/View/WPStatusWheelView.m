@@ -10,9 +10,9 @@
 #import "WPCollectionViewWheelLayout.h"
 #import "WPStatusWheelCell.h"
 #import "NSDate+Extension.h"
-#import "WPEventModel.h"
 #import "WPUserModel.h"
 #import "WPProfileModel.h"
+#import "WPPeriodModel.h"
 
 @interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong)UICollectionView *collectionView;
@@ -22,8 +22,8 @@
 //@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
-@property(nonatomic, strong)NSArray *startEvents;
-@property(nonatomic, strong)NSArray *endEvents;
+@property (nonatomic,strong)NSMutableArray *periods;
+
 @end
 
 @implementation WPStatusWheelView
@@ -89,14 +89,11 @@
     if (!_startDate) {
         _startDate = [NSDate date];
     }
-    WPEventModel *event = [[WPEventModel alloc] init];
-    event.status = @"1"; //start
-    _startEvents = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:@"date" isAscend:NO];
-    event.status = @"2"; //end
-    _endEvents = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:@"date" isAscend:NO];
     [_collectionView reloadData];
+    _periods = [_viewModel getPeriods];
     [self scrollToBottom];
 }
+
 
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -172,57 +169,48 @@
 
 - (PeriodType)getPeriodWithDate:(NSDate *)date{
     NSTimeInterval timestamp = [date timeIntervalSince1970];
-    WPEventModel *startEvent;
-    for (WPEventModel *event in _startEvents) {
-        NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
-        NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
-        if (event_timestamp <= timestamp) {
-            startEvent = event;
+    WPPeriodModel *current_period;
+    WPPeriodModel *next_period;
+    for (NSInteger i = _periods.count - 1; i >= 0; i --) {
+        WPPeriodModel *period = [_periods objectAtIndex:i];
+        NSDate *startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
+        NSTimeInterval start_timestamp = [startDate timeIntervalSince1970];
+        if (start_timestamp <= timestamp) {
+            current_period = period;
             break;
         }
+        next_period = period;
     }
-    if (startEvent) {
-        WPProfileModel *profile = [[WPProfileModel alloc] init];
-        [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-        if ([profile.period integerValue] > 0) {
-            NSDate *startDate = [NSDate dateFromString:startEvent.date format:@"yyyy MM dd"];
-            NSInteger days = [NSDate daysFromDate:startDate toDate:date];
-            startDate = [NSDate dateByAddingDays:-(days%([profile.period integerValue])) toDate:date];
-            NSTimeInterval startTime = [startDate timeIntervalSince1970];
-            WPEventModel *endEvent;
-            for (WPEventModel *event in _endEvents) {
-                NSDate *eventDate = [NSDate dateFromString:event.date format:@"yyyy MM dd"];
-                NSTimeInterval event_timestamp = [eventDate timeIntervalSince1970];
-                if ((event_timestamp >= startTime) && (event_timestamp <= startTime + [profile.period longLongValue])) {
-                    endEvent = event;
-                    break;
-                }
-            }
-            days = [NSDate daysFromDate:startDate toDate:date];
-            NSInteger menstruation = [profile.menstruation integerValue];
-            if (endEvent) {
-                NSDate *endDate = [NSDate dateFromString:endEvent.date format:@"yyyy MM dd"];
-                menstruation = [NSDate daysFromDate:startDate toDate:endDate];
-            }
-            if (days <= menstruation) {
-                if ([NSDate isDateAfterToday:date]) {
-                    return kPeriodTypeOfForecast;
-                }else{
-                    return kPeriodTypeOfMenstrual;
-                }
-            }else if(days == [profile.period integerValue] - 14){
-                return kPeriodTypeOfOviposit;
-            }else if ((days >= [profile.period integerValue] - 19) && (days <= [profile.period integerValue] - 10)){
-                return kPeriodTypeOfPregnancy;
-            }else{
-                return kPeriodTypeOfSafe;
-            }
-        }else{
-            return kPeriodTypeOfSafe;
-        }
-    }else{
+    if (!current_period) {
         return kPeriodTypeOfSafe;
     }
+    WPProfileModel *profile = [[WPProfileModel alloc] init];
+    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+    NSDate *startDate;
+    NSDate *endDate;
+    if (![NSString leie_isBlankString:current_period.period_start]) {
+        startDate = [NSDate dateFromString:current_period.period_start format:@"yyyy MM dd"];
+    }
+    if (![NSString leie_isBlankString:current_period.period_end]) {
+        endDate = [NSDate dateFromString:current_period.period_end format:@"yyyy MM dd"];
+    }
+    if (!startDate) {
+        return kPeriodTypeOfSafe;
+    }
+    NSInteger days = [NSDate daysFromDate:startDate toDate:date];
+    PeriodType period_type = kPeriodTypeOfSafe;
+    if (days <= current_period.menstruation_lenth) {
+        if (current_period.speculate) {
+            period_type = kPeriodTypeOfForecast;
+        }else{
+            period_type =  kPeriodTypeOfMenstrual;
+        }
+    }else if (days == current_period.oviposit){
+        period_type =  kPeriodTypeOfOviposit;
+    }else if ((days >= current_period.pregnancy_start) && (days<= current_period.pregnancy_end)){
+        period_type =  kPeriodTypeOfPregnancy;
+    }
+    return period_type;
 }
 
 //

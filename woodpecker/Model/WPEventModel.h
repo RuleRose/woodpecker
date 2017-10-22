@@ -9,7 +9,6 @@
 #import "XJFBaseModel.h"
 
 @interface WPEventModel : XJFBaseModel
-@property(nonatomic, copy)NSString *status;//经期 0 普通 1 开始 2 结束
 @property(nonatomic, copy)NSString *color;//颜色
 @property(nonatomic, copy)NSString *flow;//流量
 @property(nonatomic, copy)NSString *pain; //痛经

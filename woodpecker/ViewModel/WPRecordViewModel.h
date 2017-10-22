@@ -8,10 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "WPEventModel.h"
+#import "WPPeriodModel.h"
+#import "WPProfileModel.h"
 
 @interface WPRecordViewModel : NSObject
 @property (nonatomic,strong) NSMutableArray *statuses;
+@property (nonatomic,strong) NSMutableArray *periods;
 @property (nonatomic,strong) WPEventModel *event;
+@property (nonatomic,strong) WPPeriodModel *period;
+@property (nonatomic,strong) NSDate *eventDate;
+@property (nonatomic,assign) BOOL on;
+@property (nonatomic,assign) BOOL isStart;
+
 - (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme;
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme;
 - (NSString *)getThemeTypeWithRecordTheme:(WPRecordTheme)theme;
@@ -21,5 +29,7 @@
 - (NSString *)getDetailWithEventTheme:(WPRecordTheme)theme;
 
 - (WPEventModel *)getEventWithDate:(NSDate *)date;
-- (void)updateEvent:(WPEventModel *)event date:(NSDate *)date success:(void (^)(BOOL success))result;
+- (void)updateEvent;
+- (void)updatePeriod;
+
 @end

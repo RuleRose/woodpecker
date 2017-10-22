@@ -19,6 +19,7 @@
 + (NSString *)stringFromDate:(NSDate *)date;
 + (NSString *)UTCStringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)format;
++ (NSDate *)dateFromUTCString:(NSString *)string format:(NSString *)format;
 + (NSString *)timestampFromDate:(NSDate *)date;
 + (NSDate *)dateFromTimestampStr:(NSString *)timestampStr;
 + (NSString *)timestampFromDateStr:(NSString *)dateStr;
