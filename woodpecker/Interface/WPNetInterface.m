@@ -338,6 +338,52 @@
     }];
 }
 
++ (void)deleteEvent:(NSString *)event_id user_id:(NSString*)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (event_id) {
+        [params setObject:event_id forKey:@"event_id"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:EVENT_DELETE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
++ (void)getEvent:(NSString*)user_id start_update_time:(NSString *)start_update_time end_update_time:(NSString *)end_update_time success:(void (^)(NSArray *events))success failure:(void (^)(NSError* error))failure{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
+    }
+    if (start_update_time) {
+        [params setObject:start_update_time forKey:@"start_update_time"];
+    }
+    if (end_update_time) {
+        [params setObject:end_update_time forKey:@"end_update_time"];
+    }
+    [[XJFNetworkManager shareManager] requestWithPath:EVENT_GET requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *events = [data objectForKey:@"events"];
+            if (success) {
+                success(events);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+}
+
 + (void)getTemperaturesWithUserId:(NSString*)user_id startTime:(NSString *)start_update_time end_update_time:(NSString *)end_update_time success:(void (^)(NSArray* temperatures))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (user_id) {
@@ -465,7 +511,7 @@
     if (period_id) {
         [params setObject:period_id forKey:@"period_id"];
     }
-    [[XJFNetworkManager shareManager] requestWithPath:PERIOD_DELETE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+    [[XJFNetworkManager shareManager] requestWithPath:PERIOD_DELETE requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
         if (!error) {
             NSString *period_id = [data objectForKey:@"period_id"];
             if (success) {
@@ -490,7 +536,7 @@
     if (end_update_time) {
         [params setObject:end_update_time forKey:@"end_update_time"];
     }
-    [[XJFNetworkManager shareManager] requestWithPath:PERIOD_GET requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
+    [[XJFNetworkManager shareManager] requestWithPath:PERIOD_GET requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         if (!error) {
             NSArray *periods = [data objectForKey:@"periods"];
             if (success) {

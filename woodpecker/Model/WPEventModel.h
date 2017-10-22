@@ -28,14 +28,13 @@
 @property(nonatomic, copy)NSString *extra_data; //额外数据（可选）
 @property(nonatomic, copy)NSString *software_rev;
 
-@property(nonatomic, copy)NSString *event_type; //event_id
-@property(nonatomic, copy)NSString *event_type1;
-@property(nonatomic, copy)NSString *event_type2;
-@property(nonatomic, copy)NSString *event_type3;
-@property(nonatomic, copy)NSString *event_type4;
-@property(nonatomic, copy)NSString *event_type5;
-@property(nonatomic, copy)NSString *event_type6;
-@property(nonatomic, copy)NSString *event_type7;
-@property(nonatomic, copy)NSString *event_type8;
-
+@property(nonatomic, copy)NSString *event_id1;
+@property(nonatomic, copy)NSString *event_id2;
+@property(nonatomic, copy)NSString *event_id3;
+@property(nonatomic, copy)NSString *event_id4;
+@property(nonatomic, copy)NSString *event_id5;
+@property(nonatomic, copy)NSString *event_id6;
+@property(nonatomic, copy)NSString *event_id7;
+@property(nonatomic, copy)NSString *event_id8;
+- (void)setTheme:(WPRecordTheme)theme detail:(NSString *)detail;
 @end

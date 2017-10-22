@@ -12,8 +12,8 @@
 #import "WPDeviceModel.h"
 #import "XJFDBManager.h"
 #import "WPTemperatureModel.h"
-#import "WPEventModel.h"
 #import "XJFDBManager.h"
+#import "WPEventItemModel.h"
 
 @implementation WPStatusViewModel
 - (instancetype)init
@@ -151,36 +151,10 @@
 }
 
 - (NSInteger)eventCountAtDate:(NSDate *)date{
-    WPEventModel *event =[[WPEventModel alloc] init];
-    event.pid = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+    WPEventItemModel *event =[[WPEventItemModel alloc] init];
+    event.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
     NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
-    event = events.firstObject;
-    NSInteger count = 0;
-    if (![NSString leie_isBlankString:event.color] || ![NSString leie_isBlankString:event.flow] || ![NSString leie_isBlankString:event.pain] || ![NSString leie_isBlankString:event.gore]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.mucus_prob] || ![NSString leie_isBlankString:event.mucus_flow] || ![NSString leie_isBlankString:event.love] || ![NSString leie_isBlankString:event.ct]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.sleep]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.mood]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.sport]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.drink]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.drug]) {
-        count ++;
-    }
-    if (![NSString leie_isBlankString:event.comments]) {
-        count ++;
-    }
-    return count;
+    return events.count;
 }
 
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date{

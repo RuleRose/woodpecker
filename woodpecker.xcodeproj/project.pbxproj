@@ -194,6 +194,7 @@
 		CC2839281F8CF8C4008A2E9F /* WPNetInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */; };
 		CC3B120A1F9C2E13005923AE /* WPPeriodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B12091F9C2E13005923AE /* WPPeriodModel.m */; };
 		CC3B120F1F9C48AA005923AE /* WPPeriodUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B120E1F9C48AA005923AE /* WPPeriodUpdateModel.m */; };
+		CC3B12221F9CB343005923AE /* WPEventItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B12211F9CB342005923AE /* WPEventItemModel.m */; };
 		CC5DA1BE1F66DE0F008AC242 /* WPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */; };
 		CC5EEF341F77879F009F4764 /* WPPeriodPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF331F77879F009F4764 /* WPPeriodPopupView.m */; };
 		CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF361F778E0C009F4764 /* WPSelectionPopupView.m */; };
@@ -604,6 +605,8 @@
 		CC3B12091F9C2E13005923AE /* WPPeriodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPPeriodModel.m; sourceTree = "<group>"; };
 		CC3B120D1F9C48AA005923AE /* WPPeriodUpdateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPPeriodUpdateModel.h; sourceTree = "<group>"; };
 		CC3B120E1F9C48AA005923AE /* WPPeriodUpdateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPPeriodUpdateModel.m; sourceTree = "<group>"; };
+		CC3B121E1F9CB342005923AE /* WPEventItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPEventItemModel.h; sourceTree = "<group>"; };
+		CC3B12211F9CB342005923AE /* WPEventItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPEventItemModel.m; sourceTree = "<group>"; };
 		CC5DA1BC1F66DE0F008AC242 /* WPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTableViewCell.h; sourceTree = "<group>"; };
 		CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTableViewCell.m; sourceTree = "<group>"; };
 		CC5EEF321F77879F009F4764 /* WPPeriodPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPPeriodPopupView.h; sourceTree = "<group>"; };
@@ -1048,6 +1051,8 @@
 				CC9172C01F89D2E200FBA497 /* WPEventModel.m */,
 				CC7722A71F87136D007D83B5 /* WPMenstrualRecordModel.h */,
 				CC7722A81F87136D007D83B5 /* WPMenstrualRecordModel.m */,
+				CC3B121E1F9CB342005923AE /* WPEventItemModel.h */,
+				CC3B12211F9CB342005923AE /* WPEventItemModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1799,6 +1804,7 @@
 				CC7DA2631F76517200F56072 /* WPMenstrualInfoViewController.m in Sources */,
 				C15630351F5065FE00D6CC30 /* UIColor+Hex.m in Sources */,
 				CC7214321F64F55200AE2D82 /* UIView+Extensions.m in Sources */,
+				CC3B12221F9CB343005923AE /* WPEventItemModel.m in Sources */,
 				CC0AAF4A1F6C230800FCCA6C /* FSCalendarCollectionViewLayout.m in Sources */,
 				CC181A711F91B42600B7E7E9 /* WPConnectDeviceManager.m in Sources */,
 				CC123C011F6CC84500795DCA /* WPCalendarDetailViewModel.m in Sources */,

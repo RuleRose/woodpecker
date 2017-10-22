@@ -8,7 +8,7 @@
 
 #import "WPDatabaseTableManager.h"
 #import "WPTemperatureModel.h"
-#import "WPEventModel.h"
+#import "WPEventItemModel.h"
 #import "XJFDBManager.h"
 #import "XJFDBOperator.h"
 #import "WPPeriodUpdateModel.h"
@@ -27,13 +27,13 @@ Singleton_Implementation(WPDatabaseTableManager);
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _latestDBVersion = @"3";
+        _latestDBVersion = @"4";
     }
     return self;
 }
 
 - (void)initDatabase {
-    NSArray *DBTableArray = @[ [WPTemperatureModel class], [WPEventModel class], [WPPeriodUpdateModel class], [WPPeriodModel class]];
+    NSArray *DBTableArray = @[ [WPTemperatureModel class], [WPEventItemModel class], [WPPeriodUpdateModel class], [WPPeriodModel class]];
 
     for (Class model in DBTableArray) {
         /**
