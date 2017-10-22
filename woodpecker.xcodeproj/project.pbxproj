@@ -79,6 +79,9 @@
 		C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */; };
 		C15A3C271F931EF100224484 /* NSTimeZone+ext.m in Sources */ = {isa = PBXBuildFile; fileRef = C15A3C261F931EF100224484 /* NSTimeZone+ext.m */; };
 		C160117A1F5F8AB600F7B900 /* WPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C16011791F5F8AB600F7B900 /* WPAccountManager.m */; };
+		C16ACF111F9C9DF7006E6EB9 /* WPPeriodCountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C16ACF101F9C9DF7006E6EB9 /* WPPeriodCountManager.m */; };
+		C16ACF161F9C9E3F006E6EB9 /* WPPeriodCountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C16ACF151F9C9E3F006E6EB9 /* WPPeriodCountModel.m */; };
+		C1B889AD1F9CE7F30044346D /* WPDayInfoInPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */; };
 		C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */; };
 		C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */; };
 		C1FE08321F5BCA3C0054A254 /* btn-navi-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */; };
@@ -436,6 +439,12 @@
 		C15A3C261F931EF100224484 /* NSTimeZone+ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ext.m"; sourceTree = "<group>"; };
 		C16011781F5F8AB600F7B900 /* WPAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAccountManager.h; sourceTree = "<group>"; };
 		C16011791F5F8AB600F7B900 /* WPAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAccountManager.m; sourceTree = "<group>"; };
+		C16ACF0F1F9C9DF7006E6EB9 /* WPPeriodCountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPPeriodCountManager.h; sourceTree = "<group>"; };
+		C16ACF101F9C9DF7006E6EB9 /* WPPeriodCountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPPeriodCountManager.m; sourceTree = "<group>"; };
+		C16ACF141F9C9E3F006E6EB9 /* WPPeriodCountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WPPeriodCountModel.h; path = ../Model/WPPeriodCountModel.h; sourceTree = "<group>"; };
+		C16ACF151F9C9E3F006E6EB9 /* WPPeriodCountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WPPeriodCountModel.m; path = ../Model/WPPeriodCountModel.m; sourceTree = "<group>"; };
+		C1B889AB1F9CE7F30044346D /* WPDayInfoInPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WPDayInfoInPeriod.h; path = ../Model/WPDayInfoInPeriod.h; sourceTree = "<group>"; };
+		C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WPDayInfoInPeriod.m; path = ../Model/WPDayInfoInPeriod.m; sourceTree = "<group>"; };
 		C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiPassport.framework; sourceTree = "<group>"; };
 		C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MiPassport.bundle; sourceTree = "<group>"; };
 		C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-back@2x.png"; sourceTree = "<group>"; };
@@ -1023,6 +1032,12 @@
 				CC181A701F91B42600B7E7E9 /* WPConnectDeviceManager.m */,
 				CC181A731F91EAC100B7E7E9 /* WPDatabaseTableManager.h */,
 				CC181A741F91EAC500B7E7E9 /* WPDatabaseTableManager.m */,
+				C16ACF0F1F9C9DF7006E6EB9 /* WPPeriodCountManager.h */,
+				C16ACF101F9C9DF7006E6EB9 /* WPPeriodCountManager.m */,
+				C16ACF141F9C9E3F006E6EB9 /* WPPeriodCountModel.h */,
+				C16ACF151F9C9E3F006E6EB9 /* WPPeriodCountModel.m */,
+				C1B889AB1F9CE7F30044346D /* WPDayInfoInPeriod.h */,
+				C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */,
 			);
 			path = CommonManager;
 			sourceTree = "<group>";
@@ -1689,6 +1704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC7214551F653F1A00AE2D82 /* WPStatusItemView.m in Sources */,
+				C16ACF111F9C9DF7006E6EB9 /* WPPeriodCountManager.m in Sources */,
 				CC0AAF4C1F6C230800FCCA6C /* FSCalendarDelegationFactory.m in Sources */,
 				CC9172B81F89CB6600FBA497 /* WPDeviceModel.m in Sources */,
 				CC7DA23F1F76337500F56072 /* WPThermometerBindingViewController.m in Sources */,
@@ -1746,7 +1762,9 @@
 				C1FE087B1F5BCFE90054A254 /* WPStatusViewController.m in Sources */,
 				C15630341F5065FE00D6CC30 /* UIButton+SD.m in Sources */,
 				C15630461F5065FE00D6CC30 /* XJFUIImageView.m in Sources */,
+				C16ACF161F9C9E3F006E6EB9 /* WPPeriodCountModel.m in Sources */,
 				C160117A1F5F8AB600F7B900 /* WPAccountManager.m in Sources */,
+				C1B889AD1F9CE7F30044346D /* WPDayInfoInPeriod.m in Sources */,
 				CC0AAF561F6C233700FCCA6C /* WPCalendarViewController.m in Sources */,
 				CC1A54071F72B2CA00B3EF2E /* WPRecordDetailCell.m in Sources */,
 				C15630371F5065FE00D6CC30 /* UIImage+Extension.m in Sources */,
