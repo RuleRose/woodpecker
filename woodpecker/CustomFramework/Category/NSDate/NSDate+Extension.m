@@ -82,6 +82,12 @@
     return [formatter dateFromString:string];
 }
 
++ (NSDate *)dateFromUTCString:(NSString *)string format:(NSString *)format{
+    NSDateFormatter *formatter = [self UTCFormatter];
+    formatter.dateFormat = format;
+    return [formatter dateFromString:string];
+}
+
 + (NSString *)timestampFromDate:(NSDate *)date{
     if (date) {
         return [NSString stringWithFormat:@"%0.0f",[date timeIntervalSince1970]];

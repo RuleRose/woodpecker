@@ -60,18 +60,19 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
-    _event.date =  [NSDate stringFromDate:_eventDate format:@"yyyy MM dd"];
-    _event.pid = _event.date;
-    [_event insertOrupdateToDBDependsOn:nil];
+    [_viewModel updateEvent];
+    [_viewModel updatePeriod];
     [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)setupData{
     if (!_eventDate) {
         _eventDate = [NSDate date];
     }
- 
+    _eventDate =  [NSDate dateFromString:[NSDate stringFromDate:_eventDate] format:@"yyyy MM dd"];
     _viewModel = [[WPRecordViewModel alloc] init];
+    _viewModel.eventDate = _eventDate;
     _event =  [_viewModel getEventWithDate:_eventDate];
     if (!_event) {
         _event = [[WPEventModel alloc] init];
@@ -240,7 +241,7 @@
         headerView.section = section;
         headerView.delegate = self;
         if (headerView.showSwitch) {
-            headerView.switchView.on = [_event.status boolValue];
+            headerView.switchView.on = _viewModel.on;
         }
         return headerView;
     }
@@ -258,9 +259,9 @@
 
 - (void)swithBtnChanged:(WPRecordHeaderView *)headerView on:(BOOL)isOn{
     if (isOn) {
-        _event.status = @"1";
+        _viewModel.on = YES;
     }else{
-        _event.status = @"";
+        _viewModel.on = NO;
     }
 }
 

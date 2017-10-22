@@ -192,6 +192,8 @@
 		CC279D701F6AD2AB003B5119 /* WPRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */; };
 		CC279D731F6AD77F003B5119 /* WPRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */; };
 		CC2839281F8CF8C4008A2E9F /* WPNetInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */; };
+		CC3B120A1F9C2E13005923AE /* WPPeriodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B12091F9C2E13005923AE /* WPPeriodModel.m */; };
+		CC3B120F1F9C48AA005923AE /* WPPeriodUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B120E1F9C48AA005923AE /* WPPeriodUpdateModel.m */; };
 		CC5DA1BE1F66DE0F008AC242 /* WPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */; };
 		CC5EEF341F77879F009F4764 /* WPPeriodPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF331F77879F009F4764 /* WPPeriodPopupView.m */; };
 		CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EEF361F778E0C009F4764 /* WPSelectionPopupView.m */; };
@@ -598,6 +600,10 @@
 		CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordViewModel.m; sourceTree = "<group>"; };
 		CC2839261F8CF8C4008A2E9F /* WPNetInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPNetInterface.h; sourceTree = "<group>"; };
 		CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPNetInterface.m; sourceTree = "<group>"; };
+		CC3B12081F9C2E13005923AE /* WPPeriodModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPPeriodModel.h; sourceTree = "<group>"; };
+		CC3B12091F9C2E13005923AE /* WPPeriodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPPeriodModel.m; sourceTree = "<group>"; };
+		CC3B120D1F9C48AA005923AE /* WPPeriodUpdateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPPeriodUpdateModel.h; sourceTree = "<group>"; };
+		CC3B120E1F9C48AA005923AE /* WPPeriodUpdateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPPeriodUpdateModel.m; sourceTree = "<group>"; };
 		CC5DA1BC1F66DE0F008AC242 /* WPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTableViewCell.h; sourceTree = "<group>"; };
 		CC5DA1BD1F66DE0F008AC242 /* WPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTableViewCell.m; sourceTree = "<group>"; };
 		CC5EEF321F77879F009F4764 /* WPPeriodPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPPeriodPopupView.h; sourceTree = "<group>"; };
@@ -1032,6 +1038,10 @@
 				CC9172B41F89CB0100FBA497 /* WPProfileModel.m */,
 				CC9172B61F89CB6600FBA497 /* WPDeviceModel.h */,
 				CC9172B71F89CB6600FBA497 /* WPDeviceModel.m */,
+				CC3B12081F9C2E13005923AE /* WPPeriodModel.h */,
+				CC3B12091F9C2E13005923AE /* WPPeriodModel.m */,
+				CC3B120D1F9C48AA005923AE /* WPPeriodUpdateModel.h */,
+				CC3B120E1F9C48AA005923AE /* WPPeriodUpdateModel.m */,
 				CC9172BC1F89D0D900FBA497 /* WPTemperatureModel.h */,
 				CC9172BD1F89D0D900FBA497 /* WPTemperatureModel.m */,
 				CC9172BF1F89D2E200FBA497 /* WPEventModel.h */,
@@ -1712,6 +1722,7 @@
 				CCE0D9801F81BF830046C28A /* WPTemperatureUnitPopupView.m in Sources */,
 				CC5EEF481F77AD1C009F4764 /* WPWeightPopupView.m in Sources */,
 				CC1A540D1F72B54900B3EF2E /* WPRecordSelectionButton.m in Sources */,
+				CC3B120F1F9C48AA005923AE /* WPPeriodUpdateModel.m in Sources */,
 				CC5EEF421F77A8D8009F4764 /* WPMenstrualRegularPopupView.m in Sources */,
 				C15630491F5065FE00D6CC30 /* XJFUITextView.m in Sources */,
 				C156303D1F5065FE00D6CC30 /* XJFBaseModel.m in Sources */,
@@ -1746,6 +1757,7 @@
 				CC7214251F64E92C00AE2D82 /* WPLoginView.m in Sources */,
 				CC5EEF451F77AB3C009F4764 /* WPHeightPopupView.m in Sources */,
 				CC1649351F8BA2FB00CD7BFE /* WPMenstrualLastperiodPopupView.m in Sources */,
+				CC3B120A1F9C2E13005923AE /* WPPeriodModel.m in Sources */,
 				C15630391F5065FE00D6CC30 /* UITableViewCell+roundCorner.m in Sources */,
 				C15630381F5065FE00D6CC30 /* UIImageView+SD.m in Sources */,
 				CC0AAF521F6C230800FCCA6C /* FSCalendarTransitionCoordinator.m in Sources */,

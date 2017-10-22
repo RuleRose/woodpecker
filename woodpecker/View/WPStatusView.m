@@ -108,6 +108,11 @@
     _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
 }
 
+- (void)setViewModel:(WPStatusViewModel *)viewModel{
+    _viewModel = viewModel;
+    _wheelView.viewModel = viewModel;
+}
+
 - (void)setStartDate:(NSDate *)startDate{
     _startDate = startDate;
     _wheelView.startDate = startDate;

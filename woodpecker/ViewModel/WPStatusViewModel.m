@@ -156,9 +156,6 @@
     NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
     event = events.firstObject;
     NSInteger count = 0;
-    if (![NSString leie_isBlankString:event.status]) {
-        count ++;
-    }
     if (![NSString leie_isBlankString:event.color] || ![NSString leie_isBlankString:event.flow] || ![NSString leie_isBlankString:event.pain] || ![NSString leie_isBlankString:event.gore]) {
         count ++;
     }
@@ -227,5 +224,64 @@
             }
         }
     }
+}
+
+- (NSMutableArray *)getPeriods{
+    WPProfileModel *profile = [[WPProfileModel alloc] init];
+    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+    WPPeriodModel *period = [[WPPeriodModel alloc] init];
+    NSArray *periods = [XJFDBManager searchModelsWithCondition:period andpage:-1 andOrderby:@"period_start" isAscend:YES];
+    NSMutableArray *allPeriods = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < periods.count; i ++) {
+        WPPeriodModel *peirod = periods[i];
+        NSDate *date = [NSDate dateFromString:peirod.period_start format:@"yyyy MM dd"];
+        NSDate *nextDate = [NSDate date];
+        if (periods.count > i +1) {
+            //后面就还有数据
+            WPPeriodModel *peirod_next = periods[i + 1];
+            nextDate = [NSDate dateFromString:peirod_next.period_start format:@"yyyy MM dd"];
+        }
+        [allPeriods addObject:peirod];
+        NSInteger days = [NSDate daysFromDate:date toDate:nextDate];
+        while (days > [profile.period integerValue]) {
+            NSDate *addDate = [NSDate dateByAddingDays:[profile.period integerValue] toDate:nextDate];
+            WPPeriodModel *add_peirod = [[WPPeriodModel alloc] init];
+            add_peirod.period_start = [NSDate stringFromDate:addDate];
+            add_peirod.speculate = YES;
+            [allPeriods addObject:add_peirod];
+            days -=  [profile.period integerValue];
+        }
+    }
+    WPPeriodModel *next_period;
+    for (NSInteger i = allPeriods.count - 1; i >= 0; i --) {
+        WPPeriodModel *period = [allPeriods objectAtIndex:i];
+        NSDate *startDate;
+        NSDate *endDate;
+        if (![NSString leie_isBlankString:period.period_start]) {
+            startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
+        }
+        if (![NSString leie_isBlankString:period.period_end]) {
+            endDate = [NSDate dateFromString:period.period_end format:@"yyyy MM dd"];
+        }
+        NSInteger menstruation_lenth = [profile.menstruation integerValue];
+        if (endDate) {
+            menstruation_lenth = [NSDate daysFromDate:startDate toDate:endDate];
+        }
+        NSInteger period_lenth = [profile.period integerValue];
+        if (next_period) {
+            NSDate *nextStartDate;
+            if (![NSString leie_isBlankString:next_period.period_start]) {
+                nextStartDate = [NSDate dateFromString:next_period.period_start format:@"yyyy MM dd"];
+            }
+            period_lenth = [NSDate daysFromDate:startDate toDate:nextStartDate];
+        }
+        period.menstruation_lenth = menstruation_lenth;
+        period.period_lenth  = period_lenth;
+        period.oviposit = period_lenth - 14;
+        period.pregnancy_start = period.oviposit - 5;
+        period.pregnancy_end = period.oviposit + 4;
+        next_period = period;
+    }
+    return allPeriods;
 }
 @end

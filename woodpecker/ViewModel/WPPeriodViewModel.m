@@ -29,7 +29,6 @@
         profile.profile_id = profile_id;
         kDefaultSetObjectForKey([profile transToDictionary], USER_DEFAULT_PROFILE);
         WPEventModel *event = [[WPEventModel alloc] init];
-        event.status = @"1";
         event.date = profile.lastperiod;
         event.pid = event.date;
         [event insertOrupdateToDBDependsOn:nil];

@@ -11,6 +11,8 @@
 #import "WPEventModel.h"
 #import "XJFDBManager.h"
 #import "XJFDBOperator.h"
+#import "WPPeriodUpdateModel.h"
+#import "WPPeriodModel.h"
 
 @interface WPDatabaseTableManager ()
 @property(nonatomic, strong) NSString *latestDBVersion;
@@ -25,13 +27,13 @@ Singleton_Implementation(WPDatabaseTableManager);
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _latestDBVersion = @"2";
+        _latestDBVersion = @"3";
     }
     return self;
 }
 
 - (void)initDatabase {
-    NSArray *DBTableArray = @[ [WPTemperatureModel class], [WPEventModel class]];
+    NSArray *DBTableArray = @[ [WPTemperatureModel class], [WPEventModel class], [WPPeriodUpdateModel class], [WPPeriodModel class]];
 
     for (Class model in DBTableArray) {
         /**
