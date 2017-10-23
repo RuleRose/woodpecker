@@ -10,8 +10,14 @@
 #define UtilsEnum_h
 typedef NS_ENUM(NSUInteger, PeriodType) {
     kPeriodTypeOfMenstrual = 0, //月经期
+    kPeriodTypeOfMenstrualStart,
+    kPeriodTypeOfMenstrualEnd,
     kPeriodTypeOfPregnancy, //易孕期
+    kPeriodTypeOfPregnancyStart,
+    kPeriodTypeOfPregnancyEnd,
     kPeriodTypeOfForecast, //预测经期
+    kPeriodTypeOfForecastStart,
+    kPeriodTypeOfForecastEnd,
     kPeriodTypeOfOviposit, //排卵日
     kPeriodTypeOfSafe //安全期
 };

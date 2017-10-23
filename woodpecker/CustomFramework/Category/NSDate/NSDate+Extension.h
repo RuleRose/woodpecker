@@ -29,5 +29,6 @@
 + (NSInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 + (NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date;
 + (BOOL)isDateAfterToday:(NSDate *)date;
++ (BOOL)isDate:(NSDate *)date1 afterToDate:(NSDate *)date2 toCalendarUnit:(NSCalendarUnit)unit;
 
 @end
