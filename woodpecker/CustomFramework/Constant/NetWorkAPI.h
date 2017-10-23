@@ -30,6 +30,8 @@
 
 #define EVENT_POST @"/mmcpecker/api/event/post/"
 #define EVENT_UPDATE @"/mmcpecker/api/event/update/"
+#define EVENT_DELETE @"/mmcpecker/api/event/delete/"
+#define EVENT_GET @"/mmcpecker/api/event/get/"
 
 #define PERIOD_POST @"/mmcpecker/api/period/post/"
 #define PERIOD_UPDATE @"/mmcpecker/api/period/update/"

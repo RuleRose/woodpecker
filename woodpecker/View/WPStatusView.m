@@ -9,7 +9,6 @@
 #import "WPStatusView.h"
 #import "MMCDeviceManager.h"
 #import "NSDate+Extension.h"
-#import "WPEventModel.h"
 #import "XJFDBManager.h"
 
 @implementation WPStatusView

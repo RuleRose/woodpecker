@@ -14,6 +14,7 @@
 #import "WPUserModel.h"
 #import "WPPeriodUpdateModel.h"
 #import "XJFDBManager.h"
+#import "WPEventItemModel.h"
 
 @implementation WPRecordViewModel
 
@@ -22,17 +23,17 @@
     self = [super init];
     if (self) {
         _statuses = [[NSMutableArray alloc] init];
-       _periods = [self getPeriods];
+        _periods = [self getPeriods];
  }
     return self;
 }
 
 - (void)setEvent:(WPEventModel *)event{
     _event = event;
-    [self setupStatus];
+    [self reloadDatas];
 }
 
-- (void)setupStatus{
+- (void)reloadDatas{
     NSTimeInterval timestamp = [_eventDate timeIntervalSince1970];
     for (NSInteger i = _periods.count - 1; i >= 0; i --) {
         WPPeriodModel *period = [_periods objectAtIndex:i];
@@ -263,6 +264,38 @@
     }
 }
 
+- (WPRecordTheme)getThemeWIthDetaiType:(NSString *)detail_type{
+    if ([@"color" isEqualToString:detail_type]) {
+        return kWPRecordThemeOfColor;
+    }else if ([@"flow" isEqualToString:detail_type]){
+        return kWPRecordThemeOfFlow;
+    }else if ([@"pain" isEqualToString:detail_type]){
+        return kWPRecordThemeOfPain;
+    }else if ([@"gore" isEqualToString:detail_type]){
+        return kWPRecordThemeOfGore;
+    }else if ([@"mucus_prob" isEqualToString:detail_type]){
+        return kWPRecordThemeOfMucusProb;
+    }else if ([@"mucus_flow" isEqualToString:detail_type]){
+        return kWPRecordThemeOfMucusFlow;
+    }else if ([@"love" isEqualToString:detail_type]){
+        return kWPRecordThemeOfLove;
+    }else if ([@"test_paper" isEqualToString:detail_type]){
+        return kWPRecordThemeOfCT;
+    }else if ([@"quality" isEqualToString:detail_type]){
+        return kWPRecordThemeOfSleep;
+    }else if ([@"motion" isEqualToString:detail_type]){
+        return kWPRecordThemeOfMood;
+    }else if ([@"time" isEqualToString:detail_type]){
+        return kWPRecordThemeOfSport;
+    }else if ([@"status" isEqualToString:detail_type]){
+        return kWPRecordThemeOfDrink;
+    }else if ([@"type" isEqualToString:detail_type]){
+        return kWPRecordThemeOfDrug;
+    }else{
+        return kWPRecordThemeOfComments;
+    }
+}
+
 - (NSString *)getDetailWithRecordTheme:(WPRecordTheme)theme index:(NSInteger)index{
     NSArray *details = [self getDetailsWithTheme:theme];
     if ([details count] > index) {
@@ -283,49 +316,7 @@
     NSArray *details = [self getDetailsWithTheme:theme];
     if ([details count] > index && index >= 0) {
         NSString *detail = [details objectAtIndex:index];
-        switch (theme) {
-            case kWPRecordThemeOfColor:
-                _event.color = detail;
-                break;
-            case kWPRecordThemeOfFlow:
-                _event.flow = detail;
-                break;
-            case kWPRecordThemeOfPain:
-                _event.pain = detail;
-                break;
-            case kWPRecordThemeOfGore:
-                _event.gore = detail;
-                break;
-            case kWPRecordThemeOfMucusProb:
-                _event.mucus_prob = detail;
-                break;
-            case kWPRecordThemeOfMucusFlow:
-                _event.mucus_flow = detail;
-                break;
-            case kWPRecordThemeOfLove:
-                _event.love = detail;
-                break;
-            case kWPRecordThemeOfCT:
-                _event.ct = detail;
-                break;
-            case kWPRecordThemeOfSleep:
-                _event.sleep = detail;
-                break;
-            case kWPRecordThemeOfMood:
-                _event.mood = detail;
-                break;
-            case kWPRecordThemeOfSport:
-                _event.sport = detail;
-                break;
-            case kWPRecordThemeOfDrink:
-                _event.drink = detail;
-                break;
-            case kWPRecordThemeOfDrug:
-                _event.drug = detail;
-                break;
-            default:
-                break;
-        }
+        [_event setTheme:theme detail:detail];
     }
 }
 
@@ -426,10 +417,42 @@
 }
 
 - (WPEventModel *)getEventWithDate:(NSDate *)date{
-    WPEventModel *event =[[WPEventModel alloc] init];
-    event.pid = [NSDate stringFromDate:date format:@"yyyy MM dd"];
-    NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
-    return events.firstObject;
+    WPEventModel *event = [[WPEventModel alloc] init];
+    WPEventItemModel *item = [[WPEventItemModel alloc] init];
+    item.date = [NSDate stringFromDate:_eventDate];
+    NSArray *items = [XJFDBManager searchModelsWithCondition:item andpage:-1 andOrderby:nil isAscend:YES];
+    for (WPEventItemModel *item in items) {
+        if (![NSString leie_isBlankString:item.brief]) {
+            NSDictionary *breifDic =[NSString dictionaryWithJsonString:item.brief];
+            for (NSString *key in breifDic) {
+                [event setTheme:[self getThemeWIthDetaiType:key] detail:[breifDic objectForKey:key]];
+            }
+            if ([item.type integerValue] == 1) {
+                event.event_id1 = item.event_id;
+            }else if ([item.type integerValue] == 2){
+                event.event_id2 = item.event_id;
+
+            }else if ([item.type integerValue] == 3){
+                event.event_id3 = item.event_id;
+
+            }else if ([item.type integerValue] == 4){
+                event.event_id4 = item.event_id;
+
+            }else if ([item.type integerValue] == 5){
+                event.event_id5 = item.event_id;
+
+            }else if ([item.type integerValue] == 6){
+                event.event_id6 = item.event_id;
+
+            }else if ([item.type integerValue] == 7){
+                event.event_id7 = item.event_id;
+
+            }else if ([item.type integerValue] == 8){
+                event.event_id8 = item.event_id;
+            }
+        }
+    }
+    return event;
 }
 
 - (NSMutableArray *)getPeriods{
@@ -491,38 +514,187 @@
     return allPeriods;
 }
 
-- (void)updateEvent{
-//    WPEventModel *origin_event = [self getEventWithDate:date];
-//    if (![NSString leie_isBlankString:event.status]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.color] || ![NSString leie_isBlankString:event.flow] || ![NSString leie_isBlankString:event.pain] || ![NSString leie_isBlankString:event.gore]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.mucus_prob] || ![NSString leie_isBlankString:event.mucus_flow] || ![NSString leie_isBlankString:event.love] || ![NSString leie_isBlankString:event.ct]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.sleep]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.mood]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.sport]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.drink]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.drug]) {
-//        count ++;
-//    }
-//    if (![NSString leie_isBlankString:event.comments]) {
-//        count ++;
-//    }
+- (void)updateEventSuccess:(void (^)(BOOL finished))result{
+    NSMutableArray *events = [[NSMutableArray alloc] init];
+    NSMutableArray *delEvents = [[NSMutableArray alloc] init];
+    WPEventModel *event = [self getEventWithDate:_eventDate];
+    if (_event.color || _event.flow || _event.pain || _event.gore) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"1" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.color) {
+            [description setObject:_event.color forKey:@"color"];
+        }
+        if (_event.flow) {
+            [description setObject:_event.flow forKey:@"flow"];
+        }
+        if (_event.pain) {
+            [description setObject:_event.pain forKey:@"pain"];
+        }
+        if (_event.gore) {
+            [description setObject:_event.gore forKey:@"gore"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.color || event.flow || event.pain || event.gore) {
+            [delEvents addObject:event.event_id1];
+        }
+    }
+    
+    if (_event.mucus_prob || _event.mucus_flow || _event.love || _event.ct) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"2" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.mucus_prob) {
+            [description setObject:_event.mucus_prob forKey:@"mucus_prob"];
+        }
+        if (_event.mucus_flow) {
+            [description setObject:_event.mucus_flow forKey:@"mucus_flow"];
+        }
+        if (_event.love) {
+            [description setObject:_event.love forKey:@"love"];
+        }
+        if (_event.ct) {
+            [description setObject:_event.ct forKey:@"test_paper"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.mucus_prob || event.mucus_flow || event.love || event.ct) {
+            [delEvents addObject:event.event_id2];
+        }
+    }
+    if (_event.sleep) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"3" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.sleep) {
+            [description setObject:_event.sleep forKey:@"quality"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.sleep) {
+            [delEvents addObject:event.event_id3];
+        }
+    }
+    if (_event.mood) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"4" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.mood) {
+            [description setObject:_event.mood forKey:@"motion"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.mood) {
+            [delEvents addObject:event.event_id4];
+        }
+    }
+    if (_event.sport) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"5" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.sport) {
+            [description setObject:_event.sport forKey:@"time"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.sport) {
+            [delEvents addObject:event.event_id5];
+        }
+    }
+    if (_event.drink) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"6" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.drink) {
+            [description setObject:_event.drink forKey:@"status"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.drink) {
+            [delEvents addObject:event.event_id6];
+        }
+    }
+    if (_event.drug) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"7" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.drug) {
+            [description setObject:_event.drug forKey:@"type"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.drug) {
+            [delEvents addObject:event.event_id7];
+        }
+    }
+    if (_event.comments) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"1" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.comments) {
+            [description setObject:_event.comments forKey:@"comments"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.comments) {
+            [delEvents addObject:event.event_id8];
+        }
+    }
+    WPUserModel *user = [[WPUserModel alloc] init];
+    [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+    __block NSInteger count = 0;
+    [WPNetInterface postEvents:events user_id:user.user_id success:^(NSArray *events) {
+        for (NSDictionary *eventDic in events) {
+            WPEventItemModel *item = [[WPEventItemModel alloc] init];
+            [item loadDataFromkeyValues:eventDic];
+            item.pid = item.event_id;
+            item.brief = [eventDic objectForKey:@"description"];
+            if (![item insertToDB]) {
+                [item updateToDBDependsOn:nil];
+            }
+        }
+        count ++;
+        if (count == delEvents.count + 1) {
+            if (result) {
+                result(YES);
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    for (NSString *event_id in delEvents) {
+        [WPNetInterface deleteEvent:event_id user_id:user.user_id success:^(BOOL finished) {
+            
+            count ++;
+            if (count == delEvents.count + 1) {
+                if (result) {
+                    result(YES);
+                }
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 
-- (void)updatePeriod{
+- (void)updatePeriodSuccess:(void (^)(BOOL finished))result{
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     WPPeriodModel *period = [[WPPeriodModel alloc] init];
@@ -553,25 +725,50 @@
                     }else{
                         _period.period_end =  [NSDate stringFromDate:_eventDate];
                     }
-                    [_period updateToDBDependsOn:nil];
-                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-                    updateModel.period_id = _period.period_id;
-                    updateModel.modify = @"update";
-                    [updateModel insertToDB];
+                    [WPNetInterface updatePeriod:_period.period_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
+                        _period.period_id = period_id;
+                        _period.pid = period_id;
+                        [_period updateToDBDependsOn:nil];
+                        if (result) {
+                            result(YES);
+                        }
+                    } failure:^(NSError *error) {
+                        
+                    }];
+//                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//                    updateModel.period_id = _period.period_id;
+//                    updateModel.modify = @"update";
+//                    [updateModel insertToDB];
                 }else{
                     if (_isStart) {
-                        [XJFDBManager deleteModel:_period dependOnKeys:nil];
-                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-                        updateModel.period_id = _period.period_id;
-                        updateModel.modify = @"delete";
-                        [updateModel insertToDB];
+                        [WPNetInterface deletePeriod:_period.period_id success:^(BOOL finished) {
+                            [XJFDBManager deleteModel:_period dependOnKeys:nil];
+                            if (result) {
+                                result(YES);
+                            }
+                        } failure:^(NSError *error) {
+                            
+                        }];
+//                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//                        updateModel.period_id = _period.period_id;
+//                        updateModel.modify = @"delete";
+//                        [updateModel insertToDB];
                     }else{
                         _period.period_end = @"";
-                        [_period updateToDBDependsOn:nil];
-                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-                        updateModel.period_id = _period.period_id;
-                        updateModel.modify = @"update";
-                        [updateModel insertToDB];
+                        [WPNetInterface updatePeriod:_period.period_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
+                            _period.period_id = period_id;
+                            _period.pid = period_id;
+                            [_period updateToDBDependsOn:nil];
+                            if (result) {
+                                result(YES);
+                            }
+                        } failure:^(NSError *error) {
+                            
+                        }];
+//                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//                        updateModel.period_id = _period.period_id;
+//                        updateModel.modify = @"update";
+//                        [updateModel insertToDB];
                     }
                 }
             }else{
@@ -581,11 +778,20 @@
                     }else{
                         _period.period_end =  [NSDate stringFromDate:_eventDate];
                     }
-                    [_period insertToDB];
-                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-                    updateModel.period_id = _period.period_id;
-                    updateModel.modify = @"create";
-                    [updateModel insertToDB];
+                    [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
+                        _period.period_id = period_id;
+                        _period.pid = period_id;
+                        [_period insertToDB];
+                        if (result) {
+                            result(YES);
+                        }
+                    } failure:^(NSError *error) {
+                        
+                    }];
+//                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//                    updateModel.period_id = _period.period_id;
+//                    updateModel.modify = @"create";
+//                    [updateModel insertToDB];
                 }
             }
         }else{
@@ -597,11 +803,20 @@
                 }else{
                     period.period_end =  [NSDate stringFromDate:_eventDate];
                 }
-                [period insertToDB];
-                WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-                updateModel.pid = period.pid;
-                updateModel.modify = @"create";
-                [period insertToDB];
+                [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
+                    period.period_id = period_id;
+                    period.pid = period_id;
+                    [period insertToDB];
+                    if (result) {
+                        result(YES);
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
+//                WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//                updateModel.pid = period.pid;
+//                updateModel.modify = @"create";
+//                [period insertToDB];
             }
         }
     }else{
@@ -613,17 +828,20 @@
             }else{
                 period.period_end =  [NSDate stringFromDate:_eventDate];
             }
-            [period insertToDB];
-            WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-            updateModel.pid = period.pid;
-            updateModel.modify = @"create";
-            [period insertToDB];
-            
-//            [WPNetInterface postPeriod:user.user_id period_start:eventDateStr period_end:nil success:^(NSString *period_id) {
-//
-//            } failure:^(NSError *error) {
-//
-//            }];
+            [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
+                period.period_id = period_id;
+                period.pid = period_id;
+                [period insertToDB];
+                if (result) {
+                    result(YES);
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+//            WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
+//            updateModel.pid = period.pid;
+//            updateModel.modify = @"create";
+//            [period insertToDB];
         }
     }
 }

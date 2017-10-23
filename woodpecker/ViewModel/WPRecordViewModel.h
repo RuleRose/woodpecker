@@ -29,7 +29,7 @@
 - (NSString *)getDetailWithEventTheme:(WPRecordTheme)theme;
 
 - (WPEventModel *)getEventWithDate:(NSDate *)date;
-- (void)updateEvent;
-- (void)updatePeriod;
+- (void)updateEventSuccess:(void (^)(BOOL finished))result;
+- (void)updatePeriodSuccess:(void (^)(BOOL finished))result;
 
 @end

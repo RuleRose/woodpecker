@@ -8,7 +8,6 @@
 
 #import "WPPeriodViewModel.h"
 #import "WPNetInterface.h"
-#import "WPEventModel.h"
 #import "NSDate+Extension.h"
 
 @implementation WPPeriodViewModel
@@ -28,10 +27,6 @@
     [WPNetInterface registerProfileWithUserID:kDefaultObjectForKey(USER_DEFAULT_USER_ID) menstruation:profile.menstruation period:profile.period lastperiod:profile.lastperiod extra_data:profile.extra_data success:^(NSString *profile_id) {
         profile.profile_id = profile_id;
         kDefaultSetObjectForKey([profile transToDictionary], USER_DEFAULT_PROFILE);
-        WPEventModel *event = [[WPEventModel alloc] init];
-        event.date = profile.lastperiod;
-        event.pid = event.date;
-        [event insertOrupdateToDBDependsOn:nil];
         if (result) {
             result(YES);
         }
