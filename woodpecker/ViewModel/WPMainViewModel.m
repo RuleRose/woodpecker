@@ -102,6 +102,7 @@
         //    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
         //开始时间当前设备最后一条温度的时间
         WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+        temperature.sync = @"1";
         NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:0 andOrderby:@"lastupdate" isAscend:NO];
         WPTemperatureModel *localTemp = tempsArr.firstObject;
         NSString *temp_updatetime = nil;
@@ -112,6 +113,7 @@
             for (NSDictionary *tempDic in temperatures) {
                 WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
                 [temp loadDataFromkeyValues:tempDic];
+                temperature.sync = @"1";
                 [self insertTemperature:temp];
             }
             kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
