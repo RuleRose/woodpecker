@@ -28,4 +28,6 @@
 #define TAG_RETRY 1009
 #define TAG_ORDER_LIST_MODIFY 1010
 
+#define DATE_FORMATE_STRING @"yyyy MM dd"
+
 #endif /* CommonConst_h */
