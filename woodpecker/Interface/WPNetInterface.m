@@ -261,7 +261,7 @@
     }];
 }
 
-+ (void)postTemps:(NSArray*)temps user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
++ (void)postTemps:(NSArray*)temps user_id:(NSString *)user_id success:(void (^)(NSArray *temperatures))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableArray *temperatures = [[NSMutableArray alloc] init];
     for (WPTemperatureModel *temp in temps) {
@@ -277,8 +277,9 @@
     }
     [[XJFNetworkManager shareManager] requestWithPath:TEMPERATURE_POST requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         if (!error) {
+            NSArray *temperatures = [data objectForKey:@"temperatures"];
             if (success) {
-                success(YES);
+                success(temperatures);
             }
         }else{
             if (failure) {

@@ -26,7 +26,7 @@
 + (void)bindDevice:(NSString*)user_id device_id:(NSString*)device_id start_dindex:(NSString*)start_dindex success:(void (^)(BOOL bind))success failure:(void (^)(NSError* error))failure;
 + (void)unbindDevice:(NSString*)user_id success:(void (^)(BOOL unbind))success failure:(void (^)(NSError* error))failure;
 
-+ (void)postTemps:(NSArray*)temps user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
++ (void)postTemps:(NSArray*)temps user_id:(NSString *)user_id success:(void (^)(NSArray *temperatures))success failure:(void (^)(NSError* error))failure;
 
 
 + (void)postEvents:(NSArray *)eventsStr user_id:(NSString*)user_id  success:(void (^)(NSArray *events))success failure:(void (^)(NSError* error))failure;

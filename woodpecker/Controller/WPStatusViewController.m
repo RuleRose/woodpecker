@@ -41,6 +41,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
 
 }
 
@@ -101,6 +102,10 @@
 
 - (void)getTemperature{
     [_viewModel syncTempData];
+}
+- (void)getPeriod{
+    [_statusView updateState];
+    _statusView.startDate = [_viewModel getStartDate];
 }
 
 #pragma mark WPStatusViewDelegate
