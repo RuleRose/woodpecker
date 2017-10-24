@@ -7,9 +7,13 @@
 //
 
 #import "WPWeightPopupView.h"
+#import "WPPickerItemView.h"
+
 @interface WPWeightPopupView()<UIPickerViewDataSource,UIPickerViewDelegate>
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UIView *markView;
+@property (nonatomic, strong) UILabel *unitlabel;
+@property (nonatomic, strong) UILabel *pointLabel;
 
 @end
 @implementation WPWeightPopupView
@@ -40,6 +44,21 @@
     _markView = [[UIView alloc] init];
     _markView.backgroundColor = kColor_5;
     [self.contentView addSubview:_markView];
+    _pointLabel = [[UILabel alloc] init];
+    _pointLabel.textColor = kColor_9;
+    _pointLabel.textAlignment = NSTextAlignmentCenter;
+    _pointLabel.font = kFont_3(18);
+    _pointLabel.backgroundColor = [UIColor clearColor];
+    _pointLabel.text = @".";
+    [self addSubview:_pointLabel];
+    _unitlabel = [[UILabel alloc] init];
+    _unitlabel.textColor = kColor_9;
+    _unitlabel.textAlignment = NSTextAlignmentLeft;
+    _unitlabel.font = kFont_3(18);
+    _unitlabel.backgroundColor = [UIColor clearColor];
+    _unitlabel.text = @"kg";
+    [self addSubview:_unitlabel];
+
     MJWeakSelf;
     [_pickerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
@@ -53,6 +72,18 @@
         make.width.equalTo(@6);
         make.height.equalTo(@55);
     }];
+    [_pointLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.markView.mas_top);
+        make.bottom.equalTo(weakSelf.markView.mas_bottom);
+        make.centerX.equalTo(weakSelf.mas_centerX);
+        make.width.equalTo(@80);
+    }];
+    [_unitlabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.markView.mas_top);
+        make.bottom.equalTo(weakSelf.markView.mas_bottom);
+        make.left.equalTo(weakSelf.pointLabel.mas_right).offset(36);
+        make.width.equalTo(@80);
+    }];
 }
 
 
@@ -62,7 +93,11 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 100;
+    if (component == 0) {
+        return 500;
+    }else{
+        return 10;
+    }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
@@ -71,16 +106,33 @@
 
 #pragma mark UIPickerViewDelegate
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel* titleLabel = (UILabel*)view;
-    if (!titleLabel){
-        titleLabel = [[UILabel alloc] init];
-        titleLabel.textColor = kColor_9;
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.font = kFont_3(18);
-        titleLabel.backgroundColor = [UIColor clearColor];
+    WPPickerItemView* item = (WPPickerItemView*)view;
+    if (!item){
+        item = [[WPPickerItemView alloc] init];
+        item.titleLabel.textColor = kColor_9;
+        item.titleLabel.font = kFont_3(18);
+        item.titleLabel.backgroundColor = [UIColor clearColor];
     }
-    titleLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    return titleLabel;
+    if (component == 0) {
+        item.titleLabel.textAlignment = NSTextAlignmentRight;
+        [item.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@0);
+            make.bottom.equalTo(@0);
+            make.left.equalTo(@0);
+            make.right.equalTo(@(-40));
+        }];
+    }else{
+        item.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [item.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@0);
+            make.bottom.equalTo(@0);
+            make.left.equalTo(@40);
+            make.right.equalTo(@0);
+        }];
+    }
+
+    item.titleLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    return item;
 }
 
 //- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component{

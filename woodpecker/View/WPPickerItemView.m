@@ -13,7 +13,7 @@
 {
     self = [super init];
     if (self) {
-        
+        [self setupViews];
     }
     return self;
 }
@@ -27,9 +27,9 @@
     [self addSubview:_titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
-        make.bottom.equalTo(@(-0.5));
-        make.left.equalTo(@6);
-        make.width.equalTo(@0);
+        make.bottom.equalTo(@0);
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
     }];
 }
 /*
