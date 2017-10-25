@@ -70,7 +70,7 @@ Singleton_Implementation(WPPeriodCountManager);
                     periodCountMode.period_end = [NSDate dateByAddingDays:-1 toDate:nextPeriodStartDate];
                 }
             }else{
-                periodCountMode.isForecast = YES;
+                periodCountMode.isForecast = NO;
                 periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
             }
         }
@@ -208,9 +208,11 @@ Singleton_Implementation(WPPeriodCountManager);
     if ([NSDate isDate:destPeriod.period_start equalToDate:day toCalendarUnit:NSCalendarUnitDay]) {
         //经期开始日
         if (destPeriod.isForecast) {
-            dayInfo.type = kPeriodTypeOfForecastStart;
+//            dayInfo.type = kPeriodTypeOfForecastStart;
+            dayInfo.type = kPeriodTypeOfForecast;
         } else {
-            dayInfo.type = kPeriodTypeOfMenstrualStart;
+//            dayInfo.type = kPeriodTypeOfMenstrualStart;
+            dayInfo.type = kPeriodTypeOfMenstrual;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
@@ -225,9 +227,12 @@ Singleton_Implementation(WPPeriodCountManager);
     } else if ([NSDate isDate:destPeriod.period_end equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //经期结束日
         if (destPeriod.isForecast) {
-            dayInfo.type = kPeriodTypeOfForecastEnd;
+//            dayInfo.type = kPeriodTypeOfForecastEnd;
+            dayInfo.type = kPeriodTypeOfForecast;
+
         } else {
-            dayInfo.type = kPeriodTypeOfMenstrualEnd;
+//            dayInfo.type = kPeriodTypeOfMenstrualEnd;
+            dayInfo.type = kPeriodTypeOfMenstrual;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];

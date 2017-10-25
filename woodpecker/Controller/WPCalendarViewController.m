@@ -293,7 +293,7 @@
                         calendarCell.shape = kPeriodShapeOfRight;
                     }
                 }else if(tomorrow_period.type == period.type){
-                    if (period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 0) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfLeft;
