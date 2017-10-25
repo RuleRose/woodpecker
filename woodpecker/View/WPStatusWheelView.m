@@ -13,6 +13,7 @@
 #import "WPUserModel.h"
 #import "WPProfileModel.h"
 #import "WPPeriodModel.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPStatusWheelView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong)UICollectionView *collectionView;
@@ -22,7 +23,7 @@
 //@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
-@property (nonatomic,strong)NSMutableArray *periods;
+//@property (nonatomic,strong)NSMutableArray *periods;
 
 @end
 
@@ -90,7 +91,7 @@
         _startDate = [NSDate date];
     }
     [_collectionView reloadData];
-    _periods = [_viewModel getPeriods];
+//    _periods = [_viewModel getPeriods];
     [self scrollToBottom];
 }
 
@@ -112,7 +113,8 @@
         cell.textLabel.text = [NSDate stringFromDate:date format:@"M/d" ];
 
     }
-    cell.period_type = [self getPeriodWithDate:date];
+    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
+    cell.period_type = period.type;
     cell.date = date;
     if (indexPath.row < 2) {
         cell.hidden = YES;
@@ -132,8 +134,9 @@
     NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]]);
     CGFloat offsetY = index * 56;
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY) animated:YES];
+    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:[NSDate date]];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
-        [_delegate showDetailDate:[NSDate date] period:[self getPeriodWithDate:[NSDate date]]];
+        [_delegate showDetailDate:[NSDate date] period:period.type];
     }
 }
 
@@ -162,56 +165,57 @@
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
     
     NSDate *date = [NSDate dateByAddingDays:index toDate:_startDate];
+    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
-        [_delegate showDetailDate:date period:[self getPeriodWithDate:date]];
+        [_delegate showDetailDate:date period:period.type];
     }
 }
 
-- (PeriodType)getPeriodWithDate:(NSDate *)date{
-    NSTimeInterval timestamp = [date timeIntervalSince1970];
-    WPPeriodModel *current_period;
-    WPPeriodModel *next_period;
-    for (NSInteger i = _periods.count - 1; i >= 0; i --) {
-        WPPeriodModel *period = [_periods objectAtIndex:i];
-        NSDate *startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
-        NSTimeInterval start_timestamp = [startDate timeIntervalSince1970];
-        if (start_timestamp <= timestamp) {
-            current_period = period;
-            break;
-        }
-        next_period = period;
-    }
-    if (!current_period) {
-        return kPeriodTypeOfSafe;
-    }
-    WPProfileModel *profile = [[WPProfileModel alloc] init];
-    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-    NSDate *startDate;
-    NSDate *endDate;
-    if (![NSString leie_isBlankString:current_period.period_start]) {
-        startDate = [NSDate dateFromString:current_period.period_start format:@"yyyy MM dd"];
-    }
-    if (![NSString leie_isBlankString:current_period.period_end]) {
-        endDate = [NSDate dateFromString:current_period.period_end format:@"yyyy MM dd"];
-    }
-    if (!startDate) {
-        return kPeriodTypeOfSafe;
-    }
-    NSInteger days = [NSDate daysFromDate:startDate toDate:date];
-    PeriodType period_type = kPeriodTypeOfSafe;
-    if (days <= current_period.menstruation_lenth) {
-        if (current_period.speculate) {
-            period_type = kPeriodTypeOfForecast;
-        }else{
-            period_type =  kPeriodTypeOfMenstrual;
-        }
-    }else if (days == current_period.oviposit){
-        period_type =  kPeriodTypeOfOviposit;
-    }else if ((days >= current_period.pregnancy_start) && (days<= current_period.pregnancy_end)){
-        period_type =  kPeriodTypeOfPregnancy;
-    }
-    return period_type;
-}
+//- (PeriodType)getPeriodWithDate:(NSDate *)date{
+//    NSTimeInterval timestamp = [date timeIntervalSince1970];
+//    WPPeriodModel *current_period;
+//    WPPeriodModel *next_period;
+//    for (NSInteger i = _periods.count - 1; i >= 0; i --) {
+//        WPPeriodModel *period = [_periods objectAtIndex:i];
+//        NSDate *startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
+//        NSTimeInterval start_timestamp = [startDate timeIntervalSince1970];
+//        if (start_timestamp <= timestamp) {
+//            current_period = period;
+//            break;
+//        }
+//        next_period = period;
+//    }
+//    if (!current_period) {
+//        return kPeriodTypeOfSafe;
+//    }
+//    WPProfileModel *profile = [[WPProfileModel alloc] init];
+//    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+//    NSDate *startDate;
+//    NSDate *endDate;
+//    if (![NSString leie_isBlankString:current_period.period_start]) {
+//        startDate = [NSDate dateFromString:current_period.period_start format:@"yyyy MM dd"];
+//    }
+//    if (![NSString leie_isBlankString:current_period.period_end]) {
+//        endDate = [NSDate dateFromString:current_period.period_end format:@"yyyy MM dd"];
+//    }
+//    if (!startDate) {
+//        return kPeriodTypeOfSafe;
+//    }
+//    NSInteger days = [NSDate daysFromDate:startDate toDate:date];
+//    PeriodType period_type = kPeriodTypeOfSafe;
+//    if (days <= current_period.menstruation_lenth) {
+//        if (current_period.speculate) {
+//            period_type = kPeriodTypeOfForecast;
+//        }else{
+//            period_type =  kPeriodTypeOfMenstrual;
+//        }
+//    }else if (days == current_period.oviposit){
+//        period_type =  kPeriodTypeOfOviposit;
+//    }else if ((days >= current_period.pregnancy_start) && (days<= current_period.pregnancy_end)){
+//        period_type =  kPeriodTypeOfPregnancy;
+//    }
+//    return period_type;
+//}
 
 //
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView{

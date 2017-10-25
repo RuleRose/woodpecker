@@ -8,6 +8,7 @@
 
 #import "WPCalendarCell.h"
 #import "FSCalendarExtensions.h"
+#import "WPPeriodCountManager.h"
 
 @implementation WPCalendarCell
 - (instancetype)initWithFrame:(CGRect)frame
@@ -43,14 +44,20 @@
     self.markLayer.hidden = NO;
     switch (_period) {
         case kPeriodTypeOfMenstrual:
+        case kPeriodTypeOfMenstrualStart:
+        case kPeriodTypeOfMenstrualEnd:
             self.markLayer.backgroundColor = kColor_13.CGColor;
             self.markLayer.borderColor = kColor_13.CGColor;
             break;
         case kPeriodTypeOfPregnancy:
+        case kPeriodTypeOfPregnancyStart:
+        case kPeriodTypeOfPregnancyEnd:
             self.markLayer.backgroundColor = kColor_14_With_Alpha(0.1).CGColor;
             self.markLayer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
             break;
         case kPeriodTypeOfForecast:
+        case kPeriodTypeOfForecastStart:
+        case kPeriodTypeOfForecastEnd:
             self.markLayer.backgroundColor = [UIColor clearColor].CGColor;
             self.markLayer.borderColor = kColor_15.CGColor;
             break;

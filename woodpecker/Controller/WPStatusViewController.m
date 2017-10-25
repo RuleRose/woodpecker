@@ -22,6 +22,7 @@
 #import "XJFDBManager.h"
 #import "WPThermometerRemoveViewController.h"
 #import "WPThermometerViewController.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPStatusViewController ()<WPStatusViewDelegate>
 @property(nonatomic, strong) WPStatusView *statusView;
@@ -47,6 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
     _statusView.startDate = [_viewModel getStartDate];
 }
@@ -104,6 +106,7 @@
     [_viewModel syncTempData];
 }
 - (void)getPeriod{
+    [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
     _statusView.startDate = [_viewModel getStartDate];
 }

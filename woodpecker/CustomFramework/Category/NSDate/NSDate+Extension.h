@@ -15,6 +15,10 @@
 + (NSInteger)dayOfDate:(NSDate *)date;
 + (NSInteger)hourOfDate:(NSDate *)date;
 + (NSInteger)weekdayOfDate:(NSDate*)date;
+
++ (NSDate *)beginingOfMonthOfDate:(NSDate *)date;
++ (NSDate *)endOfMonthOfDate:(NSDate *)date;
+
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSString *)stringFromDate:(NSDate *)date;
 + (NSString *)UTCStringFromDate:(NSDate *)date format:(NSString *)format;

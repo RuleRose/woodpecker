@@ -12,4 +12,5 @@
 @property (weak, nonatomic) CALayer *markLayer;
 @property(nonatomic, assign) PeriodType period;
 @property(nonatomic, assign) PeriodShapeType shape;
+
 @end
