@@ -60,14 +60,14 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
-//    [_viewModel updatePeriodSuccess:^(BOOL finished) {
-//        [_viewModel updateEventSuccess:^(BOOL finished) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }];
-//    }];
-    [_viewModel updateEventSuccess:^(BOOL finished) {
-        [self.navigationController popViewControllerAnimated:YES];
+    [_viewModel updatePeriodSuccess:^(BOOL finished) {
+        [_viewModel updateEventSuccess:^(BOOL finished) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }];
+//    [_viewModel updateEventSuccess:^(BOOL finished) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
 }
 
 - (void)setupData{

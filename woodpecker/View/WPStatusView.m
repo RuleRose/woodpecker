@@ -109,7 +109,7 @@
 
 - (void)setViewModel:(WPStatusViewModel *)viewModel{
     _viewModel = viewModel;
-    _wheelView.viewModel = viewModel;
+//    _wheelView.viewModel = viewModel;
 }
 
 - (void)setStartDate:(NSDate *)startDate{

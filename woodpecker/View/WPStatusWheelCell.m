@@ -32,6 +32,8 @@
     _period_type = period_type;
     switch (_period_type) {
         case kPeriodTypeOfForecast:
+        case kPeriodTypeOfForecastStart:
+        case kPeriodTypeOfForecastEnd:
             self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_15.CGColor;
 
@@ -41,10 +43,14 @@
             self.layer.borderColor = kColor_15.CGColor;
             break;
         case kPeriodTypeOfMenstrual:
+        case kPeriodTypeOfMenstrualStart:
+        case kPeriodTypeOfMenstrualEnd:
             self.backgroundColor = kColor_13;
             self.layer.borderColor = kColor_13.CGColor;
             break;
         case kPeriodTypeOfPregnancy:
+        case kPeriodTypeOfPregnancyStart:
+        case kPeriodTypeOfPregnancyEnd:
             self.backgroundColor = kColor_14_With_Alpha(0.1);
             self.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
             break;

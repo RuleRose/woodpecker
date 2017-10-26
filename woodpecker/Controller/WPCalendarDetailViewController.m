@@ -12,6 +12,7 @@
 #import "WPCalendarCell.h"
 #import "NSDate+Extension.h"
 #import "WPTableViewCell.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPCalendarDetailViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) WPCalendarDetailViewModel *viewModel;
@@ -237,35 +238,60 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        PeriodType period = [_viewModel getPeriodWithDate:date];
-        calendarCell.period = period;
-        if (period == kPeriodTypeOfOviposit) {
+        WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
+        //        PeriodType period = [_viewModel getPeriodWithDate:date];
+        calendarCell.period = period.type;
+        if (period.type == kPeriodTypeOfOviposit) {
             calendarCell.shape = kPeriodShapeOfCircle;
         }else{
             NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
             NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
-            PeriodType tomorrow_period = [_viewModel getPeriodWithDate:tomorrow];
-            PeriodType yesterday_period = [_viewModel getPeriodWithDate:yesterday];
+            WPDayInfoInPeriod *tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
+            WPDayInfoInPeriod *yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
+            //            PeriodType tomorrow_period = [_viewModel getPeriodWithDate:tomorrow];
+            //            PeriodType yesterday_period = [_viewModel getPeriodWithDate:yesterday];
             NSInteger weekday = [NSDate weekdayOfDate:date];
             if (weekday == 1) {
-                if (tomorrow_period == period) {
-                    calendarCell.shape = kPeriodShapeOfLeft;
+                if (tomorrow_period.type == period.type) {
+                    if (tomorrow_period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfSingle;
+                    }else{
+                        calendarCell.shape = kPeriodShapeOfLeft;
+                    }
                 }else{
                     calendarCell.shape = kPeriodShapeOfSingle;
                 }
             }else if (weekday == 7){
-                if (yesterday_period == period) {
-                    calendarCell.shape = kPeriodShapeOfRight;
+                if (yesterday_period.type == period.type) {
+                    if (period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfSingle;
+                    }else{
+                        calendarCell.shape = kPeriodShapeOfRight;
+                    }
                 }else{
                     calendarCell.shape = kPeriodShapeOfSingle;
                 }
             }else{
-                if ((yesterday_period == period) && (tomorrow_period == period)) {
-                    calendarCell.shape = kPeriodShapeOfMiddle;
-                }else if(yesterday_period == period){
-                    calendarCell.shape = kPeriodShapeOfRight;
-                }else if(tomorrow_period == period){
-                    calendarCell.shape = kPeriodShapeOfLeft;
+                if ((yesterday_period.type == period.type) && (tomorrow_period.type == period.type)) {
+                    if (tomorrow_period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfRight;
+                    }else if (period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfLeft;
+                    }else{
+                        calendarCell.shape = kPeriodShapeOfMiddle;
+                    }
+                }else if(yesterday_period.type == period.type){
+                    if (period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfSingle;
+                    }else{
+                        calendarCell.shape = kPeriodShapeOfRight;
+                    }
+                }else if(tomorrow_period.type == period.type){
+                    if (period.dayInPeriod  == 0) {
+                        calendarCell.shape = kPeriodShapeOfSingle;
+                    }else{
+                        calendarCell.shape = kPeriodShapeOfLeft;
+                    }
                 }else{
                     calendarCell.shape = kPeriodShapeOfSingle;
                 }
@@ -305,45 +331,50 @@
     cell.layer.masksToBounds = YES;
     cell.rightModel = kCellRightModelNone;
     cell.leftModel = kCellLeftModelNone;
-    [_viewModel getPeriodWithData:_selectedDate block:^(PeriodType period_type, NSInteger period_days, NSInteger pregnancy_days) {
-        if (indexPath.row == 0) {
-            cell.titleLabel.text = [NSString stringWithFormat:@"周期第%ld天",(long)period_days];
-            switch (period_type) {
-                case kPeriodTypeOfForecast:
-                    cell.detailLabel.text = @"预测经期";
-                    break;
-                case kPeriodTypeOfOviposit:
-                    cell.detailLabel.text = @"排卵日";
-                    break;
-                case kPeriodTypeOfMenstrual:
-                    cell.detailLabel.text = @"月经期";
-                    break;
-                case kPeriodTypeOfPregnancy:
-                    cell.detailLabel.text = @"易孕期";
-                    break;
-                case kPeriodTypeOfSafe:
-                    cell.detailLabel.text = @"安全期";
-                    break;
-            }
-            cell.line.hidden = YES;
-        }else if (indexPath.row == 1){
-            cell.titleLabel.text = @"基础体温";
-            cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
-            cell.line.hidden = YES;
-        }else if (indexPath.row == 2){
-            cell.titleLabel.text = @"受孕指数";
-            cell.detailLabel.text = @"4%";
-            cell.line.hidden = YES;
-        }else if (indexPath.row == 3){
-            cell.titleLabel.text = @"距离易孕期";
-            cell.detailLabel.text = [NSString stringWithFormat:@"%ld天",(long)pregnancy_days];
-            cell.line.hidden = YES;
-        }else if (indexPath.row == 4){
-            cell.titleLabel.text = @"当日记录";
-            cell.detailLabel.text = @"3项";
-            cell.line.hidden = YES;
+    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
+    if (indexPath.row == 0) {
+        cell.titleLabel.text = [NSString stringWithFormat:@"周期第%ld天",(long)period.dayInPeriod];
+        switch (period.type) {
+            case kPeriodTypeOfForecast:
+            case kPeriodTypeOfForecastStart:
+            case kPeriodTypeOfForecastEnd:
+                cell.detailLabel.text = @"预测经期";
+                break;
+            case kPeriodTypeOfOviposit:
+                cell.detailLabel.text = @"排卵日";
+                break;
+            case kPeriodTypeOfMenstrual:
+            case kPeriodTypeOfMenstrualStart:
+            case kPeriodTypeOfMenstrualEnd:
+                cell.detailLabel.text = @"月经期";
+                break;
+            case kPeriodTypeOfPregnancy:
+            case kPeriodTypeOfPregnancyStart:
+            case kPeriodTypeOfPregnancyEnd:
+                cell.detailLabel.text = @"易孕期";
+                break;
+            case kPeriodTypeOfSafe:
+                cell.detailLabel.text = @"安全期";
+                break;
         }
-    }];
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 1){
+        cell.titleLabel.text = @"基础体温";
+        cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 2){
+        cell.titleLabel.text = @"受孕指数";
+        cell.detailLabel.text = @"4%";
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 3){
+        cell.titleLabel.text = @"距离易孕期";
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld天",(long)period.dayBeforePregnantPeriod];
+        cell.line.hidden = YES;
+    }else if (indexPath.row == 4){
+        cell.titleLabel.text = @"当日记录";
+        cell.detailLabel.text = @"3项";
+        cell.line.hidden = YES;
+    }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
 

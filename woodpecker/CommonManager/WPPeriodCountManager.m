@@ -69,6 +69,9 @@ Singleton_Implementation(WPPeriodCountManager);
                     //间隔小于等于用户输入的周期，设置到下次开始的前一天
                     periodCountMode.period_end = [NSDate dateByAddingDays:-1 toDate:nextPeriodStartDate];
                 }
+            }else{
+                periodCountMode.isForecast = NO;
+                periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
             }
         }
         [self.periodList addObject:periodCountMode];
@@ -97,17 +100,19 @@ Singleton_Implementation(WPPeriodCountManager);
     }
     //如果最后一个周期小于今天，添加一个预测周期
     WPPeriodCountModel *lastPeriod = [self.periodList lastObject];
-    while (1) {
-        if ([NSDate isDateAfterToday:lastPeriod.period_start]) {
-            //如果最后的周期大于今日，说明已经添加了预测周期，跳出
-            break;
-        }else{
-            WPPeriodCountModel *newPeriod = [[WPPeriodCountModel alloc] init];
-            newPeriod.period_start = [NSDate dateByAddingDays:self.period toDate:lastPeriod.period_start];
-            newPeriod.period_end = [NSDate dateByAddingDays:self.menstruation toDate:newPeriod.period_start];
-            newPeriod.isForecast = YES;
-            [self.periodList addObject:newPeriod];
-            lastPeriod = newPeriod;
+    if (lastPeriod) {
+        while (1) {
+            if ([NSDate isDateAfterToday:lastPeriod.period_start]) {
+                //如果最后的周期大于今日，说明已经添加了预测周期，跳出
+                break;
+            }else{
+                WPPeriodCountModel *newPeriod = [[WPPeriodCountModel alloc] init];
+                newPeriod.period_start = [NSDate dateByAddingDays:self.period toDate:lastPeriod.period_start];
+                newPeriod.period_end = [NSDate dateByAddingDays:self.menstruation toDate:newPeriod.period_start];
+                newPeriod.isForecast = YES;
+                [self.periodList addObject:newPeriod];
+                lastPeriod = newPeriod;
+            }
         }
     }
     
@@ -164,7 +169,8 @@ Singleton_Implementation(WPPeriodCountManager);
     WPDayInfoInPeriod *dayInfo = [[WPDayInfoInPeriod alloc] init];
     dayInfo.isValide = YES;
     dayInfo.isMenstruationSwitchOffValide = NO;
-    
+    dayInfo.type = kPeriodTypeOfSafe;
+
     if ([self.periodList leie_isEmpty]) {
         //如果没有周期信息，全部返回无效
         dayInfo.isValide = NO;
@@ -202,9 +208,11 @@ Singleton_Implementation(WPPeriodCountManager);
     if ([NSDate isDate:destPeriod.period_start equalToDate:day toCalendarUnit:NSCalendarUnitDay]) {
         //经期开始日
         if (destPeriod.isForecast) {
-            dayInfo.type = kPeriodTypeOfForecastStart;
+//            dayInfo.type = kPeriodTypeOfForecastStart;
+            dayInfo.type = kPeriodTypeOfForecast;
         } else {
-            dayInfo.type = kPeriodTypeOfMenstrualStart;
+//            dayInfo.type = kPeriodTypeOfMenstrualStart;
+            dayInfo.type = kPeriodTypeOfMenstrual;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
@@ -219,9 +227,12 @@ Singleton_Implementation(WPPeriodCountManager);
     } else if ([NSDate isDate:destPeriod.period_end equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //经期结束日
         if (destPeriod.isForecast) {
-            dayInfo.type = kPeriodTypeOfForecastEnd;
+//            dayInfo.type = kPeriodTypeOfForecastEnd;
+            dayInfo.type = kPeriodTypeOfForecast;
+
         } else {
-            dayInfo.type = kPeriodTypeOfMenstrualEnd;
+//            dayInfo.type = kPeriodTypeOfMenstrualEnd;
+            dayInfo.type = kPeriodTypeOfMenstrual;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];

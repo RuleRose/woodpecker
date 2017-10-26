@@ -12,7 +12,7 @@
 @protocol WPStatusWheelViewDelegate;
 @interface WPStatusWheelView : UIControl
 @property(nonatomic, strong)NSDate *startDate;
-@property(nonatomic, strong)WPStatusViewModel *viewModel;
+//@property(nonatomic, strong)WPStatusViewModel *viewModel;
 
 @property(nonatomic, assign) id<WPStatusWheelViewDelegate> delegate;
 @end

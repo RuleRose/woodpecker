@@ -66,6 +66,24 @@
     return component.weekday;
 }
 
++ (NSDate *)beginingOfMonthOfDate:(NSDate *)date{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    calendar.locale = [NSLocale currentLocale];
+    calendar.timeZone = [NSTimeZone localTimeZone];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitSecond|NSCalendarUnitMinute fromDate:date];
+    components.day = 1;
+    return [calendar dateFromComponents:components];
+}
+
++ (NSDate *)endOfMonthOfDate:(NSDate *)date{
+    
+    NSDateComponents *components = [[self calendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour fromDate:date];
+    components.month++;
+    components.day = 0;
+    return [[self calendar] dateFromComponents:components];
+}
+
+
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format{
     NSDateFormatter *formatter = [self localFormatter];
     formatter.dateFormat = format;

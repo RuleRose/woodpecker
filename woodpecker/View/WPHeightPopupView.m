@@ -63,11 +63,11 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 100;
+    return 300;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%ld",(long)row];
+    return [NSString stringWithFormat:@"%ldcm",(long)row];
 }
 
 #pragma mark UIPickerViewDelegate
