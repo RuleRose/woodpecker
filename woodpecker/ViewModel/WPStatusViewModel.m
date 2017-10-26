@@ -146,8 +146,6 @@
     if (date) {
         NSTimeInterval time = [date timeIntervalSince2000];
         if (time >= 0) {
-            WPDeviceModel *device = [[WPDeviceModel alloc] init];
-            [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
             WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
             temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
             NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];

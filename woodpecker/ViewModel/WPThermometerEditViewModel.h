@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPTemperatureModel.h"
 
 @interface WPThermometerEditViewModel : NSObject
-
+- (void)syncTemp:(WPTemperatureModel *)temp success:(void (^)(BOOL success))success;
 @end

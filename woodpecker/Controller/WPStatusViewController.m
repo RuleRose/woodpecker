@@ -149,8 +149,10 @@
 
 }
 
-- (void)editTemperature{
+- (void)editTemperature:(WPTemperatureModel *)temperature date:(NSDate *)date{
     WPThermometerEditViewController *editVC = [[WPThermometerEditViewController alloc] init];
+    editVC.date = date;
+    editVC.temperature = temperature;
     [self.navigationController pushViewController:editVC animated:YES];
 }
 

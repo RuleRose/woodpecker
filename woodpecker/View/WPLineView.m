@@ -11,6 +11,7 @@
 #import <Charts/Charts.h>
 #import "WPTemperatureModel.h"
 #import "NSDate+Extension.h"
+#import "WPLineDateFormatter.h"
 
 @interface WPLineView ()<ChartViewDelegate>
 @property (nonatomic, strong) LineChartView *chartView;
@@ -49,7 +50,7 @@
         leftAxis.drawAxisLineEnabled = YES;
         leftAxis.gridLineWidth = 0.5;
         leftAxis.axisMaximum = 40.0;
-        leftAxis.axisMinimum = 35.0;
+        leftAxis.axisMinimum = 32.0;
         leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -70,7 +71,7 @@
         rightAxis.drawZeroLineEnabled = YES;
         rightAxis.gridLineWidth = 0.5;
         rightAxis.axisMaximum = 40.0;
-        rightAxis.axisMinimum = 35.0;
+        rightAxis.axisMinimum = 32.0;
         rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -87,11 +88,11 @@
         xAxis.labelTextColor = kColorFromRGB(0x666666);
         xAxis.drawGridLinesEnabled = YES;
         xAxis.drawAxisLineEnabled = YES;
-        xAxis.granularity = 1.0;
         xAxis.labelPosition = XAxisLabelPositionBottom;
         xAxis.gridLineWidth = 0.5;
         xAxis.gridColor = kColor_16_With_Alpha(0.5);
-        
+        xAxis.granularity = 1.0;
+        xAxis.valueFormatter = [[WPLineDateFormatter alloc] init];
     }
 }
 
@@ -135,27 +136,35 @@
     [_chartView animateWithXAxisDuration:0];
 }
 
-- (void)updateChartData:(NSArray *)sortTemps{
+- (void)updateChartData:(NSMutableArray *)sortTemps{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
-    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+//    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    NSInteger days = 0;
     if (sortTemps.count > 0) {
         WPTemperatureModel *lastTemp = [[sortTemps lastObject] lastObject];
         NSDate *startDate = [NSDate dateWithTimeIntervalSince2000:[lastTemp.time longLongValue]];
-        NSInteger days = [NSDate daysFromDate:startDate toDate:[NSDate date]];
-        for (NSInteger i = 0; i <= days; i ++) {
-            NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
-            [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
-        }
+        days = [NSDate daysFromDate:startDate toDate:[NSDate date]];
+//        for (NSInteger i = 0; i <= days; i ++) {
+//            NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
+//            [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
+//        }
+
+        NSMutableArray *startVals = [[NSMutableArray alloc] init];
+        [startVals addObject:[[ChartDataEntry alloc] initWithX:1 y:0]];
+        LineChartDataSet *startSet = [[LineChartDataSet alloc] initWithValues:startVals label:@""];
+        [dataSets addObject:startSet];
+
         for (NSArray *temps in sortTemps) {
             //每一段
             NSMutableArray *yVals = [[NSMutableArray alloc] init];
             PeriodType period_type = kPeriodTypeOfSafe;
             for (WPTemperatureModel *temp in temps) {
-                NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temp.time longLongValue]];
-                NSInteger days = [NSDate daysFromDate:startDate toDate:date];
+                NSDate *date = [NSDate dateFromString:temp.date format:@"yyyy MM dd"];
+                NSInteger days = [NSDate daysFromDate:date toDate:[NSDate date]];
+//                NSTimeInterval time = [date timeIntervalSince1970];
                 period_type = temp.period_type;
                 CGFloat temperature = [temp.temp floatValue];
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:days y:temperature]];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:-days y:temperature]];
             }
             NSString *title = @"安全期";
             UIColor *linefillColor = [UIColor clearColor];
@@ -208,25 +217,30 @@
             [dataSets addObject:dataSet];
         }
     }
+    NSMutableArray *endVals = [[NSMutableArray alloc] init];
+    [endVals addObject:[[ChartDataEntry alloc] initWithX:- (days + 1) y:0]];
+    LineChartDataSet *endSet = [[LineChartDataSet alloc] initWithValues:endVals label:@""];
+    [dataSets addObject:endSet];
+    
     LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
     [data setValueTextColor:UIColor.whiteColor];
     [data setValueFont:[UIFont systemFontOfSize:9.f]];
     data.highlightEnabled = YES;
     _chartView.data = data;
-    if (_showCount != 0) {
-        CGFloat scale = xVals.count/_showCount;
-        if (_scaleX >= 0) {
-            scale = _scaleX;
-        }
-        NSInteger index = xVals.count;
-        if (_xIndex >= 0) {
-            index = _xIndex + 3;
-        }
-        [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
-
-    }else{
-        [_chartView zoomWithScaleX:1 scaleY:1 xValue:xVals.count yValue:0 axis:AxisDependencyLeft];
-    }
+//    if (_showCount != 0) {
+//        CGFloat scale = days/_showCount;
+//        if (_scaleX >= 0) {
+//            scale = _scaleX;
+//        }
+//        NSInteger index = days;
+//        if (_xIndex >= 0) {
+//            index = _xIndex + 3;
+//        }
+//        [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
+//
+//    }else{
+//        [_chartView zoomWithScaleX:1 scaleY:1 xValue:days yValue:0 axis:AxisDependencyLeft];
+//    }
     [_chartView highlightValue:nil];
 }
 /*
