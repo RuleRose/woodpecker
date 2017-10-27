@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WPRecordTheme) {
     kWPRecordThemeOfSport, //运动时长
     kWPRecordThemeOfDrink, //饮酒
     kWPRecordThemeOfDrug,//服药
-    kWPRecordThemeOfComments//备注
+    kWPRecordThemeOfComments,//备注
+    kWPRecordThemeOfWeight//体重
+
 };
 #endif /* UtilsEnum_h */

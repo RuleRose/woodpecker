@@ -26,10 +26,11 @@
 - (NSString *)getDetailWithRecordTheme:(WPRecordTheme)theme index:(NSInteger)index;
 - (NSInteger)getSelectedIndexWithRecordTheme:(WPRecordTheme)theme detai:(NSString *)detail;
 - (void)setTheme:(WPRecordTheme)theme index:(NSInteger)index;
+- (void)setTheme:(WPRecordTheme)theme detail:(NSString *)detail;
 - (NSString *)getDetailWithEventTheme:(WPRecordTheme)theme;
+- (NSArray *)getDetailsWithTheme:(WPRecordTheme)theme;
 
 - (WPEventModel *)getEventWithDate:(NSDate *)date;
 - (void)updateEventSuccess:(void (^)(BOOL finished))result;
 - (void)updatePeriodSuccess:(void (^)(BOOL finished))result;
-
 @end

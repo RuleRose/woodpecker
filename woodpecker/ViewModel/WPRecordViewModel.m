@@ -261,6 +261,8 @@
             return @"type";
         case kWPRecordThemeOfComments:
             return @"comments";
+        case kWPRecordThemeOfWeight:
+            return @"weight";
     }
 }
 
@@ -318,6 +320,10 @@
         NSString *detail = [details objectAtIndex:index];
         [_event setTheme:theme detail:detail];
     }
+}
+
+- (void)setTheme:(WPRecordTheme)theme detail:(NSString *)detail{
+    [_event setTheme:theme detail:detail];
 }
 
 - (NSArray *)getDetailsWithTheme:(WPRecordTheme)theme{
@@ -410,7 +416,11 @@
         case kWPRecordThemeOfDrug:
             detail = _event.drug;
             break;
-        default:
+        case kWPRecordThemeOfComments:
+            detail = _event.comments;
+            break;
+        case kWPRecordThemeOfWeight:
+            detail = _event.weight;
             break;
     }
     return detail;
@@ -644,11 +654,26 @@
     }
     if (_event.comments) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
-        [eventDic setObject:@"1" forKey:@"type"];
+        [eventDic setObject:@"8" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.comments) {
             [description setObject:_event.comments forKey:@"comments"];
+        }
+        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [events addObject:eventDic];
+    }else{
+        if (event.comments) {
+            [delEvents addObject:event.event_id8];
+        }
+    }
+    if (_event.weight) {
+        NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
+        [eventDic setObject:@"9" forKey:@"type"];
+        [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
+        NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
+        if (_event.weight) {
+            [description setObject:_event.weight forKey:@"weight"];
         }
         [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
         [events addObject:eventDic];
