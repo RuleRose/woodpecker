@@ -7,7 +7,9 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "WPTemperatureModel.h"
 
 @interface WPThermometerEditViewController : XJFBaseViewController
-
+@property(nonatomic, strong)NSDate *date;
+@property(nonatomic, strong)WPTemperatureModel *temperature;
 @end

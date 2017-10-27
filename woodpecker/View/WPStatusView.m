@@ -136,8 +136,8 @@
 }
 
 - (void)tempEditBtnPressed{
-    if (_delegate && [_delegate respondsToSelector:@selector(editTemperature)]) {
-        [_delegate editTemperature];
+    if (_delegate && [_delegate respondsToSelector:@selector(editTemperature:date:)]) {
+        [_delegate editTemperature:_temperature date:_selectedDate];
     }
 }
 

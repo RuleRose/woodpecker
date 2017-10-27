@@ -8,6 +8,8 @@
 
 #import "WPThermometerEditViewController.h"
 #import "WPThermometerEditViewModel.h"
+#import "WPNetInterface.h"
+#import "NSDate+ext.h"
 
 @interface WPThermometerEditViewController ()
 @property (nonatomic, strong) UITextField *textField;
@@ -35,6 +37,12 @@
 }
 
 - (void)setupData{
+    if (!_temperature) {
+        _temperature = [[WPTemperatureModel alloc] init];
+    }
+    if (!_date) {
+        _date = [NSDate date];
+    }
     _viewModel = [[WPThermometerEditViewModel alloc] init];
 }
 
@@ -85,11 +93,22 @@
 }
 
 - (void)cancelBtnPressed{
-
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)saveBtnPressed{
+    NSString *temp = _textField.text;
+    if (![NSString leie_isBlankString:temp]) {
+        _temperature.sync = @"1";
+        _temperature.temp = temp;
+        NSString *dateStr = [NSString stringWithFormat:@"%@ 23:59:59",[NSDate stringFromDate:_date]];
+        NSDate *date = [NSDate dateFromString:dateStr format:@"yyyy MM dd HH:mm:ss"];
+        _temperature.time = [NSString stringWithFormat:@"%f",[date timeIntervalSince2000]];
+        [_viewModel syncTemp:_temperature success:^(BOOL success) {
+            [self.navigationController popViewControllerAnimated:YES];
 
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,7 +10,7 @@
 #import "WPTemperatureModel.h"
 
 @interface WPTemperatureViewModel : NSObject
-- (PeriodType)getPeriodWithDate:(NSDate *)date;
+//- (PeriodType)getPeriodWithDate:(NSDate *)date;
 - (void)getTempsBlock:(void (^)(NSMutableArray *sortTemps))result;
 
 @end

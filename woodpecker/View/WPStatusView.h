@@ -11,6 +11,7 @@
 #import "WPStatusWheelView.h"
 #import "WPUserModel.h"
 #import "WPStatusViewModel.h"
+#import "WPTemperatureModel.h"
 
 @protocol WPStatusViewDelegate;
 @interface WPStatusView : UIView<WPStatusWheelViewDelegate>
@@ -29,12 +30,14 @@
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) WPStatusViewModel *viewModel;
+@property (nonatomic, strong) WPTemperatureModel *temperature;
+
 - (void)updateState;
 @end
 @protocol WPStatusViewDelegate <NSObject>
 @optional
 - (void)showCalendar;
 - (void)showTemperature;
-- (void)editTemperature;
+- (void)editTemperature:(WPTemperatureModel *)temperature date:(NSDate *)date;
 - (void)showEventWithDate:(NSDate *)date;
 @end
