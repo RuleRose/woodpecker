@@ -11,6 +11,7 @@
 #import "WPRecordHeaderView.h"
 #import "WPRecordStatusModel.h"
 #import "WPRecordDetailCell.h"
+#import "WPWeightPopupView.h"
 
 @interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate,WPRecordDetailCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -193,6 +194,11 @@
         cell.theme = kWPRecordThemeOfDrug;
         cell.line.hidden = YES;
     }
+    if (indexPath.section == 13) {
+        cell.mixselection = YES;
+    }else{
+        cell.mixselection = NO;
+    }
     cell.delegate = self;
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
 }
@@ -247,6 +253,20 @@
         if (headerView.showSwitch) {
             headerView.switchView.on = _viewModel.on;
         }
+        if (section == 11) {
+            if ([NSString leie_isBlankString:_event.weight]) {
+                headerView.detailLabel.text = @"";
+            }else{
+                headerView.detailLabel.text = [NSString stringWithFormat:@"%@kg",_event.weight];
+            }
+        }
+        if (section == 14) {
+            if ([NSString leie_isBlankString:_event.comments]) {
+                headerView.detailLabel.text = @"";
+            }else{
+                headerView.detailLabel.text = _event.comments;
+            }
+        }
         return headerView;
     }
 }
@@ -269,8 +289,42 @@
     }
 }
 
+- (void)selectedRecordHeader:(WPRecordHeaderView *)headerView{
+    if (headerView.section == 11) {
+        //体重
+        WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
+        popView.weightBlock = ^(MMPopupView *popupView, NSInteger weight1, NSInteger weight2) {
+            _event.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
+            [_tableView reloadData];
+        };
+        [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
+            
+        }];
+    }else if (headerView.section == 14){
+        //备注
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"请输入备注信息" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:cancelAction];
+        MJWeakSelf;
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            if (alertController.textFields.count > 0) {
+                UITextField *textField = [alertController.textFields objectAtIndex:0];
+                weakSelf.event.comments =textField.text;
+                [weakSelf.tableView reloadData];
+            }
+        }];
+        [alertController addAction:confirmAction];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.textColor = kColorFromRGB(0x333333);
+            textField.font = [UIFont systemFontOfSize:18];
+        }];
+        [self.navigationController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 #pragma mark WPRecordDetailCellDelegate
-- (void)selectTheme:(WPRecordTheme)theme index:(NSInteger)index cell:(WPRecordDetailCell *)cell{
+- (void)selectTheme:(WPRecordTheme)theme detail:(NSString *)detail cell:(WPRecordDetailCell *)cell{
 
 }
 

@@ -23,6 +23,7 @@
 @property(nonatomic, copy)NSString *drink;//饮酒
 @property(nonatomic, copy)NSString *drug;//服药
 @property(nonatomic, copy)NSString *comments;//备注
+@property(nonatomic, copy)NSString *weight;//体重
 @property(nonatomic, copy)NSString *lastupdate; //最近一次更新的时间
 @property(nonatomic, copy)NSString *date; //事件日期（2017 07 18）
 @property(nonatomic, copy)NSString *extra_data; //额外数据（可选）

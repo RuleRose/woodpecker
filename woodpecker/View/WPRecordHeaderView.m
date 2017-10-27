@@ -77,6 +77,10 @@
         _status.showDetail = !_showDetail;
         self.showDetail = _status.showDetail;
         [_delegate showRecordHeader:self];
+    }else{
+        if (_delegate && [_delegate respondsToSelector:@selector(selectedRecordHeader:)]) {
+            [_delegate selectedRecordHeader:self];
+        }
     }
 }
 

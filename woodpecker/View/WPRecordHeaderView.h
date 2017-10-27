@@ -28,4 +28,6 @@
 @optional
 - (void)showRecordHeader:(WPRecordHeaderView *)headerView;
 - (void)swithBtnChanged:(WPRecordHeaderView *)headerView on:(BOOL)isOn;
+- (void)selectedRecordHeader:(WPRecordHeaderView *)headerView;
+
 @end
