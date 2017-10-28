@@ -48,8 +48,12 @@ Singleton_Implementation(WPPeriodCountManager);
     for (NSInteger i = 0; i < rawPeriodList.count; i++) {
         WPPeriodCountModel *periodCountMode = [[WPPeriodCountModel alloc] init];
         WPPeriodModel * periodMode = [rawPeriodList objectAtIndex:i];
+        periodCountMode.brief = periodMode.brief;
+        periodCountMode.extra_data = periodMode.extra_data;
+        periodCountMode.period_id = periodMode.period_id;
+        periodCountMode.lastupdate = periodMode.lastupdate;
+        periodCountMode.removed = periodMode.removed;
         NSDate *nextPeriodStartDate = nil;
-
         if (i < (rawPeriodList.count - 1)) {
             WPPeriodModel * nextPeriodMode = [rawPeriodList objectAtIndex:(i + 1)];
             nextPeriodStartDate = [NSDate dateFromString:nextPeriodMode.period_start format:DATE_FORMATE_STRING];
@@ -171,7 +175,9 @@ Singleton_Implementation(WPPeriodCountManager);
     dayInfo.isValide = YES;
     dayInfo.isMenstruationSwitchOffValide = NO;
     dayInfo.type = kPeriodTypeOfSafe;
-    
+    dayInfo.isStart = NO;
+    dayInfo.isEnd = NO;
+
     WPPeriodCountModel *destPeriod = [self getCurrentPeriodInfo:day];
     if (!destPeriod) {
         //没找到目标周期
@@ -185,10 +191,12 @@ Singleton_Implementation(WPPeriodCountManager);
         //经期开始日
         if (destPeriod.isForecast) {
 //            dayInfo.type = kPeriodTypeOfForecastStart;
+            dayInfo.isStart = YES;
             dayInfo.type = kPeriodTypeOfForecast;
         } else {
 //            dayInfo.type = kPeriodTypeOfMenstrualStart;
             dayInfo.type = kPeriodTypeOfMenstrual;
+            dayInfo.isStart = YES;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
@@ -205,10 +213,12 @@ Singleton_Implementation(WPPeriodCountManager);
         if (destPeriod.isForecast) {
 //            dayInfo.type = kPeriodTypeOfForecastEnd;
             dayInfo.type = kPeriodTypeOfForecast;
+            dayInfo.isEnd = YES;
 
         } else {
 //            dayInfo.type = kPeriodTypeOfMenstrualEnd;
             dayInfo.type = kPeriodTypeOfMenstrual;
+            dayInfo.isEnd = YES;
         }
         if (destPeriod.pregnant_start) {
             NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];

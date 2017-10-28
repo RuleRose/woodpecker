@@ -10,15 +10,15 @@
 #import "WPEventModel.h"
 #import "WPPeriodModel.h"
 #import "WPProfileModel.h"
+#import "WPDayInfoInPeriod.h"
 
 @interface WPRecordViewModel : NSObject
 @property (nonatomic,strong) NSMutableArray *statuses;
-@property (nonatomic,strong) NSMutableArray *periods;
+//@property (nonatomic,strong) NSMutableArray *periods;
 @property (nonatomic,strong) WPEventModel *event;
-@property (nonatomic,strong) WPPeriodModel *period;
+@property (nonatomic,strong) WPDayInfoInPeriod *period_day;
 @property (nonatomic,strong) NSDate *eventDate;
 @property (nonatomic,assign) BOOL on;
-@property (nonatomic,assign) BOOL isStart;
 
 - (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme;
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme;

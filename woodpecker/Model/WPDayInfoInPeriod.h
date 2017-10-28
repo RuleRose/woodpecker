@@ -15,4 +15,8 @@
 @property (nonatomic,assign) BOOL isForeCast; //是否预测周期
 @property (nonatomic,assign) BOOL isMenstruationSwitchOffValide; //经期结束开关
 @property (nonatomic,assign) BOOL isValide; //数据是否有效，无效就显示空白
+
+@property (nonatomic,assign) BOOL isStart;
+@property (nonatomic,assign) BOOL isEnd;
+
 @end

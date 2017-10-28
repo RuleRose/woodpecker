@@ -12,6 +12,7 @@
 #import "WPRecordStatusModel.h"
 #import "WPRecordDetailCell.h"
 #import "WPWeightPopupView.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate,WPRecordDetailCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -62,6 +63,7 @@
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_viewModel updatePeriodSuccess:^(BOOL finished) {
+        [[WPPeriodCountManager defaultInstance] recountPeriod];
         [_viewModel updateEventSuccess:^(BOOL finished) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
@@ -225,6 +227,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (_viewModel.isStart && _viewModel.on) {
+        if (section >= 2 && section <=6) {
+            return 0;
+        }
+    }
     if (section == 0 || section == 3 || section == 7 ) {
         return 28;
     }
@@ -267,6 +274,7 @@
                 headerView.detailLabel.text = _event.comments;
             }
         }
+        headerView.layer.masksToBounds = YES;
         return headerView;
     }
 }
@@ -287,6 +295,7 @@
     }else{
         _viewModel.on = NO;
     }
+    [_tableView reloadData];
 }
 
 - (void)selectedRecordHeader:(WPRecordHeaderView *)headerView{

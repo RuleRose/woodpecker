@@ -14,6 +14,6 @@
 }
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName{
-    return @{@"period_id":@"id",@"breif":@"description"};
+    return @{@"breif":@"description"};
 }
 @end
