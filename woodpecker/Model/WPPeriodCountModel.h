@@ -19,5 +19,6 @@
 @property (nonatomic,strong) NSDate *pregnant_start;
 @property (nonatomic,strong) NSDate *pregnant_end;
 @property (nonatomic,strong) NSDate *ovulate_day;
-@property (nonatomic,assign) BOOL isForecast;
+@property (nonatomic,assign) BOOL isForecast; //整个周期是否是预测的
+@property (nonatomic,assign) BOOL isEndDayForecast; //经期的结束日期是否是预测的
 @end

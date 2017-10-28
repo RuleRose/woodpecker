@@ -61,9 +61,11 @@ Singleton_Implementation(WPPeriodCountManager);
         
         periodCountMode.period_start = [NSDate dateFromString:periodMode.period_start format:DATE_FORMATE_STRING];
         periodCountMode.isForecast = NO;
+        periodCountMode.isEndDayForecast = YES;
         if (![NSString leie_isBlankString:periodModel.period_end]) {
             //用户输入了结束日期，直接记录
             periodCountMode.period_end = [NSDate dateFromString:periodMode.period_end format:DATE_FORMATE_STRING];
+            periodCountMode.isEndDayForecast = NO;
         } else {
             if (nextPeriodStartDate) {
                 NSInteger timeGap = [NSDate daysFromDate:periodCountMode.period_start toDate:nextPeriodStartDate];
@@ -96,6 +98,7 @@ Singleton_Implementation(WPPeriodCountManager);
                 periodCountMode.period_start = nextForecastDate;
                 periodCountMode.period_end = nextForecastDateEnd;
                 periodCountMode.isForecast = YES;
+                periodCountMode.isEndDayForecast = YES;
                 [self.periodList addObject:periodCountMode];
             }else{
                 //如果超过下次用户设置的开始日期的前七天，跳出
@@ -115,6 +118,7 @@ Singleton_Implementation(WPPeriodCountManager);
                 newPeriod.period_start = [NSDate dateByAddingDays:self.period toDate:lastPeriod.period_start];
                 newPeriod.period_end = [NSDate dateByAddingDays:self.menstruation toDate:newPeriod.period_start];
                 newPeriod.isForecast = YES;
+                newPeriod.isEndDayForecast = YES;
                 [self.periodList addObject:newPeriod];
                 lastPeriod = newPeriod;
             }
@@ -186,7 +190,8 @@ Singleton_Implementation(WPPeriodCountManager);
     }
     
     dayInfo.dayInPeriod = [NSDate daysFromDate:destPeriod.period_start toDate:day] + 1;
-    dayInfo.isForeCast = destPeriod.isForecast;
+    dayInfo.isForecast = destPeriod.isForecast;
+    dayInfo.isEndDayForecast = destPeriod.isEndDayForecast;
     if ([NSDate isDate:destPeriod.period_start equalToDate:day toCalendarUnit:NSCalendarUnitDay]) {
         //经期开始日
         if (destPeriod.isForecast) {
