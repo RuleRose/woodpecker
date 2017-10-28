@@ -12,6 +12,7 @@
 @interface WPCalendarDetailViewController : XJFBaseViewController
 @property(nonatomic,strong)NSDate *selectedDate;
 @property(nonatomic, assign) id<WPCalendarDetailDelegate> delegate;
+@property(nonatomic,strong)NSMutableDictionary *periodDic;
 
 @end
 @protocol WPCalendarDetailDelegate <NSObject>

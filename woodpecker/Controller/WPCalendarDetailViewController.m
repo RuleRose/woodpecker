@@ -96,6 +96,7 @@
 
 - (void)setupData{
     _viewModel = [[WPCalendarDetailViewModel alloc] init];
+    _viewModel.periodDic = _periodDic;
 }
 
 - (void)setupViews{
@@ -238,22 +239,34 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
-        //        PeriodType period = [_viewModel getPeriodWithDate:date];
+        NSString *dateStr = [NSDate stringFromDate:date];
+        WPDayInfoInPeriod *period = [_viewModel.periodDic objectForKey:dateStr];
+        if(!period){
+            period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
+            [_viewModel.periodDic setObject:period forKey:dateStr];
+        }
         calendarCell.period = period.type;
         if (period.type == kPeriodTypeOfOviposit) {
             calendarCell.shape = kPeriodShapeOfCircle;
         }else{
             NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
             NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
-            WPDayInfoInPeriod *tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
-            WPDayInfoInPeriod *yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
-            //            PeriodType tomorrow_period = [_viewModel getPeriodWithDate:tomorrow];
-            //            PeriodType yesterday_period = [_viewModel getPeriodWithDate:yesterday];
+            NSString *tomorrow_dateStr = [NSDate stringFromDate:tomorrow];
+            WPDayInfoInPeriod *tomorrow_period = [_viewModel.periodDic objectForKey:tomorrow_dateStr];
+            if(!tomorrow_period){
+                tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
+                [_viewModel.periodDic setObject:tomorrow_period forKey:tomorrow_dateStr];
+            }
+            NSString *yesterday_dateStr = [NSDate stringFromDate:yesterday];
+            WPDayInfoInPeriod *yesterday_period = [_viewModel.periodDic objectForKey:yesterday_dateStr];
+            if(!yesterday_period){
+                yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
+                [_viewModel.periodDic setObject:yesterday_period forKey:yesterday_dateStr];
+            }
             NSInteger weekday = [NSDate weekdayOfDate:date];
-            if (weekday == 1) {
+            if (weekday == 1 || [NSDate isDate:date equalToDate:[NSDate beginingOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]) {
                 if (tomorrow_period.type == period.type) {
-                    if (tomorrow_period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfLeft;
@@ -261,9 +274,9 @@
                 }else{
                     calendarCell.shape = kPeriodShapeOfSingle;
                 }
-            }else if (weekday == 7){
+            }else if (weekday == 7 || [NSDate isDate:date equalToDate:[NSDate endOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]){
                 if (yesterday_period.type == period.type) {
-                    if (period.dayInPeriod  == 0) {
+                    if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfRight;
@@ -273,21 +286,21 @@
                 }
             }else{
                 if ((yesterday_period.type == period.type) && (tomorrow_period.type == period.type)) {
-                    if (tomorrow_period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfRight;
-                    }else if (period.dayInPeriod  == 0) {
+                    }else if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfLeft;
                     }else{
                         calendarCell.shape = kPeriodShapeOfMiddle;
                     }
                 }else if(yesterday_period.type == period.type){
-                    if (period.dayInPeriod  == 0) {
+                    if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfRight;
                     }
                 }else if(tomorrow_period.type == period.type){
-                    if (period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfLeft;

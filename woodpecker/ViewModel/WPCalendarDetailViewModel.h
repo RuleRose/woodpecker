@@ -13,7 +13,6 @@
 @interface WPCalendarDetailViewModel : NSObject
 @property(nonatomic, strong)WPUserModel *user;
 @property(nonatomic, strong)WPProfileModel *profile;
-//@property (nonatomic,strong)NSMutableArray *periods;
-//- (PeriodType)getPeriodWithDate:(NSDate *)date;
-//- (void)getPeriodWithData:(NSDate *)date block:(void (^)(PeriodType period_type,NSInteger period_days,NSInteger pregnancy_days))result;
+@property(nonatomic, strong)NSMutableDictionary *periodDic;
+
 @end

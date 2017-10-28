@@ -155,23 +155,18 @@
         startDate =[NSDate dateFromString:[NSDate stringFromDate:startDate] format:@"yyyy MM dd"];
         _formatter.startDate = startDate;
        total_days = [NSDate daysFromDate:startDate toDate:today];
-//        for (NSInteger i = 0; i <= days; i ++) {
-//            NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
-//            [xVals addObject:[NSDate stringFromDate:date format:@"MMdd"]];
-//        }
-
         NSMutableArray *startVals = [[NSMutableArray alloc] init];
-        [startVals addObject:[[ChartDataEntry alloc] initWithX:-5 y:0]];
+        [startVals addObject:[[ChartDataEntry alloc] initWithX:-1 y:0]];
         LineChartDataSet *startSet = [[LineChartDataSet alloc] initWithValues:startVals label:@""];
         [dataSets addObject:startSet];
-        for (NSArray *temps in sortTemps) {
-            //每一段
+        for (NSInteger i = sortTemps.count - 1; i >= 0; i --) {
+            NSArray *temps = [sortTemps objectAtIndex:i];
             NSMutableArray *yVals = [[NSMutableArray alloc] init];
             PeriodType period_type = kPeriodTypeOfSafe;
-            for (WPTemperatureModel *temp in temps) {
+            for (NSInteger j = temps.count -1; j >= 0; j --) {
+                WPTemperatureModel *temp = [temps objectAtIndex:j];
                 NSDate *date = [NSDate dateFromString:temp.date format:@"yyyy MM dd"];
-                NSInteger days = [NSDate daysFromDate:startDate toDate:date];
-//                NSTimeInterval time = [date timeIntervalSince1970];
+                CGFloat x = [NSDate daysFromDate:startDate toDate:date];
                 if (yVals.count == 0) {
                     period_type = temp.period_type;
                 }
@@ -182,7 +177,7 @@
                 if (temperature < 32) {
                     temperature = 32;
                 }
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:days y:temperature]];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:temperature]];
             }
             NSString *title = @"安全期";
             UIColor *linefillColor = [UIColor clearColor];
@@ -199,7 +194,7 @@
                     linefillColor = kColor_15;
                     lineColor = kColor_15;
                     break;
-
+                    
                 case kPeriodTypeOfPregnancy:
                     title = @"易孕期";
                     linefillColor = kColor_18;
@@ -236,7 +231,7 @@
         }
     }
     NSMutableArray *endVals = [[NSMutableArray alloc] init];
-    [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 5) y:0]];
+    [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 1) y:0]];
     LineChartDataSet *endSet = [[LineChartDataSet alloc] initWithValues:endVals label:@""];
     [dataSets addObject:endSet];
     

@@ -10,7 +10,9 @@
 #import "WPPickerItemView.h"
 
 @interface WPWeightPopupView()<UIPickerViewDataSource,UIPickerViewDelegate>
-@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) UIPickerView *leftPickerView;
+@property (nonatomic, strong) UIPickerView *rightPickerView;
+
 @property (nonatomic, strong) UIView *markView;
 @property (nonatomic, strong) UILabel *unitlabel;
 @property (nonatomic, strong) UILabel *pointLabel;
@@ -35,12 +37,18 @@
 
 - (void)setupViews{
     [super setupViews];
-    _pickerView = [[UIPickerView alloc] init];
-    _pickerView.backgroundColor = kColor_1;
-    _pickerView.showsSelectionIndicator = YES;
-    _pickerView.delegate = self;
-    _pickerView.dataSource = self;
-    [self.contentView addSubview:_pickerView];
+    _leftPickerView = [[UIPickerView alloc] init];
+    _leftPickerView.backgroundColor = kColor_1;
+    _leftPickerView.showsSelectionIndicator = YES;
+    _leftPickerView.delegate = self;
+    _leftPickerView.dataSource = self;
+    [self.contentView addSubview:_leftPickerView];
+    _rightPickerView = [[UIPickerView alloc] init];
+    _rightPickerView.backgroundColor = kColor_1;
+    _rightPickerView.showsSelectionIndicator = YES;
+    _rightPickerView.delegate = self;
+    _rightPickerView.dataSource = self;
+    [self.contentView addSubview:_rightPickerView];
     _markView = [[UIView alloc] init];
     _markView.backgroundColor = kColor_5;
     [self.contentView addSubview:_markView];
@@ -60,11 +68,20 @@
     [self addSubview:_unitlabel];
 
     MJWeakSelf;
-    [_pickerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_leftPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.bottom.equalTo(@(-0.5));
         make.left.equalTo(@6);
+        make.right.equalTo(weakSelf.rightPickerView.mas_left);
+        make.width.equalTo(weakSelf.rightPickerView.mas_width);
+    }];
+    [_rightPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@0);
+        make.bottom.equalTo(@(-0.5));
+        make.left.equalTo(weakSelf.leftPickerView.mas_right);
         make.right.equalTo(@0);
+        make.width.equalTo(weakSelf.leftPickerView.mas_width);
+
     }];
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);
@@ -84,17 +101,18 @@
         make.left.equalTo(weakSelf.pointLabel.mas_right).offset(36);
         make.width.equalTo(@80);
     }];
-    [_pickerView selectRow:50 inComponent:0 animated:NO];
+    [_leftPickerView selectRow:50 inComponent:0 animated:NO];
+    [_rightPickerView selectRow:0 inComponent:0 animated:NO];
 }
 
 
 #pragma mark UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if (component == 0) {
+    if (pickerView == _leftPickerView) {
         return 500;
     }else{
         return 10;
@@ -114,7 +132,7 @@
         item.titleLabel.font = kFont_3(18);
         item.titleLabel.backgroundColor = [UIColor clearColor];
     }
-    if (component == 0) {
+    if (pickerView == _leftPickerView) {
         item.titleLabel.textAlignment = NSTextAlignmentRight;
         [item.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@0);
@@ -149,7 +167,7 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
-    return pickerView.frame.size.width/2;
+    return pickerView.frame.size.width;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
@@ -162,8 +180,8 @@
 
 - (void)confirmBtnPressed{
     [self hide];
-    NSInteger weight1 = [_pickerView selectedRowInComponent:0];
-    NSInteger weight2 = [_pickerView selectedRowInComponent:1];
+    NSInteger weight1 = [_leftPickerView selectedRowInComponent:0];
+    NSInteger weight2 = [_rightPickerView selectedRowInComponent:0];
     if (_weightBlock) {
         _weightBlock(self, weight1,weight2);
     }
