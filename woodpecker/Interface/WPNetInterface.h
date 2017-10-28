@@ -45,10 +45,10 @@
 + (void)uploadAvatar:(UIImage *)vavtar user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
 
 
-+ (void)postPeriod:(NSString *)user_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure;
-+ (void)updatePeriod:(NSString *)period_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure;
-+ (void)deletePeriod:(NSString *)period_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure;
++ (void)postPeriod:(NSString *)user_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
++ (void)updatePeriod:(NSString *)period_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
++ (void)deletePeriod:(NSString *)period_id success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
 
-+ (void)getPeriod:(NSString *)period_id start_update_time:(NSString*)start_update_time end_update_time:(NSString*)end_update_time  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
++ (void)getPeriod:(NSString *)user_id start_update_time:(NSString*)start_update_time end_update_time:(NSString*)end_update_time  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure;
 
 @end

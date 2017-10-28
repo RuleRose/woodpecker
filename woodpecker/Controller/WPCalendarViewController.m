@@ -126,7 +126,7 @@
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate date];
+    return  [NSDate nextMonthOfDate:[NSDate date]];
 }
 
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
@@ -259,7 +259,7 @@
             NSInteger weekday = [NSDate weekdayOfDate:date];
             if (weekday == 1 || [NSDate isDate:date equalToDate:[NSDate beginingOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]) {
                 if (tomorrow_period.type == period.type) {
-                    if (tomorrow_period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfLeft;
@@ -269,7 +269,7 @@
                 }
             }else if (weekday == 7 || [NSDate isDate:date equalToDate:[NSDate endOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]){
                 if (yesterday_period.type == period.type) {
-                    if (period.dayInPeriod  == 0) {
+                    if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfRight;
@@ -279,21 +279,21 @@
                 }
             }else{
                 if ((yesterday_period.type == period.type) && (tomorrow_period.type == period.type)) {
-                    if (tomorrow_period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfRight;
-                    }else if (period.dayInPeriod  == 0) {
+                    }else if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfLeft;
                     }else{
                         calendarCell.shape = kPeriodShapeOfMiddle;
                     }
                 }else if(yesterday_period.type == period.type){
-                    if (period.dayInPeriod  == 0) {
+                    if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfRight;
                     }
                 }else if(tomorrow_period.type == period.type){
-                    if (tomorrow_period.dayInPeriod  == 0) {
+                    if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
                     }else{
                         calendarCell.shape = kPeriodShapeOfLeft;

@@ -457,7 +457,7 @@
     }];
 }
 
-+ (void)postPeriod:(NSString *)user_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure{
++ (void)postPeriod:(NSString *)user_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (user_id) {
         [params setObject:user_id forKey:@"user_id"];
@@ -470,9 +470,9 @@
     }
     [[XJFNetworkManager shareManager] requestWithPath:PERIOD_POST requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         if (!error) {
-            NSString *period_id = [data objectForKey:@"period_id"];
+            NSArray *periods = [data objectForKey:@"periods"];
             if (success) {
-                success(period_id);
+                success(periods);
             }
         }else{
             if (failure) {
@@ -482,7 +482,7 @@
     }];
 }
 
-+ (void)updatePeriod:(NSString *)period_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSString *period_id))success failure:(void (^)(NSError* error))failure{
++ (void)updatePeriod:(NSString *)period_id period_start:(NSString*)period_start period_end:(NSString*)period_end  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (period_id) {
         [params setObject:period_id forKey:@"period_id"];
@@ -495,9 +495,9 @@
     }
     [[XJFNetworkManager shareManager] requestWithPath:PERIOD_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
         if (!error) {
-            NSString *period_id = [data objectForKey:@"period_id"];
+            NSArray *periods = [data objectForKey:@"periods"];
             if (success) {
-                success(period_id);
+                success(periods);
             }
         }else{
             if (failure) {
@@ -507,16 +507,16 @@
     }];
 }
 
-+ (void)deletePeriod:(NSString *)period_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
++ (void)deletePeriod:(NSString *)period_id success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (period_id) {
         [params setObject:period_id forKey:@"period_id"];
     }
     [[XJFNetworkManager shareManager] requestWithPath:PERIOD_DELETE requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
         if (!error) {
-            NSString *period_id = [data objectForKey:@"period_id"];
+            NSArray *periods = [data objectForKey:@"periods"];
             if (success) {
-                success(period_id);
+                success(periods);
             }
         }else{
             if (failure) {
@@ -526,10 +526,10 @@
     }];
 }
 
-+ (void)getPeriod:(NSString *)period_id start_update_time:(NSString*)start_update_time end_update_time:(NSString*)end_update_time  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure{
++ (void)getPeriod:(NSString *)user_id start_update_time:(NSString*)start_update_time end_update_time:(NSString*)end_update_time  success:(void (^)(NSArray *periods))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    if (period_id) {
-        [params setObject:period_id forKey:@"period_id"];
+    if (user_id) {
+        [params setObject:user_id forKey:@"user_id"];
     }
     if (start_update_time) {
         [params setObject:start_update_time forKey:@"start_update_time"];

@@ -162,7 +162,6 @@
             }
             break;
     }
-    _wheelView.startDate = _selectedDate;
 }
 
 - (void)bindDevice{

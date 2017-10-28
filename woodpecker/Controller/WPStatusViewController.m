@@ -43,14 +43,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
-
+    [[WPPeriodCountManager defaultInstance] recountPeriod];
+    [_statusView updateState];
+    _statusView.startDate = [_viewModel getStartDate];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
-    _statusView.startDate = [_viewModel getStartDate];
 }
 
 - (void)setupData{

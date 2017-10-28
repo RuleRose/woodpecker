@@ -227,13 +227,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (_viewModel.isStart && _viewModel.on) {
+    if (_viewModel.period_day.type == kPeriodTypeOfMenstrual || _viewModel.period_day.type == kPeriodTypeOfMenstrualStart ||_viewModel.period_day.type == kPeriodTypeOfMenstrualEnd) {
+        if (section == 0 || section == 3 || section == 7 ) {
+            return 28;
+        }
+    }else{
         if (section >= 2 && section <=6) {
             return 0;
         }
-    }
-    if (section == 0 || section == 3 || section == 7 ) {
-        return 28;
     }
     return 41;
 }
