@@ -204,7 +204,7 @@ Singleton_Implementation(WPPeriodCountManager);
             dayInfo.isStart = YES;
         }
         if (destPeriod.pregnant_start) {
-            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
+            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.pregnant_start];
             if (dayBefore > 0) {
                 dayInfo.dayBeforePregnantPeriod = dayBefore;
             } else {
@@ -226,7 +226,7 @@ Singleton_Implementation(WPPeriodCountManager);
             dayInfo.isEnd = YES;
         }
         if (destPeriod.pregnant_start) {
-            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
+            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.pregnant_start];
             if (dayBefore > 0) {
                 dayInfo.dayBeforePregnantPeriod = dayBefore;
             } else {
@@ -243,7 +243,7 @@ Singleton_Implementation(WPPeriodCountManager);
             dayInfo.type = kPeriodTypeOfMenstrual;
         }
         if (destPeriod.pregnant_start) {
-            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
+            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.pregnant_start];
             if (dayBefore > 0) {
                 dayInfo.dayBeforePregnantPeriod = dayBefore;
             } else {
@@ -276,7 +276,7 @@ Singleton_Implementation(WPPeriodCountManager);
         //安全期
         dayInfo.type = kPeriodTypeOfSafe;
         if (destPeriod.pregnant_start) {
-            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.period_start];
+            NSInteger dayBefore = [NSDate daysFromDate:day toDate:destPeriod.pregnant_start];
             if (dayBefore > 0) {
                 dayInfo.dayBeforePregnantPeriod = dayBefore;
             } else {

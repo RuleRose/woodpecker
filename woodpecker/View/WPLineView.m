@@ -49,7 +49,7 @@
         leftAxis.granularityEnabled = YES;
         leftAxis.drawAxisLineEnabled = YES;
         leftAxis.gridLineWidth = 0.5;
-        leftAxis.axisMaximum = 40.0;
+        leftAxis.axisMaximum = 45.0;
         leftAxis.axisMinimum = 32.0;
         leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -70,7 +70,7 @@
         rightAxis.drawAxisLineEnabled = YES;
         rightAxis.drawZeroLineEnabled = YES;
         rightAxis.gridLineWidth = 0.5;
-        rightAxis.axisMaximum = 40.0;
+        rightAxis.axisMaximum = 45.0;
         rightAxis.axisMinimum = 32.0;
         rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -118,14 +118,13 @@
     _chartView.descriptionText = @"";
     _chartView.noDataText = @"没有数据";
     _chartView.dragEnabled = YES;
-    [_chartView setScaleEnabled:YES];
+    [_chartView setScaleEnabled:NO];
     _chartView.drawGridBackgroundEnabled = NO;
-    _chartView.pinchZoomEnabled = YES;
+    _chartView.pinchZoomEnabled = NO;
     _chartView.backgroundColor = [UIColor clearColor];
-    _chartView.pinchZoomEnabled = YES;
+    _chartView.pinchZoomEnabled = NO;
     _chartView.scaleYEnabled = NO;
-    _chartView.scaleXEnabled = YES;
-    
+    _chartView.scaleXEnabled = NO;
     _marker = [[BalloonMarker alloc] initWithTextColor:kColorFromRGB(0x777777) font:[UIFont systemFontOfSize:14] insets:UIEdgeInsetsMake(4.0, 14.0, 8.0, 14.0)];
     _marker.minimumSize = CGSizeMake(60.f, 30.f);
     _marker.isInt = YES;
@@ -134,7 +133,14 @@
     _marker.arrowSize = CGSizeMake(7, 4);
     _chartView.marker = _marker;
     [_chartView animateWithXAxisDuration:0];
+    _showCount = 15;
 }
+
+//- (void)setShowCount:(NSInteger)showCount{
+//    _showCount = showCount;
+//    _chartView.maxVisibleCount = showCount;
+//
+//}
 
 - (void)updateChartData:(NSMutableArray *)sortTemps{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
@@ -164,6 +170,12 @@
 //                NSTimeInterval time = [date timeIntervalSince1970];
                 period_type = temp.period_type;
                 CGFloat temperature = [temp.temp floatValue];
+                if (temperature > 45) {
+                    temperature = 45;
+                }
+                if (temperature < 32) {
+                    temperature = 32;
+                }
                 [yVals addObject:[[ChartDataEntry alloc] initWithX:-days y:temperature]];
             }
             NSString *title = @"安全期";
@@ -173,23 +185,23 @@
                 case kPeriodTypeOfForecast:
                 case kPeriodTypeOfMenstrual:
                     title = @"月经期";
-                    linefillColor = kColor_5_With_Alpha(0.5);
+                    linefillColor = kColor_5;
                     lineColor = kColor_5;
                     break;
                 case kPeriodTypeOfOviposit:
                     title = @"排卵日";
-                    linefillColor = kColor_15_With_Alpha(0.5);
+                    linefillColor = kColor_15;
                     lineColor = kColor_15;
                     break;
 
                 case kPeriodTypeOfPregnancy:
                     title = @"易孕期";
-                    linefillColor = kColor_18_With_Alpha(0.5);
+                    linefillColor = kColor_18;
                     lineColor = kColor_18;
                     break;
                 default:
                     title = @"安全期";
-                    linefillColor = kColor_17_With_Alpha(0.5);
+                    linefillColor = kColor_17;
                     lineColor = kColor_17;
                     break;
             }
@@ -202,15 +214,15 @@
             dataSet.circleHoleColor = lineColor;
             NSArray *gradientColors = @[(id)kColor_10.CGColor,(id)linefillColor.CGColor];
             CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
-            dataSet.lineWidth = 0.5;
+            dataSet.lineWidth = 1;
             dataSet.drawCircleHoleEnabled = YES;
             dataSet.drawCubicEnabled = NO;
-            dataSet.circleRadius = 3;
-            dataSet.circleHoleRadius = 1.5;
+            dataSet.circleRadius = 6;
+            dataSet.circleHoleRadius = 3;
             dataSet.drawVerticalHighlightIndicatorEnabled = YES;
             dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
             dataSet.drawValuesEnabled = NO;
-            dataSet.highlightLineWidth = 0.5;
+            dataSet.highlightLineWidth = 1;
             dataSet.fillAlpha = 1.0;
             dataSet.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];
             dataSet.drawFilledEnabled = YES;
@@ -227,20 +239,20 @@
     [data setValueFont:[UIFont systemFontOfSize:9.f]];
     data.highlightEnabled = YES;
     _chartView.data = data;
-//    if (_showCount != 0) {
-//        CGFloat scale = days/_showCount;
-//        if (_scaleX >= 0) {
-//            scale = _scaleX;
-//        }
-//        NSInteger index = days;
-//        if (_xIndex >= 0) {
-//            index = _xIndex + 3;
-//        }
-//        [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
-//
-//    }else{
-//        [_chartView zoomWithScaleX:1 scaleY:1 xValue:days yValue:0 axis:AxisDependencyLeft];
-//    }
+    if (_showCount != 0) {
+        CGFloat scale = (CGFloat)days/(CGFloat)_showCount;
+        if (_scaleX >= 0) {
+            scale = _scaleX;
+        }
+        NSInteger index = days;
+        if (_xIndex >= 0) {
+            index = _xIndex + 3;
+        }
+        [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
+        
+    }else{
+        [_chartView zoomWithScaleX:1 scaleY:1 xValue:days yValue:0 axis:AxisDependencyLeft];
+    }
     [_chartView highlightValue:nil];
 }
 /*

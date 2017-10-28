@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WPStatusViewModel.h"
+#import "WPDayInfoInPeriod.h"
 
 @protocol WPStatusWheelViewDelegate;
 @interface WPStatusWheelView : UIControl
@@ -18,5 +19,5 @@
 @end
 @protocol WPStatusWheelViewDelegate <NSObject>
 @optional
-- (void)showDetailDate:(NSDate *)date period:(PeriodType)period_type;
+- (void)showDetailDate:(NSDate *)date period:(WPDayInfoInPeriod *)period_day;
 @end

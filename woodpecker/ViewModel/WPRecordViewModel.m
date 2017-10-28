@@ -768,6 +768,10 @@
                     }];
                 }
             }
+        }else{
+            if (result) {
+                result(YES);
+            }
         }
     }else{
         //最早之前新建
@@ -824,6 +828,10 @@
                 } failure:^(NSError *error) {
                     
                 }];
+            }
+        }else{
+            if (result) {
+                result(YES);
             }
         }
     }

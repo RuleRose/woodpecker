@@ -10,6 +10,7 @@
 #import "MMCDeviceManager.h"
 #import "NSDate+Extension.h"
 #import "XJFDBManager.h"
+#import "WPPeriodCountManager.h"
 
 @implementation WPStatusView
 - (instancetype)initWithFrame:(CGRect)frame
@@ -162,17 +163,15 @@
             }
             break;
     }
-}
-
-- (void)bindDevice{
-
+    WPDayInfoInPeriod *period_day = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
+    [self showDetailDate:_selectedDate period:period_day];
 }
 
 #pragma mark WPStatusWheelViewDelegate
-- (void)showDetailDate:(NSDate *)date period:(PeriodType)period_type{
+- (void)showDetailDate:(NSDate *)date period:(WPDayInfoInPeriod *)period_day{
     _selectedDate = date;
     _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
-    switch (period_type) {
+    switch (period_day.type) {
         case kPeriodTypeOfForecast:
             _periodLabel.text = @"预测经期";
             break;
@@ -191,10 +190,13 @@
             break;
     }
     //取某天的记录
+   
     [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)[_viewModel eventCountAtDate:date]] unit:@"项" showNext:YES];
+    [_timeView setTitle:@"距离易孕期" detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
+    
     //某日温度
-    WPTemperatureModel *temp = [_viewModel getTempWithDate:date];
-    [self resetTemp:temp.temp];
+    _temperature = [_viewModel getTempWithDate:date];
+    [self resetTemp:_temperature.temp];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

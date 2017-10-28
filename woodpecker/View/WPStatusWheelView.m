@@ -134,9 +134,10 @@
     NSInteger index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]]);
     CGFloat offsetY = index * 56;
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY) animated:YES];
-    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:[NSDate date]];
+    WPDayInfoInPeriod *period_day = [[WPPeriodCountManager defaultInstance] dayInfo:[NSDate date]];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
-        [_delegate showDetailDate:[NSDate date] period:period.type];
+        NSDate *date = [NSDate dateFromString:[NSDate stringFromDate:[NSDate date]] format:@"yyyy MM dd"];
+        [_delegate showDetailDate:date period:period_day];
     }
 }
 
@@ -165,9 +166,9 @@
     [self.collectionView setContentOffset:CGPointMake(collectionViewOffset.x, offsetY)];
     
     NSDate *date = [NSDate dateByAddingDays:index toDate:_startDate];
-    WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
+    WPDayInfoInPeriod *period_day = [[WPPeriodCountManager defaultInstance] dayInfo:date];
     if (_delegate && [_delegate respondsToSelector:@selector(showDetailDate:period:)]) {
-        [_delegate showDetailDate:date period:period.type];
+        [_delegate showDetailDate:date period:period_day];
     }
 }
 
