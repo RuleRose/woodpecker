@@ -8,6 +8,7 @@
 
 #import "WPPeriodCountManager.h"
 #import "WPProfileModel.h"
+#import "WPPeriodModel.h"
 
 #define PRE_PERIOD_START 7
 #define POST_MENSTRUATION_END 4
@@ -170,39 +171,14 @@ Singleton_Implementation(WPPeriodCountManager);
     dayInfo.isValide = YES;
     dayInfo.isMenstruationSwitchOffValide = NO;
     dayInfo.type = kPeriodTypeOfSafe;
-
-    if ([self.periodList leie_isEmpty]) {
-        //如果没有周期信息，全部返回无效
-        dayInfo.isValide = NO;
-        return  dayInfo;
-    }
     
-    WPPeriodCountModel *firstPeriod = [self.periodList firstObject];
-    if ([NSDate isDate:firstPeriod.period_start afterToDate:day toCalendarUnit:NSCalendarUnitDay]) {
-        //日期在所有周期信息之前，不计算
-        dayInfo.isValide = NO;
-        return  dayInfo;
-    }
-    
-    WPPeriodCountModel *lastPeriod = [self.periodList lastObject];
-    if ([NSDate isDate:day afterToDate:[NSDate dateByAddingDays:self.period toDate:lastPeriod.period_start] toCalendarUnit:NSCalendarUnitDay]) {
-        //日期在最后一个周期外，不计算
+    WPPeriodCountModel *destPeriod = [self getCurrentPeriodInfo:day];
+    if (!destPeriod) {
+        //没找到目标周期
         dayInfo.isValide = NO;
         return dayInfo;
     }
     
-    
-    NSInteger i = 0;
-    for (i = 0; i < self.periodList.count; i++) {
-        WPPeriodCountModel *period = [self.periodList objectAtIndex:i];
-        if ([NSDate isDate:period.period_start afterToDate:day toCalendarUnit:NSCalendarUnitDay]) {
-            break;
-        }else{
-            continue;
-        }
-    }
-    
-    WPPeriodCountModel *destPeriod = [self.periodList objectAtIndex:(i - 1)];
     dayInfo.dayInPeriod = [NSDate daysFromDate:destPeriod.period_start toDate:day] + 1;
     dayInfo.isForeCast = destPeriod.isForecast;
     if ([NSDate isDate:destPeriod.period_start equalToDate:day toCalendarUnit:NSCalendarUnitDay]) {
@@ -304,4 +280,70 @@ Singleton_Implementation(WPPeriodCountManager);
     
     return dayInfo;
 }
+
+-(WPPeriodCountModel *)getCurrentPeriodInfo:(NSDate *)day{
+    NSInteger index = [self getCurrentPeriodIndex:day];
+    if (-1 != index) {
+        WPPeriodCountModel *destPeriod = [self.periodList objectAtIndex:index];
+        return destPeriod;
+    } else {
+        return nil;
+    }
+}
+
+-(WPPeriodCountModel *)getPrePeriodInfo:(NSDate *)day{
+    NSInteger index = [self getCurrentPeriodIndex:day];
+    if (index > 0) {
+        WPPeriodCountModel *destPeriod = [self.periodList objectAtIndex:(index - 1)];
+        return destPeriod;
+    } else {
+        return nil;
+    }
+}
+
+-(WPPeriodCountModel *)getNextPeriodInfo:(NSDate *)day{
+    NSInteger index = [self getCurrentPeriodIndex:day];
+    if (index < (self.periodList.count - 1)) {
+        WPPeriodCountModel *destPeriod = [self.periodList objectAtIndex:(index + 1)];
+        return destPeriod;
+    } else {
+        return nil;
+    }
+}
+
+- (NSInteger)getCurrentPeriodIndex:(NSDate *)day{
+    if ([self.periodList leie_isEmpty]) {
+        //如果没有周期信息，全部返回无效
+        return  -1;
+    }
+    
+    WPPeriodCountModel *firstPeriod = [self.periodList firstObject];
+    if ([NSDate isDate:firstPeriod.period_start afterToDate:day toCalendarUnit:NSCalendarUnitDay]) {
+        //日期在所有周期信息之前，不计算
+        return  -1;
+    }
+    
+    WPPeriodCountModel *lastPeriod = [self.periodList lastObject];
+    if ([NSDate isDate:day afterToDate:[NSDate dateByAddingDays:self.period toDate:lastPeriod.period_start] toCalendarUnit:NSCalendarUnitDay]) {
+        //日期在最后一个周期外，不计算
+        return -1;
+    }
+    
+    
+    NSInteger i = 0;
+    for (i = 0; i < self.periodList.count; i++) {
+        WPPeriodCountModel *period = [self.periodList objectAtIndex:i];
+        if ([NSDate isDate:period.period_start afterToDate:day toCalendarUnit:NSCalendarUnitDay]) {
+            break;
+        }else{
+            continue;
+        }
+    }
+
+    i--;
+    
+    return i;
+}
+
+
 @end

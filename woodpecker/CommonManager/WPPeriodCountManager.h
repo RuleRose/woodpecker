@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WPPeriodModel.h"
 #import "WPPeriodCountModel.h"
 #import "WPDayInfoInPeriod.h"
 @interface WPPeriodCountManager : NSObject
@@ -15,4 +14,7 @@ Singleton_Interface(WPPeriodCountManager);
 
 -(void)recountPeriod;
 -(WPDayInfoInPeriod *)dayInfo:(NSDate*)day;
+-(WPPeriodCountModel *)getCurrentPeriodInfo:(NSDate *)day;
+-(WPPeriodCountModel *)getPrePeriodInfo:(NSDate *)day;
+-(WPPeriodCountModel *)getNextPeriodInfo:(NSDate *)day;
 @end
