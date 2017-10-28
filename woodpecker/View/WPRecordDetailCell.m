@@ -44,10 +44,6 @@
 - (void)drawCellWithSize:(CGSize)size{
     _titleLabel.text = [_viewModel getThemeWithRecordTheme:_theme];
     NSString *selectedDetail = [_viewModel getDetailWithEventTheme:_theme];
-    NSMutableArray *detailArr = [[NSMutableArray alloc] init];
-    if (![NSString leie_isBlankString:selectedDetail]) {
-        [detailArr addObjectsFromArray:[selectedDetail componentsSeparatedByString:@","]];
-    }
     for (UIView *subView in _selectionView.subviews) {
         [subView removeFromSuperview];
     }
@@ -71,7 +67,7 @@
         [selectionBtn setTitle:title forState:UIControlStateNormal];
         selectionBtn.index = i;
         NSString *detail = [_details objectAtIndex:i];
-        if ([detailArr containsObject:detail]) {
+        if ([selectedDetail containsString:detail]) {
             [selectionBtn setTitleColor:kColor_10 forState:UIControlStateNormal];
             selectionBtn.backgroundColor = kColor_7_With_Alpha(0.8);
         }else{
@@ -88,15 +84,11 @@
 
 - (void)resetDetails{
     NSString *selectedDetail = [_viewModel getDetailWithEventTheme:_theme];
-    NSMutableArray *detailArr = [[NSMutableArray alloc] init];
-    if (![NSString leie_isBlankString:selectedDetail]) {
-        [detailArr addObjectsFromArray:[selectedDetail componentsSeparatedByString:@","]];
-    }
     for (UIView *subView in _selectionView.subviews) {
         if ([subView isKindOfClass:[WPRecordSelectionButton class]]) {
             WPRecordSelectionButton *selectionBtn = (WPRecordSelectionButton *)subView;
             NSString *detail = [_details objectAtIndex:selectionBtn.index];
-            if ([detailArr containsObject:detail]) {
+            if ([selectedDetail containsString:detail]) {
                 [selectionBtn setTitleColor:kColor_10 forState:UIControlStateNormal];
                 selectionBtn.backgroundColor = kColor_7_With_Alpha(0.8);
             }else{
@@ -109,22 +101,20 @@
 
 - (void)selectionBtnPressed:(WPRecordSelectionButton *)sender{
     NSString *selectedDetail = [_viewModel getDetailWithEventTheme:_theme];
-    NSMutableArray *detailArr = [[NSMutableArray alloc] init];
-    if (![NSString leie_isBlankString:selectedDetail]) {
-        [detailArr addObjectsFromArray:[selectedDetail componentsSeparatedByString:@","]];
-    }
     NSString *detail = [_details objectAtIndex:sender.index];
-    if ([detailArr containsObject:detail]) {
-        [detailArr removeObject:detail];
+    if ([NSString leie_isBlankString:selectedDetail]) {
+        selectedDetail = @"";
+    }
+    if ([NSString leie_isBlankString:detail]) {
+        detail = @"";
+    }
+    if ([selectedDetail containsString:detail]) {
+        detail =[[selectedDetail componentsSeparatedByString:detail] componentsJoinedByString:@""];
     }else{
         if (_mixselection) {
-            [detailArr addObject:detail];
-        }else{
-            [detailArr removeAllObjects];
-            [detailArr addObject:detail];
+           detail = [selectedDetail stringByAppendingString:detail];
         }
     }
-    detail = [detailArr componentsJoinedByString:@","];
     [_viewModel setTheme:_theme detail:detail];
     [self resetDetails];
     if (_delegate && [_delegate respondsToSelector:@selector(selectTheme:detail:cell:)]) {

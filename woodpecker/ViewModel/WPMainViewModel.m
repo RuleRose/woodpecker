@@ -17,6 +17,7 @@
 #import "MMCDeviceManager.h"
 #import "NSDate+ext.h"
 #import "WPEventItemModel.h"
+#import "XJFDBManager.h"
 
 @implementation WPMainViewModel
 - (instancetype)init {
@@ -165,7 +166,14 @@
             for (NSDictionary *periodDic in periods) {
                 WPPeriodModel *period = [[WPPeriodModel alloc] init];
                 [period loadDataFromkeyValues:periodDic];
-                [period insertToDB];
+                period.pid = period.period_id;
+                if ([period.removed boolValue]) {
+                    [XJFDBManager deleteModel:period dependOnKeys:nil];
+                }else{
+                    if (![period insertToDB]) {
+                        [period updateToDBDependsOn:nil];
+                    }
+                }
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetPeriod object:nil];
         } failure:^(NSError *error) {

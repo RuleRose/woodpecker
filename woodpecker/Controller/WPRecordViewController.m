@@ -12,6 +12,7 @@
 #import "WPRecordStatusModel.h"
 #import "WPRecordDetailCell.h"
 #import "WPWeightPopupView.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPRecordViewController ()<UITableViewDataSource,UITableViewDelegate,WPRecordHeaderViewDelegate,WPRecordDetailCellDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -62,6 +63,7 @@
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_viewModel updatePeriodSuccess:^(BOOL finished) {
+        [[WPPeriodCountManager defaultInstance] recountPeriod];
         [_viewModel updateEventSuccess:^(BOOL finished) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
@@ -225,10 +227,24 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    CGFloat height = 41;
     if (section == 0 || section == 3 || section == 7 ) {
-        return 28;
+        height = 28;
     }
-    return 41;
+    //经期或者开关打开
+    if ((_viewModel.period_day.type == kPeriodTypeOfMenstrual || _viewModel.period_day.type == kPeriodTypeOfMenstrualStart ||_viewModel.period_day.type == kPeriodTypeOfMenstrualEnd) || _viewModel.on) {
+        //排除经期开始日
+        if (_viewModel.period_day.dayInPeriod == 1 && !_viewModel.on) {
+            if (section >= 2 && section <=6) {
+                height = 0;
+            }
+        }
+    }else{
+        if (section >= 2 && section <=6) {
+            height = 0;
+        }
+    }
+    return height;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -267,6 +283,7 @@
                 headerView.detailLabel.text = _event.comments;
             }
         }
+        headerView.layer.masksToBounds = YES;
         return headerView;
     }
 }
@@ -287,6 +304,7 @@
     }else{
         _viewModel.on = NO;
     }
+    [_tableView reloadData];
 }
 
 - (void)selectedRecordHeader:(WPRecordHeaderView *)headerView{

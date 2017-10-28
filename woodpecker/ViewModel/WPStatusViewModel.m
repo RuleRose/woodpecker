@@ -171,8 +171,9 @@
     WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
     NSArray *temps = [XJFDBManager searchModelsWithCondition:temp andpage:0 andOrderby:@"time" isAscend:YES];
     WPTemperatureModel *startTemp = temps.firstObject;
+    NSDate *date = [NSDate dateWithTimeIntervalSince2000:[startTemp.time longLongValue]];
     if (startTemp) {
-        return [NSDate dateWithTimeIntervalSince2000:[startTemp.time longLongValue]];
+        return [NSDate dateFromString:[NSDate stringFromDate:date] format:@"yyyy MM dd"];
     }
     return nil;
 }

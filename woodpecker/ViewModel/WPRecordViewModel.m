@@ -15,6 +15,8 @@
 #import "WPPeriodUpdateModel.h"
 #import "XJFDBManager.h"
 #import "WPEventItemModel.h"
+#import "WPPeriodCountManager.h"
+#import "WPPeriodCountModel.h"
 
 @implementation WPRecordViewModel
 
@@ -23,7 +25,7 @@
     self = [super init];
     if (self) {
         _statuses = [[NSMutableArray alloc] init];
-        _periods = [self getPeriods];
+//        _periods = [self getPeriods];
  }
     return self;
 }
@@ -34,45 +36,15 @@
 }
 
 - (void)reloadDatas{
-    NSTimeInterval timestamp = [_eventDate timeIntervalSince1970];
-    for (NSInteger i = _periods.count - 1; i >= 0; i --) {
-        WPPeriodModel *period = [_periods objectAtIndex:i];
-        NSDate *startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
-        NSTimeInterval start_timestamp = [startDate timeIntervalSince1970];
-        if (start_timestamp <= timestamp) {
-            _period = period;
-            break;
+    _period_day = [[WPPeriodCountManager defaultInstance] dayInfo:_eventDate];
+    if (_period_day.type == kPeriodTypeOfMenstrual) {
+        if ((!_period_day.isForecast && _period_day.isStart) || (!_period_day.isEndDayForecast && _period_day.isEnd)) {
+            _on = YES;
+        }else{
+            _on = NO;
         }
-    }
-    NSTimeInterval start_timestamp = 0;
-    NSTimeInterval end_timestamp = 0;
-    NSTimeInterval start_limit_timestamp = 0;
-    NSTimeInterval end_limit_timestamp = 0;
-    if (![NSString leie_isBlankString:_period.period_start]) {
-        NSDate *startDate = [NSDate dateFromString:_period.period_start format:@"yyyy MM dd"];
-        start_timestamp = [startDate timeIntervalSince1970];
-        start_limit_timestamp = start_timestamp;
-    }else{
-        start_limit_timestamp = timestamp;
-    }
-    if (![NSString leie_isBlankString:_period.period_end]) {
-        NSDate *endDate = [NSDate dateFromString:_period.period_end format:@"yyyy MM dd"];
-        end_timestamp = [endDate timeIntervalSince1970];
-        end_limit_timestamp = end_timestamp + 60*60*24*4;
-    }else{
-        end_limit_timestamp = start_limit_timestamp + 60*60*24*(_period.menstruation_lenth + 4);
-    }
-    
-    if (timestamp == start_timestamp || timestamp == end_timestamp) {
-        _on = YES;
     }else{
         _on = NO;
-    }
-    _isStart = YES;
-    if (timestamp == start_limit_timestamp || timestamp > end_limit_timestamp) {
-        _isStart = YES;
-    }else{
-        _isStart = NO;
     }
     //statuses
     for (NSInteger i = 0; i < 15; i ++) {
@@ -83,7 +55,7 @@
             [_statuses addObject:status];
         }else if (i == 1){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            if (_isStart) {
+            if (!_period_day.isMenstruationSwitchOffValide) {
                 status.title = @"经期开始";
             }else{
                 status.title = @"经期结束";
@@ -99,7 +71,7 @@
             [_statuses addObject:status];
         }else if (i == 3){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"经期";
+            status.title = @"备用";
             status.onlyTitle = YES;
             [_statuses addObject:status];
         }else if (i == 4){
@@ -465,65 +437,6 @@
     return event;
 }
 
-- (NSMutableArray *)getPeriods{
-    WPProfileModel *profile = [[WPProfileModel alloc] init];
-    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-    WPPeriodModel *period = [[WPPeriodModel alloc] init];
-    NSArray *periods = [XJFDBManager searchModelsWithCondition:period andpage:-1 andOrderby:@"period_start" isAscend:YES];
-    NSMutableArray *allPeriods = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < periods.count; i ++) {
-        WPPeriodModel *peirod = periods[i];
-        NSDate *date = [NSDate dateFromString:peirod.period_start format:@"yyyy MM dd"];
-        NSDate *nextDate = [NSDate date];
-        if (periods.count > i +1) {
-            //后面就还有数据
-            WPPeriodModel *peirod_next = periods[i + 1];
-            nextDate = [NSDate dateFromString:peirod_next.period_start format:@"yyyy MM dd"];
-        }
-        [allPeriods addObject:peirod];
-        NSInteger days = [NSDate daysFromDate:date toDate:nextDate];
-        while (days > [profile.period integerValue]) {
-            NSDate *addDate = [NSDate dateByAddingDays:[profile.period integerValue] toDate:nextDate];
-            WPPeriodModel *add_peirod = [[WPPeriodModel alloc] init];
-            add_peirod.period_start = [NSDate stringFromDate:addDate];
-            add_peirod.speculate = YES;
-            [allPeriods addObject:add_peirod];
-            days -=  [profile.period integerValue];
-        }
-    }
-    WPPeriodModel *next_period;
-    for (NSInteger i = allPeriods.count - 1; i >= 0; i --) {
-        WPPeriodModel *period = [allPeriods objectAtIndex:i];
-        NSDate *startDate;
-        NSDate *endDate;
-        if (![NSString leie_isBlankString:period.period_start]) {
-            startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
-        }
-        if (![NSString leie_isBlankString:period.period_end]) {
-            endDate = [NSDate dateFromString:period.period_end format:@"yyyy MM dd"];
-        }
-        NSInteger menstruation_lenth = [profile.menstruation integerValue];
-        if (endDate) {
-            menstruation_lenth = [NSDate daysFromDate:startDate toDate:endDate];
-        }
-        NSInteger period_lenth = [profile.period integerValue];
-        if (next_period) {
-            NSDate *nextStartDate;
-            if (![NSString leie_isBlankString:next_period.period_start]) {
-                nextStartDate = [NSDate dateFromString:next_period.period_start format:@"yyyy MM dd"];
-            }
-            period_lenth = [NSDate daysFromDate:startDate toDate:nextStartDate];
-        }
-        period.menstruation_lenth = menstruation_lenth;
-        period.period_lenth  = period_lenth;
-        period.oviposit = period_lenth - 14;
-        period.pregnancy_start = period.oviposit - 5;
-        period.pregnancy_end = period.oviposit + 4;
-        next_period = period;
-    }
-    return allPeriods;
-}
-
 - (void)updateEventSuccess:(void (^)(BOOL finished))result{
     NSMutableArray *events = [[NSMutableArray alloc] init];
     NSMutableArray *delEvents = [[NSMutableArray alloc] init];
@@ -722,151 +635,204 @@
 - (void)updatePeriodSuccess:(void (^)(BOOL finished))result{
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-    WPPeriodModel *period = [[WPPeriodModel alloc] init];
-    [period loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-    if (_period) {
-        //当天更新，之后新建
-        NSTimeInterval start_timestamp = 0;
-        NSTimeInterval end_timestamp = 0;
-        if (![NSString leie_isBlankString:_period.period_start]) {
-            NSDate *startDate = [NSDate dateFromString:_period.period_start format:@"yyyy MM dd"];
-            start_timestamp = [startDate timeIntervalSince1970];
-        }else{
-            start_timestamp = [_eventDate timeIntervalSince1970];
-        }
-        if (![NSString leie_isBlankString:_period.period_end]) {
-            NSDate *endDate = [NSDate dateFromString:_period.period_start format:@"yyyy MM dd"];
-            end_timestamp = [endDate timeIntervalSince1970] + 60*60*24*4;
-        }else{
-            end_timestamp = start_timestamp + 60*60*24*(_period.menstruation_lenth + 4);
-        }
-        NSTimeInterval timestamp = [_eventDate timeIntervalSince1970];
-        if (timestamp >= start_timestamp && timestamp <= end_timestamp) {
-            //当前event
-            if (!_period.speculate) {
-                if (_on) {
-                    if (_isStart) {
-                        _period.period_start = [NSDate stringFromDate:_eventDate];
-                    }else{
-                        _period.period_end =  [NSDate stringFromDate:_eventDate];
-                    }
-                    [WPNetInterface updatePeriod:_period.period_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
-                        _period.period_id = period_id;
-                        _period.pid = period_id;
-                        [_period updateToDBDependsOn:nil];
-                        if (result) {
-                            result(YES);
-                        }
-                    } failure:^(NSError *error) {
-                        
-                    }];
-//                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//                    updateModel.period_id = _period.period_id;
-//                    updateModel.modify = @"update";
-//                    [updateModel insertToDB];
-                }else{
-                    if (_isStart) {
-                        [WPNetInterface deletePeriod:_period.period_id success:^(BOOL finished) {
-                            [XJFDBManager deleteModel:_period dependOnKeys:nil];
-                            if (result) {
-                                result(YES);
-                            }
-                        } failure:^(NSError *error) {
-                            
-                        }];
-//                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//                        updateModel.period_id = _period.period_id;
-//                        updateModel.modify = @"delete";
-//                        [updateModel insertToDB];
-                    }else{
-                        _period.period_end = @"";
-                        [WPNetInterface updatePeriod:_period.period_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
-                            _period.period_id = period_id;
-                            _period.pid = period_id;
-                            [_period updateToDBDependsOn:nil];
-                            if (result) {
-                                result(YES);
-                            }
-                        } failure:^(NSError *error) {
-                            
-                        }];
-//                        WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//                        updateModel.period_id = _period.period_id;
-//                        updateModel.modify = @"update";
-//                        [updateModel insertToDB];
-                    }
-                }
+    WPProfileModel *profile = [[WPProfileModel alloc] init];
+    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+    WPPeriodCountModel *currentPeriod = [[WPPeriodCountManager defaultInstance] getCurrentPeriodInfo:_eventDate];
+    if (_period_day && currentPeriod) {
+        BOOL on = NO;
+        if (_period_day.type == kPeriodTypeOfMenstrual) {
+            if ((!_period_day.isForecast && _period_day.isStart) || (!_period_day.isEndDayForecast && _period_day.isEnd)) {
+                on = YES;
             }else{
-                if (_on) {
-                    if (_isStart) {
-                        _period.period_start = [NSDate stringFromDate:_eventDate];
-                    }else{
-                        _period.period_end =  [NSDate stringFromDate:_eventDate];
-                    }
-                    [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
-                        _period.period_id = period_id;
-                        _period.pid = period_id;
-                        [_period insertToDB];
-                        if (result) {
-                            result(YES);
-                        }
-                    } failure:^(NSError *error) {
-                        
-                    }];
-//                    WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//                    updateModel.period_id = _period.period_id;
-//                    updateModel.modify = @"create";
-//                    [updateModel insertToDB];
-                }
+                on = NO;
             }
         }else{
-            //其他日期 新建
-            if (_on) {
+            on = NO;
+        }
+        if (_on != on) {
+            //变化
+            if (_period_day.isMenstruationSwitchOffValide) {
+                //结束 update当前周期
                 WPPeriodModel *period = [[WPPeriodModel alloc] init];
-                if (_isStart) {
-                    period.period_start = [NSDate stringFromDate:_eventDate];
+                period.period_start = [NSDate stringFromDate:currentPeriod.period_start];
+                period.period_end = [NSDate stringFromDate:currentPeriod.period_end];
+                period.period_id = currentPeriod.period_id;
+                period.brief = currentPeriod.brief;
+                period.extra_data = currentPeriod.extra_data;
+                period.lastupdate = currentPeriod.lastupdate;
+                period.removed = currentPeriod.removed;
+                if (_on) {
+                    period.period_end = [NSDate stringFromDate:_eventDate];
                 }else{
-                    period.period_end =  [NSDate stringFromDate:_eventDate];
+                    period.period_end = @"";
                 }
-                [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
-                    period.period_id = period_id;
-                    period.pid = period_id;
-                    [period insertToDB];
+                [WPNetInterface updatePeriod:period.period_id period_start:period.period_start period_end:period.period_end success:^(NSArray *periods) {
+                    for (NSDictionary *periodDic in periods) {
+                        WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                        [period loadDataFromkeyValues:periodDic];
+                        period.pid = period.period_id;
+                        if ([period.removed boolValue]) {
+                            [XJFDBManager deleteModel:period dependOnKeys:nil];
+                        }else{
+                            if (![period insertToDB]) {
+                                [period updateToDBDependsOn:nil];
+                            }
+                        }
+                    }
                     if (result) {
                         result(YES);
                     }
                 } failure:^(NSError *error) {
                     
                 }];
-//                WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//                updateModel.pid = period.pid;
-//                updateModel.modify = @"create";
-//                [period insertToDB];
+            }else{
+                //开始
+                if (_on) {
+                    WPPeriodCountModel *nextPeriod = [[WPPeriodCountManager defaultInstance] getNextPeriodInfo:_eventDate];
+                    NSInteger days = [NSDate daysFromDate:_eventDate toDate:nextPeriod.period_start];
+                    if (days <= 7 && nextPeriod && !nextPeriod.isForecast ) {
+                        //update
+                        WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                        period.period_start = [NSDate stringFromDate:_eventDate];
+                        period.period_end = [NSDate stringFromDate:nextPeriod.period_end];
+                        period.period_id = nextPeriod.period_id;
+                        period.brief = nextPeriod.brief;
+                        period.extra_data = nextPeriod.extra_data;
+                        period.lastupdate = nextPeriod.lastupdate;
+                        period.removed = nextPeriod.removed;
+                        [WPNetInterface updatePeriod:period.period_id period_start:period.period_start period_end:period.period_end success:^(NSArray *periods) {
+                            for (NSDictionary *periodDic in periods) {
+                                WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                                [period loadDataFromkeyValues:periodDic];
+                                period.pid = period.period_id;
+                                if ([period.removed boolValue]) {
+                                    [XJFDBManager deleteModel:period dependOnKeys:nil];
+                                }else{
+                                    if (![period insertToDB]) {
+                                        [period updateToDBDependsOn:nil];
+                                    }
+                                }
+                            }
+                            if (result) {
+                                result(YES);
+                            }
+                        } failure:^(NSError *error) {
+                            
+                        }];
+                    }else{
+                        //create
+                        WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                        period.period_start = [NSDate stringFromDate:_eventDate];
+                        [WPNetInterface postPeriod:user.user_id period_start:period.period_start period_end:period.period_end success:^(NSArray *periods) {
+                            for (NSDictionary *periodDic in periods) {
+                                WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                                [period loadDataFromkeyValues:periodDic];
+                                period.pid = period.period_id;
+                                if ([period.removed boolValue]) {
+                                    [XJFDBManager deleteModel:period dependOnKeys:nil];
+                                }else{
+                                    if (![period insertToDB]) {
+                                        [period updateToDBDependsOn:nil];
+                                    }
+                                }
+                            }
+                            if (result) {
+                                result(YES);
+                            }
+                        } failure:^(NSError *error) {
+                            
+                        }];
+                    }
+                }else{
+                    //delete
+                    WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                    period.period_id = currentPeriod.period_id;
+                    [WPNetInterface deletePeriod:period.period_id success:^(NSArray *periods) {
+                        for (NSDictionary *periodDic in periods) {
+                            WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                            [period loadDataFromkeyValues:periodDic];
+                            period.pid = period.period_id;
+                            if ([period.removed boolValue]) {
+                                [XJFDBManager deleteModel:period dependOnKeys:nil];
+                            }else{
+                                if (![period insertToDB]) {
+                                    [period updateToDBDependsOn:nil];
+                                }
+                            }
+                        }
+                        if (result) {
+                            result(YES);
+                        }
+                    } failure:^(NSError *error) {
+                        
+                    }];
+                }
+            }
+        }else{
+            if (result) {
+                result(YES);
             }
         }
     }else{
         //最早之前新建
         if (_on) {
-            WPPeriodModel *period = [[WPPeriodModel alloc] init];
-            if (_isStart) {
+            WPPeriodCountModel *nextPeriod = [[WPPeriodCountManager defaultInstance] getNextPeriodInfo:_eventDate];
+            NSInteger days = [NSDate daysFromDate:_eventDate toDate:nextPeriod.period_start];
+            if (days <= 7 && nextPeriod && !nextPeriod.isForecast ) {
+                WPPeriodModel *period = [[WPPeriodModel alloc] init];
                 period.period_start = [NSDate stringFromDate:_eventDate];
+                period.period_end = [NSDate stringFromDate:nextPeriod.period_end];
+                period.period_id = nextPeriod.period_id;
+                period.brief = nextPeriod.brief;
+                period.extra_data = nextPeriod.extra_data;
+                period.lastupdate = nextPeriod.lastupdate;
+                period.removed = nextPeriod.removed;
+                [WPNetInterface updatePeriod:period.period_id period_start:period.period_start period_end:period.period_end success:^(NSArray *periods) {
+                    for (NSDictionary *periodDic in periods) {
+                        WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                        [period loadDataFromkeyValues:periodDic];
+                        period.pid = period.period_id;
+                        if ([period.removed boolValue]) {
+                            [XJFDBManager deleteModel:period dependOnKeys:nil];
+                        }else{
+                            if (![period insertToDB]) {
+                                [period updateToDBDependsOn:nil];
+                            }
+                        }
+                    }
+                    if (result) {
+                        result(YES);
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
             }else{
-                period.period_end =  [NSDate stringFromDate:_eventDate];
+                WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                period.period_start = [NSDate stringFromDate:_eventDate];
+                [WPNetInterface postPeriod:user.user_id period_start:period.period_start period_end:period.period_end success:^(NSArray *periods) {
+                    for (NSDictionary *periodDic in periods) {
+                        WPPeriodModel *period = [[WPPeriodModel alloc] init];
+                        [period loadDataFromkeyValues:periodDic];
+                        period.pid = period.period_id;
+                        if ([period.removed boolValue]) {
+                            [XJFDBManager deleteModel:period dependOnKeys:nil];
+                        }else{
+                            if (![period insertToDB]) {
+                                [period updateToDBDependsOn:nil];
+                            }
+                        }
+                    }
+                    if (result) {
+                        result(YES);
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
             }
-            [WPNetInterface postPeriod:user.user_id period_start:_period.period_start period_end:_period.period_end success:^(NSString *period_id) {
-                period.period_id = period_id;
-                period.pid = period_id;
-                [period insertToDB];
-                if (result) {
-                    result(YES);
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-//            WPPeriodUpdateModel *updateModel = [[WPPeriodUpdateModel alloc] init];
-//            updateModel.pid = period.pid;
-//            updateModel.modify = @"create";
-//            [period insertToDB];
+        }else{
+            if (result) {
+                result(YES);
+            }
         }
     }
 }

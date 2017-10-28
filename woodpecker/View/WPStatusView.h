@@ -31,7 +31,6 @@
 @property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) WPStatusViewModel *viewModel;
 @property (nonatomic, strong) WPTemperatureModel *temperature;
-
 - (void)updateState;
 @end
 @protocol WPStatusViewDelegate <NSObject>

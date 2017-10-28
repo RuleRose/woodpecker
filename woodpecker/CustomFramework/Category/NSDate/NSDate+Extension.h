@@ -18,6 +18,7 @@
 
 + (NSDate *)beginingOfMonthOfDate:(NSDate *)date;
 + (NSDate *)endOfMonthOfDate:(NSDate *)date;
++ (NSDate *)nextMonthOfDate:(NSDate *)date;
 
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSString *)stringFromDate:(NSDate *)date;

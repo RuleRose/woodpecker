@@ -52,7 +52,8 @@
     _textField.textColor = kColor_7;
     _textField.font = kFont_1(12);
     _textField.placeholder = @"请输入基础体温";
-    _textField.keyboardType = UIKeyboardTypeNumberPad;
+    _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _textField.text = _temperature.temp;
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 40)];
     leftView.backgroundColor = [UIColor clearColor];
     _textField.leftView = leftView;

@@ -83,6 +83,12 @@
     return [[self calendar] dateFromComponents:components];
 }
 
++ (NSDate *)nextMonthOfDate:(NSDate *)date{
+    NSDateComponents *components = [[self calendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour fromDate:date];
+    components.month++;
+    components.hour = 0;
+    return [[self calendar] dateFromComponents:components];
+}
 
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format{
     NSDateFormatter *formatter = [self localFormatter];

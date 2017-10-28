@@ -17,7 +17,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = NSTextAlignmentCenter;
-        label.font = kFont_2(20);
+        label.font = kFont_2(18);
         [self.contentView addSubview:label];
         self.textLabel = label;
         self.backgroundColor = [UIColor clearColor];
@@ -67,6 +67,6 @@
     self.layer.borderWidth = self.frame.size.width/10;
 
     _textLabel.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    _textLabel.font = kFont_2(20*self.frame.size.width/56.0);
+    _textLabel.font = kFont_2(18*self.frame.size.width/56.0);
 }
 @end

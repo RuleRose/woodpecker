@@ -10,5 +10,5 @@
 #import "woodpecker-Swift.h"
 
 @interface WPLineDateFormatter : NSObject <IChartAxisValueFormatter>
-
+@property(nonatomic, strong)NSDate *startDate;
 @end

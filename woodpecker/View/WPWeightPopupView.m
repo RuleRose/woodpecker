@@ -84,6 +84,7 @@
         make.left.equalTo(weakSelf.pointLabel.mas_right).offset(36);
         make.width.equalTo(@80);
     }];
+    [_pickerView selectRow:50 inComponent:0 animated:NO];
 }
 
 

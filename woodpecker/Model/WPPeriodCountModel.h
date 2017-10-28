@@ -10,6 +10,10 @@
 
 @interface WPPeriodCountModel : XJFBaseModel
 @property(nonatomic, copy)NSString *period_id;
+@property(nonatomic, copy)NSString *brief;
+@property(nonatomic, copy)NSString *extra_data;
+@property(nonatomic, copy)NSString *lastupdate;
+@property(nonatomic, copy)NSString *removed;
 @property(nonatomic, strong)NSDate *period_start;
 @property(nonatomic, strong)NSDate *period_end;
 @property (nonatomic,strong) NSDate *pregnant_start;
