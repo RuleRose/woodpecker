@@ -22,13 +22,14 @@
     {
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.dateFormat = @"MMdd";
+        _startDate = [NSDate date];
     }
     return self;
 }
 
 - (NSString *)stringForValue:(double)value axis:(ChartAxisBase *)axis
 {
-    NSDate *date = [NSDate dateByAddingDays:value toDate:[NSDate date]];
+    NSDate *date = [NSDate dateByAddingDays:value toDate:_startDate];
     return [_dateFormatter stringFromDate:date];
 }
 @end

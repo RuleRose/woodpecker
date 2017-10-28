@@ -30,7 +30,7 @@ Singleton_Implementation(WPPeriodCountManager);
     if (self) {
         WPProfileModel *profile = [[WPProfileModel alloc] init];
         [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-        self.menstruation = [profile.menstruation integerValue];
+        self.menstruation = [profile.menstruation integerValue] - 1;
         self.period = [profile.period integerValue];
         self.periodList = [NSMutableArray array];
         

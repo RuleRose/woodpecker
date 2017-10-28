@@ -230,6 +230,7 @@
 - (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
     if ([cell isKindOfClass:[WPCalendarCell class]]) {
+
         WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
         if (calendarCell.selected) {
             calendarCell.titleLabel.font = kFont_6(16);

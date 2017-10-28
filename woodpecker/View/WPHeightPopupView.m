@@ -54,6 +54,7 @@
         make.width.equalTo(@6);
         make.height.equalTo(@55);
     }];
+    [_pickerView selectRow:160 inComponent:0 animated:NO];
 }
 
 
