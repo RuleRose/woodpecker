@@ -33,7 +33,9 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.tableHeaderView = [[UIView alloc] init];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 14)];
+        headerView.backgroundColor = [UIColor clearColor];
+        _tableView.tableHeaderView = headerView;
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 90)];
         footerView.backgroundColor = [UIColor clearColor];
         _removeBtn = [[UIButton alloc] initWithFrame:CGRectMake(37, 42, kScreen_Width - 74, 45)];

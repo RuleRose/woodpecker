@@ -16,6 +16,7 @@
 //@property(nonatomic, strong)WPStatusViewModel *viewModel;
 
 @property(nonatomic, assign) id<WPStatusWheelViewDelegate> delegate;
+- (void)updateData;
 @end
 @protocol WPStatusWheelViewDelegate <NSObject>
 @optional

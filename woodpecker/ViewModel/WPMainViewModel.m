@@ -204,6 +204,7 @@
                     [item updateToDBDependsOn:nil];
                 }
             }
+            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetEvent object:nil];
         } failure:^(NSError *error) {
             
         }];

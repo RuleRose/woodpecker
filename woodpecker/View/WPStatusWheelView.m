@@ -95,6 +95,10 @@
     [self scrollToBottom];
 }
 
+- (void)updateData{
+    [_collectionView reloadData];
+}
+
 
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

@@ -30,6 +30,7 @@ NSString* const WPNotificationKeyUpdateProfile = @"WPNotificationKeyUpdateProfil
 NSString* const WPNotificationKeyUpdateDevice = @"WPNotificationKeyUpdateDevice";
 NSString* const WPNotificationKeyGetTemp = @"WPNotificationKeyGetTemp";
 NSString* const WPNotificationKeyGetPeriod = @"WPNotificationKeyGetPeriod";
+NSString* const WPNotificationKeyGetEvent = @"WPNotificationKeyGetEvent";
 
 
 @end
