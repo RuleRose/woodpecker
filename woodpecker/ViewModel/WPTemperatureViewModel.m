@@ -44,6 +44,7 @@
     NSArray *temperatures = [XJFDBManager searchModelsWithCondition:searchTemp andpage:-1 andOrderby:@"time" isAscend:NO];
     NSDate *tempDate;
     PeriodType tempType = kPeriodTypeOfSafe;
+    WPTemperatureModel *temp;
     NSMutableArray *sortTemp = [[NSMutableArray alloc] init];
     NSMutableArray *temps = [[NSMutableArray alloc] init];
     for (WPTemperatureModel *temperature in temperatures) {
@@ -62,13 +63,15 @@
                         [temps addObject:temperature];
                         tempDate = date;
                         tempType = period.type;
+                        temp = temperature;
                     }else{
-                        [temps addObject:temperature];
                         temps = [[NSMutableArray alloc] init];
-                        [sortTemp addObject:temps];
+                        [temps addObject:temp];
                         [temps addObject:temperature];
+                        [sortTemp addObject:temps];
                         tempDate = date;
                         tempType = period.type;
+                        temp = temperature;
                     }
                 }else{
                     temps = [[NSMutableArray alloc] init];
@@ -78,6 +81,7 @@
                     [temps addObject:temperature];
                     tempDate = date;
                     tempType =  period.type;
+                    temp = temperature;
                 }
             }
         }else{
@@ -87,6 +91,7 @@
             [temps addObject:temperature];
             tempDate = date;
             tempType =  period.type;
+            temp = temperature;
         }
     }
     if (result) {

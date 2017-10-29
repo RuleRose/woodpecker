@@ -143,6 +143,7 @@
 }
 
 - (void)updateState{
+    [_wheelView updateData];
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {

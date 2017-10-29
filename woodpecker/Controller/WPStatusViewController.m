@@ -43,6 +43,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTemperature:)  name:MMCNotificationKeyTemperature object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
+
     [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
     _statusView.startDate = [_viewModel getStartDate];
@@ -85,6 +87,8 @@
 - (void)updateState{
     if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
         //上传
+        _statusView.startDate = [_viewModel getStartDate];
+        [_statusView updateState];
         [_viewModel syncTempDataToService];
     }
 }
@@ -104,11 +108,16 @@
 
 - (void)getTemperature{
     [_viewModel syncTempData];
+    _statusView.startDate = [_viewModel getStartDate];
+    [_statusView updateState];
 }
 - (void)getPeriod{
     [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
-    _statusView.startDate = [_viewModel getStartDate];
+}
+
+- (void)getEvent{
+    [_statusView updateState];
 }
 
 #pragma mark WPStatusViewDelegate

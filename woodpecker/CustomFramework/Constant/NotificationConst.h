@@ -35,5 +35,6 @@ extern NSString* const WPNotificationKeyUpdateProfile;
 extern NSString* const WPNotificationKeyUpdateDevice;
 extern NSString* const WPNotificationKeyGetTemp;
 extern NSString* const WPNotificationKeyGetPeriod;
+extern NSString* const WPNotificationKeyGetEvent;
 
 @end
