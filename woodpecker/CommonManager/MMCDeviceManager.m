@@ -200,7 +200,7 @@ Singleton_Implementation(MMCDeviceManager);
 
 - (void)setTimeToNow {
     if (self.currentDevice) {
-        NSDate *now = [NSDate date];
+        NSDate *now = [NSDate dateToUTCDate:[NSDate date]];
         NSTimeInterval interval = [now timeIntervalSince2000];
         int32_t value = interval;
         [self writeCharacteristic:self.currentDevice.peripheral

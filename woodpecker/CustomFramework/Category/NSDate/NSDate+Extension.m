@@ -237,4 +237,12 @@
     formatter.dateFormat = format;
     return [formatter stringFromDate:date];
 }
+
++ (NSDate *)dateToUTCDate:(NSDate *)date{
+    NSString *strFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *stringLocal = [NSDate stringFromDate:date format:strFormat];
+    NSDate *dateUTC = [NSDate dateFromString:stringLocal format:strFormat];
+    
+    return dateUTC;
+}
 @end

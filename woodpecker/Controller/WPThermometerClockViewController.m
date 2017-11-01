@@ -140,7 +140,7 @@
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
             NSDate *date = [NSDate dateFromString:[NSDate stringFromDate:clock format:@"HH:mm"] format:@"HH:mm"];
-            [MMCDeviceManager defaultInstance].alarmTimeInterval = [date timeIntervalSince2000];
+            [MMCDeviceManager defaultInstance].alarmTimeInterval = [[NSDate dateToUTCDate:date] timeIntervalSince2000];
             [_tableView reloadData];
             if ([[MMCDeviceManager defaultInstance] alarmIsOn]) {
                 [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
