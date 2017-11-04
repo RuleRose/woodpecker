@@ -305,7 +305,7 @@ Singleton_Implementation(MMCDeviceManager);
             BOOL isFind = FALSE;
             dataObject = [[WoodpeckerSensorData alloc] initWithRawData:beacon_data];
             if (dataObject
-                && (dataObject.productID == MMC_SENSOR_WOODPECKER_PRODUCT_ID_1 || dataObject.productID == MMC_SENSOR_WOODPECKER_PRODUCT_ID_2)) {
+                && ([dataObject.productID isEqualToString:MMC_SENSOR_WOODPECKER_PRODUCT_ID_1]  || [dataObject.productID isEqualToString:MMC_SENSOR_WOODPECKER_PRODUCT_ID_2])) {
                 if (self.destMacAddr) {
                     if ([self.destMacAddr isEqualToString:dataObject.MacAddr]) {
                         isFind = YES;

@@ -12,7 +12,7 @@
 
 - (instancetype)initWithRawData:(NSData *)data;
 @property(nonatomic, copy) NSString *MacAddr;
-@property(nonatomic, assign) NSInteger productID;
+@property(nonatomic, copy) NSString *productID;
 @property(nonatomic, assign) NSInteger powerLevel;
 //@property(nonatomic, assign, readonly) uint8_t version;
 //@property(nonatomic, assign, readonly) uint16_t productID;
