@@ -169,6 +169,9 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
+    if ([NSDate isDateAfterToday:date]) {
+        return;
+    }
     _selectedDate = date;
     WPCalendarDetailViewController *detailVC = [[WPCalendarDetailViewController alloc] init];
     detailVC.selectedDate = date;

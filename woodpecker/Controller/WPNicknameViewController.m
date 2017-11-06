@@ -39,7 +39,6 @@
     _textField.textColor = kColor_7;
     _textField.font = kFont_1(12);
     _textField.placeholder = @"请输入昵称";
-    _textField.keyboardType = UIKeyboardTypeNumberPad;
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 40)];
     leftView.backgroundColor = [UIColor clearColor];
     _textField.leftView = leftView;
@@ -85,7 +84,7 @@
 - (void)saveBtnPressed{
     [_textField resignFirstResponder];
     _userinfo.nick_name = _textField.text;
-    [WPNetInterface updateUserInfoWithUserID:_userinfo.pid nickname:_userinfo.nick_name birthday:nil height:nil weight:nil success:^(BOOL success) {
+    [WPNetInterface updateUserInfoWithUserID:kDefaultObjectForKey(USER_DEFAULT_USER_ID) nickname:_userinfo.nick_name birthday:nil height:nil weight:nil success:^(BOOL success) {
         kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {

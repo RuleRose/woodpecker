@@ -333,7 +333,6 @@
         }];
         [alertController addAction:confirmAction];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            textField.keyboardType = UIKeyboardTypeNumberPad;
             textField.textColor = kColorFromRGB(0x333333);
             textField.font = [UIFont systemFontOfSize:18];
         }];

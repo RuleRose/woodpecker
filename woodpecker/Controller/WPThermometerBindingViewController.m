@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_4;
-    self.title = @"体温计";
+    self.title = @"正在绑定";
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -60,7 +60,7 @@
 }
 
 - (void)setupViews{
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 156, kScreen_Width, 20)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 78, kScreen_Width, 20)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = kColor_7;
     _titleLabel.font = kFont_1(12);

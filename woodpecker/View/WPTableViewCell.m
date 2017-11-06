@@ -37,11 +37,12 @@
 - (UISwitch*)switchView
 {
     if (!_switchView) {
-        _switchView = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 31, 18)];
+        _switchView = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 51, 31)];
         _switchView.userInteractionEnabled = NO;
         _switchView.backgroundColor = [UIColor clearColor];
         _switchView.onTintColor = kColorFromRGB(0x60b0e3);
         _switchView.tintColor = kColorFromRGB(0xdcdcdc);
+        _switchView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchAction:)];
         [self.contentView addGestureRecognizer:tap];
     }
@@ -155,8 +156,8 @@
             right = _imageIcon.left - 10;
             break;
         case kCellRightModelSwitch:
-            _switchView.frame = CGRectMake(size.width - 56, (size.height - 31)/2, 51, 31);
             _switchView.transform = CGAffineTransformMakeScale(18/31.0, 31/51.0);
+            _switchView.center = CGPointMake(size.width - 40,  size.height/2);
             right = _switchView.left - 10;
             break;
         default:
@@ -170,7 +171,7 @@
 - (void)switchAction:(UITapGestureRecognizer*)tap
 {
     CGPoint pos = [tap locationInView:self.contentView];
-    if (CGRectContainsPoint(_switchView.frame, pos)) {
+    if (CGRectContainsPoint(CGRectMake(self.width - 64, 0, 64, self.height), pos)) {
         if (_delegate && [_delegate respondsToSelector:@selector(switchAction:cell:)]) {
             [_delegate switchAction:_switchView cell:self];
         }

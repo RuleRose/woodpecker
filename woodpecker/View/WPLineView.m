@@ -229,32 +229,59 @@
             dataSet.drawFilledEnabled = YES;
             [dataSets addObject:dataSet];
         }
-    }
-    NSMutableArray *endVals = [[NSMutableArray alloc] init];
-    [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 1) y:0]];
-    LineChartDataSet *endSet = [[LineChartDataSet alloc] initWithValues:endVals label:@""];
-    [dataSets addObject:endSet];
-    
-    LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
-    [data setValueTextColor:UIColor.whiteColor];
-    [data setValueFont:[UIFont systemFontOfSize:9.f]];
-    data.highlightEnabled = YES;
-    _chartView.data = data;
-    if (_showCount != 0) {
-        CGFloat scale = (CGFloat)total_days/(CGFloat)_showCount;
-        if (_scaleX >= 0) {
-            scale = _scaleX;
+        NSMutableArray *endVals = [[NSMutableArray alloc] init];
+        [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 1) y:0]];
+        LineChartDataSet *endSet = [[LineChartDataSet alloc] initWithValues:endVals label:@""];
+        [dataSets addObject:endSet];
+        
+        LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
+        [data setValueTextColor:UIColor.whiteColor];
+        [data setValueFont:[UIFont systemFontOfSize:9.f]];
+        data.highlightEnabled = YES;
+        _chartView.data = data;
+        if (_showCount != 0) {
+            CGFloat scale = (CGFloat)total_days/(CGFloat)_showCount;
+            if (_scaleX >= 0) {
+                scale = _scaleX;
+            }
+            NSInteger index = total_days;
+            if (_xIndex >= 0) {
+                index = _xIndex + 3;
+            }
+            [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
+            
+        }else{
+            [_chartView zoomWithScaleX:1 scaleY:1 xValue:total_days yValue:0 axis:AxisDependencyLeft];
         }
-        NSInteger index = total_days;
-        if (_xIndex >= 0) {
-            index = _xIndex + 3;
-        }
-        [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
-
+        [_chartView highlightValue:nil];
     }else{
-        [_chartView zoomWithScaleX:1 scaleY:1 xValue:total_days yValue:0 axis:AxisDependencyLeft];
+//        _chartView.data = nil;
+        NSMutableArray *endVals = [[NSMutableArray alloc] init];
+        [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 1) y:0]];
+        LineChartDataSet *endSet = [[LineChartDataSet alloc] initWithValues:endVals label:@""];
+        [dataSets addObject:endSet];
+        
+        LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
+        [data setValueTextColor:UIColor.whiteColor];
+        [data setValueFont:[UIFont systemFontOfSize:9.f]];
+        data.highlightEnabled = YES;
+        _chartView.data = data;
+        if (_showCount != 0) {
+            CGFloat scale = (CGFloat)total_days/(CGFloat)_showCount;
+            if (_scaleX >= 0) {
+                scale = _scaleX;
+            }
+            NSInteger index = total_days;
+            if (_xIndex >= 0) {
+                index = _xIndex + 3;
+            }
+            [_chartView zoomWithScaleX:scale scaleY:1 xValue:index yValue:0 axis:AxisDependencyLeft];
+            
+        }else{
+            [_chartView zoomWithScaleX:1 scaleY:1 xValue:total_days yValue:0 axis:AxisDependencyLeft];
+        }
+        [_chartView highlightValue:nil];
     }
-    [_chartView highlightValue:nil];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

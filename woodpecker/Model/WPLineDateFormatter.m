@@ -8,6 +8,7 @@
 
 #import "WPLineDateFormatter.h"
 #import "NSDate+Extension.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPLineDateFormatter ()
 {
@@ -30,6 +31,8 @@
 - (NSString *)stringForValue:(double)value axis:(ChartAxisBase *)axis
 {
     NSDate *date = [NSDate dateByAddingDays:value toDate:_startDate];
+    WPDayInfoInPeriod *dayinfo = [[WPPeriodCountManager defaultInstance] dayInfo:date];
+    _dateFormatter.dateFormat = [NSString stringWithFormat:@"MMdd\n%ld",(long)dayinfo.dayInPeriod];
     return [_dateFormatter stringFromDate:date];
 }
 @end
