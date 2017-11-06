@@ -36,4 +36,5 @@
 + (BOOL)isDateAfterToday:(NSDate *)date;
 + (BOOL)isDate:(NSDate *)date1 afterToDate:(NSDate *)date2 toCalendarUnit:(NSCalendarUnit)unit;
 
++ (NSDate *)dateToUTCDate:(NSDate *)date;
 @end

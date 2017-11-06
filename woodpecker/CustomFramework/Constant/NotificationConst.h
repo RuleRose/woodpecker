@@ -24,6 +24,7 @@ extern NSString* const MMCNotificationKeyTemperatureUnitUpdated;
 
 extern NSString* const MMCNotificationKeySyncOver;
 extern NSString* const MMCNotificationKeyTemperatureMonitoring;
+extern NSString* const MMCNotificationKeyMeasureFinished;
 
 extern NSString* const WPNotificationKeyLoginSuccess;
 extern NSString* const WPNotificationKeyLoginFailed;
