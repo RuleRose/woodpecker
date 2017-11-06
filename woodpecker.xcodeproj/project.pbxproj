@@ -220,6 +220,7 @@
 		CC744E5A1F83194B00EDA2E3 /* WPAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E591F83194B00EDA2E3 /* WPAboutViewController.m */; };
 		CC744E5D1F83197200EDA2E3 /* WPHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E5C1F83197200EDA2E3 /* WPHelpViewController.m */; };
 		CC744E601F831B4F00EDA2E3 /* WPNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC744E5F1F831B4F00EDA2E3 /* WPNicknameViewController.m */; };
+		CC75E2211FB0B9CA00A46208 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = CC75E2201FB0B9CA00A46208 /* NSString+JSON.m */; };
 		CC7722A11F87128E007D83B5 /* WPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722A01F87128E007D83B5 /* WPUserModel.m */; };
 		CC7722A91F87136D007D83B5 /* WPMenstrualRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722A81F87136D007D83B5 /* WPMenstrualRecordModel.m */; };
 		CC7722B21F87167D007D83B5 /* WPHardwareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7722B11F87167D007D83B5 /* WPHardwareHelper.m */; };
@@ -660,6 +661,8 @@
 		CC744E5C1F83197200EDA2E3 /* WPHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHelpViewController.m; sourceTree = "<group>"; };
 		CC744E5E1F831B4F00EDA2E3 /* WPNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPNicknameViewController.h; sourceTree = "<group>"; };
 		CC744E5F1F831B4F00EDA2E3 /* WPNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPNicknameViewController.m; sourceTree = "<group>"; };
+		CC75E21F1FB0B9CA00A46208 /* NSString+JSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
+		CC75E2201FB0B9CA00A46208 /* NSString+JSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		CC77229F1F87128E007D83B5 /* WPUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPUserModel.h; sourceTree = "<group>"; };
 		CC7722A01F87128E007D83B5 /* WPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPUserModel.m; sourceTree = "<group>"; };
 		CC7722A71F87136D007D83B5 /* WPMenstrualRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMenstrualRecordModel.h; sourceTree = "<group>"; };
@@ -884,6 +887,8 @@
 			children = (
 				C1562FE61F5065FE00D6CC30 /* NSString+Extension.h */,
 				C1562FE71F5065FE00D6CC30 /* NSString+Extension.m */,
+				CC75E21F1FB0B9CA00A46208 /* NSString+JSON.h */,
+				CC75E2201FB0B9CA00A46208 /* NSString+JSON.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -1838,6 +1843,7 @@
 				CC5EEF371F778E0C009F4764 /* WPSelectionPopupView.m in Sources */,
 				CC7722A11F87128E007D83B5 /* WPUserModel.m in Sources */,
 				CC744E571F83191B00EDA2E3 /* WPShoppingViewController.m in Sources */,
+				CC75E2211FB0B9CA00A46208 /* NSString+JSON.m in Sources */,
 				CC7214461F65329E00AE2D82 /* WPStatusViewModel.m in Sources */,
 				C156303B1F5065FE00D6CC30 /* XJFBaseNavigationController.m in Sources */,
 				CC0AAF511F6C230800FCCA6C /* FSCalendarStickyHeader.m in Sources */,

@@ -17,6 +17,7 @@
 #import "WPEventItemModel.h"
 #import "WPPeriodCountManager.h"
 #import "WPPeriodCountModel.h"
+#import "NSString+JSON.h"
 
 @implementation WPRecordViewModel
 
@@ -405,7 +406,7 @@
     NSArray *items = [XJFDBManager searchModelsWithCondition:item andpage:-1 andOrderby:nil isAscend:YES];
     for (WPEventItemModel *item in items) {
         if (![NSString leie_isBlankString:item.brief]) {
-            NSDictionary *breifDic =[NSString dictionaryWithJsonString:item.brief];
+            NSDictionary *breifDic =[NSString getDictionary:item.brief];
             for (NSString *key in breifDic) {
                 [event setTheme:[self getThemeWIthDetaiType:key] detail:[breifDic objectForKey:key]];
             }
@@ -458,7 +459,7 @@
         if (_event.gore) {
             [description setObject:_event.gore forKey:@"gore"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.color || event.flow || event.pain || event.gore) {
@@ -483,7 +484,7 @@
         if (_event.ct) {
             [description setObject:_event.ct forKey:@"test_paper"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.mucus_prob || event.mucus_flow || event.love || event.ct) {
@@ -498,7 +499,7 @@
         if (_event.sleep) {
             [description setObject:_event.sleep forKey:@"quality"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.sleep) {
@@ -513,7 +514,7 @@
         if (_event.mood) {
             [description setObject:_event.mood forKey:@"motion"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.mood) {
@@ -528,7 +529,7 @@
         if (_event.sport) {
             [description setObject:_event.sport forKey:@"time"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.sport) {
@@ -543,7 +544,7 @@
         if (_event.drink) {
             [description setObject:_event.drink forKey:@"status"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.drink) {
@@ -558,7 +559,7 @@
         if (_event.drug) {
             [description setObject:_event.drug forKey:@"type"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.drug) {
@@ -573,7 +574,7 @@
         if (_event.comments) {
             [description setObject:_event.comments forKey:@"comments"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.comments) {
@@ -588,7 +589,7 @@
         if (_event.weight) {
             [description setObject:_event.weight forKey:@"weight"];
         }
-        [eventDic setObject:[NSString convertToJSONData:description] forKey:@"description"];
+        [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
         if (event.comments) {
