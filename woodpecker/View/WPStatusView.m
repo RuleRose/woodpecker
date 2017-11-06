@@ -79,7 +79,7 @@
     [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
     [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempBtn];
-    _todayBtn = [[UIButton alloc] initWithFrame:CGRectMake(_tempBtn.right - 48, 20, 33, 33)];
+    _todayBtn = [[UIButton alloc] initWithFrame:CGRectMake(_tempBtn.left - 48, 20, 33, 33)];
     _todayBtn.backgroundColor = [UIColor clearColor];
     [_todayBtn setImage:kImage(@"btn-navi-status-today") forState:UIControlStateNormal];
     [_todayBtn addTarget:self action:@selector(todayBtnPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -112,7 +112,6 @@
     _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
     _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
     _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
-    _todayBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
 
 }
 
