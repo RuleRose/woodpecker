@@ -200,7 +200,7 @@ Singleton_Implementation(MMCDeviceManager);
 
 - (void)setTimeToNow {
     if (self.currentDevice) {
-        NSDate *now = [NSDate date];
+        NSDate *now = [NSDate dateToUTCDate:[NSDate date]];
         NSTimeInterval interval = [now timeIntervalSince2000];
         int32_t value = interval;
         [self writeCharacteristic:self.currentDevice.peripheral
@@ -304,7 +304,8 @@ Singleton_Implementation(MMCDeviceManager);
         if (beacon_data) {
             BOOL isFind = FALSE;
             dataObject = [[WoodpeckerSensorData alloc] initWithRawData:beacon_data];
-            if (dataObject && dataObject.productID == MMC_SENSOR_WOODPECKER_PRODUCT_ID) {
+            if (dataObject
+                && ([dataObject.productID isEqualToString:MMC_SENSOR_WOODPECKER_PRODUCT_ID_1]  || [dataObject.productID isEqualToString:MMC_SENSOR_WOODPECKER_PRODUCT_ID_2])) {
                 if (self.destMacAddr) {
                     if ([self.destMacAddr isEqualToString:dataObject.MacAddr]) {
                         isFind = YES;
@@ -615,6 +616,9 @@ Singleton_Implementation(MMCDeviceManager);
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
+        if (status == 5) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
+        }
     }
     //    else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
     //        int16_t state;
@@ -686,6 +690,9 @@ Singleton_Implementation(MMCDeviceManager);
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
+        if (status == 5) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
+        }
     }
 }
 

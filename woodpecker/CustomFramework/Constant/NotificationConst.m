@@ -18,6 +18,7 @@ NSString* const MMCNotificationKeyAlarmUpdated = @"MMCNotificationKeyAlarmUpdate
 NSString* const MMCNotificationKeyTemperatureUnitUpdated = @"MMCNotificationKeyTemperatureUnitUpdated";
 NSString* const MMCNotificationKeySyncOver = @"MMCNotificationKeySyncOver";
 NSString* const MMCNotificationKeyTemperatureMonitoring = @"MMCNotificationKeyTemperatureMonitoring";
+NSString* const MMCNotificationKeyMeasureFinished = @"MMCNotificationKeyMeasureFinished";
 
 NSString* const WPNotificationKeyLoginSuccess = @"WPNotificationKeyLoginSuccess";
 NSString* const WPNotificationKeyLoginFailed = @"WPNotificationKeyLoginFailed";

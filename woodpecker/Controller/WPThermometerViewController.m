@@ -153,8 +153,10 @@
         popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
             if (unit == 0) {
                 kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_UNIT_F);
+                [[MMCDeviceManager defaultInstance] centigradeAsUnit:NO callback:nil];
             }else{
                 kDefaultSetObjectForKey([NSNumber numberWithBool:NO], TEMPERATURE_DEFAULT_UNIT_F);
+                [[MMCDeviceManager defaultInstance] centigradeAsUnit:YES callback:nil];
             }
             [weakSelf.tableView reloadData];
         };
