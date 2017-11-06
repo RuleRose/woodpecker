@@ -183,6 +183,7 @@ Singleton_Implementation(WPPeriodCountManager);
     dayInfo.isEnd = NO;
 
     WPPeriodCountModel *destPeriod = [self getCurrentPeriodInfo:day];
+    WPPeriodCountModel *nextPeriod = [self getNextPeriodInfo:day];
     if (!destPeriod) {
         //没找到目标周期
         dayInfo.isValide = NO;
@@ -280,7 +281,15 @@ Singleton_Implementation(WPPeriodCountManager);
             if (dayBefore > 0) {
                 dayInfo.dayBeforePregnantPeriod = dayBefore;
             } else {
-                dayInfo.dayBeforePregnantPeriod = 0;
+                //找下一个周期经期开始日
+                if (nextPeriod && nextPeriod.pregnant_start) {
+                    NSInteger dayBefore = [NSDate daysFromDate:day toDate:nextPeriod.pregnant_start];
+                    if (dayBefore > 0) {
+                        dayInfo.dayBeforePregnantPeriod = dayBefore;
+                    } else {
+                        dayInfo.dayBeforePregnantPeriod = 0;
+                    }
+                }
             }
         } else {
             dayInfo.dayBeforePregnantPeriod = 0;

@@ -616,6 +616,9 @@ Singleton_Implementation(MMCDeviceManager);
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
+        if (status == 5) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
+        }
     }
     //    else if ([charactUUIDString isEqualToString:CHARACT_UUID_MONITORING_TEMPERATURE_READ]) {
     //        int16_t state;
@@ -687,6 +690,9 @@ Singleton_Implementation(MMCDeviceManager);
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
+        if (status == 5) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
+        }
     }
 }
 
