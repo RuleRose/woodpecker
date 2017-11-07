@@ -34,7 +34,16 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceState object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceConnectionState object:nil];
+}
+
 
 - (void)setupData{
     _viewModel = [[WPThermometerRemoveViewModel alloc] init];
@@ -85,11 +94,28 @@
         
     }];
     [_viewModel unBindDeviceSuccess:^(BOOL finished) {
-        [[XJFHUDManager defaultInstance] hideLoading];
-        if (finished) {
-            [self.navigationController popViewControllerAnimated:YES];
+        if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+            [[XJFHUDManager defaultInstance] hideLoading];
+            if (finished) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }];
+}
+
+- (void)updateState{
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+        [[XJFHUDManager defaultInstance] hideLoading];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
+- (void)updateConnectionState{
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+        [[XJFHUDManager defaultInstance] hideLoading];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
