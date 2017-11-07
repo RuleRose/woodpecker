@@ -76,7 +76,6 @@
 		C15847691F5E71E900D785A6 /* WoodpeckerSensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = C15847661F5E71E900D785A6 /* WoodpeckerSensorData.m */; };
 		C158476E1F5E71F200D785A6 /* MMCBluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476B1F5E71F200D785A6 /* MMCBluetoothManager.m */; };
 		C158476F1F5E71F200D785A6 /* MMCDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */; };
-		C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */; };
 		C15A3C271F931EF100224484 /* NSTimeZone+ext.m in Sources */ = {isa = PBXBuildFile; fileRef = C15A3C261F931EF100224484 /* NSTimeZone+ext.m */; };
 		C160117A1F5F8AB600F7B900 /* WPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C16011791F5F8AB600F7B900 /* WPAccountManager.m */; };
 		C16ACF111F9C9DF7006E6EB9 /* WPPeriodCountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C16ACF101F9C9DF7006E6EB9 /* WPPeriodCountManager.m */; };
@@ -436,7 +435,6 @@
 		C158476C1F5E71F200D785A6 /* MMCDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCDeviceManager.h; sourceTree = "<group>"; };
 		C158476D1F5E71F200D785A6 /* MMCDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCDeviceManager.m; sourceTree = "<group>"; };
 		C15847721F5E85F100D785A6 /* BluetoothConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConst.h; sourceTree = "<group>"; };
-		C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiBluetoothFramework.framework; sourceTree = "<group>"; };
 		C15A3C251F931EF100224484 /* NSTimeZone+ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+ext.h"; sourceTree = "<group>"; };
 		C15A3C261F931EF100224484 /* NSTimeZone+ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ext.m"; sourceTree = "<group>"; };
 		C16011781F5F8AB600F7B900 /* WPAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAccountManager.h; sourceTree = "<group>"; };
@@ -741,7 +739,6 @@
 			files = (
 				C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */,
 				CC1C4FD31F7BDA5600D4CAE8 /* Charts.framework in Frameworks */,
-				C15847741F5E877200D785A6 /* MiBluetoothFramework.framework in Frameworks */,
 				135676341C8E6BA53718F116 /* libPods-woodpecker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1444,7 +1441,6 @@
 		F54DD6FADDEF2E5E0113AD58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C15847731F5E877200D785A6 /* MiBluetoothFramework.framework */,
 				C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */,
 				6C49084367002DCB90033864 /* libPods-woodpecker.a */,
 			);
@@ -1487,9 +1483,9 @@
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = VHXL69WFQ8;
+						DevelopmentTeam = 45S27PPGAF;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1996,8 +1992,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VHXL69WFQ8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
+				DEVELOPMENT_TEAM = 45S27PPGAF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2006,10 +2002,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dd9be868-3258-4954-8303-53cf022d8968";
+				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2026,8 +2022,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VHXL69WFQ8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
+				DEVELOPMENT_TEAM = 45S27PPGAF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2036,10 +2032,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dd9be868-3258-4954-8303-53cf022d8968";
+				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
