@@ -31,7 +31,9 @@
             result(YES);
         }
     } failure:^(NSError *error) {
-        result(NO);
+        if (result) {
+            result(NO);
+        }
     }];
 }
 
@@ -42,7 +44,9 @@
             result(YES);
         }
     } failure:^(NSError *error) {
-        result(NO);
+        if (result) {
+            result(NO);
+        }
     }];
 }
 @end

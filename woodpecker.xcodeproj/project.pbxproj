@@ -191,6 +191,7 @@
 		CC1C4FDB1F7BDA9B00D4CAE8 /* woodpecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FDA1F7BDA9B00D4CAE8 /* woodpecker.swift */; };
 		CC1C4FDD1F7BDAB200D4CAE8 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FDC1F7BDAB200D4CAE8 /* BalloonMarker.swift */; };
 		CC1C4FE31F7BDC6B00D4CAE8 /* WPLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */; };
+		CC2509CB1FB1E5B20009E3CD /* WPAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2509CA1FB1E5B20009E3CD /* WPAgreementViewController.m */; };
 		CC279D701F6AD2AB003B5119 /* WPRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */; };
 		CC279D731F6AD77F003B5119 /* WPRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC279D721F6AD77F003B5119 /* WPRecordViewModel.m */; };
 		CC2839281F8CF8C4008A2E9F /* WPNetInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2839271F8CF8C4008A2E9F /* WPNetInterface.m */; };
@@ -603,6 +604,8 @@
 		CC1C4FDC1F7BDAB200D4CAE8 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		CC1C4FE11F7BDC6B00D4CAE8 /* WPLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPLineView.h; sourceTree = "<group>"; };
 		CC1C4FE21F7BDC6B00D4CAE8 /* WPLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPLineView.m; sourceTree = "<group>"; };
+		CC2509C91FB1E5B20009E3CD /* WPAgreementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPAgreementViewController.h; sourceTree = "<group>"; };
+		CC2509CA1FB1E5B20009E3CD /* WPAgreementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPAgreementViewController.m; sourceTree = "<group>"; };
 		CC279D6E1F6AD2AB003B5119 /* WPRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordViewController.h; sourceTree = "<group>"; };
 		CC279D6F1F6AD2AB003B5119 /* WPRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRecordViewController.m; sourceTree = "<group>"; };
 		CC279D711F6AD77F003B5119 /* WPRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRecordViewModel.h; sourceTree = "<group>"; };
@@ -1088,6 +1091,8 @@
 				C1FE086B1F5BCA810054A254 /* WPMainViewController.m */,
 				C1FE08791F5BCFE90054A254 /* WPStatusViewController.h */,
 				C1FE087A1F5BCFE90054A254 /* WPStatusViewController.m */,
+				CC2509C91FB1E5B20009E3CD /* WPAgreementViewController.h */,
+				CC2509CA1FB1E5B20009E3CD /* WPAgreementViewController.m */,
 				C1FE087C1F5BCFFA0054A254 /* WPTemperatureViewController.h */,
 				C1FE087D1F5BCFFA0054A254 /* WPTemperatureViewController.m */,
 				CC0E88401F65702200EC5062 /* WPThermometerViewController.h */,
@@ -1793,6 +1798,7 @@
 				C1FE086C1F5BCA810054A254 /* WPMainViewController.m in Sources */,
 				CC0AAF481F6C230800FCCA6C /* FSCalendarCell.m in Sources */,
 				C15630441F5065FE00D6CC30 /* XJFSeperatorLineView.m in Sources */,
+				CC2509CB1FB1E5B20009E3CD /* WPAgreementViewController.m in Sources */,
 				C15A3C271F931EF100224484 /* NSTimeZone+ext.m in Sources */,
 				CC1A54041F72A54000B3EF2E /* WPRecordStatusModel.m in Sources */,
 				CC7214491F6532D000AE2D82 /* WPStatusView.m in Sources */,

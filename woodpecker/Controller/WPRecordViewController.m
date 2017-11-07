@@ -62,15 +62,16 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     [_viewModel updatePeriodSuccess:^(BOOL finished) {
         [[WPPeriodCountManager defaultInstance] recountPeriod];
         [_viewModel updateEventSuccess:^(BOOL finished) {
+            [[XJFHUDManager defaultInstance] hideLoading];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];
-//    [_viewModel updateEventSuccess:^(BOOL finished) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
 }
 
 - (void)setupData{

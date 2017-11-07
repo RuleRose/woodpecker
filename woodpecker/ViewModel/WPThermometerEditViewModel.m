@@ -28,7 +28,9 @@
             success(YES);
         }
     } failure:^(NSError *error) {
-        
+        if (success) {
+            success(NO);
+        }
     }];
 }
 

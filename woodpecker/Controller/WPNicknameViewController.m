@@ -84,11 +84,15 @@
 - (void)saveBtnPressed{
     [_textField resignFirstResponder];
     _userinfo.nick_name = _textField.text;
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     [WPNetInterface updateUserInfoWithUserID:kDefaultObjectForKey(USER_DEFAULT_USER_ID) nickname:_userinfo.nick_name birthday:nil height:nil weight:nil success:^(BOOL success) {
+        [[XJFHUDManager defaultInstance] hideLoading];
         kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
-        
+        [[XJFHUDManager defaultInstance] hideLoading];
     }];
 }
 

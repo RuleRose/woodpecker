@@ -9,6 +9,8 @@
 #import "WPThermometerRemoveViewController.h"
 #import "WPThermometerRemoveViewModel.h"
 #import "WPAlertPopupView.h"
+#import "WPConnectDeviceManager.h"
+#import "MMCDeviceManager.h"
 
 @interface WPThermometerRemoveViewController ()
 @property (nonatomic, strong) WPThermometerRemoveViewModel *viewModel;
@@ -64,18 +66,29 @@
 }
 
 - (void)removeBtnPressed{
+    MJWeakSelf;
     WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
     popView.title = @"确定解除体温计绑定？";
     popView.cancelBlock = ^(MMPopupView *popupView) {
         
     };
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
-        [_viewModel unBindDeviceSuccess:^(BOOL finished) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+        [weakSelf unbind];
     };
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         
+    }];
+}
+
+- (void)unbind{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+    [_viewModel unBindDeviceSuccess:^(BOOL finished) {
+        [[XJFHUDManager defaultInstance] hideLoading];
+        if (finished) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
 }
 

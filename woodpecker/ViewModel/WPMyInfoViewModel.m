@@ -19,7 +19,9 @@
             result(YES);
         }
     } failure:^(NSError *error) {
-        
+        if (result) {
+            result(NO);
+        }
     }];
 }
 

@@ -89,7 +89,11 @@
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     [_viewModel updateProfile:_profile reuslt:^(BOOL success) {
+        [[XJFHUDManager defaultInstance] hideLoading];
         if (success) {
             [[WPPeriodCountManager defaultInstance] recountPeriod];
             [self.navigationController popViewControllerAnimated:YES];

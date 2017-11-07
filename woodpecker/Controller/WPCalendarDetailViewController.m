@@ -373,7 +373,12 @@
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = @"基础体温";
-        cell.detailLabel.text = @"6月7日 05:30:00 36.50°C";
+         WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
+        if (temperature && ![NSString leie_isBlankString:temperature.temp]) {
+            NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time longLongValue]];
+            NSString *dateStr = [NSDate stringFromDate:date format:@"M月d日 HH:mm:ss"];
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@ %@°C",dateStr, temperature.temp];
+        }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
         cell.titleLabel.text = @"受孕指数";
@@ -385,7 +390,7 @@
         cell.line.hidden = YES;
     }else if (indexPath.row == 4){
         cell.titleLabel.text = @"当日记录";
-        cell.detailLabel.text = @"3项";
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld项",(long)[_viewModel eventCountAtDate:_selectedDate]];
         cell.line.hidden = YES;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];

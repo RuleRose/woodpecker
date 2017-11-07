@@ -44,6 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTemperature)  name:WPNotificationKeyGetTemp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(measureFinished) name:MMCNotificationKeyMeasureFinished object:nil];
 
     [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
@@ -118,6 +119,10 @@
 
 - (void)getEvent{
     [_statusView updateState];
+}
+
+- (void)measureFinished{
+    [_viewModel syncTempData];
 }
 
 #pragma mark WPStatusViewDelegate

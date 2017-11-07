@@ -68,8 +68,14 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alarmUpdated) name:MMCNotificationKeyAlarmUpdated object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyAlarmUpdated object:nil];
+}
+
 
 - (void)setupData{
     _viewModel = [[WPThermometerClockViewModel alloc] init];
@@ -139,10 +145,12 @@
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
-            NSDate *date = [NSDate dateFromString:[NSDate stringFromDate:clock format:@"HH:mm"] format:@"HH:mm"];
-            [MMCDeviceManager defaultInstance].alarmTimeInterval = [[NSDate dateToUTCDate:date] timeIntervalSince2000];
+            [MMCDeviceManager defaultInstance].alarmTimeInterval = [[NSDate dateToUTCDate:clock] timeIntervalSince2000];
             [_tableView reloadData];
             if ([[MMCDeviceManager defaultInstance] alarmIsOn]) {
+                [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+                    
+                }];
                 [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
                 }];
             }
@@ -154,17 +162,23 @@
 }
 
 - (void)switchAction:(UISwitch*)sender cell:(WPTableViewCell*)cell{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     if (sender.on) {
         [[MMCDeviceManager defaultInstance] turnOffAlarm:^(NSInteger sendState) {
-            sender.on =  [[MMCDeviceManager defaultInstance] alarmIsOn];
+            
         }];
     }else{
         [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
-            sender.on =  [[MMCDeviceManager defaultInstance] alarmIsOn];
-            [_tableView reloadData];
         }];
 
     }
+}
+
+- (void)alarmUpdated{
+    [[XJFHUDManager defaultInstance] hideLoading];
+    [_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

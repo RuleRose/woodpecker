@@ -17,6 +17,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "WPLoginViewController.h"
 #import "WPAccountManager.h"
+#import "XJFHUDManager.h"
 
 @interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -68,6 +69,12 @@
     [self setBackBarButton];
     [self showNavigationBar];
     [_tableView reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutSuccess) name:WPNotificationKeyLogoutSuccess object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WPNotificationKeyLogoutSuccess object:nil];
 }
 
 - (void)setupData{
@@ -79,14 +86,23 @@
 }
 
 - (void)cancelBtnPressed{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     [[WPAccountManager defaultInstance] logout];
+}
+
+- (void)logoutSuccess{
+    [[XJFHUDManager defaultInstance] hideLoading];
     kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
     WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
     [viewControllers removeAllObjects];
     [viewControllers addObject:loginVC];
     [self.navigationController setViewControllers:viewControllers animated:YES];
-    
 }
 
 #pragma mark UITableViewDataSource
@@ -243,8 +259,14 @@
 
 - (void)selectedImage:(UIImage *)photo{
     if (photo) {
+        [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+            
+        }];
         [_viewModel uploadAvatar:photo success:^(BOOL finished) {
-            [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
+            [[XJFHUDManager defaultInstance] hideLoading];
+            if (finished) {
+                [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
+            }
         }];
     }
 }

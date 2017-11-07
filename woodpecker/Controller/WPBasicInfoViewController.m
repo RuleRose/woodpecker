@@ -91,7 +91,11 @@
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_activeTextField resignFirstResponder];
     if (![NSString leie_isBlankString:_userinfo.nick_name] && ![NSString leie_isBlankString:_userinfo.birthday]) {
+        [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+            
+        }];
         [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
+            [[XJFHUDManager defaultInstance] hideLoading];
             if (success) {
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -148,12 +152,20 @@
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
         cell.titleLabel.text = @"身高";
-        cell.textField.text = _userinfo.height;
+        if ([NSString leie_isBlankString:_userinfo.weight]) {
+            cell.textField.text = @"";
+        }else{
+            cell.textField.text = [NSString stringWithFormat:@"%@cm",_userinfo.height];
+        }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 3){
         cell.titleLabel.text = @"体重";
-        cell.textField.text = _userinfo.weight;
+        if ([NSString leie_isBlankString:_userinfo.weight]) {
+            cell.textField.text = @"";
+        }else{
+            cell.textField.text = [NSString stringWithFormat:@"%@kg",_userinfo.weight];
+        }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }
@@ -195,7 +207,7 @@
         }
         WPHeightPopupView *popView = [[WPHeightPopupView alloc] init];
         popView.heightBlock = ^(MMPopupView *popupView, NSInteger height) {
-            _userinfo.height = [NSString stringWithFormat:@"%ldcm",(long)height];
+            _userinfo.height = [NSString stringWithFormat:@"%ld",(long)height];
             [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
@@ -207,7 +219,7 @@
         }
         WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
         popView.weightBlock = ^(MMPopupView *popupView, NSInteger weight1, NSInteger weight2) {
-            _userinfo.weight = [NSString stringWithFormat:@"%ld.%ldkg",(long)weight1,(long)weight2];
+            _userinfo.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
             [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
