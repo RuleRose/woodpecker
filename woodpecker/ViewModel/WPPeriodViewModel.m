@@ -36,7 +36,7 @@
 }
 
 - (void)updateProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result{
-    [WPNetInterface updateProfileWithProfileID:profile.pid menstruation:profile.menstruation period:profile.period lastperiod:profile.lastperiod extra_data:profile.extra_data success:^(BOOL success) {
+    [WPNetInterface updateProfileWithProfileID:profile.profile_id menstruation:profile.menstruation period:profile.period lastperiod:profile.lastperiod extra_data:profile.extra_data success:^(BOOL success) {
         kDefaultSetObjectForKey([profile transToDictionary], USER_DEFAULT_PROFILE);
         if (result) {
             result(YES);

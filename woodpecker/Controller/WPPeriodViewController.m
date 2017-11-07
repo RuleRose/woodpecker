@@ -17,6 +17,7 @@
 #import "WPMenstrualLastperiodPopupView.h"
 #import "NSDate+Extension.h"
 #import "WPMainViewController.h"
+#import "WPPeriodCountManager.h"
 
 @interface WPPeriodViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
@@ -90,6 +91,7 @@
 - (void)moreBarButtonPressed:(UIButton *)sender{
     [_viewModel updateProfile:_profile reuslt:^(BOOL success) {
         if (success) {
+            [[WPPeriodCountManager defaultInstance] recountPeriod];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];

@@ -79,6 +79,11 @@
     [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
     [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempBtn];
+    _todayBtn = [[UIButton alloc] initWithFrame:CGRectMake(_tempBtn.left - 48, 20, 33, 33)];
+    _todayBtn.backgroundColor = [UIColor clearColor];
+    [_todayBtn setImage:kImage(@"btn-navi-status-today") forState:UIControlStateNormal];
+    [_todayBtn addTarget:self action:@selector(todayBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_todayBtn];
 
     
     [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
@@ -86,6 +91,7 @@
     [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
+    _todayBtn.hidden = YES;
 }
 
 - (void)resetTemp:(NSString *)temp{
@@ -106,11 +112,16 @@
     _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
     _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
     _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
+
 }
 
 - (void)setViewModel:(WPStatusViewModel *)viewModel{
     _viewModel = viewModel;
 //    _wheelView.viewModel = viewModel;
+}
+
+- (void)todayBtnPressed{
+    [_wheelView scrollToBottom];
 }
 
 - (void)setStartDate:(NSDate *)startDate{
@@ -198,6 +209,11 @@
     //某日温度
     _temperature = [_viewModel getTempWithDate:date];
     [self resetTemp:_temperature.temp];
+    if ([NSDate isDateInToday:date]) {
+        _todayBtn.hidden = YES;
+    }else{
+        _todayBtn.hidden = NO;
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

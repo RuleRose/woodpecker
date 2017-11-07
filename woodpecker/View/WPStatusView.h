@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIButton *calendarBtn;
 @property (nonatomic, strong) UIButton *tempBtn;
 @property (nonatomic, strong) UIButton *tempEditBtn;
+@property (nonatomic, strong) UIButton *todayBtn;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *periodLabel;
 @property (nonatomic, strong) UILabel *tempLabel;

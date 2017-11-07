@@ -195,7 +195,7 @@
         }
         WPHeightPopupView *popView = [[WPHeightPopupView alloc] init];
         popView.heightBlock = ^(MMPopupView *popupView, NSInteger height) {
-            _userinfo.height = [NSString stringWithFormat:@"%ld",(long)height];
+            _userinfo.height = [NSString stringWithFormat:@"%ldcm",(long)height];
             [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
@@ -207,7 +207,7 @@
         }
         WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
         popView.weightBlock = ^(MMPopupView *popupView, NSInteger weight1, NSInteger weight2) {
-            _userinfo.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
+            _userinfo.weight = [NSString stringWithFormat:@"%ld.%ldkg",(long)weight1,(long)weight2];
             [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {

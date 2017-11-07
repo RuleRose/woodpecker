@@ -17,6 +17,7 @@
 
 @property(nonatomic, assign) id<WPStatusWheelViewDelegate> delegate;
 - (void)updateData;
+- (void)scrollToBottom;
 @end
 @protocol WPStatusWheelViewDelegate <NSObject>
 @optional

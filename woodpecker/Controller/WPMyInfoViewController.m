@@ -15,11 +15,14 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/Photos.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "WPLoginViewController.h"
+#import "WPAccountManager.h"
 
 @interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) WPMyInfoViewModel *viewModel;
-@property(nonatomic,strong)UIImage* photo;
+@property (nonatomic, strong) UIImage* photo;
+@property (nonatomic, strong) UIButton* cancelBtn;
 
 @end
 
@@ -36,7 +39,17 @@
         _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = [[UIView alloc] init];
-        _tableView.tableFooterView = [[UIView alloc] init];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 120)];
+        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width - 300)/2, 70, 300, 45)];
+        _cancelBtn.backgroundColor = [UIColor clearColor];
+        _cancelBtn.layer.borderColor = kColor_8_With_Alpha(0.8).CGColor;
+        _cancelBtn.layer.borderWidth = 0.5;
+        _cancelBtn.titleLabel.font = kFont_1(15);
+        [_cancelBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
+        [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:_cancelBtn];
+        _tableView.tableFooterView = footerView;
     }
     return _tableView;
 }
@@ -63,6 +76,17 @@
 
 - (void)setupViews{
     [self.view addSubview:self.tableView];
+}
+
+- (void)cancelBtnPressed{
+    [[WPAccountManager defaultInstance] logout];
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [viewControllers removeAllObjects];
+    [viewControllers addObject:loginVC];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
+    
 }
 
 #pragma mark UITableViewDataSource
