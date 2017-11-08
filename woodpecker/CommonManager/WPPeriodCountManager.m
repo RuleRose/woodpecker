@@ -287,7 +287,9 @@ Singleton_Implementation(WPPeriodCountManager);
                     if (dayBefore > 0) {
                         dayInfo.dayBeforePregnantPeriod = dayBefore;
                     } else {
-                        dayInfo.dayBeforePregnantPeriod = 0;
+                        //最后一个周期，易孕期后面的日子。
+                        NSDate *nextPregantDay = [NSDate dateByAddingDays:self.period toDate:destPeriod.period_start];
+                        dayInfo.dayBeforePregnantPeriod = [NSDate daysFromDate:day toDate:nextPregantDay];
                     }
                 }
             }
