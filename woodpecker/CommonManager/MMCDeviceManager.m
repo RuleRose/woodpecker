@@ -73,7 +73,7 @@ Singleton_Implementation(MMCDeviceManager);
         return;
     }
 
-    self.destMacAddr = mac;
+    self.destMacAddr = [mac lowercaseString];
     //    self.monitoringTemperatureResult = -1;
     [[MMCBluetoothManager defaultInstance] startScan:callback];
 }
