@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIButton *removeBtn;
 @property (nonatomic, strong) WPThermometerViewModel *viewModel;
+@property (nonatomic, assign) BOOL removing;
+
 @end
 
 @implementation WPThermometerViewController
@@ -56,6 +58,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
     self.title = @"体温计";
+    _removing = NO;
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -68,6 +71,9 @@
     [_tableView reloadData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(temperatureUnitUpdated)  name:MMCNotificationKeyTemperatureUnitUpdated object:nil];
+
+    
 
 }
 
@@ -75,6 +81,8 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceConnectionState object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyTemperatureUnitUpdated object:nil];
+
 }
 
 
@@ -152,20 +160,21 @@
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
-{
+{ 
     if (indexPath.row == 0) {
         WPThermometerClockViewController *clockVC = [[WPThermometerClockViewController alloc] init];
         [self.navigationController pushViewController:clockVC animated:YES];
     }else if (indexPath.row == 1){
-        MJWeakSelf;
         WPTemperatureUnitPopupView *popView = [[WPTemperatureUnitPopupView alloc] init];
         popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
+            [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+                
+            }];
             if (unit == 0) {
                 [[MMCDeviceManager defaultInstance] centigradeAsUnit:NO callback:nil];
             }else{
                 [[MMCDeviceManager defaultInstance] centigradeAsUnit:YES callback:nil];
             }
-            [weakSelf.tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
@@ -176,6 +185,11 @@
     }
 }
 
+- (void)temperatureUnitUpdated{
+    [[XJFHUDManager defaultInstance] hideLoading];
+    [self.tableView reloadData];
+}
+
 - (void)removeBtnPressed{
     WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
     popView.title = @"确定解除体温计绑定？";
@@ -183,6 +197,7 @@
         
     };
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
+        _removing = YES;
         [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
             
         }];
@@ -195,7 +210,7 @@
 }
 
 - (void)updateState{
-    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE && _removing) {
         [[XJFHUDManager defaultInstance] hideLoading];
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -203,7 +218,7 @@
 
 
 - (void)updateConnectionState{
-    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE && _removing) {
         [[XJFHUDManager defaultInstance] hideLoading];
         [self.navigationController popViewControllerAnimated:YES];
     }

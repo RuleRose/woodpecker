@@ -105,11 +105,12 @@
 }
 
 - (void)confirmBtnPressed{
-    [self hide];
-    NSInteger unit = [_pickerView selectedRowInComponent:0];
-    if (_unitBlock) {
-        _unitBlock(self, unit);
-    }
+    [self hideWithBlock:^(MMPopupView *popupView, BOOL finished) {
+        NSInteger unit = [_pickerView selectedRowInComponent:0];
+        if (_unitBlock) {
+            _unitBlock(self, unit);
+        }
+    }];
 }
 
 /*
