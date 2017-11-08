@@ -20,12 +20,22 @@ extern NSString* const MMCNotificationKeyDeviceConnectionState;
 extern NSString* const MMCNotificationKeyTemperature;
 extern NSString* const MMCNotificationKeyTemperatureIndexUpdated;
 extern NSString* const MMCNotificationKeyAlarmUpdated;
+extern NSString* const MMCNotificationKeyTemperatureUnitUpdated;
+
 extern NSString* const MMCNotificationKeySyncOver;
 extern NSString* const MMCNotificationKeyTemperatureMonitoring;
+extern NSString* const MMCNotificationKeyMeasureFinished;
 
 extern NSString* const WPNotificationKeyLoginSuccess;
 extern NSString* const WPNotificationKeyLoginFailed;
 extern NSString* const WPNotificationKeyLoginCancel;
 extern NSString* const WPNotificationKeyLogoutSuccess;
 extern NSString* const WPNotificationKeyTokenExpire;
+
+extern NSString* const WPNotificationKeyUpdateProfile;
+extern NSString* const WPNotificationKeyUpdateDevice;
+extern NSString* const WPNotificationKeyGetTemp;
+extern NSString* const WPNotificationKeyGetPeriod;
+extern NSString* const WPNotificationKeyGetEvent;
+
 @end

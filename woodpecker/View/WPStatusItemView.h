@@ -11,5 +11,6 @@
 @interface WPStatusItemView : UIView
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic, strong)UILabel *detailLabel;
-- (void)setTitle:(NSString *)title detail:(NSString *)detail unit:(NSString *)unit;
+@property(nonatomic, strong)UIImageView *nextIcon;
+- (void)setTitle:(NSString *)title detail:(NSString *)detail unit:(NSString *)unit showNext:(BOOL)showNext;
 @end

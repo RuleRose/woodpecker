@@ -45,9 +45,10 @@ static NSURL *_baseurl = nil;
     //超时设置
     self.requestSerializer.timeoutInterval = 60.0f;
 
-    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
-
+//    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
+    [self.requestSerializer setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
+    [self.requestSerializer setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
     self.securityPolicy.allowInvalidCertificates = YES;
     return self;
 }
@@ -199,16 +200,18 @@ static NSURL *_baseurl = nil;
             NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:reqURL parameters:nil error:nil];
             [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [req setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
+            [req setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
             req.timeoutInterval = 60.0f;
             [req setHTTPBody:[tempParams mj_JSONData]];
             [[self dataTaskWithRequest:req
                      completionHandler:^(NSURLResponse *_Nonnull response, id _Nullable responseObject, NSError *_Nullable error) {
                        if (!error) {
                            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                               DDLogDebug(@"\n===========response===========\n%@:\n%@", path, responseObject);
                                if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
                                    block(responseObject, nil);
                                } else {
-                                   DDLogDebug(@"\n===========response===========\n%@:\n%@", path, [responseObject leie_getObjectByPath:@"message"]);
                                    block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
                                }
                            } else {

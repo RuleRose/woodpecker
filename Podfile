@@ -16,4 +16,6 @@ pod 'SWTableViewCell', '~> 0.3.7'
 pod 'MMPopupView', '~> 1.7.2'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'TTTAttributedLabel'
+pod 'IQKeyboardManager'
+pod 'TZImagePickerController'
 end

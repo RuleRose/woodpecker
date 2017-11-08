@@ -7,10 +7,10 @@
 //
 
 #import "XJFBaseViewController.h"
+#import "UIImage+Extension.h"
 
 @interface XJFBaseViewController ()
 @property(nonatomic, strong) NSArray *rightBarItems;
-@property(nonatomic, strong) UIView *bottomLine;
 @end
 
 @implementation XJFBaseViewController
@@ -19,6 +19,8 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarTintColor:kColor_4];
     [self.navigationController.navigationBar setTintColor:kClear];
+    self.navigationController.navigationBar.translucent = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = kColor_1;
     [self navigationBarLineHidden:YES];
     
@@ -26,6 +28,15 @@
     self.navigationController.navigationBar.titleTextAttributes = @{ NSFontAttributeName : kFont_1(14), NSForegroundColorAttributeName : kColor_7_With_Alpha(0.8) };
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self.view addSubview:[[UIView alloc] init]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_bottomLine) {
+        [_bottomLine removeFromSuperview];
+        _bottomLine = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,6 +51,10 @@
 
 - (void)hideNavigationBar {
     [self.navigationController setNavigationBarHidden:YES];
+    if (_bottomLine) {
+        [_bottomLine removeFromSuperview];
+        _bottomLine = nil;
+    }
 }
 
 - (void)showNavigationBar {
@@ -49,6 +64,7 @@
         _bottomLine.backgroundColor = kColor_6;
         [self.navigationController.navigationBar addSubview:_bottomLine];
     }
+    _bottomLine.hidden = NO;
 }
 
 - (void)showStatusBar {
@@ -181,8 +197,52 @@
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil
                                        action:nil];
-    leftSpaceItem.width = -20;
+    leftSpaceItem.width = -15;
     self.navigationItem.leftBarButtonItems = @[leftSpaceItem, leftbutton];
+}
+
+- (void)setMoreBarButtonWithTitle:(NSString *)title color:(UIColor *)color{
+    if (self.navigationController.viewControllers.count <= 1) {
+        return;
+    }
+    //设置返回按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(moreBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 44, 44)];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:color forState:UIControlStateNormal];
+    [button.titleLabel setFont:kFont_1(14)];
+    UIBarButtonItem *rightbutton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem* rightSpaceItem = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                      target:nil
+                                      action:nil];
+    rightSpaceItem.width = -15;
+    self.navigationItem.rightBarButtonItems = @[rightSpaceItem, rightbutton];
+}
+
+- (void)setMoreBarButtonWithImage:(UIImage *)image{
+    if (self.navigationController.viewControllers.count <= 1) {
+        return;
+    }
+    //设置返回按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(moreBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 44, 44)];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:image forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:kFont_1(14)];
+    UIBarButtonItem *rightbutton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem* rightSpaceItem = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                      target:nil
+                                      action:nil];
+    rightSpaceItem.width = -15;
+    self.navigationItem.rightBarButtonItems = @[rightSpaceItem, rightbutton];
+}
+
+- (void)moreBarButtonPressed:(UIButton *)sender{
+
 }
 
 //返回

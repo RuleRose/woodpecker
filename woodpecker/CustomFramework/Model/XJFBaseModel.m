@@ -58,6 +58,13 @@ MJExtensionCodingImplementation;
 - (BOOL)updateToDBDependsOn:(NSArray *)keys {
     return [XJFDBManager updateModel:self dependOnKeys:keys];
 }
+
+- (BOOL)insertOrupdateToDBDependsOn:(NSArray *)keys{
+    if (![XJFDBManager insertModel:self]) {
+        return [XJFDBManager updateModel:self dependOnKeys:keys];
+    }
+    return YES;
+}
 //
 //- (BOOL)removeFromDB {
 //    return [LeieDBManager deleteModel:self dependOnKeys:nil];

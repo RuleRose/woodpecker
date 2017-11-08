@@ -51,7 +51,7 @@
  *  查询，可分页以及排序
  *
  *  @param cls       类对象。如果number为默认值，则不作为查询条件; 其他类型数据为nil，也不作为查询条件。
- *  @param pageindex 分页, 如果为-1，则不分页，一次全取出来。
+ *  @param pageindex 分页, 如果为-1，则不分页，一次全取出来。分页从第0也开始。
  *  @param orderBy   排序字段 如果为nil，就不做排序。
  *  @param isAscen   升/降序。
  *

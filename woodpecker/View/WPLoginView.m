@@ -60,7 +60,9 @@
 }
 
 - (void)attributedLabel:(TTTAttributedLabel*)label didSelectLinkWithTransitInformation:(NSDictionary*)components{
-    
+    if (_delegate && [_delegate respondsToSelector:@selector(showAgreement)]) {
+        [_delegate showAgreement];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

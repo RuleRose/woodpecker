@@ -9,11 +9,35 @@
 #ifndef NetWorkAPI_h
 #define NetWorkAPI_h
 
-#define NETWORK_EXPRESS @"/iot/express/register/"
-#define NETWORK_ORDER @"/iot/order/get/"
-#define NETWORK_ORDER_UPDATE @"/iot/order/update/"
-#define NETWORK_ORDER_REGISTER @"/iot/order/register/"
-#define NETWORK_SERVER_TIME @"/iot/order/time/"
-#define NETWORK_TEMPERATURE_POST @"/iot/temperature/post/"
+#define USER_REGISTER @"/mmcpecker/api/user/register/"
+#define USER_LOGIN @"/mmcpecker/api/user/login/"
+#define USER_IS_ACTIVE @"/mmcpecker/api/user/is_user_active/"
+#define USER_UPDATE @"/mmcpecker/api/user/update/"
+
+#define PROFILE_REGISTER @"/mmcpecker/api/profile/register/"
+#define PROFILE_UPDATE @"/mmcpecker/api/profile/update/"
+#define PROFILE_GET @"/mmcpecker/api/profile/get/"
+
+#define DEVICE_REGISTER @"/mmcpecker/api/device/register/"
+#define BINGDING_BIND @"/mmcpecker/api/binding/bind/"
+#define BINGDING_UNBIND @"/mmcpecker/api/binding/unbind/"
+#define DEVICE_GET @"/mmcpecker/api/device/get/"
+
+#define TEMPERATURE_POST @"/mmcpecker/api/temperature/post/"
+#define TEMPERATURE_GET @"/mmcpecker/api/temperature/get/"
+#define TEMPERATURE_UPDATE @"/mmcpecker/api/temperature/update/"
+
+
+#define EVENT_POST @"/mmcpecker/api/event/post/"
+#define EVENT_UPDATE @"/mmcpecker/api/event/update/"
+#define EVENT_DELETE @"/mmcpecker/api/event/delete/"
+#define EVENT_GET @"/mmcpecker/api/event/get/"
+
+#define PERIOD_POST @"/mmcpecker/api/period/post/"
+#define PERIOD_UPDATE @"/mmcpecker/api/period/update/"
+#define PERIOD_DELETE @"/mmcpecker/api/period/delete/"
+#define PERIOD_GET @"/mmcpecker/api/period/get/"
+
+#define AVATAR_POST @"/mmcpecker/api/avatar/post/"
 
 #endif /* NetWorkAPI_h */

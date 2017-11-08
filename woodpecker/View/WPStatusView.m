@@ -7,6 +7,11 @@
 //
 
 #import "WPStatusView.h"
+#import "MMCDeviceManager.h"
+#import "NSDate+Extension.h"
+#import "XJFDBManager.h"
+#import "WPPeriodCountManager.h"
+
 @implementation WPStatusView
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -18,33 +23,20 @@
 }
 
 - (void)setupViews{
-    _calendarBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 33, 33)];
-    _calendarBtn.backgroundColor = [UIColor clearColor];
-    [_calendarBtn setImage:kImage(@"btn-navi-status-cale") forState:UIControlStateNormal];
-    [_calendarBtn addTarget:self action:@selector(calendarBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_calendarBtn];
-    _tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 53, 20, 33, 33)];
-    _tempBtn.backgroundColor = [UIColor clearColor];
-    [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
-    [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_tempBtn];
-    _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 320, self.width - 50, 33)];
+    _dateLabel = [[UILabel alloc] init];
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.textColor = kColor_7;
     _dateLabel.font = kFont_2(23);
-    _dateLabel.text = @"6月7日";
     [self addSubview:_dateLabel];
-    _periodLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, _dateLabel.bottom, self.width - 50, 35)];
+    _periodLabel = [[UILabel alloc] init];
     _periodLabel.backgroundColor = [UIColor clearColor];
     _periodLabel.textColor = kColor_7;
     _periodLabel.font = kFont_2(23);
-    _periodLabel.text = @"安全期";
     [self addSubview:_periodLabel];
     _tempLabel = [[UILabel alloc] init];
     _tempLabel.backgroundColor = [UIColor clearColor];
     _tempLabel.textColor = kColor_7;
-    _tempLabel.font = kFont_4(84);
-    _tempLabel.text = @"36.50";
+    _tempLabel.text = @"尚未测温";
     [self addSubview:_tempLabel];
     _tempUnitLabel = [[UILabel alloc] init];
     _tempUnitLabel.backgroundColor = [UIColor clearColor];
@@ -57,11 +49,10 @@
     [_tempEditBtn setImage:kImage(@"icon-status-edit") forState:UIControlStateNormal];
     [_tempEditBtn addTarget:self action:@selector(tempEditBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_tempEditBtn];
-    
-    CGSize size = [@"36.50" sizeWithFont:kFont_4(84)];
-    _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
-    _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
-    _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
+    _wheelView = [[WPStatusWheelView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
+    _wheelView.backgroundColor = [UIColor clearColor];
+    _wheelView.delegate = self;
+    [self addSubview:_wheelView];
     _indexView = [[WPStatusItemView alloc] initWithFrame:CGRectMake(0, kScreen_Height - 170, (kScreen_Width - 125)/2, 80)];
     _indexView.backgroundColor = [UIColor clearColor];
     [self addSubview:_indexView];
@@ -78,10 +69,70 @@
     rightLine.backgroundColor = kColor_9_With_Alpha(0.1);
     [self addSubview:rightLine];
     
-    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%"];
-    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天"];
-    [_recordView setTitle:@"记录" detail:@"3" unit:@"项"];
+    _calendarBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 33, 33)];
+    _calendarBtn.backgroundColor = [UIColor clearColor];
+    [_calendarBtn setImage:kImage(@"btn-navi-status-cale") forState:UIControlStateNormal];
+    [_calendarBtn addTarget:self action:@selector(calendarBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_calendarBtn];
+    _tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 53, 20, 33, 33)];
+    _tempBtn.backgroundColor = [UIColor clearColor];
+    [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
+    [_tempBtn addTarget:self action:@selector(tempBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_tempBtn];
+    _todayBtn = [[UIButton alloc] initWithFrame:CGRectMake(_tempBtn.left - 48, 20, 33, 33)];
+    _todayBtn.backgroundColor = [UIColor clearColor];
+    [_todayBtn setImage:kImage(@"btn-navi-status-today") forState:UIControlStateNormal];
+    [_todayBtn addTarget:self action:@selector(todayBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_todayBtn];
 
+    
+    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
+    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
+    [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
+    [_recordView addGestureRecognizer:tap];
+    _todayBtn.hidden = YES;
+}
+
+- (void)resetTemp:(NSString *)temp{
+    if ([NSString leie_isBlankString:temp]) {
+        temp = @"尚未测温";
+        _tempLabel.font = kFont_4(48);
+    }else{
+        _tempLabel.font = kFont_4(84);
+    }
+    _tempLabel.text = temp;
+    CGSize size = [_tempLabel.text sizeWithFont:_tempLabel.font];
+    if (kDevice_is_iPhone5 || kDevice_is_iPhone4) {
+        _dateLabel.frame = CGRectMake(25, kScreen_Height - 350, self.width - 50, 33);
+    }else{
+        _dateLabel.frame = CGRectMake(25, kScreen_Height - 400, self.width - 50, 33);
+    }
+    _periodLabel.frame = CGRectMake(25, _dateLabel.bottom, self.width - 50, 35);
+    _tempLabel.frame = CGRectMake(25, _periodLabel.bottom, size.width, 106);
+    _tempUnitLabel.frame = CGRectMake(_tempLabel.right + 12, _tempLabel.top + 14, 40, 38);
+    _tempEditBtn.frame = CGRectMake(_tempLabel.right + 12, _tempUnitLabel.bottom, 33, 33);
+
+}
+
+- (void)setViewModel:(WPStatusViewModel *)viewModel{
+    _viewModel = viewModel;
+//    _wheelView.viewModel = viewModel;
+}
+
+- (void)todayBtnPressed{
+    [_wheelView scrollToBottom];
+}
+
+- (void)setStartDate:(NSDate *)startDate{
+    _startDate = startDate;
+    _wheelView.startDate = startDate;
+}
+
+- (void)showRecord{
+    if (_delegate && [_delegate respondsToSelector:@selector(showEventWithDate:)]) {
+        [_delegate showEventWithDate:_selectedDate];
+    }
 }
 
 - (void)calendarBtnPressed{
@@ -97,11 +148,73 @@
 }
 
 - (void)tempEditBtnPressed{
-    if (_delegate && [_delegate respondsToSelector:@selector(editTemperature)]) {
-        [_delegate editTemperature];
+    if (_delegate && [_delegate respondsToSelector:@selector(editTemperature:date:)]) {
+        [_delegate editTemperature:_temperature date:_selectedDate];
     }
 }
 
+- (void)updateState{
+    [_wheelView updateData];
+    WPUserModel *user = [[WPUserModel alloc] init];
+    [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
+    switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {
+        case STATE_DEVICE_SCANNING:
+        case STATE_DEVICE_CONNECTING:
+        case STATE_DEVICE_DISCONNECTING:
+            [_tempBtn setImage:kImage(@"btn-navi-device-connecting") forState:UIControlStateNormal];
+
+            break;
+        case STATE_DEVICE_CONNECTED:
+            [_tempBtn setImage:kImage(@"btn-navi-device-con") forState:UIControlStateNormal];
+            break;
+        default:
+            if ([NSString leie_isBlankString:user.device_id] ) {
+                [_tempBtn setImage:kImage(@"btn-navi-device-add") forState:UIControlStateNormal];
+            }else{
+                [_tempBtn setImage:kImage(@"btn-navi-device-nc") forState:UIControlStateNormal];
+            }
+            break;
+    }
+    WPDayInfoInPeriod *period_day = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
+    [self showDetailDate:_selectedDate period:period_day];
+}
+
+#pragma mark WPStatusWheelViewDelegate
+- (void)showDetailDate:(NSDate *)date period:(WPDayInfoInPeriod *)period_day{
+    _selectedDate = date;
+    _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
+    switch (period_day.type) {
+        case kPeriodTypeOfForecast:
+            _periodLabel.text = @"预测经期";
+            break;
+        case kPeriodTypeOfMenstrual:
+             _periodLabel.text = @"月经期";
+            break;
+        case kPeriodTypeOfOviposit:
+             _periodLabel.text = @"排卵日";
+            break;
+            
+        case kPeriodTypeOfPregnancy:
+             _periodLabel.text = @"易孕期";
+            break;
+        default:
+            _periodLabel.text = @"安全期";
+            break;
+    }
+    //取某天的记录
+   
+    [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)[_viewModel eventCountAtDate:date]] unit:@"项" showNext:YES];
+    [_timeView setTitle:@"距离易孕期" detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
+    
+    //某日温度
+    _temperature = [_viewModel getTempWithDate:date];
+    [self resetTemp:_temperature.temp];
+    if ([NSDate isDateInToday:date]) {
+        _todayBtn.hidden = YES;
+    }else{
+        _todayBtn.hidden = NO;
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -10,6 +10,9 @@
 #import "WPLoginView.h"
 #import "WPLoginViewModel.h"
 #import "WPMainViewController.h"
+#import "WPAccountManager.h"
+#import "WPBasicInfoViewController.h"
+#import "WPAgreementViewController.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -29,7 +32,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self hideStatusBar];
     [self hideNavigationBar];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:WPNotificationKeyLoginSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFailed) name:WPNotificationKeyLoginFailed object:nil];
@@ -58,17 +60,23 @@
     [self.view addSubview:_loginView];
 }
 
-#pragma mark WPLoginViewDelegate
+#pragma mark - WPLoginViewDelegate
 - (void)login{
-    [_viewModel login];
+    if ([[WPAccountManager defaultInstance] isLogin]) {
+        [self registerAccount];
+    }else{
+        [_viewModel login];
+    }
 }
 
+- (void)showAgreement{
+    WPAgreementViewController *agreementVC = [[WPAgreementViewController alloc] init];
+    [self.navigationController pushViewController:agreementVC animated:YES];
+}
+
+#pragma mark - MI account login callback
 - (void)loginSuccess{
-    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:mainVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
+    [self registerAccount];
 }
 
 - (void)loginFailed{
@@ -81,6 +89,51 @@
 
 - (void)tokenExpire{
 
+}
+
+- (void)registerAccount{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+    NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
+    if ([NSString leie_isBlankString:user_id]) {
+        [_viewModel registerAccount:^(BOOL success) {
+            if (success) {
+                [self updateUserData];
+            }
+        }];
+    }else{
+        [self updateUserData];
+    }
+}
+
+- (void)updateUserData{
+    [_viewModel getAccount:^(WPUserModel *user) {
+        if (user && ![NSString leie_isBlankString:user.profile_id]) {
+            [_viewModel getProfile:user.profile_id success:^(WPProfileModel *profile) {
+                [[XJFHUDManager defaultInstance] hideLoading];
+                if (profile) {
+                    WPMainViewController *mainVC = [[WPMainViewController alloc] init];
+                    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+                    [viewControllers removeAllObjects];
+                    [viewControllers addObject:mainVC];
+                    [self.navigationController setViewControllers:viewControllers animated:YES];
+                }else{
+                    WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+                    basicVC.userinfo = user;
+                    basicVC.isLogin = YES;
+                    [self.navigationController pushViewController:basicVC animated:YES];
+                }
+            }];
+        }else{
+            [[XJFHUDManager defaultInstance] hideLoading];
+            //补充信息
+            WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
+            basicVC.userinfo = user;
+            basicVC.isLogin = YES;
+            [self.navigationController pushViewController:basicVC animated:YES];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

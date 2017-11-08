@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface WPMyInfoViewModel : NSObject
-
+- (void)uploadAvatar:(UIImage *)avatar success:(void (^)(BOOL finished))result;
 @end

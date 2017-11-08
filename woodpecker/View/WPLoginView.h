@@ -20,4 +20,5 @@
 @protocol WPLoginViewDelegate <NSObject>
 @optional
 - (void)login;
+- (void)showAgreement;
 @end

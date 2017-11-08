@@ -120,10 +120,12 @@
 #define kImageWithName_JPG(name) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"jpg"]]
 
 //缓存
-#define kDefaultValueForKey(key) [[NSUserDefaults standardUserDefaults] valueForKey:key]
-#define kDefaultSetValueForKey(value, key)                             \
-    [[NSUserDefaults standardUserDefaults] setValue:value forKey:key]; \
-    [[NSUserDefaults standardUserDefaults] synchronize];
+#define kDefaultObjectForKey(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define kDefaultSetObjectForKey(object, key)                             \
+[[NSUserDefaults standardUserDefaults] setObject:object forKey:key]; \
+[[NSUserDefaults standardUserDefaults] synchronize];
+#define kDefaultRemoveForKey(key) [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+
 
 #pragma mark - 真机模拟器
 #if TARGET_IPHONE_SIMULATOR

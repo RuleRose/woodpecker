@@ -7,8 +7,7 @@
 //
 
 #import "WPAccountManager.h"
-@interface WPAccountManager ()
-@property(nonatomic, strong) MHAccount *account;
+@interface WPAccountManager ()<MPSessionDelegate, MPRequestDelegate>
 @end
 
 @implementation WPAccountManager
@@ -17,38 +16,31 @@ Singleton_Implementation(WPAccountManager);
 - (instancetype)init {
     self = [super init];
     if (self) {
-        //        _account = [[MHAccount alloc] initWithAppId:@"2882303761517441957" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/"];
-        _account = [[MHAccount alloc] initWithAppId:@"2882303761517613555" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/"];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportDidLogin:) name:MH_Account_Login_Sucess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportLoginFailed:) name:MH_Account_Login_Failure object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportDidCancel:) name:MH_Account_Login_Cancel object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passportDidLogout:) name:MH_Account_Logout_Sucess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(passportAccessTokenInvalidOrExpired:)
-                                                     name:MH_Account_AccsessToken_Expire
-                                                   object:nil];
-
-        if ([_account isLogin]) {
-            [self loadUserDefaultValue];
-        }
+        _account = [[MiPassport alloc] initWithAppId:@"2882303761517613555" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/" andDelegate:self];
+        
+        [self loadUserDefaultValue];
     }
     return self;
 }
 
 - (void)login {
-    if (![self.account isLogin]) {
-        [self.account login:@[ @1, @3 ]];
+    if (![self isLogin]) {
+        [self.account loginWithPermissions:@[ @1, @3 ]];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
     }
 }
 
 - (BOOL)isLogin {
-    return [self.account isLogin];
+    DDLogDebug(@"userID:%@, token:%@", self.userID, self.userToken);
+    if (self.userToken && self.userID) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)logout {
-    if ([self.account isLogin]) {
+    if ([self isLogin]) {
         [self.account logOut];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogoutSuccess object:nil];
@@ -56,66 +48,90 @@ Singleton_Implementation(WPAccountManager);
 }
 
 #pragma mark - MPSessionDelegate
-// 登录成功
-- (void)passportDidLogin:(id)note {
-    DDLogDebug(@"passport login succeeded, token:%@", self.account.accessToken);
+/**
+ * Called when the user successfully logged in.
+ */
+- (void)passportDidLogin:(MiPassport *)passport{
+    DDLogDebug(@"passport login succeeded, token:%@", passport.accessToken);
+    self.account = passport;
     self.userToken = self.account.accessToken;
-    kDefaultSetValueForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
-    [self.account save];
+    kDefaultSetObjectForKey(self.userToken, USER_DEFAULT_ACCOUNT_TOKEN);
     [self fetchProfile];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
 }
-
-//登录失败
-- (void)passportLoginFailed:(id)note {
-    /*NSDictionary *errorInfo = [note userInfo];
-     NSLog(@"passport login failed with error: %ld info %@", (long)[error code], [errorInfo objectForKey: @"error_description"]);
-     NSString *alertMsg = [NSString stringWithFormat:@"Error: %@\nDescription:%@\n", [errorInfo objectForKey:@"error"], [errorInfo
-     objectForKey:@"error_description"]];
-     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message: alertMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-     [alert show];*/
-    DDLogDebug(@">>>>>>>>>login failde:%@", note);
+/**
+ * Called when the user failed to log in.
+ */
+- (void)passport:(MiPassport *)passport failedWithError:(NSError *)error{
+    DDLogDebug(@"passport login failed, error:%@", error);
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginFailed object:nil];
 }
 
-// 用户取消登录
-- (void)passportDidCancel:(id)note {
+/**
+ * Called when the user dismissed the dialog without logging in.
+ */
+- (void)passportDidCancel:(MiPassport *)passport{
     DDLogDebug(@"passport login did cancel");
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginCancel object:nil];
 }
 
-//登出成功
-- (void)passportDidLogout:(id)note {
+/**
+ * Called when the user logged out.
+ */
+- (void)passportDidLogout:(MiPassport *)passport{
     DDLogDebug(@"passport did log out");
+    [self cleanUserDefaultValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogoutSuccess object:nil];
 }
 
-// token过期
-- (void)passportAccessTokenInvalidOrExpired:(id)note {
-    DDLogDebug(@"passport accesstoken invalid or expired");
+/**
+ * Called when the user get code.
+ */
+- (void)passport:(MiPassport *)passport didGetCode:(NSString *)code{
+    DDLogDebug(@"passport did get code: %@", code);
+}
+
+/**
+ * Called when access token expired.
+ */
+- (void)passport:(MiPassport *)passport accessTokenInvalidOrExpired:(NSError *)error{
+    DDLogDebug(@"passport accesstoken invalid or expired: %@", error);
+    [self cleanUserDefaultValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyTokenExpire object:nil];
 }
 
-- (void)fetchProfile {
-    @weakify(self);
-    [self.account fetchAccountProfile:^(MHAccountProfile *profile, NSError *error) {
-      @strongify(self);
-      if (0 == error.code) {
-          self.userID = profile.userId;
-          self.userNickName = profile.nickName;
-          self.userAvatar = profile.userIcon;
 
-          kDefaultSetValueForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
-          kDefaultSetValueForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-          kDefaultSetValueForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
-      }
-    }];
+- (void)fetchProfile {
+    [self.account requestWithURL:@"user/profile" params:[NSMutableDictionary dictionaryWithObject:self.account.appId forKey:@"clientId"] httpMethod:@"GET" delegate:self];
+}
+
+- (void)request:(MPRequest *)request didLoadRawResponse:(NSData *)data{
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    NSDictionary *userData = [response objectForKey:@"data"];
+    self.userID = [userData objectForKey:@"userId"];
+    self.userNickName = [userData objectForKey:@"miliaoNick"];
+    self.userAvatar = [userData objectForKey:@"miliaoIcon"];
+    DDLogDebug(@"userID:%@", self.userID);
+    kDefaultSetObjectForKey(self.userID, USER_DEFAULT_ACCOUNT_USER_ID);
+    kDefaultSetObjectForKey(self.userNickName, USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    kDefaultSetObjectForKey(self.userAvatar, USER_DEFAULT_ACCOUNT_USER_AVATAR);
+    [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLoginSuccess object:nil];
 }
 
 - (void)loadUserDefaultValue {
-    self.userToken = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_TOKEN);
-    self.userID = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_ID);
-    self.userNickName = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-    self.userAvatar = kDefaultValueForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+    self.userToken = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    self.userID = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    self.userNickName = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    self.userAvatar = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+}
+
+- (void)cleanUserDefaultValue{
+    self.userToken = nil;
+    self.userID = nil;
+    self.userNickName = nil;
+    self.userAvatar = nil;
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
 }
 @end

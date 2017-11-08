@@ -7,14 +7,16 @@
 //
 
 #import "initServer.h"
+#import "MMCDeviceManager.h"
 #import "WPAccountManager.h"
+#import "IQKeyboardManager.h"
 
 @implementation initServer
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
       //加载网络配置文件
-      //        [[UNICServerManager shareManager] loadSettingsConfig];
+      [[XJFServerManager shareManager] loadSettingsConfig];
 
       //网络监听
       //        [[AFNetworkActivityIndicatorManager sharedManager]
@@ -37,9 +39,17 @@
                                                                     @"xml;q=0.9,image/webp,*/*;q=0.8"
                                                  forHTTPHeaderField:@"Accept"];
 
+      // init CB
+      [MMCDeviceManager defaultInstance];
+
       //加载DDLog
       [DDLog addLogger:[DDASLLogger sharedInstance]];
       [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+        manager.enable = YES;
+        manager.shouldResignOnTouchOutside = YES;
+        manager.shouldToolbarUsesTextFieldTintColor = YES;
+        manager.enableAutoToolbar = NO;
     });
 }
 

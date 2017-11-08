@@ -14,6 +14,7 @@ Singleton_Interface(WPAccountManager);
 @property (nonatomic,copy) NSString *userNickName;
 @property (nonatomic,copy) NSString *userAvatar;
 @property (nonatomic,copy) NSString *userToken;
+@property (nonatomic, strong) MiPassport *account;
 
 - (void)login;
 - (BOOL)isLogin;

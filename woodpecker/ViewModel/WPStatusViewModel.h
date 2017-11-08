@@ -7,7 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WPProfileModel.h"
+#import "WPUserModel.h"
+#import "WPDeviceModel.h"
+#import "WPTemperatureModel.h"
 
 @interface WPStatusViewModel : NSObject
+@property(nonatomic,strong)NSMutableArray *temps;
+@property (nonatomic,assign) Boolean isBindNewDevice;
+@property (nonatomic,copy) NSString *syncFromTime;
 
+- (void)bindDevice;
+- (void)syncTempDataFromIndex:(NSInteger)index;
+- (void)syncTempDataToService;
+- (void)syncTempData;
+- (NSDate *)getStartDate;
+- (NSInteger)eventCountAtDate:(NSDate *)date;
+- (WPTemperatureModel *)getTempWithDate:(NSDate *)date;
+- (void)insertTemperature:(NSNumber *)temp index:(NSNumber *)index time:(NSNumber *)time;
+
+- (NSMutableArray *)getPeriods;
 @end
