@@ -616,7 +616,7 @@ Singleton_Implementation(MMCDeviceManager);
         int8_t status;
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
-        if (status == 5) {
+        if (status == 5 || status == 1) {
             [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
         }
     }
