@@ -145,15 +145,18 @@
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
-            [MMCDeviceManager defaultInstance].alarmTimeInterval = [[NSDate dateToUTCDate:clock] timeIntervalSince2000];
-            [_tableView reloadData];
+            NSTimeInterval timeInterval = [[NSDate dateToUTCDate:clock] timeIntervalSince2000];
+            kDefaultSetObjectForKey([NSNumber numberWithFloat:timeInterval], TEMPERATURE_DEFAULT_CLOCK_TIME);
             if ([[MMCDeviceManager defaultInstance] alarmIsOn]) {
+                [MMCDeviceManager defaultInstance].alarmTimeInterval = timeInterval;
                 [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
                     
                 }];
-                [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
+                [[MMCDeviceManager defaultInstance] writeAlarm:timeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
                 }];
+            }else{
             }
+            [_tableView reloadData];
         };
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
