@@ -316,6 +316,7 @@
             _event.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];

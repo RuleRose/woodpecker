@@ -48,7 +48,8 @@
 
     [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
-    _statusView.startDate = [_viewModel getStartDate];
+//    _statusView.startDate = [_viewModel getStartDate];
+    _statusView.startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -88,7 +89,7 @@
 - (void)updateState{
     if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
         //上传
-        _statusView.startDate = [_viewModel getStartDate];
+//        _statusView.startDate = [_viewModel getStartDate];
         [_statusView updateState];
         [_viewModel syncTempDataToService];
     }
@@ -109,7 +110,7 @@
 
 - (void)getTemperature{
     [_viewModel syncTempData];
-    _statusView.startDate = [_viewModel getStartDate];
+//    _statusView.startDate = [_viewModel getStartDate];
     [_statusView updateState];
 }
 - (void)getPeriod{

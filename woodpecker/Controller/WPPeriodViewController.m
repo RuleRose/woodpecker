@@ -186,6 +186,7 @@
             WPPeriodInfoViewController *infoVC = [[WPPeriodInfoViewController alloc] init];
             [self.navigationController pushViewController:infoVC animated:YES];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -199,6 +200,7 @@
             WPMenstrualInfoViewController *infoVC = [[WPMenstrualInfoViewController alloc] init];
             [self.navigationController pushViewController:infoVC animated:YES];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -208,6 +210,7 @@
             _profile.lastperiod = [NSDate stringFromDate:lastperiod];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];

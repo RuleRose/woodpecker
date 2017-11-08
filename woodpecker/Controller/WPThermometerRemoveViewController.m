@@ -87,6 +87,7 @@
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
         [weakSelf unbind];
     };
+    popView.attachedView = self.navigationController.view;
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         
     }];

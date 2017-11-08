@@ -28,6 +28,7 @@
         self.markLayer = markLayer;
         self.markLayer.hidden = YES;
         self.layer.masksToBounds = YES;
+        self.period = kPeriodTypeOfSafe;
     }
     return self;
 }

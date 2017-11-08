@@ -72,9 +72,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(temperatureUnitUpdated)  name:MMCNotificationKeyTemperatureUnitUpdated object:nil];
-
-    
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -122,7 +119,11 @@
     if (indexPath.row == 0) {
         cell.icon.image = kImage(@"icon-device-alarm");
         cell.titleLabel.text = kLocalization(@"thermometer_clock");
-        NSInteger alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        NSNumber *timeNumber = kDefaultObjectForKey(TEMPERATURE_DEFAULT_CLOCK_TIME);
+        NSTimeInterval alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        if (timeNumber && ![MMCDeviceManager defaultInstance].alarmIsOn) {
+            alarmTimeInterval = timeNumber.integerValue;
+        }
         NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
         if (date) {
             cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
@@ -171,11 +172,16 @@
                 
             }];
             if (unit == 0) {
-                [[MMCDeviceManager defaultInstance] centigradeAsUnit:NO callback:nil];
+                if ([MMCDeviceManager defaultInstance].isCentigrade) {
+                    [[MMCDeviceManager defaultInstance] centigradeAsUnit:NO callback:nil];
+                }
             }else{
-                [[MMCDeviceManager defaultInstance] centigradeAsUnit:YES callback:nil];
+                if (![MMCDeviceManager defaultInstance].isCentigrade) {
+                    [[MMCDeviceManager defaultInstance] centigradeAsUnit:YES callback:nil];
+                }
             }
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -204,6 +210,7 @@
         [_viewModel unBindDeviceSuccess:^(BOOL finished) {
         }];
     };
+    popView.attachedView = self.navigationController.view;
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         
     }];

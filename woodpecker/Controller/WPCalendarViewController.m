@@ -21,7 +21,8 @@
 @property (nonatomic, strong) FSCalendar* calendar;
 @property (nonatomic, strong) FSCalendarWeekdayView* weekdayView;
 @property (nonatomic, strong) WPCalendarNoteView *noteView;
-@property(nonatomic,strong)NSDate *selectedDate;
+@property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic, assign) BOOL appeared;
 
 @end
 
@@ -65,8 +66,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
+    _appeared = NO;
     [self setupData];
     [self setupViews];
+    self.calendar.hidden = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -75,11 +78,25 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+    [self performSelector:@selector(showCalendar) withObject:nil afterDelay:0];
+}
+
+- (void)showCalendar{
+    _calendar.hidden = NO;
+    _appeared = YES;
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
-    [self configureVisibleCells];
     [_calendar reloadData];
+    [[XJFHUDManager defaultInstance] hideLoading];
 }
+
 
 - (void)goBack:(UIButton *)sender{
     CATransition *transition = [CATransition pushFromRight:nil];
@@ -233,7 +250,7 @@
 
 - (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
-    if ([cell isKindOfClass:[WPCalendarCell class]]) {
+    if ([cell isKindOfClass:[WPCalendarCell class]] && _appeared) {
         WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
         if (calendarCell.selected) {
             calendarCell.titleLabel.font = kFont_6(16);
