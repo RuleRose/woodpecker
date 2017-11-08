@@ -8,7 +8,6 @@
 
 #import "WPAccountManager.h"
 @interface WPAccountManager ()<MPSessionDelegate, MPRequestDelegate>
-@property(nonatomic, strong) MiPassport *account;
 @end
 
 @implementation WPAccountManager
