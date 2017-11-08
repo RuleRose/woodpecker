@@ -66,7 +66,17 @@
     [self setBackBarButton];
     [self showNavigationBar];
     [_tableView reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateState)  name:MMCNotificationKeyDeviceState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionState)  name:MMCNotificationKeyDeviceConnectionState object:nil];
+
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceState object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MMCNotificationKeyDeviceConnectionState object:nil];
+}
+
 
 - (void)setupData{
     _viewModel = [[WPThermometerViewModel alloc] init];
@@ -115,11 +125,10 @@
     }else if (indexPath.row == 1){
         cell.icon.image = kImage(@"icon-device-unit");
         cell.titleLabel.text = kLocalization(@"thermometer_unit");
-        NSNumber *unit_f = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UNIT_F);
-        if ([unit_f boolValue]) {
-            cell.detailLabel.text = @"华氏度°F";
-        }else{
+        if ([MMCDeviceManager defaultInstance].isCentigrade) {
             cell.detailLabel.text = @"摄氏度°C";
+        }else{
+            cell.detailLabel.text = @"华氏度°F";
         }
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
@@ -152,10 +161,8 @@
         WPTemperatureUnitPopupView *popView = [[WPTemperatureUnitPopupView alloc] init];
         popView.unitBlock = ^(MMPopupView *popupView, NSInteger unit) {
             if (unit == 0) {
-                kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_UNIT_F);
                 [[MMCDeviceManager defaultInstance] centigradeAsUnit:NO callback:nil];
             }else{
-                kDefaultSetObjectForKey([NSNumber numberWithBool:NO], TEMPERATURE_DEFAULT_UNIT_F);
                 [[MMCDeviceManager defaultInstance] centigradeAsUnit:YES callback:nil];
             }
             [weakSelf.tableView reloadData];
@@ -176,13 +183,30 @@
         
     };
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
+        [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+            
+        }];
         [_viewModel unBindDeviceSuccess:^(BOOL finished) {
-            [self.navigationController popViewControllerAnimated:YES];
         }];
     };
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         
     }];
+}
+
+- (void)updateState{
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+        [[XJFHUDManager defaultInstance] hideLoading];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
+- (void)updateConnectionState{
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+        [[XJFHUDManager defaultInstance] hideLoading];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

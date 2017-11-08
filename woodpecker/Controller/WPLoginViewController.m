@@ -12,6 +12,7 @@
 #import "WPMainViewController.h"
 #import "WPAccountManager.h"
 #import "WPBasicInfoViewController.h"
+#import "WPAgreementViewController.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -68,6 +69,11 @@
     }
 }
 
+- (void)showAgreement{
+    WPAgreementViewController *agreementVC = [[WPAgreementViewController alloc] init];
+    [self.navigationController pushViewController:agreementVC animated:YES];
+}
+
 #pragma mark - MI account login callback
 - (void)loginSuccess{
     [self registerAccount];
@@ -86,6 +92,9 @@
 }
 
 - (void)registerAccount{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
     if ([NSString leie_isBlankString:user_id]) {
         [_viewModel registerAccount:^(BOOL success) {
@@ -102,6 +111,7 @@
     [_viewModel getAccount:^(WPUserModel *user) {
         if (user && ![NSString leie_isBlankString:user.profile_id]) {
             [_viewModel getProfile:user.profile_id success:^(WPProfileModel *profile) {
+                [[XJFHUDManager defaultInstance] hideLoading];
                 if (profile) {
                     WPMainViewController *mainVC = [[WPMainViewController alloc] init];
                     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -116,6 +126,7 @@
                 }
             }];
         }else{
+            [[XJFHUDManager defaultInstance] hideLoading];
             //补充信息
             WPBasicInfoViewController *basicVC = [[WPBasicInfoViewController alloc] init];
             basicVC.userinfo = user;

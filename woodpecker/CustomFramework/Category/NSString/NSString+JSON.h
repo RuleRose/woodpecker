@@ -28,4 +28,7 @@
  *  @return NSDictionary数据
  */
 + (NSDictionary *)getDictionary:(NSString *)jsonStr;
+
++(NSString *)convertToJsonData:(NSDictionary *)dict;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 @end

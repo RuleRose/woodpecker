@@ -105,9 +105,15 @@
         NSString *dateStr = [NSString stringWithFormat:@"%@ 23:59:59",[NSDate stringFromDate:_date]];
         NSDate *date = [NSDate dateFromString:dateStr format:@"yyyy MM dd HH:mm:ss"];
         _temperature.time = [NSString stringWithFormat:@"%f",[date timeIntervalSince2000]];
+        [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+            
+        }];
         [_viewModel syncTemp:_temperature success:^(BOOL success) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [[XJFHUDManager defaultInstance] hideLoading];
+            if (success) {
+                [self.navigationController popViewControllerAnimated:YES];
 
+            }
         }];
     }
 }

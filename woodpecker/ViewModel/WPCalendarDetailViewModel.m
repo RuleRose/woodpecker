@@ -12,6 +12,7 @@
 #import "NSDate+Extension.h"
 #import "XJFDBManager.h"
 #import "WPPeriodModel.h"
+#import "WPEventItemModel.h"
 
 @interface WPCalendarDetailViewModel ()
 
@@ -29,5 +30,22 @@
         _periodDic = [[NSMutableDictionary alloc] init];
     }
     return self;
+}
+
+- (NSInteger)eventCountAtDate:(NSDate *)date{
+    WPEventItemModel *event =[[WPEventItemModel alloc] init];
+    event.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+    NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
+    return events.count;
+}
+
+- (WPTemperatureModel *)getTempWithDate:(NSDate *)date{
+    if (date) {
+        WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+        temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+        NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
+        return tempsArr.firstObject;
+    }
+    return nil;
 }
 @end
