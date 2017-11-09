@@ -12,6 +12,6 @@
 
 @interface WPPeriodViewModel : NSObject
 - (void)updateUserinfo:(WPUserModel *)userinfo reuslt:(void (^)(BOOL success))result;
-- (void)registerProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result;
+- (void)registerProfile:(WPProfileModel *)profile reuslt:(void (^)(NSString *profile_id))result;
 - (void)updateProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result;
 @end

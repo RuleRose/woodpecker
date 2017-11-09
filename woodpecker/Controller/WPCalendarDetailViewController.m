@@ -84,7 +84,7 @@
     }
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
-    self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+    self.title = [NSDate stringFromDate:_selectedDate format:@"yyyy年M月"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

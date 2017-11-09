@@ -95,16 +95,11 @@
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
-    NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
-    if ([NSString leie_isBlankString:user_id]) {
-        [_viewModel registerAccount:^(BOOL success) {
-            if (success) {
-                [self updateUserData];
-            }
-        }];
-    }else{
-        [self updateUserData];
-    }
+    [_viewModel registerAccount:^(BOOL success) {
+        if (success) {
+            [self updateUserData];
+        }
+    }];
 }
 
 - (void)updateUserData{

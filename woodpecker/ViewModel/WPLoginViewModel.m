@@ -12,6 +12,7 @@
 #import "NSDate+Extension.h"
 #import "NSFileManager+Extensions.h"
 #import "WPDatabaseTableManager.h"
+#import "XJFDBOperator.h"
 
 @implementation WPLoginViewModel
 - (instancetype)init
@@ -37,7 +38,7 @@
         _user_id = user_id;
         if (![NSString leie_isBlankString:user_id]) {
             NSString *local_user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
-            if (![user_id isEqualToString:local_user_id]) {
+            if (![NSString leie_isBlankString:local_user_id] && ![user_id isEqualToString:local_user_id]) {
                 //账户改变
                 kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
                 kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
@@ -46,7 +47,9 @@
                 kDefaultRemoveForKey(TEMPERATURE_DEFAULT_UPDATETIME);
                 kDefaultRemoveForKey(TEMPERATURE_DEFAULT_UPDATESTATUS);
                 kDefaultRemoveForKey(TEMPERATURE_DEFAULT_GETTEMP);
+                [[XJFDBOperator defaultInstance] close];
                 [NSFileManager removeDirectoryAtPath:DATABASE_PATH];
+                [[XJFDBOperator defaultInstance] open];
                 [[WPDatabaseTableManager defaultInstance] initDatabase];
             }
             kDefaultSetObjectForKey(user_id, USER_DEFAULT_USER_ID);
