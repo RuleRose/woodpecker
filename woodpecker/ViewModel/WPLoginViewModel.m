@@ -92,8 +92,6 @@
             kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
             profile = [[WPProfileModel alloc] init];
             [profile loadDataFromkeyValues:profileDic];
-        }else{
-            kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
         }
         if (result) {
             result(profile);

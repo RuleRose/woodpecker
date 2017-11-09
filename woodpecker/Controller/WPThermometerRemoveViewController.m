@@ -17,6 +17,8 @@
 @property (nonatomic ,strong) UILabel *detailLabel;
 @property (nonatomic ,strong) UIImageView *iconView;
 @property(nonatomic ,strong)UIButton *removeBtn;
+@property (nonatomic, assign) BOOL removing;
+
 @end
 
 @implementation WPThermometerRemoveViewController
@@ -25,6 +27,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
     self.title = @"体温计";
+    _removing = YES;
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -84,12 +87,14 @@
     popView.confirmBlock = ^(MMPopupView *popupView, BOOL finished) {
         [weakSelf unbind];
     };
+    popView.attachedView = self.navigationController.view;
     [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
         
     }];
 }
 
 - (void)unbind{
+    _removing = YES;
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
@@ -104,7 +109,7 @@
 }
 
 - (void)updateState{
-    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE && _removing) {
         [[XJFHUDManager defaultInstance] hideLoading];
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -112,7 +117,7 @@
 
 
 - (void)updateConnectionState{
-    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE) {
+    if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE && _removing) {
         [[XJFHUDManager defaultInstance] hideLoading];
         [self.navigationController popViewControllerAnimated:YES];
     }

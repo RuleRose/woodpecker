@@ -34,12 +34,24 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+    [self performSelector:@selector(showTemps) withObject:nil afterDelay:0];
+}
+
+- (void)showTemps{
     [_viewModel getTempsBlock:^(NSMutableArray *sortTemps) {
         [_lineView updateChartData:sortTemps];
         [_lineDetailView.lineView updateChartData:sortTemps];
+        [[XJFHUDManager defaultInstance] hideLoading];
     }];
-
 }
+
 
 - (void)setupData{
     _viewModel = [[WPTemperatureViewModel alloc] init];
@@ -60,11 +72,11 @@
     [self.view addSubview:_switchBtn];
     _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(32, 111, kScreen_Width - 64, kScreen_Width - 64)];
     _lineView.backgroundColor = [UIColor clearColor];
-    _lineView.showCount = 15;
+    _lineView.showCount = 7;
     [self.view addSubview:_lineView];
     _lineDetailView = [[WPTemperatureDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
     _lineDetailView.backgroundColor = [UIColor clearColor];
-    _lineDetailView.lineView.showCount = 30;
+    _lineDetailView.lineView.showCount = 10;
     [self.navigationController.view addSubview:_lineDetailView];
     _lineDetailView.hidden = YES;
     _noteView = [[WPTempNoteView alloc] initWithFrame:CGRectMake(0, _lineView.bottom, kScreen_Width, 52)];

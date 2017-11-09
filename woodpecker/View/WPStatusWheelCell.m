@@ -55,8 +55,8 @@
             self.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
             break;
         case kPeriodTypeOfSafe:
-            self.backgroundColor = kColor_10;
-            self.layer.borderColor = kColor_10.CGColor;
+            self.backgroundColor = kColor_17;
+            self.layer.borderColor = kColor_17.CGColor;
             break;
     }
 }

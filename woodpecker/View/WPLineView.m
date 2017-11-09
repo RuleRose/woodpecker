@@ -43,8 +43,8 @@
     ChartYAxis *leftAxis = _chartView.leftAxis;
     leftAxis.enabled = showLeftYAxis;
     if (showLeftYAxis) {
-        leftAxis.labelTextColor = kColorFromRGB(0x666666);
-        leftAxis.labelFont = [UIFont systemFontOfSize:11.0f];
+        leftAxis.labelTextColor = kColor_8;
+        leftAxis.labelFont = kFont_3(14);
         leftAxis.drawGridLinesEnabled = YES;
         leftAxis.drawZeroLineEnabled = YES;
         leftAxis.granularityEnabled = YES;
@@ -64,8 +64,8 @@
     ChartYAxis *rightAxis = _chartView.rightAxis;
     rightAxis.enabled = showRightYAxis;
     if (showRightYAxis) {
-        rightAxis.labelTextColor = kColorFromRGB(0x666666);
-        rightAxis.labelFont = [UIFont systemFontOfSize:11.0f];
+        rightAxis.labelTextColor = kColor_8;
+        rightAxis.labelFont = kFont_3(14);
         rightAxis.drawGridLinesEnabled = YES;
         rightAxis.granularityEnabled = YES;
         rightAxis.drawAxisLineEnabled = YES;
@@ -85,8 +85,8 @@
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.enabled = showXAxis;
     if (showXAxis) {
-        xAxis.labelFont = [UIFont systemFontOfSize:11.0f];
-        xAxis.labelTextColor = kColorFromRGB(0x666666);
+        xAxis.labelFont = kFont_3(12);;
+        xAxis.labelTextColor = kColor_7;
         xAxis.drawGridLinesEnabled = YES;
         xAxis.drawAxisLineEnabled = YES;
         xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -114,6 +114,19 @@
 }
 
 - (void)setupViews{
+    _dateLabel = [[UILabel alloc] init];
+    _dateLabel.backgroundColor = [UIColor clearColor];
+    _dateLabel.textColor = kColor_8;
+    _dateLabel.font = kFont_3(12);
+    _dateLabel.text = @"日期";
+    [self addSubview:_dateLabel];
+    
+    _periodLabel = [[UILabel alloc] init];
+    _periodLabel.backgroundColor = [UIColor clearColor];
+    _periodLabel.textColor = kColor_8;
+    _periodLabel.font = kFont_3(12);
+    _periodLabel.text = @"周期";
+    [self addSubview:_periodLabel];
     _chartView = [[ LineChartView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:_chartView];
     _chartView.delegate = self;
@@ -136,6 +149,12 @@
     _chartView.marker = _marker;
     [_chartView animateWithXAxisDuration:0];
     _showCount = 15;
+    _periodLabel.frame = CGRectMake(-15, self.height - 15, self.width, 15);
+    _dateLabel.frame = CGRectMake(-15, self.height - 30, self.width, 15);
+    self.layer.masksToBounds = NO;
+    _periodLabel.hidden = YES;
+    _dateLabel.hidden = YES;
+
 }
 
 //- (void)setShowCount:(NSInteger)showCount{
@@ -177,7 +196,7 @@
                 if (temperature < 32) {
                     temperature = 32;
                 }
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:temperature]];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:((NSInteger)(temperature*100))/100.0]];
             }
             NSString *title = @"安全期";
             UIColor *linefillColor = [UIColor clearColor];
@@ -257,8 +276,12 @@
             [_chartView zoomWithScaleX:1 scaleY:1 xValue:total_days yValue:0 axis:AxisDependencyLeft];
         }
         [_chartView highlightValue:nil];
+        _periodLabel.hidden = NO;
+        _dateLabel.hidden = NO;
     }else{
         _chartView.data = nil;
+        _periodLabel.hidden = YES;
+        _dateLabel.hidden = YES;
     }
 }
 /*
