@@ -138,10 +138,8 @@
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {
-        case STATE_DEVICE_SCANNING:
         case STATE_DEVICE_CONNECTING:
         case STATE_DEVICE_DISCONNECTING:
-            
             break;
         case STATE_DEVICE_CONNECTED:
         {

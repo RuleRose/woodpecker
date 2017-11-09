@@ -13,6 +13,7 @@
 #import "WPAccountManager.h"
 #import "XJFServerManager.h"
 #import "WPDatabaseTableManager.h"
+#import "WPAccountManager.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    [[WPAccountManager defaultInstance] logout];
+    
+    //启动页太快
+    [NSThread sleepForTimeInterval:2.0];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = kColor_10;
     [initServer load];
@@ -110,6 +114,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    NSLog(@"url: %@, source application: %@, annotation:%@", url, sourceApplication, annotation);
+    [[WPAccountManager defaultInstance].account handleOpenURL:url];
+    return YES;
 }
 
 @end
