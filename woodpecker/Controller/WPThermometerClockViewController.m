@@ -149,7 +149,7 @@
     if (indexPath.row == 1) {
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
-            NSTimeInterval timeInterval = [[NSDate dateToUTCDate:clock] timeIntervalSince2000];
+            NSTimeInterval timeInterval = [clock timeIntervalSince2000];
             kDefaultSetObjectForKey([NSNumber numberWithFloat:timeInterval], TEMPERATURE_DEFAULT_CLOCK_TIME);
             if ([[MMCDeviceManager defaultInstance] alarmIsOn]) {
                 [MMCDeviceManager defaultInstance].alarmTimeInterval = timeInterval;

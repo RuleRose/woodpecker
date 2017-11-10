@@ -83,6 +83,16 @@
 		C1B889AD1F9CE7F30044346D /* WPDayInfoInPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */; };
 		C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */; };
 		C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */; };
+		C1EA63E41FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */; };
+		C1EA63E51FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */; };
+		C1EA63E61FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */; };
+		C1EA63E71FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DD1FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png */; };
+		C1EA63E81FB5DE9A00332FC6 /* icon-settings-signal-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DE1FB5DE9A00332FC6 /* icon-settings-signal-2@2x.png */; };
+		C1EA63E91FB5DE9A00332FC6 /* icon-settings-signal-2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DF1FB5DE9A00332FC6 /* icon-settings-signal-2@3x.png */; };
+		C1EA63EA1FB5DE9A00332FC6 /* icon-settings-signal-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63E01FB5DE9A00332FC6 /* icon-settings-signal-3@2x.png */; };
+		C1EA63EB1FB5DE9A00332FC6 /* icon-settings-signal-3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63E11FB5DE9A00332FC6 /* icon-settings-signal-3@3x.png */; };
+		C1EA63EC1FB5DE9A00332FC6 /* icon-settings-signal-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63E21FB5DE9A00332FC6 /* icon-settings-signal-4@2x.png */; };
+		C1EA63ED1FB5DE9A00332FC6 /* icon-settings-signal-4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63E31FB5DE9A00332FC6 /* icon-settings-signal-4@3x.png */; };
 		C1FE08321F5BCA3C0054A254 /* btn-navi-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */; };
 		C1FE08331F5BCA3C0054A254 /* btn-navi-back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FB1F5BCA3C0054A254 /* btn-navi-back@3x.png */; };
 		C1FE08341F5BCA3C0054A254 /* btn-navi-device-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FE07FC1F5BCA3C0054A254 /* btn-navi-device-add@2x.png */; };
@@ -448,6 +458,16 @@
 		C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WPDayInfoInPeriod.m; path = ../Model/WPDayInfoInPeriod.m; sourceTree = "<group>"; };
 		C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiPassport.framework; sourceTree = "<group>"; };
 		C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MiPassport.bundle; sourceTree = "<group>"; };
+		C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-0@2x.png"; sourceTree = "<group>"; };
+		C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-0@3x.png"; sourceTree = "<group>"; };
+		C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-1@2x.png"; sourceTree = "<group>"; };
+		C1EA63DD1FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-1@3x.png"; sourceTree = "<group>"; };
+		C1EA63DE1FB5DE9A00332FC6 /* icon-settings-signal-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-2@2x.png"; sourceTree = "<group>"; };
+		C1EA63DF1FB5DE9A00332FC6 /* icon-settings-signal-2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-2@3x.png"; sourceTree = "<group>"; };
+		C1EA63E01FB5DE9A00332FC6 /* icon-settings-signal-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-3@2x.png"; sourceTree = "<group>"; };
+		C1EA63E11FB5DE9A00332FC6 /* icon-settings-signal-3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-3@3x.png"; sourceTree = "<group>"; };
+		C1EA63E21FB5DE9A00332FC6 /* icon-settings-signal-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-4@2x.png"; sourceTree = "<group>"; };
+		C1EA63E31FB5DE9A00332FC6 /* icon-settings-signal-4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-4@3x.png"; sourceTree = "<group>"; };
 		C1FE07FA1F5BCA3C0054A254 /* btn-navi-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-back@2x.png"; sourceTree = "<group>"; };
 		C1FE07FB1F5BCA3C0054A254 /* btn-navi-back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-back@3x.png"; sourceTree = "<group>"; };
 		C1FE07FC1F5BCA3C0054A254 /* btn-navi-device-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-navi-device-add@2x.png"; sourceTree = "<group>"; };
@@ -1262,6 +1282,16 @@
 		C1FE07F91F5BCA100054A254 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */,
+				C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */,
+				C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */,
+				C1EA63DD1FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png */,
+				C1EA63DE1FB5DE9A00332FC6 /* icon-settings-signal-2@2x.png */,
+				C1EA63DF1FB5DE9A00332FC6 /* icon-settings-signal-2@3x.png */,
+				C1EA63E01FB5DE9A00332FC6 /* icon-settings-signal-3@2x.png */,
+				C1EA63E11FB5DE9A00332FC6 /* icon-settings-signal-3@3x.png */,
+				C1EA63E21FB5DE9A00332FC6 /* icon-settings-signal-4@2x.png */,
+				C1EA63E31FB5DE9A00332FC6 /* icon-settings-signal-4@3x.png */,
 				CC7DA2671F7652CE00F56072 /* ima-info-menstrual@2x.png */,
 				CC7DA2681F7652CE00F56072 /* ima-info-menstrual@3x.png */,
 				CC7DA2691F7652CE00F56072 /* ima-info-period@2x.png */,
@@ -1488,9 +1518,8 @@
 				TargetAttributes = {
 					C14CA3F41F4FB2B1007F50A1 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = VHXL69WFQ8;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1554,6 +1583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C15465F91F63DEC500B5CCD9 /* arrow-status@2x.png in Resources */,
+				C1EA63E51FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png in Resources */,
 				C14CA4051F4FB2B1007F50A1 /* Assets.xcassets in Resources */,
 				C15466051F63DEC500B5CCD9 /* icon-me-basic@2x.png in Resources */,
 				C1FE08371F5BCA3C0054A254 /* btn-navi-device-con@3x.png in Resources */,
@@ -1565,6 +1595,8 @@
 				C1FE08541F5BCA3C0054A254 /* icon-record-drink@2x.png in Resources */,
 				C1FE08601F5BCA3C0054A254 /* icon-record-note@2x.png in Resources */,
 				CC7DA23C1F762EA400F56072 /* binding-ima@3x.png in Resources */,
+				C1EA63EC1FB5DE9A00332FC6 /* icon-settings-signal-4@2x.png in Resources */,
+				C1EA63E91FB5DE9A00332FC6 /* icon-settings-signal-2@3x.png in Resources */,
 				CC7DA26C1F7652CE00F56072 /* ima-info-menstrual@3x.png in Resources */,
 				C15465FC1F63DEC500B5CCD9 /* btn-me-avatar@3x.png in Resources */,
 				C15465FF1F63DEC500B5CCD9 /* icon-device-settings@2x.png in Resources */,
@@ -1581,6 +1613,7 @@
 				C1562F0E1F50638800D6CC30 /* Localization.strings in Resources */,
 				C1FE08581F5BCA3C0054A254 /* icon-record-love@2x.png in Resources */,
 				C1FE085C1F5BCA3C0054A254 /* icon-record-mood@2x.png in Resources */,
+				C1EA63E71FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png in Resources */,
 				C1FE085D1F5BCA3C0054A254 /* icon-record-mood@3x.png in Resources */,
 				C1FE08631F5BCA3C0054A254 /* icon-record-sleep@3x.png in Resources */,
 				C1FE08321F5BCA3C0054A254 /* btn-navi-back@2x.png in Resources */,
@@ -1594,6 +1627,8 @@
 				CC7DA23B1F762EA400F56072 /* binding-ima@2x.png in Resources */,
 				C154660C1F63DEC500B5CCD9 /* icon-me-shop@3x.png in Resources */,
 				C1FE08411F5BCA3C0054A254 /* btn-navi-status-today@3x.png in Resources */,
+				C1EA63EB1FB5DE9A00332FC6 /* icon-settings-signal-3@3x.png in Resources */,
+				C1EA63E41FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png in Resources */,
 				C1FE085F1F5BCA3C0054A254 /* icon-record-mucus@3x.png in Resources */,
 				C1FE085A1F5BCA3C0054A254 /* icon-record-menses@2x.png in Resources */,
 				C15466091F63DEC500B5CCD9 /* icon-me-help@2x.png in Resources */,
@@ -1609,17 +1644,21 @@
 				C15466021F63DEC500B5CCD9 /* icon-device-unit@3x.png in Resources */,
 				C1FE08331F5BCA3C0054A254 /* btn-navi-back@3x.png in Resources */,
 				C1FE084F1F5BCA3C0054A254 /* icon-info@3x.png in Resources */,
+				C1EA63E61FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png in Resources */,
 				C154660E1F63DEC500B5CCD9 /* ima-alarm@3x.png in Resources */,
+				C1EA63ED1FB5DE9A00332FC6 /* icon-settings-signal-4@3x.png in Resources */,
 				C1FE08351F5BCA3C0054A254 /* btn-navi-device-add@3x.png in Resources */,
 				C1FE08571F5BCA3C0054A254 /* icon-record-drug@3x.png in Resources */,
 				C15465FE1F63DEC500B5CCD9 /* icon-device-alarm@3x.png in Resources */,
 				C15466081F63DEC500B5CCD9 /* icon-me-cycle@3x.png in Resources */,
 				C1FE08421F5BCA3C0054A254 /* btn-tab-curve-p@2x.png in Resources */,
 				C1FE08481F5BCA3C0054A254 /* btn-tab-me-u@2x.png in Resources */,
+				C1EA63EA1FB5DE9A00332FC6 /* icon-settings-signal-3@2x.png in Resources */,
 				CC7DA2391F762EA400F56072 /* remove-bind-ima@2x.png in Resources */,
 				C1FE084D1F5BCA3C0054A254 /* btn-tab-status-u@3x.png in Resources */,
 				C1FE084B1F5BCA3C0054A254 /* btn-tab-status-s@3x.png in Resources */,
 				C154660D1F63DEC500B5CCD9 /* ima-alarm@2x.png in Resources */,
+				C1EA63E81FB5DE9A00332FC6 /* icon-settings-signal-2@2x.png in Resources */,
 				C1FE085B1F5BCA3C0054A254 /* icon-record-menses@3x.png in Resources */,
 				C1FE08671F5BCA3C0054A254 /* icon-record-weight@3x.png in Resources */,
 				C154660A1F63DEC500B5CCD9 /* icon-me-help@3x.png in Resources */,
@@ -1998,9 +2037,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VHXL69WFQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2009,10 +2048,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2029,9 +2068,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengyan Wang (R9TG24Z8TX)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VHXL69WFQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2040,10 +2079,10 @@
 				INFOPLIST_FILE = woodpecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.edt.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldsmith.easyMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = EasyMeasureDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "woodpecker/woodpecker-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

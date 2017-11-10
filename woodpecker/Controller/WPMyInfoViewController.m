@@ -58,7 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"个人信息";
+    self.title = @"账号信息";
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
