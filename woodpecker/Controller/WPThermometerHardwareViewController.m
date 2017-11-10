@@ -10,6 +10,7 @@
 #import "WPThermometerHardwareViewModel.h"
 #import "WPTableViewCell.h"
 #import "MMCDeviceManager.h"
+#import "WPDeviceModel.h"
 
 @interface WPThermometerHardwareViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -88,31 +89,29 @@
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"秒秒测ID";
-        NSString *account_id = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
-        if (!account_id) {
-            cell.detailLabel.text = @"";
-        }else{
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@",account_id];
-        }
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",(long)currentDevice.deviceID];
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
-        cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"固件版本";
-        cell.detailLabel.text = currentDevice.modelNum;
-    }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"电池电量";
         cell.detailLabel.text = [NSString stringWithFormat:@"%0.f%%",(1000 - currentDevice.batteryLevelRaw)/10.0];
         cell.line.hidden = NO;
+    }else if (indexPath.row == 2){
+        cell.rightModel = kCellRightModelNone;
+        cell.titleLabel.text = @"固件版本";
+        WPDeviceModel *device = [[WPDeviceModel alloc] init];
+        [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
+        cell.detailLabel.text = device.hardware_rev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"MAC地址";
         cell.detailLabel.text = currentDevice.MacAddr;
         cell.line.hidden = NO;
     }else if (indexPath.row == 4){
-        cell.rightModel = kCellRightModelNone;
+        cell.rightModel = kCellRightModelImage;
         cell.titleLabel.text = @"蓝牙信号";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",(long)currentDevice.TTL];
+        cell.imageIcon.image = [_viewModel mapRssi:currentDevice.RSSI];
+        cell.detailLabel.text = @"";
         cell.line.hidden = NO;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];

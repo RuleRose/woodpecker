@@ -375,9 +375,7 @@
         cell.titleLabel.text = @"基础体温";
          WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
         if (temperature && ![NSString leie_isBlankString:temperature.temp]) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time longLongValue]];
-            NSString *dateStr = [NSDate stringFromDate:date format:@"M月d日 HH:mm:ss"];
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@ %@°C",dateStr, temperature.temp];
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@°C", temperature.temp];
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){

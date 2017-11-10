@@ -112,6 +112,11 @@
             [self.contentView addSubview:self.triIcon];
             self.triIcon.hidden = NO;
             break;
+        case kCellRightModelImage:
+            [self.contentView addSubview:self.imageIcon];
+            _imageSize = CGSizeMake(21, 12);
+            _imageIcon.hidden = NO;
+            break;
         case kCellRightModelImageNext:
             [self.contentView addSubview:self.triIcon];
             self.triIcon.hidden = NO;
@@ -149,6 +154,10 @@
         case kCellRightModelNext:
             _triIcon.frame = CGRectMake(size.width - 32, (size.height - 13)/2, 7, 13);
             right = _triIcon.left - 10;
+            break;
+        case kCellRightModelImage:
+            _imageIcon.frame = CGRectMake(size.width - 25 - _imageSize.width, (size.height - _imageSize.height)/2, _imageSize.width, _imageSize.height);
+            right = _imageIcon.left - 10;
             break;
         case kCellRightModelImageNext:
             _triIcon.frame = CGRectMake(size.width - 32, (size.height - 13)/2, 7, 13);
