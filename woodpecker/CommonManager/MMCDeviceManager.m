@@ -220,6 +220,12 @@ Singleton_Implementation(MMCDeviceManager);
     }
 }
 
+- (void)readTemperatureIndex {
+    if (self.currentDevice) {
+        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_RECORD_COUNT_READ];
+    }
+}
+
 //- (void)syncHistoryRecord {
 //    if (self.currentDevice && (MMC_STATE_SYNC != self.deviceState) && (MMC_STATE_MEASURING != self.deviceState)) {
 //        if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_LAST_TEMPERATURE_INDEX]) {
@@ -617,6 +623,7 @@ Singleton_Implementation(MMCDeviceManager);
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
         if (status == 5 || status == 1) {
+            [self readTemperatureIndex];
             [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
         }
     }
