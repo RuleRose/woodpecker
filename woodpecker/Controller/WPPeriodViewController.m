@@ -156,7 +156,7 @@
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"末次经期首日";
+        cell.titleLabel.text = @"末次月经首日";
         cell.textField.text = _profile.lastperiod;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
