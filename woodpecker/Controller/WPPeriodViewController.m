@@ -106,8 +106,9 @@
     if (![NSString leie_isBlankString:_profile.menstruation] && ![NSString leie_isBlankString:_profile.period] && ![NSString leie_isBlankString:_profile.lastperiod]) {
         [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
             if (success) {
-                [_viewModel registerProfile:_profile reuslt:^(BOOL success) {
+                [_viewModel registerProfile:_profile reuslt:^(NSString *profile_id) {
                     if (success) {
+                        _userinfo.profile_id = profile_id;
                         kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
                         WPMainViewController *mainVC = [[WPMainViewController alloc] init];
                         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];

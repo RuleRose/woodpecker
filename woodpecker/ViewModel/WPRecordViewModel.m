@@ -266,6 +266,8 @@
         return kWPRecordThemeOfDrink;
     }else if ([@"type" isEqualToString:detail_type]){
         return kWPRecordThemeOfDrug;
+    }else if ([@"weight" isEqualToString:detail_type]){
+        return kWPRecordThemeOfWeight;
     }else{
         return kWPRecordThemeOfComments;
     }

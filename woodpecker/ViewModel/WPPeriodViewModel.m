@@ -23,16 +23,16 @@
     }];
 }
 
-- (void)registerProfile:(WPProfileModel *)profile reuslt:(void (^)(BOOL success))result{
+- (void)registerProfile:(WPProfileModel *)profile reuslt:(void (^)(NSString *profile_id))result{
     [WPNetInterface registerProfileWithUserID:kDefaultObjectForKey(USER_DEFAULT_USER_ID) menstruation:profile.menstruation period:profile.period lastperiod:profile.lastperiod extra_data:profile.extra_data success:^(NSString *profile_id) {
         profile.profile_id = profile_id;
         kDefaultSetObjectForKey([profile transToDictionary], USER_DEFAULT_PROFILE);
         if (result) {
-            result(YES);
+            result(profile_id);
         }
     } failure:^(NSError *error) {
         if (result) {
-            result(NO);
+            result(nil);
         }
     }];
 }

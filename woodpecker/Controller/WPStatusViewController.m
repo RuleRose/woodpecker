@@ -45,7 +45,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(measureFinished) name:MMCNotificationKeyMeasureFinished object:nil];
-
     [[WPPeriodCountManager defaultInstance] recountPeriod];
     [_statusView updateState];
 //    _statusView.startDate = [_viewModel getStartDate];
@@ -123,6 +122,7 @@
 }
 
 - (void)measureFinished{
+    kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
     [_viewModel syncTempData];
 }
 

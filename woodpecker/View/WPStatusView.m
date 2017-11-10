@@ -17,6 +17,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _selectedDate = [NSDate date];
         [self setupViews];
     }
     return self;
@@ -154,6 +155,11 @@
 }
 
 - (void)updateState{
+    if ([NSDate isDateInToday:_selectedDate]) {
+        _todayBtn.hidden = YES;
+    }else{
+        _todayBtn.hidden = NO;
+    }
     [_wheelView updateData];
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];

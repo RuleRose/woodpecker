@@ -175,7 +175,14 @@
         _formatter.startDate = startDate;
        total_days = [NSDate daysFromDate:startDate toDate:today];
         NSMutableArray *startVals = [[NSMutableArray alloc] init];
-        [startVals addObject:[[ChartDataEntry alloc] initWithX:-1 y:0]];
+        if (total_days < 30) {
+            [startVals addObject:[[ChartDataEntry alloc] initWithX:total_days - 30 y:0]];
+        }else{
+            [startVals addObject:[[ChartDataEntry alloc] initWithX:-1 y:0]];
+        }
+        if (total_days < 30) {
+            total_days = 30;
+        }
         LineChartDataSet *startSet = [[LineChartDataSet alloc] initWithValues:startVals label:@""];
         [dataSets addObject:startSet];
         for (NSInteger i = sortTemps.count - 1; i >= 0; i --) {
@@ -247,9 +254,6 @@
             dataSet.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];
             dataSet.drawFilledEnabled = YES;
             [dataSets addObject:dataSet];
-        }
-        if (total_days < 30) {
-            total_days = 30;
         }
         NSMutableArray *endVals = [[NSMutableArray alloc] init];
         [endVals addObject:[[ChartDataEntry alloc] initWithX:(total_days + 1) y:0]];
