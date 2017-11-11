@@ -207,8 +207,13 @@
             break;
     }
     //取某天的记录
-   
-    [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)[_viewModel eventCountAtDate:date]] unit:@"项" showNext:YES];
+    NSInteger eventCount = [_viewModel eventCountAtDate:date];
+    if (period_day.type == kPeriodTypeOfMenstrual) {
+        if ((!period_day.isForecast && period_day.isStart) || (!period_day.isEndDayForecast && period_day.isEnd)) {
+            eventCount ++;
+        }
+    }
+    [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:@"项" showNext:YES];
     [_timeView setTitle:@"距离易孕期" detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
     
     //某日温度

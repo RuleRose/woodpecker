@@ -175,7 +175,7 @@
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetPeriod object:nil];
         } failure:^(NSError *error) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetPeriod object:nil];
         }];
     }
 }

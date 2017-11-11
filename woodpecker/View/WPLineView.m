@@ -52,6 +52,7 @@
         leftAxis.gridLineWidth = 0.5;
         leftAxis.axisMaximum = 45.0;
         leftAxis.axisMinimum = 32.0;
+        leftAxis.labelCount = 15;
         leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -73,6 +74,7 @@
         rightAxis.gridLineWidth = 0.5;
         rightAxis.axisMaximum = 45.0;
         rightAxis.axisMinimum = 32.0;
+        rightAxis.labelCount = 15;
         rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -85,7 +87,7 @@
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.enabled = showXAxis;
     if (showXAxis) {
-        xAxis.labelFont = kFont_3(12);;
+        xAxis.labelFont = kFont_3(8);;
         xAxis.labelTextColor = kColor_7;
         xAxis.drawGridLinesEnabled = YES;
         xAxis.drawAxisLineEnabled = YES;
@@ -140,6 +142,7 @@
     _chartView.pinchZoomEnabled = NO;
     _chartView.scaleYEnabled = NO;
     _chartView.scaleXEnabled = NO;
+    _chartView.maxVisibleCount = 30;
     _marker = [[BalloonMarker alloc] initWithTextColor:kColorFromRGB(0x777777) font:[UIFont systemFontOfSize:14] insets:UIEdgeInsetsMake(4.0, 14.0, 8.0, 14.0)];
     _marker.minimumSize = CGSizeMake(60.f, 30.f);
     _marker.isInt = YES;
@@ -157,11 +160,11 @@
 
 }
 
-//- (void)setShowCount:(NSInteger)showCount{
-//    _showCount = showCount;
-//    _chartView.maxVisibleCount = showCount;
-//
-//}
+- (void)setShowCount:(NSInteger)showCount{
+    _showCount = showCount;
+    ChartXAxis *xAxis = _chartView.xAxis;
+    xAxis.labelCount = showCount;
+}
 
 - (void)updateChartData:(NSMutableArray *)sortTemps{
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
@@ -179,9 +182,6 @@
             [startVals addObject:[[ChartDataEntry alloc] initWithX:total_days - 30 y:0]];
         }else{
             [startVals addObject:[[ChartDataEntry alloc] initWithX:-1 y:0]];
-        }
-        if (total_days < 30) {
-            total_days = 30;
         }
         LineChartDataSet *startSet = [[LineChartDataSet alloc] initWithValues:startVals label:@""];
         [dataSets addObject:startSet];
@@ -266,6 +266,9 @@
         data.highlightEnabled = YES;
         _chartView.data = data;
         if (_showCount != 0) {
+            if (total_days < 30) {
+                total_days = 30;
+            }
             CGFloat scale = (CGFloat)total_days/(CGFloat)_showCount;
             if (_scaleX >= 0) {
                 scale = _scaleX;

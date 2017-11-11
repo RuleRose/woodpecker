@@ -14,6 +14,5 @@
 @interface WPCalendarViewModel : NSObject
 @property(nonatomic, strong)WPUserModel *user;
 @property(nonatomic, strong)WPProfileModel *profile;
-@property(nonatomic, strong)NSMutableDictionary *periodDic;
 
 @end

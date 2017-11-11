@@ -14,7 +14,6 @@
 @interface WPCalendarDetailViewModel : NSObject
 @property(nonatomic, strong)WPUserModel *user;
 @property(nonatomic, strong)WPProfileModel *profile;
-@property(nonatomic, strong)NSMutableDictionary *periodDic;
 
 - (NSInteger)eventCountAtDate:(NSDate *)date;
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date;

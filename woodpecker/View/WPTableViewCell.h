@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, TableViewCellLeftModel) {
 typedef NS_ENUM(NSUInteger, TableViewCellRightModel) {
     kCellRightModelNone = 0,
     kCellRightModelNext,
+    kCellRightModelImage,
     kCellRightModelImageNext,
     kCellRightModelSwitch
 };
