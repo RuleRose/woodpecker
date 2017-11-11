@@ -153,11 +153,8 @@
             temp.date = temperature.date;
             temp.time = [NSString stringWithFormat:@"%f",time] ;
             if (localTemp) {
-                if ([temp.time longLongValue] >= [localTemp.time longLongValue]) {
-                    //替换当前记录
-                    [XJFDBManager deleteModel:localTemp dependOnKeys:nil];
-                    [temp insertToDB];
-                }
+                [XJFDBManager deleteModel:localTemp dependOnKeys:nil];
+                [temp insertToDB];
             }else{
                 //插入当前时间
                 [temp insertToDB];
