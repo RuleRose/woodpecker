@@ -32,5 +32,5 @@
 
 - (WPEventModel *)getEventWithDate:(NSDate *)date;
 - (void)updateEventSuccess:(void (^)(BOOL finished))result;
-- (void)updatePeriodSuccess:(void (^)(BOOL finished))result;
+- (void)updatePeriodSuccess:(void (^)(BOOL finished,BOOL needUpdate))result;
 @end
