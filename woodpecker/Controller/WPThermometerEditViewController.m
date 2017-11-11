@@ -102,9 +102,13 @@
     if (![NSString leie_isBlankString:temp]) {
         _temperature.sync = @"1";
         _temperature.temp = temp;
-        NSString *dateStr = [NSString stringWithFormat:@"%@ 23:59:59",[NSDate stringFromDate:_date]];
-        NSDate *date = [NSDate dateFromString:dateStr format:@"yyyy MM dd HH:mm:ss"];
-        _temperature.time = [NSString stringWithFormat:@"%f",[date timeIntervalSince2000]];
+        if ([NSDate isDateInToday:_date]) {
+            _temperature.time = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince2000]];
+        }else{
+            NSString *dateStr = [NSString stringWithFormat:@"%@ 23:59:59",[NSDate stringFromDate:_date]];
+            NSDate *date = [NSDate dateFromString:dateStr format:@"yyyy MM dd HH:mm:ss"];
+            _temperature.time = [NSString stringWithFormat:@"%f",[date timeIntervalSince2000]];
+        }
         [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
             
         }];
