@@ -83,6 +83,8 @@
 		C1B889AD1F9CE7F30044346D /* WPDayInfoInPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */; };
 		C1D89C5A1F5D3DF800DA4D92 /* MiPassport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */; };
 		C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */; };
+		C1E2C3C41FB6AECA0072988F /* ima-curve@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E2C3C21FB6AECA0072988F /* ima-curve@3x.png */; };
+		C1E2C3C51FB6AECA0072988F /* ima-curve@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E2C3C31FB6AECA0072988F /* ima-curve@2x.png */; };
 		C1EA63E41FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */; };
 		C1EA63E51FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */; };
 		C1EA63E61FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */; };
@@ -459,6 +461,8 @@
 		C1B889AC1F9CE7F30044346D /* WPDayInfoInPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WPDayInfoInPeriod.m; path = ../Model/WPDayInfoInPeriod.m; sourceTree = "<group>"; };
 		C1D89C591F5D3DF800DA4D92 /* MiPassport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MiPassport.framework; sourceTree = "<group>"; };
 		C1D89C5B1F5D3E1300DA4D92 /* MiPassport.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MiPassport.bundle; sourceTree = "<group>"; };
+		C1E2C3C21FB6AECA0072988F /* ima-curve@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ima-curve@3x.png"; sourceTree = "<group>"; };
+		C1E2C3C31FB6AECA0072988F /* ima-curve@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ima-curve@2x.png"; sourceTree = "<group>"; };
 		C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-0@2x.png"; sourceTree = "<group>"; };
 		C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-0@3x.png"; sourceTree = "<group>"; };
 		C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signal-1@2x.png"; sourceTree = "<group>"; };
@@ -1287,6 +1291,8 @@
 		C1FE07F91F5BCA100054A254 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				C1E2C3C21FB6AECA0072988F /* ima-curve@3x.png */,
+				C1E2C3C31FB6AECA0072988F /* ima-curve@2x.png */,
 				C1EA63DA1FB5DE9A00332FC6 /* icon-settings-signal-0@2x.png */,
 				C1EA63DB1FB5DE9A00332FC6 /* icon-settings-signal-0@3x.png */,
 				C1EA63DC1FB5DE9A00332FC6 /* icon-settings-signal-1@2x.png */,
@@ -1617,6 +1623,7 @@
 				C1FE08431F5BCA3C0054A254 /* btn-tab-curve-p@3x.png in Resources */,
 				C1FE08551F5BCA3C0054A254 /* icon-record-drink@3x.png in Resources */,
 				C1562F0E1F50638800D6CC30 /* Localization.strings in Resources */,
+				C1E2C3C41FB6AECA0072988F /* ima-curve@3x.png in Resources */,
 				C1FE08581F5BCA3C0054A254 /* icon-record-love@2x.png in Resources */,
 				C1FE085C1F5BCA3C0054A254 /* icon-record-mood@2x.png in Resources */,
 				C1EA63E71FB5DE9A00332FC6 /* icon-settings-signal-1@3x.png in Resources */,
@@ -1676,6 +1683,7 @@
 				C1FE08491F5BCA3C0054A254 /* btn-tab-me-u@3x.png in Resources */,
 				C1D89C5C1F5D3E1300DA4D92 /* MiPassport.bundle in Resources */,
 				C1FE08381F5BCA3C0054A254 /* btn-navi-device-connecking@3x.png in Resources */,
+				C1E2C3C51FB6AECA0072988F /* ima-curve@2x.png in Resources */,
 				C1FE08681F5BCA3C0054A254 /* icon-status-edit@2x.png in Resources */,
 				C1FE08341F5BCA3C0054A254 /* btn-navi-device-add@2x.png in Resources */,
 				C1FE08691F5BCA3C0054A254 /* icon-status-edit@3x.png in Resources */,
