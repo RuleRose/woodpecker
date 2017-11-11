@@ -618,7 +618,9 @@
             }
         }
     } failure:^(NSError *error) {
-        
+        if (result) {
+            result(NO);
+        }
     }];
     for (NSString *event_id in delEvents) {
         [WPNetInterface deleteEvent:event_id user_id:user.user_id success:^(BOOL finished) {
@@ -630,12 +632,14 @@
                 }
             }
         } failure:^(NSError *error) {
-            
+            if (result) {
+                result(NO);
+            }
         }];
     }
 }
 
-- (void)updatePeriodSuccess:(void (^)(BOOL finished))result{
+- (void)updatePeriodSuccess:(void (^)(BOOL finished,BOOL needUpdate))result{
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     WPProfileModel *profile = [[WPProfileModel alloc] init];
@@ -683,10 +687,12 @@
                         }
                     }
                     if (result) {
-                        result(YES);
+                        result(YES,YES);
                     }
                 } failure:^(NSError *error) {
-                    
+                    if (result) {
+                        result(NO,NO);
+                    }
                 }];
             }else{
                 //开始
@@ -717,10 +723,12 @@
                                 }
                             }
                             if (result) {
-                                result(YES);
+                                result(YES,YES);
                             }
                         } failure:^(NSError *error) {
-                            
+                            if (result) {
+                                result(NO,NO);
+                            }
                         }];
                     }else{
                         //create
@@ -740,10 +748,12 @@
                                 }
                             }
                             if (result) {
-                                result(YES);
+                                result(YES,YES);
                             }
                         } failure:^(NSError *error) {
-                            
+                            if (result) {
+                                result(NO,NO);
+                            }
                         }];
                     }
                 }else{
@@ -764,16 +774,18 @@
                             }
                         }
                         if (result) {
-                            result(YES);
+                            result(YES,YES);
                         }
                     } failure:^(NSError *error) {
-                        
+                        if (result) {
+                            result(NO,NO);
+                        }
                     }];
                 }
             }
         }else{
             if (result) {
-                result(YES);
+                result(YES,NO);
             }
         }
     }else{
@@ -804,10 +816,12 @@
                         }
                     }
                     if (result) {
-                        result(YES);
+                        result(YES,NO);
                     }
                 } failure:^(NSError *error) {
-                    
+                    if (result) {
+                        result(NO,NO);
+                    }
                 }];
             }else{
                 WPPeriodModel *period = [[WPPeriodModel alloc] init];
@@ -826,15 +840,17 @@
                         }
                     }
                     if (result) {
-                        result(YES);
+                        result(YES,YES);
                     }
                 } failure:^(NSError *error) {
-                    
+                    if (result) {
+                        result(NO,NO);
+                    }
                 }];
             }
         }else{
             if (result) {
-                result(YES);
+                result(YES,NO);
             }
         }
     }

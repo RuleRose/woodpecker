@@ -1,4 +1,4 @@
-//
+ //
 //  WPThermometerHardwareViewController.m
 //  woodpecker
 //
@@ -86,10 +86,12 @@
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
     BleDeviceBroadcast *currentDevice = [MMCDeviceManager defaultInstance].currentDevice;
+    WPDeviceModel *device = [[WPDeviceModel alloc] init];
+    [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"秒秒测ID";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",(long)currentDevice.hardwareRev];
+        cell.detailLabel.text = device.device_id;
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
@@ -99,7 +101,7 @@
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"固件版本";
-        cell.detailLabel.text = currentDevice.softwareRev;
+        cell.detailLabel.text = currentDevice.firmwareRev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"MAC地址";

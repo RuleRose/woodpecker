@@ -65,12 +65,25 @@
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
-    [_viewModel updatePeriodSuccess:^(BOOL finished) {
-        [[WPPeriodCountManager defaultInstance] recountPeriod];
-        [_viewModel updateEventSuccess:^(BOOL finished) {
+    [_viewModel updatePeriodSuccess:^(BOOL finished,BOOL needUpdate) {
+        if (finished) {
+            [_viewModel updateEventSuccess:^(BOOL finished) {
+                if (finished) {
+                    [[XJFHUDManager defaultInstance] hideLoading];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [[XJFHUDManager defaultInstance] hideLoading];
+                    [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+                }
+            }];
+            if (needUpdate) {
+                [[WPPeriodCountManager defaultInstance] recountPeriod];
+            }
+        }else{
             [[XJFHUDManager defaultInstance] hideLoading];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+            [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+        }
+
     }];
 }
 

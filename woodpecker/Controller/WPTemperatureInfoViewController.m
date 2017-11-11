@@ -33,7 +33,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, kScreen_Height - (kNavigationHeight + kStatusHeight))];
     _scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_scrollView];
-    _imageArr = @[];
+    _imageArr = @[@"ima-curve"];
     CGFloat y = 0;
     UIView *tempView = nil;
     for (NSString *imageStr in _imageArr) {

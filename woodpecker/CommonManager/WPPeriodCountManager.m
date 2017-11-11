@@ -41,6 +41,7 @@ Singleton_Implementation(WPPeriodCountManager);
 
 -(void)recountPeriod{
     [self.periodList removeAllObjects];
+    [_periodDic removeAllObjects];
     WPPeriodModel *periodModel = [[WPPeriodModel alloc] init];
     NSArray *rawPeriodList = [NSArray arrayWithArray:[XJFDBManager searchModelsWithCondition:periodModel andpage:-1 andOrderby:@"period_start" isAscend:YES]];
     
@@ -399,7 +400,6 @@ Singleton_Implementation(WPPeriodCountManager);
         WPDayInfoInPeriod *dayInfo = [self dayInfoOfDay:date];
         if (dayInfo) {
             [_periodDic setObject:dayInfo forKey:[NSDate stringFromDate:date]];
-
         }
     }
 }
