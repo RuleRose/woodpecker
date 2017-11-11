@@ -436,19 +436,25 @@
 }
 
 + (void)uploadAvatar:(UIImage *)vavtar user_id:(NSString *)user_id success:(void (^)(BOOL finished))success failure:(void (^)(NSError* error))failure{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    if (user_id) {
-        [params setObject:user_id forKey:@"user_id"];
-    }
     NSData *data  = UIImageJPEGRepresentation(vavtar, 1.0);
-    [[XJFNetworkManager shareManager] requestWithMethod:POST url:AVATAR_POST parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:@"filename" fileName:[NSString stringWithFormat:@"%@.jpg",[NSString leie_UUID]] mimeType:@"image/jpeg"];
+    [[XJFNetworkManager shareManager] requestWithMethod:POST url:AVATAR_POST parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (![NSString  leie_isBlankString:user_id]) {
+            [formData appendPartWithFormData:[user_id dataUsingEncoding:NSUTF8StringEncoding] name:@"user_id"];
+        }
+        [formData appendPartWithFileData:data name:@"avatar" fileName:[NSString stringWithFormat:@"%@.jpg",[NSString leie_UUID]] mimeType:@"image/jpeg"];
 
     } progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        if (success) {
-            success(YES);
+        NSString *status = [responseObject objectForKey:@"result"];
+        if ([status integerValue] == 0) {
+            if (success) {
+                success(YES);
+            }
+        }else{
+            if (success) {
+                success(NO);
+            }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (failure) {
@@ -490,7 +496,10 @@
     if (period_start) {
         [params setObject:period_start forKey:@"period_start"];
     }
-    if (period_end) {
+    if ([NSString leie_isBlankString:period_end]) {
+        [params setObject:@"TRUE" forKey:@"remove_end"];
+    }else{
+        [params setObject:@"FALSE" forKey:@"remove_end"];
         [params setObject:period_end forKey:@"period_end"];
     }
     [[XJFNetworkManager shareManager] requestWithPath:PERIOD_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {

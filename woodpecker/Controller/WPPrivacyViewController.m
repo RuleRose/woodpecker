@@ -1,24 +1,25 @@
 //
-//  WPHelpViewController.m
+//  WPPrivacyViewController.m
 //  woodpecker
 //
-//  Created by QiWL on 2017/10/3.
+//  Created by QiWL on 2017/11/11.
 //  Copyright © 2017年 goldsmith. All rights reserved.
 //
 
-#import "WPHelpViewController.h"
+#import "WPPrivacyViewController.h"
 
-@interface WPHelpViewController ()<UIWebViewDelegate>
+@interface WPPrivacyViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView* webView;
+
 
 @end
 
-@implementation WPHelpViewController
+@implementation WPPrivacyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"帮助";
+    self.title = @"用户协议与隐私政策";
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -37,7 +38,7 @@
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
     _webView.multipleTouchEnabled=YES;
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"help" withExtension:@"html"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
     [self.view addSubview:_webView];
@@ -56,9 +57,8 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [[XJFHUDManager defaultInstance]  hideLoading];
     [[XJFHUDManager defaultInstance]  showTextHUD:@"加载失败"];
-
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -76,7 +76,7 @@
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 6;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -124,16 +124,11 @@
         }
         cell.line.hidden = NO;
     }else if (indexPath.row == 4){
-        cell.icon.image = kImage(@"icon-me-shop");
-        cell.titleLabel.text = kLocalization(@"me_shop");
-        cell.detailLabel.text = @"";
-        cell.line.hidden = YES;
-    }else if (indexPath.row == 5){
         cell.icon.image = kImage(@"icon-me-about");
         cell.titleLabel.text = kLocalization(@"me_about");
         cell.detailLabel.text = @"";
         cell.line.hidden = NO;
-    }else if (indexPath.row == 6){
+    }else if (indexPath.row == 5){
         cell.icon.image = kImage(@"icon-me-help");
         cell.titleLabel.text = kLocalization(@"me_help");
         cell.detailLabel.text = @"";
@@ -167,12 +162,9 @@
         periodVC.profile = _profile;
         [self.navigationController pushViewController:periodVC animated:YES];
     }else if (indexPath.row == 4){
-        WPShoppingViewController *shoppingVC = [[WPShoppingViewController alloc] init];
-        [self.navigationController pushViewController:shoppingVC animated:YES];
-    }else if (indexPath.row == 5){
         WPAboutViewController *aboutVC = [[WPAboutViewController alloc] init];
         [self.navigationController pushViewController:aboutVC animated:YES];
-    }else if (indexPath.row == 6){
+    }else if (indexPath.row == 5){
         WPHelpViewController *helpVC = [[WPHelpViewController alloc] init];
         [self.navigationController pushViewController:helpVC animated:YES];
     }

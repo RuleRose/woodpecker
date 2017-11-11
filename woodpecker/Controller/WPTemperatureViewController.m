@@ -72,7 +72,7 @@
     [_switchBtn setImage:kImage(@"btn-navi-landscape") forState:UIControlStateNormal];
     [_switchBtn addTarget:self action:@selector(switchBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_switchBtn];
-    _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(32, 111, kScreen_Width - 64, kScreen_Width - 64)];
+    _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(20, 111, kScreen_Width - 40, kScreen_Width - 64)];
     _lineView.backgroundColor = [UIColor clearColor];
     _lineView.showCount = 14;
     [self.view addSubview:_lineView];

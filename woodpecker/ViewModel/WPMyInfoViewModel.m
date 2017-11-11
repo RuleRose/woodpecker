@@ -15,8 +15,25 @@
     WPUserModel *userinfo = [[WPUserModel alloc] init];
     [userinfo loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     [WPNetInterface uploadAvatar:avatar user_id:userinfo.user_id success:^(BOOL finished) {
-        if (result) {
-            result(YES);
+        if (finished) {
+            [WPNetInterface getUserinfoWithUserId:kDefaultObjectForKey(USER_DEFAULT_USER_ID) password:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_TOKEN) success:^(NSDictionary* userDic) {
+                if (userDic) {
+                    kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
+                }else{
+                    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
+                }
+                if (result) {
+                    result(YES);
+                }
+            } failure:^(NSError *error) {
+                if (result) {
+                    result(NO);
+                }
+            }];
+        }else{
+            if (result) {
+                result(finished);
+            }
         }
     } failure:^(NSError *error) {
         if (result) {

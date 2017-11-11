@@ -1,24 +1,24 @@
 //
-//  WPHelpViewController.m
-//  woodpecker
+//  WPSafetyViewController.m
+//  
 //
-//  Created by QiWL on 2017/10/3.
-//  Copyright © 2017年 goldsmith. All rights reserved.
+//  Created by QiWL on 2017/11/11.
 //
 
-#import "WPHelpViewController.h"
+#import "WPSafetyViewController.h"
 
-@interface WPHelpViewController ()<UIWebViewDelegate>
+@interface WPSafetyViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView* webView;
+
 
 @end
 
-@implementation WPHelpViewController
+@implementation WPSafetyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"帮助";
+    self.title = @"安全要求及注意事项";
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -37,7 +37,7 @@
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
     _webView.multipleTouchEnabled=YES;
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"help" withExtension:@"html"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"safety" withExtension:@"html"];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
     [self.view addSubview:_webView];
@@ -56,9 +56,8 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [[XJFHUDManager defaultInstance]  hideLoading];
     [[XJFHUDManager defaultInstance]  showTextHUD:@"加载失败"];
-
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

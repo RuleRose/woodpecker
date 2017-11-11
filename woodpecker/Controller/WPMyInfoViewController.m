@@ -18,6 +18,7 @@
 #import "WPLoginViewController.h"
 #import "WPAccountManager.h"
 #import "XJFHUDManager.h"
+#import "UIImage+Extension.h"
 
 @interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -261,11 +262,12 @@
         [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
             
         }];
-        [_viewModel uploadAvatar:photo success:^(BOOL finished) {
+        UIImage *avatar = [UIImage scaleImage:photo croppingForSize:CGSizeMake(120, 120)];
+        [_viewModel uploadAvatar:avatar success:^(BOOL finished) {
             [[XJFHUDManager defaultInstance] hideLoading];
             if (finished) {
                 [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
-                _photo = photo;
+                _photo = avatar;
                 [_tableView reloadData];
             }else{
                 [[XJFHUDManager defaultInstance] showTextHUD:@"上传失败"];

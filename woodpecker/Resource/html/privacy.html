@@ -1,0 +1,391 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+body {
+  font-family: FZLanTingHeiS-EL-GB, Helvetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #e8e8e8;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px;
+  color: #4183C4 }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>我们重视您的隐私</title>
+
+</head>
+<body>
+<p>2017年11月</p>
+
+<h2>我们重视您的隐私</h2>
+
+<p>秒秒测（包括其关联公司）承诺尊重您的隐私，并遵守适用的数据保护与隐私法律。本隐私政策（下文简称“政策”）讲述了在秒秒测为数据管理者的情况下我们将如何收集和使用个人数据。</p>
+
+<p>您设备上的软件可能会访问您的信息。我们的产品或服务可能包含其他公司网站与服务的链接，这些公司也拥有其自身的隐私政策。秒秒测对其他方的隐私实践不负有责任，我们建议您阅读他们的隐私声明。</p>
+
+<p>如果您不同意本政策，请勿使用我们的产品与服务或向秒秒测提供您的个人数据。</p>
+
+<h3>我们收集哪些信息？</h3>
+
+<p>在您购买、使用或注册我们的产品与服务、参加营销活动或研究，或者以其他方式与我们互动时，我们会收集您的个人数据及其他信息。 这包括以下类别：</p>
+
+<ul>
+<li><p><strong>产品与服务的激活</strong> 秒秒测产品与服务可能需要电子激活，在此期间，您的设备与应用程序类型以及设备、应用程序、网络和订阅的唯一标识符会被发送给秒秒测。</p></li>
+<li><p><strong>产品与服务的使用</strong> 当您在线访问我们的服务时，我们的网络服务器会自动创建与您的访问有关的记录。这些记录通常包括 IP地址、访问时间、所链接的网站、访问过的网页、使用过的链接与功能、查看或请求过的内容、浏览器或应用程序类型、语言及其他此类信息。另请参阅我们的 Cookie 政策。
+我们的应用程序可能会定期与我们的服务器建立连接，以便检查更新或向我们发送与服务使用有关的信息等等。此外，我们可能会邀请您加入自愿性产品与服务改善或研究计划，并在此期间收集详细信息。</p></li>
+<li><p><strong>您向我们提供的信息</strong> 当您创建帐户、进行购买、请求服务、参与研究或营销活动，或以其他方式与我们互动时，我们可能会要求您提供某些信息，例如您的姓名、电子邮件地址、电话号码、街道地址、用户名与密码、反馈、与您的设备相关的信息、年龄、性别、语言、银行帐号、信用卡详细信息以及其他此类财务信息。我们还会针对您在位置数据、营销和个人数据共享等方面的同意、首选项和设置保留相关记录。</p></li>
+<li><p><strong>您与我们之间的交易</strong> 我们会保留以下方面的记录：您的购买、下载、您向我们提供的内容、您的请求、您与 秒秒测 之间的协议、为您提供的产品与服务、付款与交付方面的详细信息、您的联系与沟通，以及与我们之间的其他互动。 我们可能会依照适用的法律，记录您与我们的客服人员或其他此类联系人之间的沟通。</p></li>
+</ul>
+
+
+<h3>我们为何处理个人数据？</h3>
+
+<p>秒秒测可能会出于以下目的而处理您的个人数据。可能只出于一种目的，也可能同时出于多种目的。</p>
+
+<ul>
+<li><p><strong>提供产品与服务</strong> 我们可能会出于以下目的而使用您的个人数据：为您提供我们的产品与服务；处理您的请求，或可能有必要使用此类数据来履行您与秒秒测之间的合同；确保我们产品与服务的功能和安全性；识别您的个人身份；以及防止和调查欺诈及其他滥用行为。</p></li>
+<li><p><strong>帐户</strong> 有些服务可能需要一个帐户，以帮助您管理您的内容和首选项。</p></li>
+<li><p><strong>开发和管理产品与服务</strong> 我们可能会使用您的个人数据来开发和管理我们的产品、服务、客户服务、销售和营销。我们可能会将我们在您使用某特定秒秒测产品和/或服务期间所收集的个人数据与其他秒秒测产品和服务收集的个人数据结合在一起，除非此类个人数据的收集是出于其他不同的目的。</p></li>
+<li><p><strong>与您沟通</strong> 我们可能会出于同您沟通的目的而使用您的个人数据，例如通知您我们的服务已变更；向您发送重要提醒或与我们的产品和/或服务相关的其他此类通知；或者出于客户服务目的与您联系。</p></li>
+<li><p><strong>市场营销、广告宣传和提供建议</strong> 我们可能与您联系，以告知您我们可能提供的新产品、服务或促销；以及在征得您的同意或以其他方式得到允许的情况下，开展市场调研。 我们可能会使用您的个人数据来让我们的产品与服务具备个性化，并为您提供更加相关的服务，例如提供建议以及在我们的服务中显示定制化内容和广告。这可能包括显示秒秒测与第三方内容。</p></li>
+</ul>
+
+
+<h3>我们是否会共享个人数据？</h3>
+
+<p>除下述情况外，我们不会向第三方销售、租借、租赁或以其他方式披露您的个人数据。</p>
+
+<ul>
+<li><p><strong>您的同意和社交共享服务</strong> 我们可能会在得到您同意的情况下共享您的个人数据。部分服务可能允许您与相关服务的其他用户或者与其他服务及其用户共享您的个人数据。在披露其他用户可能接触到的个人数据或其他信息前，请务必谨慎。</p></li>
+<li><p><strong>秒秒测公司与得到授权的第三方</strong> 我们可能会与得到授权的第三方共享您的个人数据，以供其出于本政策所述目的为秒秒测处理个人数据。这可能包括通过您的网络服务提供商或其他方面进行结算；交付您所购买的产品或服务；提供包括客户服务在内的服务；管理并分析消费者数据；信用核实；进行调研；以及管理营销及其他此类活动等。 当您通过网络服务提供商计划向我们购买 秒秒测产品时，我们可能需要与您的网络服务提供商交换信息，以便为您提供此类服务。
+我们可能会与我们的合作伙伴开展联合营销及其他沟通活动。为了避免重复或不必要的沟通，并为您量身定制相关信息，我们可能需要将秒秒测收集的信息与合作伙伴收集的信息进行匹配，但前提是法律允许这样做。
+这些授权第三方不得将您的个人数据用于任何其他用途。我们会要求他们遵照本政策行事，并采取适当的安全措施来保护您的个人数据。</p></li>
+<li><strong>并购</strong> 如果我们决定销售、购买、合并或以其他方式重组我们的企业，则可能涉及到我们需要向潜在或实际购买方及其顾问披露个人数据，或者从卖方及其顾问那里接收个人数据。</li>
+</ul>
+
+
+<h3>我们如何对待儿童隐私？</h3>
+
+<p>秒秒测产品与服务往往针对的是普通大众。秒秒测不会在未获得家长或监护人同意的情况下故意收集儿童的信息。</p>
+
+<h3>我们如何对待数据质量？</h3>
+
+<p>我们会采取合理措施来确保我们所掌握的个人数据的准确性，并会删除不正确或不必要的个人数据。</p>
+
+<h3>我们会采取哪些措施来保护个人数据的安全？</h3>
+
+<p>隐私与安全是我们在创建和交付产品与服务时的关键考虑因素。我们已分配了具体的职责来解决隐私与安全方面的问题。我们通过一系列适当的活动来执行我们的内部政策与准则，包括主动和被动风险管理、安全与隐私工程、培训和评估。考虑到因数据处理所带来的风险以及所保护数据的性质，我们采取适当的措施来解决在线安全、物理安全、数据丢失风险及其他此类风险。此外，我们仅允许有合理需求的被授权人员访问包含个人数据的数据库。</p>
+
+<h3>我们如何使用 Cookie和网络信标？</h3>
+
+<p>秒秒测使用 Cookie、网络信标及其他类似技术来运作和改善我们的网站以及我们的产品与服务。我们还出于个性化及展示广告的目的而使用 Cookie。</p>
+
+<p>我们的域可能包括代表某第三方设置了 Cookie的第三方要素，例如与第三方社交网络有关。请访问我们的 Cookie 政策，以详细了解 秒秒测如何使用 Cookie，以及您如何可以通过浏览器设置或其他方法禁用 Cookie。</p>
+
+<h3>您有哪些权利？</h3>
+
+<p>您有权知道我们掌握着与您有关的哪些个人数据。您有权要求删除或更新不完整、不正确、不必要或过期的个人数据。您有权取消订阅直接营销消息，并有权要求我们停止出于直接营销目的或凭借其他具有说服力的法律依据处理您的个人数据。不过，如果您选择退出 秒秒测的营销及其他消息的接收，我们仍会向您发送重要提醒。</p>
+
+<p>您可以通过以下方式行使您的权利：联系我们；或通过您设备上或我们服务中的可用个人资料管理工具，管理您的帐户与选择。在某些情况下，尤其在您希望我们删除或停止处理您的个人数据时，这或许还意味着，我们可能无法继续为您提供相关服务。</p>
+
+<h3>谁是您个人数据的管理者？</h3>
+
+<p>秒秒测科技（北京）有限公司负责管理依据本政策收集的您的个人数据。此外，提供产品或服务的秒秒测关联公司可能是您个人数据的管理者。通过查看相关产品或服务的条款与条件，或者使用适用的秒秒测网站上所提供的联系信息，您可以找到管理者身份信息及其详细联系方式。</p>
+
+<h3>对此隐私政策的更改</h3>
+
+<p>我们将不时更新本政策，以反映我们产品和服务变动，并根据经验和客户反馈澄清我们的实践。当我们进行变更时，我们将修订本声明顶部的“上次更新”日期。如果本声明或 秒秒测对您信息的使用方式出现重大变动，我们将在实施此类变更前以醒目方式发布变更公告或直接向您发送通告，让您知晓。我们建议您不时重新访问本政策，以了解对本政策所作的任何此类更改。</p>
+</body>
+</html>
