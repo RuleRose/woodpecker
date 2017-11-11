@@ -89,7 +89,7 @@
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"秒秒测ID";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",(long)currentDevice.deviceID];
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",(long)currentDevice.hardwareRev];
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
@@ -99,7 +99,7 @@
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"固件版本";
-        cell.detailLabel.text = currentDevice.hardwareRev;
+        cell.detailLabel.text = currentDevice.softwareRev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"MAC地址";
