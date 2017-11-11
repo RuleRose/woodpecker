@@ -17,5 +17,6 @@
 @property(nonatomic, copy)NSString *software_rev_latest;
 @property(nonatomic, copy)NSString *production_test;
 @property(nonatomic, copy)NSString *time_registered;
+@property(nonatomic, copy)NSString *firmwareRev;
 @property (nonatomic,copy) NSString *device_id;
 @end

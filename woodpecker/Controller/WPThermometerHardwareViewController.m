@@ -1,4 +1,4 @@
-//
+ //
 //  WPThermometerHardwareViewController.m
 //  woodpecker
 //
@@ -101,7 +101,7 @@
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"固件版本";
-        cell.detailLabel.text = currentDevice.softwareRev;
+        cell.detailLabel.text = currentDevice.firmwareRev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"MAC地址";
