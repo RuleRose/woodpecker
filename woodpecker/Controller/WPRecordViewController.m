@@ -329,7 +329,7 @@
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (alertController.textFields.count > 0) {
                 UITextField *textField = [alertController.textFields objectAtIndex:0];
-                weakSelf.event.comments =textField.text;
+                weakSelf.event.comments = textField.text;
                 [weakSelf.tableView reloadData];
             }
         }];
@@ -337,6 +337,7 @@
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.textColor = kColorFromRGB(0x333333);
             textField.font = [UIFont systemFontOfSize:18];
+            textField.text = weakSelf.event.comments;
         }];
         [self.navigationController presentViewController:alertController animated:YES completion:nil];
     }

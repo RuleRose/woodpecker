@@ -94,14 +94,12 @@
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"电池电量";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%0.f%%",(1000 - currentDevice.batteryLevelRaw)/10.0];
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld%%",(long)currentDevice.batteryLevelRaw];
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"固件版本";
-        WPDeviceModel *device = [[WPDeviceModel alloc] init];
-        [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
-        cell.detailLabel.text = device.hardware_rev;
+        cell.detailLabel.text = currentDevice.hardwareRev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = @"MAC地址";

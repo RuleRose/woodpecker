@@ -23,7 +23,6 @@
         [_user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
         _profile = [[WPProfileModel alloc] init];
         [_profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-        _periodDic = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

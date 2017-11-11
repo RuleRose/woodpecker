@@ -180,9 +180,6 @@
         }else{
             [startVals addObject:[[ChartDataEntry alloc] initWithX:-1 y:0]];
         }
-        if (total_days < 30) {
-            total_days = 30;
-        }
         LineChartDataSet *startSet = [[LineChartDataSet alloc] initWithValues:startVals label:@""];
         [dataSets addObject:startSet];
         for (NSInteger i = sortTemps.count - 1; i >= 0; i --) {
@@ -266,6 +263,9 @@
         data.highlightEnabled = YES;
         _chartView.data = data;
         if (_showCount != 0) {
+            if (total_days < 30) {
+                total_days = 30;
+            }
             CGFloat scale = (CGFloat)total_days/(CGFloat)_showCount;
             if (_scaleX >= 0) {
                 scale = _scaleX;
