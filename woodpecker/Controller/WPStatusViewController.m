@@ -45,10 +45,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(measureFinished) name:MMCNotificationKeyMeasureFinished object:nil];
-    [[WPPeriodCountManager defaultInstance] recountPeriod];
-    [_statusView updateState];
-//    _statusView.startDate = [_viewModel getStartDate];
+//    [self performSelector:@selector(recountPeriod) withObject:nil afterDelay:0];
     _statusView.startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+}
+
+- (void)recountPeriod{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[WPPeriodCountManager defaultInstance] recountPeriod];
+        //通知主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            [_statusView updateState];
+        });
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -113,8 +122,7 @@
     [_statusView updateState];
 }
 - (void)getPeriod{
-    [[WPPeriodCountManager defaultInstance] recountPeriod];
-    [_statusView updateState];
+    [self performSelector:@selector(recountPeriod) withObject:nil afterDelay:0];
 }
 
 - (void)getEvent{

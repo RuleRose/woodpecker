@@ -11,6 +11,7 @@
 #import "WPLineView.h"
 #import "WPTemperatureDetailView.h"
 #import "WPTempNoteView.h"
+#import "WPTemperatureInfoViewController.h"
 
 @interface WPTemperatureViewController ()
 @property(nonatomic, strong) UILabel *titleLabel;
@@ -18,7 +19,8 @@
 @property(nonatomic, strong) WPLineView *lineView;
 @property(nonatomic, strong) WPTemperatureViewModel *viewModel;
 @property(nonatomic, strong) WPTemperatureDetailView *lineDetailView;
-@property (nonatomic, strong) WPTempNoteView *noteView;
+@property(nonatomic, strong) WPTempNoteView *noteView;
+@property(nonatomic, strong) UIButton *legendBtn;
 
 @end
 
@@ -72,7 +74,7 @@
     [self.view addSubview:_switchBtn];
     _lineView = [[WPLineView alloc] initWithFrame:CGRectMake(32, 111, kScreen_Width - 64, kScreen_Width - 64)];
     _lineView.backgroundColor = [UIColor clearColor];
-    _lineView.showCount = 15;
+    _lineView.showCount = 14;
     [self.view addSubview:_lineView];
     _lineDetailView = [[WPTemperatureDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
     _lineDetailView.backgroundColor = [UIColor clearColor];
@@ -82,10 +84,20 @@
     _noteView = [[WPTempNoteView alloc] initWithFrame:CGRectMake(0, _lineView.bottom, kScreen_Width, 52)];
     _noteView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_noteView];
+    _legendBtn = [[UIButton alloc] initWithFrame:CGRectMake(_lineView.right - 56, _lineView.top + 6, 50, 50)];
+    _legendBtn.backgroundColor = [UIColor clearColor];
+    [_legendBtn setImage:kImage(@"icon-info") forState:UIControlStateNormal];
+    [_legendBtn addTarget:self action:@selector(legendBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_legendBtn];
 }
 
 - (void)switchBtnPressed{
     _lineDetailView.hidden = !_lineDetailView.hidden;
+}
+
+- (void)legendBtnPressed{
+    WPTemperatureInfoViewController *infoVC = [[WPTemperatureInfoViewController alloc] init];
+    [self.navigationController pushViewController:infoVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

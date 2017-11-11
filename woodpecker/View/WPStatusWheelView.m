@@ -52,6 +52,7 @@
     _collectionView.delegate = self;
     _collectionView.pagingEnabled = NO;
     _collectionView.clipsToBounds = YES;
+    _collectionView.scrollsToTop = NO;
 //    _collectionView.userInteractionEnabled = NO;
     [_collectionView registerClass:[WPStatusWheelCell class] forCellWithReuseIdentifier:NSStringFromClass([WPStatusWheelCell class])];
 //    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
