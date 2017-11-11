@@ -173,7 +173,7 @@ Singleton_Implementation(WPPeriodCountManager);
     lastPeriod.ovulate_day = [NSDate dateByAddingDays:-OVULATE_DAY toDate:nextForecastPeriodStart];
     lastPeriod.pregnant_start = [NSDate dateByAddingDays:-PRE_OVULATE_START toDate:lastPeriod.ovulate_day];
     lastPeriod.pregnant_end = [NSDate dateByAddingDays:POST_OVULATE_START toDate:lastPeriod.ovulate_day];
-    [self resetPeriodsDic];
+   // [self resetPeriodsDic];
 }
 
 -(WPDayInfoInPeriod *)dayInfo:(NSDate*)day{
