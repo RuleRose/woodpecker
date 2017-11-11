@@ -12,7 +12,7 @@
 #import "WPMainViewController.h"
 #import "WPAccountManager.h"
 #import "WPBasicInfoViewController.h"
-#import "WPAgreementViewController.h"
+#import "WPPrivacyViewController.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -70,7 +70,7 @@
 }
 
 - (void)showAgreement{
-    WPAgreementViewController *agreementVC = [[WPAgreementViewController alloc] init];
+    WPPrivacyViewController *agreementVC = [[WPPrivacyViewController alloc] init];
     [self.navigationController pushViewController:agreementVC animated:YES];
 }
 

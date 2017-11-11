@@ -445,21 +445,30 @@
     NSMutableArray *delEvents = [[NSMutableArray alloc] init];
     WPEventModel *event = [self getEventWithDate:_eventDate];
     if (_event.color || _event.flow || _event.pain || _event.gore) {
+        
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"1" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.color) {
-            [description setObject:_event.color forKey:@"color"];
+            if (![_event.color isEqualToString:event.color]) {
+                [description setObject:_event.color forKey:@"color"];
+            }
         }
         if (_event.flow) {
-            [description setObject:_event.flow forKey:@"flow"];
+            if (![_event.flow isEqualToString:event.flow]) {
+                [description setObject:_event.flow forKey:@"flow"];
+            }
         }
         if (_event.pain) {
-            [description setObject:_event.pain forKey:@"pain"];
+            if (![_event.pain isEqualToString:event.pain]) {
+                [description setObject:_event.pain forKey:@"pain"];
+            }
         }
         if (_event.gore) {
-            [description setObject:_event.gore forKey:@"gore"];
+            if (![_event.gore isEqualToString:event.gore]) {
+                [description setObject:_event.gore forKey:@"gore"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -475,16 +484,24 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.mucus_prob) {
-            [description setObject:_event.mucus_prob forKey:@"mucus_prob"];
+            if (![_event.mucus_prob isEqualToString:event.mucus_prob]) {
+                [description setObject:_event.mucus_prob forKey:@"mucus_prob"];
+            }
         }
         if (_event.mucus_flow) {
-            [description setObject:_event.mucus_flow forKey:@"mucus_flow"];
+            if (![_event.mucus_flow isEqualToString:event.mucus_flow]) {
+                [description setObject:_event.mucus_flow forKey:@"mucus_flow"];
+            }
         }
         if (_event.love) {
-            [description setObject:_event.love forKey:@"love"];
+            if (![_event.love isEqualToString:event.love]) {
+                [description setObject:_event.love forKey:@"love"];
+            }
         }
         if (_event.ct) {
-            [description setObject:_event.ct forKey:@"test_paper"];
+            if (![_event.ct isEqualToString:event.ct]) {
+                [description setObject:_event.ct forKey:@"test_paper"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -499,7 +516,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.sleep) {
-            [description setObject:_event.sleep forKey:@"quality"];
+            if (![_event.sleep isEqualToString:event.sleep]) {
+                [description setObject:_event.sleep forKey:@"quality"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -514,7 +533,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.mood) {
-            [description setObject:_event.mood forKey:@"motion"];
+            if (![_event.mood isEqualToString:event.mood]) {
+                [description setObject:_event.mood forKey:@"motion"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -529,7 +550,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.sport) {
-            [description setObject:_event.sport forKey:@"time"];
+            if (![_event.sport isEqualToString:event.sport]) {
+                [description setObject:_event.sport forKey:@"time"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -544,7 +567,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.drink) {
-            [description setObject:_event.drink forKey:@"status"];
+            if (![_event.drink isEqualToString:event.drink]) {
+                [description setObject:_event.drink forKey:@"status"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -559,7 +584,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.drug) {
-            [description setObject:_event.drug forKey:@"type"];
+            if (![_event.drug isEqualToString:event.drug]) {
+                [description setObject:_event.drug forKey:@"type"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -574,7 +601,9 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.comments) {
-            [description setObject:_event.comments forKey:@"comments"];
+            if (![_event.comments isEqualToString:event.comments]) {
+                [description setObject:_event.comments forKey:@"comments"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
@@ -589,12 +618,14 @@
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.weight) {
-            [description setObject:_event.weight forKey:@"weight"];
+            if (![_event.weight isEqualToString:event.weight]) {
+                [description setObject:_event.weight forKey:@"weight"];
+            }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.comments) {
+        if (event.weight) {
             [delEvents addObject:event.event_id8];
         }
     }

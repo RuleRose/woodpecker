@@ -119,14 +119,14 @@
     _dateLabel = [[UILabel alloc] init];
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.textColor = kColor_8;
-    _dateLabel.font = kFont_3(12);
+    _dateLabel.font = kFont_3(8);
     _dateLabel.text = @"日期";
     [self addSubview:_dateLabel];
     
     _periodLabel = [[UILabel alloc] init];
     _periodLabel.backgroundColor = [UIColor clearColor];
     _periodLabel.textColor = kColor_8;
-    _periodLabel.font = kFont_3(12);
+    _periodLabel.font = kFont_3(8);
     _periodLabel.text = @"周期";
     [self addSubview:_periodLabel];
     _chartView = [[ LineChartView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
@@ -152,8 +152,8 @@
     _chartView.marker = _marker;
     [_chartView animateWithXAxisDuration:0];
     _showCount = 15;
-    _periodLabel.frame = CGRectMake(-15, self.height - 15, self.width, 15);
-    _dateLabel.frame = CGRectMake(-15, self.height - 30, self.width, 15);
+    _periodLabel.frame = CGRectMake(0, self.height - 9, self.width, 10);
+    _dateLabel.frame = CGRectMake(0, self.height - 18, self.width, 10);
     self.layer.masksToBounds = NO;
     _periodLabel.hidden = YES;
     _dateLabel.hidden = YES;
