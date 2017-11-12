@@ -15,8 +15,9 @@
 @property (nonatomic, assign) BOOL showXAxis; //是否显示x坐标
 @property (nonatomic, assign) UIEdgeInsets insets; //边框大小
 @property (nonatomic, assign) NSInteger showCount; //大小（一屏显示的天数）
-@property(nonatomic,assign) CGFloat scaleX;
-@property(nonatomic,assign) NSInteger xIndex;
-
+@property (nonatomic, assign) CGFloat scaleX;
+@property (nonatomic, assign) NSInteger xIndex;
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *periodLabel;
 - (void)updateChartData:(NSMutableArray *)sortTemps;
 @end

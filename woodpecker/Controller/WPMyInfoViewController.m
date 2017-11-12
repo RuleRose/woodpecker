@@ -18,6 +18,7 @@
 #import "WPLoginViewController.h"
 #import "WPAccountManager.h"
 #import "XJFHUDManager.h"
+#import "UIImage+Extension.h"
 
 @interface WPMyInfoViewController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
@@ -58,7 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"个人信息";
+    self.title = @"账号信息";
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -246,11 +247,10 @@
 
 #pragma mark UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    _photo = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *photo = [info objectForKey:UIImagePickerControllerOriginalImage];
     //图片存入相册
-    if (_photo) {
-        [self selectedImage:_photo];
-        [_tableView reloadData];
+    if (photo) {
+        [self selectedImage:photo];
     }
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -262,10 +262,15 @@
         [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
             
         }];
-        [_viewModel uploadAvatar:photo success:^(BOOL finished) {
+        UIImage *avatar = [UIImage scaleImage:photo croppingForSize:CGSizeMake(120, 120)];
+        [_viewModel uploadAvatar:avatar success:^(BOOL finished) {
             [[XJFHUDManager defaultInstance] hideLoading];
             if (finished) {
                 [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
+                _photo = avatar;
+                [_tableView reloadData];
+            }else{
+                [[XJFHUDManager defaultInstance] showTextHUD:@"上传失败"];
             }
         }];
     }

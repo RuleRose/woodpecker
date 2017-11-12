@@ -21,7 +21,8 @@
 @property (nonatomic, strong) FSCalendar* calendar;
 @property (nonatomic, strong) FSCalendarWeekdayView* weekdayView;
 @property (nonatomic, strong) WPCalendarNoteView *noteView;
-@property(nonatomic,strong)NSDate *selectedDate;
+@property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic, assign) BOOL appeared;
 
 @end
 
@@ -65,8 +66,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
+    _appeared = NO;
     [self setupData];
     [self setupViews];
+    self.calendar.hidden = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -75,11 +78,25 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+    [self performSelector:@selector(showCalendar) withObject:nil afterDelay:0];
+}
+
+- (void)showCalendar{
+    _calendar.hidden = NO;
+    _appeared = YES;
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
-    [self configureVisibleCells];
     [_calendar reloadData];
+    [[XJFHUDManager defaultInstance] hideLoading];
 }
+
 
 - (void)goBack:(UIButton *)sender{
     CATransition *transition = [CATransition pushFromRight:nil];
@@ -88,7 +105,6 @@
 }
 
 - (void)setupData{
-//    [[WPPeriodCountManager defaultInstance] recountPeriod];
     _viewModel = [[WPCalendarViewModel alloc] init];
     if (!_selectedDate) {
         _selectedDate = [NSDate date];
@@ -176,7 +192,6 @@
     WPCalendarDetailViewController *detailVC = [[WPCalendarDetailViewController alloc] init];
     detailVC.selectedDate = date;
     detailVC.delegate = self;
-    detailVC.periodDic = _viewModel.periodDic;
     [self.navigationController pushViewController:detailVC animated:YES
      ];
     [self configureVisibleCells];
@@ -233,7 +248,7 @@
 
 - (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
 {
-    if ([cell isKindOfClass:[WPCalendarCell class]]) {
+    if ([cell isKindOfClass:[WPCalendarCell class]] && _appeared) {
         WPCalendarCell *calendarCell = (WPCalendarCell *)cell;
         if (calendarCell.selected) {
             calendarCell.titleLabel.font = kFont_6(16);
@@ -248,30 +263,15 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        NSString *dateStr = [NSDate stringFromDate:date];
-        WPDayInfoInPeriod *period = [_viewModel.periodDic objectForKey:dateStr];
-        if(!period){
-             period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
-            [_viewModel.periodDic setObject:period forKey:dateStr];
-        }
+        WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
         calendarCell.period = period.type;
         if (period.type == kPeriodTypeOfOviposit) {
             calendarCell.shape = kPeriodShapeOfCircle;
         }else{
             NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
             NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
-            NSString *tomorrow_dateStr = [NSDate stringFromDate:tomorrow];
-            WPDayInfoInPeriod *tomorrow_period = [_viewModel.periodDic objectForKey:tomorrow_dateStr];
-            if(!tomorrow_period){
-                tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
-                [_viewModel.periodDic setObject:tomorrow_period forKey:tomorrow_dateStr];
-            }
-            NSString *yesterday_dateStr = [NSDate stringFromDate:yesterday];
-            WPDayInfoInPeriod *yesterday_period = [_viewModel.periodDic objectForKey:yesterday_dateStr];
-            if(!yesterday_period){
-                yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
-                [_viewModel.periodDic setObject:yesterday_period forKey:yesterday_dateStr];
-            }
+            WPDayInfoInPeriod *tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
+            WPDayInfoInPeriod *yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
             NSInteger weekday = [NSDate weekdayOfDate:date];
             if (weekday == 1 || [NSDate isDate:date equalToDate:[NSDate beginingOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]) {
                 if (tomorrow_period.type == period.type) {

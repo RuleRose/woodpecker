@@ -50,7 +50,11 @@
         case kWPRecordThemeOfDrug:
             self.drug = detail;
             break;
-        default:
+        case kWPRecordThemeOfComments:
+            self.comments = detail;
+            break;
+        case kWPRecordThemeOfWeight:
+            self.weight = detail;
             break;
     }
 }

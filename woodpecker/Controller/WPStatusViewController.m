@@ -45,10 +45,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPeriod)  name:WPNotificationKeyGetPeriod object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(measureFinished) name:MMCNotificationKeyMeasureFinished object:nil];
+//    [self performSelector:@selector(recountPeriod) withObject:nil afterDelay:0];
+    _statusView.startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+}
 
-    [[WPPeriodCountManager defaultInstance] recountPeriod];
-    [_statusView updateState];
-    _statusView.startDate = [_viewModel getStartDate];
+- (void)recountPeriod{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[WPPeriodCountManager defaultInstance] recountPeriod];
+        //通知主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            [_statusView updateState];
+        });
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -88,7 +97,7 @@
 - (void)updateState{
     if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
         //上传
-        _statusView.startDate = [_viewModel getStartDate];
+//        _statusView.startDate = [_viewModel getStartDate];
         [_statusView updateState];
         [_viewModel syncTempDataToService];
     }
@@ -109,12 +118,11 @@
 
 - (void)getTemperature{
     [_viewModel syncTempData];
-    _statusView.startDate = [_viewModel getStartDate];
+//    _statusView.startDate = [_viewModel getStartDate];
     [_statusView updateState];
 }
 - (void)getPeriod{
-    [[WPPeriodCountManager defaultInstance] recountPeriod];
-    [_statusView updateState];
+    [self performSelector:@selector(recountPeriod) withObject:nil afterDelay:0];
 }
 
 - (void)getEvent{
@@ -122,6 +130,7 @@
 }
 
 - (void)measureFinished{
+    kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
     [_viewModel syncTempData];
 }
 
@@ -137,10 +146,8 @@
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     switch ([MMCDeviceManager defaultInstance].deviceConnectionState) {
-        case STATE_DEVICE_SCANNING:
         case STATE_DEVICE_CONNECTING:
         case STATE_DEVICE_DISCONNECTING:
-            
             break;
         case STATE_DEVICE_CONNECTED:
         {

@@ -106,8 +106,9 @@
     if (![NSString leie_isBlankString:_profile.menstruation] && ![NSString leie_isBlankString:_profile.period] && ![NSString leie_isBlankString:_profile.lastperiod]) {
         [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
             if (success) {
-                [_viewModel registerProfile:_profile reuslt:^(BOOL success) {
+                [_viewModel registerProfile:_profile reuslt:^(NSString *profile_id) {
                     if (success) {
+                        _userinfo.profile_id = profile_id;
                         kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
                         WPMainViewController *mainVC = [[WPMainViewController alloc] init];
                         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -155,7 +156,7 @@
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"末次经期首日";
+        cell.titleLabel.text = @"末次月经首日";
         cell.textField.text = _profile.lastperiod;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
@@ -186,6 +187,7 @@
             WPPeriodInfoViewController *infoVC = [[WPPeriodInfoViewController alloc] init];
             [self.navigationController pushViewController:infoVC animated:YES];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -199,6 +201,7 @@
             WPMenstrualInfoViewController *infoVC = [[WPMenstrualInfoViewController alloc] init];
             [self.navigationController pushViewController:infoVC animated:YES];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -208,6 +211,7 @@
             _profile.lastperiod = [NSDate stringFromDate:lastperiod];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];

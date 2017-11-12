@@ -65,12 +65,25 @@
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
-    [_viewModel updatePeriodSuccess:^(BOOL finished) {
-        [[WPPeriodCountManager defaultInstance] recountPeriod];
-        [_viewModel updateEventSuccess:^(BOOL finished) {
+    [_viewModel updatePeriodSuccess:^(BOOL finished,BOOL needUpdate) {
+        if (finished) {
+            [_viewModel updateEventSuccess:^(BOOL finished) {
+                if (finished) {
+                    [[XJFHUDManager defaultInstance] hideLoading];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [[XJFHUDManager defaultInstance] hideLoading];
+                    [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+                }
+            }];
+            if (needUpdate) {
+                [[WPPeriodCountManager defaultInstance] recountPeriod];
+            }
+        }else{
             [[XJFHUDManager defaultInstance] hideLoading];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+            [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+        }
+
     }];
 }
 
@@ -316,6 +329,7 @@
             _event.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -328,7 +342,7 @@
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (alertController.textFields.count > 0) {
                 UITextField *textField = [alertController.textFields objectAtIndex:0];
-                weakSelf.event.comments =textField.text;
+                weakSelf.event.comments = textField.text;
                 [weakSelf.tableView reloadData];
             }
         }];
@@ -336,6 +350,7 @@
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.textColor = kColorFromRGB(0x333333);
             textField.font = [UIFont systemFontOfSize:18];
+            textField.text = weakSelf.event.comments;
         }];
         [self.navigationController presentViewController:alertController animated:YES completion:nil];
     }

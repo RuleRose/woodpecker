@@ -198,6 +198,7 @@
             _userinfo.birthday = [NSDate stringFromDate:birthday];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -210,6 +211,7 @@
             _userinfo.height = [NSString stringWithFormat:@"%ld",(long)height];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];
@@ -222,6 +224,7 @@
             _userinfo.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
             [_tableView reloadData];
         };
+        popView.attachedView = self.navigationController.view;
         [popView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
         }];

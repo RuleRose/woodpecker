@@ -12,7 +12,7 @@
 #import "WPMainViewController.h"
 #import "WPAccountManager.h"
 #import "WPBasicInfoViewController.h"
-#import "WPAgreementViewController.h"
+#import "WPPrivacyViewController.h"
 
 @interface WPLoginViewController ()<WPLoginViewDelegate>
 @property(nonatomic, strong) WPLoginView *loginView;
@@ -70,7 +70,7 @@
 }
 
 - (void)showAgreement{
-    WPAgreementViewController *agreementVC = [[WPAgreementViewController alloc] init];
+    WPPrivacyViewController *agreementVC = [[WPPrivacyViewController alloc] init];
     [self.navigationController pushViewController:agreementVC animated:YES];
 }
 
@@ -95,16 +95,11 @@
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
-    NSString *user_id = kDefaultObjectForKey(USER_DEFAULT_USER_ID);
-    if ([NSString leie_isBlankString:user_id]) {
-        [_viewModel registerAccount:^(BOOL success) {
-            if (success) {
-                [self updateUserData];
-            }
-        }];
-    }else{
-        [self updateUserData];
-    }
+    [_viewModel registerAccount:^(BOOL success) {
+        if (success) {
+            [self updateUserData];
+        }
+    }];
 }
 
 - (void)updateUserData{

@@ -147,6 +147,42 @@
     return block;
 }
 
+- (MMPopupBlock)sheetHideAnimation
+{
+    MMWeakify(self);
+    MMPopupBlock block = ^(MMPopupView *popupView){
+        MMStrongify(self);
+        
+        [UIView animateWithDuration:self.animationDuration
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             
+                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
+                             }];
+                             
+                             [self.superview layoutIfNeeded];
+
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             if ( finished )
+                             {
+                                 [self removeFromSuperview];
+                             }
+                             
+                             if ( self.hideCompletionBlock )
+                             {
+                                 self.hideCompletionBlock(self, finished);
+                             }
+                             
+                         }];
+    };
+    
+    return block;
+}
+
 - (void)cancelBtnPressed{
     [self hide];
 }

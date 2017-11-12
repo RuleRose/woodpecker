@@ -35,7 +35,7 @@
 - (BOOL)parseData {
     char macAddr[6];
     char productID[2];
-    int16_t batteryLevel;
+    int8_t batteryLevel;
 
     //    int16_t temp1, temp2;
     //    char batteryData;

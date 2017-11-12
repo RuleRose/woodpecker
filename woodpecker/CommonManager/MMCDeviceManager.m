@@ -200,7 +200,7 @@ Singleton_Implementation(MMCDeviceManager);
 
 - (void)setTimeToNow {
     if (self.currentDevice) {
-        NSDate *now = [NSDate dateToUTCDate:[NSDate date]];
+        NSDate *now = [NSDate date];
         NSTimeInterval interval = [now timeIntervalSince2000];
         int32_t value = interval;
         [self writeCharacteristic:self.currentDevice.peripheral
@@ -217,6 +217,12 @@ Singleton_Implementation(MMCDeviceManager);
                             sUUID:SERVICE_UUID_MMCSERVICE
                             cUUID:CHARACT_UUID_RECORD_INDEX_READ_WRITE
                              data:[NSData dataWithBytes:&value length:sizeof(int32_t)]];
+    }
+}
+
+- (void)readTemperatureIndex {
+    if (self.currentDevice) {
+        [self readCharacteristic:self.currentDevice.peripheral sUUID:SERVICE_UUID_MMCSERVICE cUUID:CHARACT_UUID_RECORD_COUNT_READ];
     }
 }
 
@@ -443,7 +449,7 @@ Singleton_Implementation(MMCDeviceManager);
                                      forService:service];
         } else if ([[service.UUID.UUIDString lowercaseString] isEqualToString:SERVICE_UUID_DEVICE_INFO]) {
             [peripheral discoverCharacteristics:@[
-                [CBUUID UUIDWithString:CHARACT_UUID_MODEL_NUM], [CBUUID UUIDWithString:CHARACT_UUID_HARDWARE_REV],
+                [CBUUID UUIDWithString:CHARACT_UUID_MODEL_NUM],[CBUUID UUIDWithString:CHARACT_UUID_FIRMWARE_REV] , [CBUUID UUIDWithString:CHARACT_UUID_HARDWARE_REV],
                 [CBUUID UUIDWithString:CHARACT_UUID_SOFTWARE_REV]
             ]
                                      forService:service];
@@ -468,7 +474,7 @@ Singleton_Implementation(MMCDeviceManager);
         /* read values or set notification*/
         if ([charactUUIDString isEqualToString:CHARACT_UUID_TIME_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_ALARM_READ_WRITE] ||
             [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_INDEX_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_RECORD_COUNT_READ] ||
-            [charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_MODEL_NUM] ||
+            [charactUUIDString isEqualToString:CHARACT_UUID_TEMPERATURE_UNIT_READ_WRITE] || [charactUUIDString isEqualToString:CHARACT_UUID_MODEL_NUM] || [charactUUIDString isEqualToString:CHARACT_UUID_FIRMWARE_REV] ||
             [charactUUIDString isEqualToString:CHARACT_UUID_HARDWARE_REV] || [charactUUIDString isEqualToString:CHARACT_UUID_SOFTWARE_REV]) {
             if (Char.properties & CBCharacteristicPropertyRead) {
                 DDLogDebug(@"[Device Manager] Read value for Charactestic: %@", charactUUIDString);
@@ -617,6 +623,7 @@ Singleton_Implementation(MMCDeviceManager);
         [characteristic.value getBytes:&status range:NSMakeRange(0, 1)];
         DDLogDebug(@"[Device Manager] device read status: %d", status);
         if (status == 5 || status == 1) {
+            [self readTemperatureIndex];
             [[NSNotificationCenter defaultCenter] postNotificationName:MMCNotificationKeyMeasureFinished object:nil userInfo:nil];
         }
     }
@@ -663,7 +670,11 @@ Singleton_Implementation(MMCDeviceManager);
         NSString *modelNum = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         self.currentDevice.modelNum = modelNum;
         DDLogDebug(@"[Device Manager] model num: %@", modelNum);
-    } else if (([charactUUIDString isEqualToString:CHARACT_UUID_HARDWARE_REV])) {
+    } else if (([charactUUIDString isEqualToString:CHARACT_UUID_FIRMWARE_REV])) {
+        NSString *firmwareRev = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        self.currentDevice.firmwareRev = firmwareRev;
+        DDLogDebug(@"[Device Manager] firmware rev: %@", firmwareRev);
+    }else if (([charactUUIDString isEqualToString:CHARACT_UUID_HARDWARE_REV])) {
         NSString *hardwareRev = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         self.currentDevice.hardwareRev = hardwareRev;
         DDLogDebug(@"[Device Manager] hardware rev: %@", hardwareRev);

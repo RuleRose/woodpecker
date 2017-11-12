@@ -84,7 +84,7 @@
     }
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
-    self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+    self.title = [NSDate stringFromDate:_selectedDate format:@"yyyy年M月"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -96,7 +96,6 @@
 
 - (void)setupData{
     _viewModel = [[WPCalendarDetailViewModel alloc] init];
-    _viewModel.periodDic = _periodDic;
 }
 
 - (void)setupViews{
@@ -239,30 +238,15 @@
             calendarCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
             calendarCell.shapeLayer.opacity = 0;
         }
-        NSString *dateStr = [NSDate stringFromDate:date];
-        WPDayInfoInPeriod *period = [_viewModel.periodDic objectForKey:dateStr];
-        if(!period){
-            period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
-            [_viewModel.periodDic setObject:period forKey:dateStr];
-        }
+        WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:date];
         calendarCell.period = period.type;
         if (period.type == kPeriodTypeOfOviposit) {
             calendarCell.shape = kPeriodShapeOfCircle;
         }else{
             NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
             NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
-            NSString *tomorrow_dateStr = [NSDate stringFromDate:tomorrow];
-            WPDayInfoInPeriod *tomorrow_period = [_viewModel.periodDic objectForKey:tomorrow_dateStr];
-            if(!tomorrow_period){
-                tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
-                [_viewModel.periodDic setObject:tomorrow_period forKey:tomorrow_dateStr];
-            }
-            NSString *yesterday_dateStr = [NSDate stringFromDate:yesterday];
-            WPDayInfoInPeriod *yesterday_period = [_viewModel.periodDic objectForKey:yesterday_dateStr];
-            if(!yesterday_period){
-                yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
-                [_viewModel.periodDic setObject:yesterday_period forKey:yesterday_dateStr];
-            }
+            WPDayInfoInPeriod *tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
+            WPDayInfoInPeriod *yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
             NSInteger weekday = [NSDate weekdayOfDate:date];
             if (weekday == 1 || [NSDate isDate:date equalToDate:[NSDate beginingOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]) {
                 if (tomorrow_period.type == period.type) {
@@ -375,9 +359,9 @@
         cell.titleLabel.text = @"基础体温";
          WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
         if (temperature && ![NSString leie_isBlankString:temperature.temp]) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time longLongValue]];
-            NSString *dateStr = [NSDate stringFromDate:date format:@"M月d日 HH:mm:ss"];
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@ %@°C",dateStr, temperature.temp];
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@°C", temperature.temp];
+        }else{
+            cell.detailLabel.text = @"";
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){

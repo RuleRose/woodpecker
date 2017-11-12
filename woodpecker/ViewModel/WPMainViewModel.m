@@ -68,8 +68,6 @@
                 kDefaultSetObjectForKey(profileDic, USER_DEFAULT_PROFILE);
                 WPProfileModel *profile = [[WPProfileModel alloc] init];
                 [profile loadDataFromkeyValues:profileDic];
-            }else{
-                kDefaultRemoveForKey(USER_DEFAULT_PROFILE);
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyUpdateProfile object:nil];
         } failure:^(NSError *error) {
@@ -177,7 +175,7 @@
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetPeriod object:nil];
         } failure:^(NSError *error) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetPeriod object:nil];
         }];
     }
 }

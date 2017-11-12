@@ -33,7 +33,7 @@ Singleton_Implementation(WPPeriodCountManager);
         self.menstruation = [profile.menstruation integerValue] - 1;
         self.period = [profile.period integerValue];
         self.periodList = [NSMutableArray array];
-        
+        self.periodDic = [[NSMutableDictionary alloc] init];
         [self recountPeriod];
     }
     return self;
@@ -41,6 +41,7 @@ Singleton_Implementation(WPPeriodCountManager);
 
 -(void)recountPeriod{
     [self.periodList removeAllObjects];
+    [_periodDic removeAllObjects];
     WPPeriodModel *periodModel = [[WPPeriodModel alloc] init];
     NSArray *rawPeriodList = [NSArray arrayWithArray:[XJFDBManager searchModelsWithCondition:periodModel andpage:-1 andOrderby:@"period_start" isAscend:YES]];
     
@@ -62,7 +63,7 @@ Singleton_Implementation(WPPeriodCountManager);
         periodCountMode.period_start = [NSDate dateFromString:periodMode.period_start format:DATE_FORMATE_STRING];
         periodCountMode.isForecast = NO;
         periodCountMode.isEndDayForecast = YES;
-        if (![NSString leie_isBlankString:periodModel.period_end]) {
+        if (![NSString leie_isBlankString:periodMode.period_end]) {
             //用户输入了结束日期，直接记录
             periodCountMode.period_end = [NSDate dateFromString:periodMode.period_end format:DATE_FORMATE_STRING];
             periodCountMode.isEndDayForecast = NO;
@@ -172,9 +173,19 @@ Singleton_Implementation(WPPeriodCountManager);
     lastPeriod.ovulate_day = [NSDate dateByAddingDays:-OVULATE_DAY toDate:nextForecastPeriodStart];
     lastPeriod.pregnant_start = [NSDate dateByAddingDays:-PRE_OVULATE_START toDate:lastPeriod.ovulate_day];
     lastPeriod.pregnant_end = [NSDate dateByAddingDays:POST_OVULATE_START toDate:lastPeriod.ovulate_day];
+   // [self resetPeriodsDic];
 }
 
 -(WPDayInfoInPeriod *)dayInfo:(NSDate*)day{
+    WPDayInfoInPeriod *dayinfo = [_periodDic objectForKey:[NSDate stringFromDate:day]];
+    if (!dayinfo) {
+        dayinfo = [[WPPeriodCountManager defaultInstance] dayInfoOfDay:day];
+        [[WPPeriodCountManager defaultInstance].periodDic setObject:dayinfo forKey:[NSDate stringFromDate:day]];
+    }
+    return dayinfo;
+}
+
+-(WPDayInfoInPeriod *)dayInfoOfDay:(NSDate*)day{
     WPDayInfoInPeriod *dayInfo = [[WPDayInfoInPeriod alloc] init];
     dayInfo.isValide = YES;
     dayInfo.isMenstruationSwitchOffValide = NO;
@@ -379,5 +390,17 @@ Singleton_Implementation(WPPeriodCountManager);
     return i;
 }
 
-
+- (void)resetPeriodsDic{
+    [_periodDic removeAllObjects];
+    NSDate *startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+    NSDate *endDate = [NSDate endOfMonthOfDate: [NSDate nextMonthOfDate:[NSDate date]]];
+    NSInteger days = [NSDate daysFromDate:startDate toDate:endDate];
+    for (NSInteger i = 0; i < days; i ++) {
+        NSDate *date = [NSDate dateByAddingDays:i toDate:startDate];
+        WPDayInfoInPeriod *dayInfo = [self dayInfoOfDay:date];
+        if (dayInfo) {
+            [_periodDic setObject:dayInfo forKey:[NSDate stringFromDate:date]];
+        }
+    }
+}
 @end

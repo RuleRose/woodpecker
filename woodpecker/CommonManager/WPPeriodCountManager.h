@@ -11,6 +11,8 @@
 #import "WPDayInfoInPeriod.h"
 @interface WPPeriodCountManager : NSObject
 Singleton_Interface(WPPeriodCountManager);
+@property(nonatomic, strong)NSMutableDictionary *periodDic;
+@property(nonatomic, assign)BOOL loadingPeriods;
 
 -(void)recountPeriod;
 -(WPDayInfoInPeriod *)dayInfo:(NSDate*)day;

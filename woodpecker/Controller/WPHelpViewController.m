@@ -8,7 +8,8 @@
 
 #import "WPHelpViewController.h"
 
-@interface WPHelpViewController ()
+@interface WPHelpViewController ()<UIWebViewDelegate>
+@property (nonatomic, strong) UIWebView* webView;
 
 @end
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
     self.title = @"帮助";
+    [self setupViews];
     // Do any additional setup after loading the view.
 }
 
@@ -27,6 +29,36 @@
     [self showNavigationBar];
     
 }
+
+- (void)setupViews{
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, kScreen_Height - (kNavigationHeight + kStatusHeight))];
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.opaque = NO;
+    _webView.delegate = self;
+    _webView.scalesPageToFit = YES;
+    _webView.multipleTouchEnabled=YES;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"help" withExtension:@"html"];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    [_webView loadRequest:request];
+    [self.view addSubview:_webView];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [[XJFHUDManager defaultInstance]  hideLoading];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [[XJFHUDManager defaultInstance]  hideLoading];
+    [[XJFHUDManager defaultInstance]  showTextHUD:@"加载失败"];
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

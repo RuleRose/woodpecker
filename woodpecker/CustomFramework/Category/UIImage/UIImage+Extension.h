@@ -10,5 +10,5 @@
 
 @interface UIImage (Extension)
 + (UIImage *)drawImageWithSize:(CGSize)size color:(UIColor *)color;
-
++ (UIImage*)scaleImage:(UIImage *)image croppingForSize:(CGSize)targetSize;
 @end
