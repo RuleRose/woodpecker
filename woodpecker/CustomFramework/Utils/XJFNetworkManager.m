@@ -158,12 +158,13 @@ static NSURL *_baseurl = nil;
                   }
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
+//                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       NSString *result = [responseObject objectForKey:@"reseult"];
                       if ([result integerValue] == 255) {
                           //登出
                           [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
                       }
-                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
+                  //    [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
                       block(responseObject, nil);
@@ -223,12 +224,13 @@ static NSURL *_baseurl = nil;
                                block(nil, [XJFNetworkManager shareManager].errorDataNotDiction);
                            }
                        } else {
+//                           [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                            NSString *result = [responseObject objectForKey:@"reseult"];
                            if ([result integerValue] == 255) {
                                //登出
                                [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
                            }
-                           [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
+                         //  [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                            DDLogDebug(@"\n===========response===========\n%@:\n%@", path, error);
                            block(responseObject, error);
                        }
@@ -246,12 +248,13 @@ static NSURL *_baseurl = nil;
                   }
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
+//                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       NSString *result = [responseObject objectForKey:@"reseult"];
                       if ([result integerValue] == 255) {
                           //登出
                           [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
                       }
-                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
+//                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
                       block(responseObject, nil);
@@ -276,12 +279,13 @@ static NSURL *_baseurl = nil;
                   }
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
+//                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       NSString *result = [responseObject objectForKey:@"reseult"];
                       if ([result integerValue] == 255) {
                           //登出
                           [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
                       }
-                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
+//                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
                       block(responseObject, nil);
