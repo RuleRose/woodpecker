@@ -32,7 +32,7 @@
         [self addSubview:_titleLabel];
         _confirmBtn = [[UIButton alloc] init];
         _confirmBtn.backgroundColor = kColor_10;
-        [_confirmBtn setTitle:@"是" forState:UIControlStateNormal];
+        [_confirmBtn setTitle:kLocalization(@"common_yes") forState:UIControlStateNormal];
         [_confirmBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
         _confirmBtn.titleLabel.font = kFont_1(12);
         [_confirmBtn addTarget:self action:@selector(confirmBtnPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +40,7 @@
         
         _cancelBtn = [[UIButton alloc] init];
         _cancelBtn.backgroundColor = kColor_10;
-        [_cancelBtn setTitle:@"否" forState:UIControlStateNormal];
+        [_cancelBtn setTitle:kLocalization(@"common_no") forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:kColor_9 forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = kFont_1(12);
         [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];

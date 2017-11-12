@@ -21,7 +21,7 @@
     if ( self )
     {
         self.titleView.backgroundColor = kColor_1;
-        self.titleLabel.text = @"单位";
+        self.titleLabel.text = kLocalization(@"common_unit");
         self.titleLabel.font = kFont_1(12);
         self.titleLabel.textColor = kColor_7;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);

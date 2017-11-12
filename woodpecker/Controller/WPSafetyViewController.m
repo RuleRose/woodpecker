@@ -30,6 +30,11 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[XJFHUDManager defaultInstance]  hideLoading];
+}
+
 - (void)setupViews{
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kNavigationHeight + kStatusHeight, kScreen_Width, kScreen_Height - (kNavigationHeight + kStatusHeight))];
     _webView.backgroundColor = [UIColor clearColor];

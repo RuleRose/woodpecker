@@ -68,7 +68,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%ldcm",(long)row];
+    return [NSString stringWithFormat:kLocalization(@"pop_height_unit"),(long)row];
 }
 
 #pragma mark UIPickerViewDelegate

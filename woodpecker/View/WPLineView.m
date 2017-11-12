@@ -120,20 +120,20 @@
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.textColor = kColor_8;
     _dateLabel.font = kFont_3(8);
-    _dateLabel.text = @"日期";
+    _dateLabel.text = kLocalization(@"common_date");
     [self addSubview:_dateLabel];
     
     _periodLabel = [[UILabel alloc] init];
     _periodLabel.backgroundColor = [UIColor clearColor];
     _periodLabel.textColor = kColor_8;
     _periodLabel.font = kFont_3(8);
-    _periodLabel.text = @"周期";
+    _periodLabel.text = kLocalization(@"common_period");
     [self addSubview:_periodLabel];
     _chartView = [[ LineChartView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:_chartView];
     _chartView.delegate = self;
     _chartView.descriptionText = @"";
-    _chartView.noDataText = @"没有数据";
+    _chartView.noDataText = kLocalization(@"common_nodata");
     _chartView.dragEnabled = YES;
     [_chartView setScaleEnabled:NO];
     _chartView.drawGridBackgroundEnabled = NO;

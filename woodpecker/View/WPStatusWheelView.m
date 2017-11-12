@@ -113,7 +113,7 @@
     NSInteger days = [NSDate daysFromDate:_startDate toDate:[NSDate date]];
     NSDate *date = [NSDate dateByAddingDays:indexPath.row - 2 toDate:_startDate];
     if (indexPath.row == days + 2) {
-        cell.textLabel.text = @"今天";
+        cell.textLabel.text = kLocalization(@"common_today");
     }else{
         cell.textLabel.text = [NSDate stringFromDate:date format:@"M/d" ];
 

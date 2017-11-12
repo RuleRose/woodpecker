@@ -17,7 +17,7 @@
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
     [WPNetInterface postTemps:@[temp] user_id:user.user_id success:^(NSArray *temperatures) {
-        [[XJFHUDManager defaultInstance] showTextHUD:@"保存成功"];
+        [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"common_save_success")];
         for (NSDictionary *tempDic in temperatures) {
             WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
             [temperature loadDataFromkeyValues:tempDic];

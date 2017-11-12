@@ -67,49 +67,49 @@
             [_statuses addObject:status];
         }else if (i == 2){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"经期详情";
+            status.title = kLocalization(@"menstrual_detail");
             status.icon = @"icon-record-details";
             [_statuses addObject:status];
         }else if (i == 3){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"备用";
+            status.title = kLocalization(@"record_pregnant");
             status.onlyTitle = YES;
             [_statuses addObject:status];
         }else if (i == 4){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"宫颈粘液";
+            status.title = kLocalization(@"record_mucus");
             status.icon = @"icon-record-mucus";
             status.showLine = NO;
             [_statuses addObject:status];
         }else if (i == 5){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"同房记录";
+            status.title = kLocalization(@"record_love");
             status.icon = @"icon-record-love";
             [_statuses addObject:status];
         }else if (i == 6){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"排卵试纸";
+            status.title = kLocalization(@"record_ct");
             status.icon = @"icon-record-ct";
             [_statuses addObject:status];
         }else if (i == 7){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"日常";
+            status.title = kLocalization(@"record_day");
             status.onlyTitle = YES;
             [_statuses addObject:status];
         }else if (i == 8){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"睡眠";
+            status.title = kLocalization(@"record_sleep");
             status.icon = @"icon-record-sleep";
             status.showLine = NO;
             [_statuses addObject:status];
         }else if (i == 9){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"情绪";
+            status.title = kLocalization(@"record_mood");
             status.icon = @"icon-record-mood";
             [_statuses addObject:status];
         }else if (i == 10){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"运动";
+            status.title = kLocalization(@"record_sport");
             status.icon = @"icon-record-sport";
             [_statuses addObject:status];
         }else if (i == 11){
@@ -120,17 +120,17 @@
             [_statuses addObject:status];
         }else if (i == 12){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"饮酒";
+            status.title = kLocalization(@"record_drink");
             status.icon = @"icon-record-drink";
             [_statuses addObject:status];
         }else if (i == 13){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"服药";
+            status.title = kLocalization(@"record_drug");
             status.icon = @"icon-record-drug";
             [_statuses addObject:status];
         }else if (i == 14){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"备注";
+            status.title = kLocalization(@"record_comments");
             status.icon = @"icon-record-note";
             status.showDetailEnable = NO;
             [_statuses addObject:status];
@@ -141,27 +141,27 @@
 - (NSString *)getThemeWithRecordTheme:(WPRecordTheme)theme{
     switch (theme) {
         case kWPRecordThemeOfColor:
-            return @"颜色";
+            return kLocalization(@"record_color");
         case kWPRecordThemeOfFlow:
-            return @"流量";
+            return kLocalization(@"record_flow");
         case kWPRecordThemeOfPain:
-            return @"痛经";
+            return kLocalization(@"record_pain");
         case kWPRecordThemeOfGore:
-            return @"血块";
+            return kLocalization(@"record_gore");
         case kWPRecordThemeOfMucusProb:
-            return @"性状";
+            return kLocalization(@"record_mucusprob");
         case kWPRecordThemeOfMucusFlow:
-            return @"量";
+            return kLocalization(@"record_mucusflow");
         case kWPRecordThemeOfLove:
             return @"";
         case kWPRecordThemeOfCT:
             return @"";
         case kWPRecordThemeOfSleep:
-            return @"质量";
+            return kLocalization(@"record_quality");
         case kWPRecordThemeOfMood:
             return @"";
         case kWPRecordThemeOfSport:
-            return @"时长";
+            return kLocalization(@"record_sport_time");
         case kWPRecordThemeOfDrink:
             return @"";
         case kWPRecordThemeOfDrug:
@@ -174,31 +174,31 @@
 - (NSArray *)getTitlesWithRecordTheme:(WPRecordTheme)theme{
     switch (theme) {
         case kWPRecordThemeOfColor:
-            return @[@"淡红",@"鲜红",@"深红"];
+            return @[kLocalization(@"record_color_l"),kLocalization(@"record_color_f"),kLocalization(@"record_color_d")];
         case kWPRecordThemeOfFlow:
-            return @[@"较少",@"中等",@"较多"];
+            return @[kLocalization(@"record_flow_f"),kLocalization(@"record_flow_n"),kLocalization(@"record_flow_m")];
         case kWPRecordThemeOfPain:
-            return @[@"轻度",@"中度",@"重度"];
+            return @[kLocalization(@"record_pain_f"),kLocalization(@"record_pain_n"),kLocalization(@"record_pain_m")];
         case kWPRecordThemeOfGore:
-            return @[@"无",@"较少",@"较多"];
+            return @[kLocalization(@"record_gore_f"),kLocalization(@"record_gore_n"),kLocalization(@"record_gore_m")];
         case kWPRecordThemeOfMucusProb:
-            return @[@"发干",@"粘稠",@"拉丝"];
+            return @[kLocalization(@"record_mucusprob_d"),kLocalization(@"record_mucusprob_t"),kLocalization(@"record_mucusprob_b")];
         case kWPRecordThemeOfMucusFlow:
-            return @[@"较少",@"中等",@"较多"];
+            return @[kLocalization(@"record_mucusflow_f"),kLocalization(@"record_mucusflow_n"),kLocalization(@"record_mucusflow_m")];
         case kWPRecordThemeOfLove:
-            return @[@"无措施",@"避孕药",@"避孕套"];
+            return @[kLocalization(@"record_love_n"),kLocalization(@"record_love_m"),kLocalization(@"record_love_c")];
         case kWPRecordThemeOfCT:
-            return @[@"无效",@"阴性",@"阳性"];
+            return @[kLocalization(@"record_ct_i"),kLocalization(@"record_ct_n"),kLocalization(@"record_ct_p")];
         case kWPRecordThemeOfSleep:
-            return @[@"很好",@"一般",@"较差"];
+            return @[kLocalization(@"record_sleep_g"),kLocalization(@"record_sleep_n"),kLocalization(@"record_sleep_b")];
         case kWPRecordThemeOfMood:
-            return @[@"平静",@"开心",@"伤感",@"郁闷",@"烦躁",@"焦虑",@"愤怒",@"其它"];
+            return @[kLocalization(@"record_mood_p"),kLocalization(@"record_mood_h"),kLocalization(@"record_mood_s"),kLocalization(@"record_mood_d"),kLocalization(@"record_mood_f"),kLocalization(@"record_mood_a"),kLocalization(@"record_mood_r"),kLocalization(@"record_mood_o")];
         case kWPRecordThemeOfSport:
-            return @[@"<0.5小时",@"0.5-1小时",@">1小时"];
+            return @[kLocalization(@"record_sport_0"),kLocalization(@"record_sport_1"),kLocalization(@"record_sport_2")];
         case kWPRecordThemeOfDrink:
-            return @[@"小酌",@"微醉",@"大醉"];
+            return @[kLocalization(@"record_drink_l"),kLocalization(@"record_drink_n"),kLocalization(@"record_drink_b")];
         case kWPRecordThemeOfDrug:
-            return @[@"中药",@"感冒药",@"止疼药",@"消炎药",@"肠胃药",@"避孕药"];
+            return @[kLocalization(@"record_drug_t"),kLocalization(@"record_drug_c"),kLocalization(@"record_drug_p"),kLocalization(@"record_drug_i"),kLocalization(@"record_drug_s"),kLocalization(@"record_drug_a")];
         default:
             return nil;
     }
