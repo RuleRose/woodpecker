@@ -53,7 +53,7 @@
         notiLabel.backgroundColor = [UIColor clearColor];
         notiLabel.textColor = kColor_7;
         notiLabel.font = kFont_1(12);
-        notiLabel.text = @"Copyright 2016 Miaomiaoce";
+        notiLabel.text = @"Copyright 2017 Miaomiaoce";
         notiLabel.textAlignment = NSTextAlignmentCenter;
         [footerView addSubview:notiLabel];
         _tableView.tableFooterView = footerView;
