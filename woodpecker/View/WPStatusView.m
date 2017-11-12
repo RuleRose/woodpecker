@@ -87,9 +87,9 @@
     [self addSubview:_todayBtn];
 
     
-    [_indexView setTitle:@"受孕指数" detail:@"4" unit:@"%" showNext:NO];
-    [_timeView setTitle:@"距离易孕期" detail:@"2" unit:@"天" showNext:NO];
-    [_recordView setTitle:@"记录" detail:@"0" unit:@"项" showNext:YES];
+    [_indexView setTitle:kLocalization(@"period_pregnancy_index") detail:@"" unit:@"%" showNext:NO];
+    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail:@"" unit:@"天" showNext:NO];
+    [_recordView setTitle:kLocalization(@"record_title") detail:@"0" unit:@"项" showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
     _todayBtn.hidden = YES;
@@ -190,20 +190,20 @@
     _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
     switch (period_day.type) {
         case kPeriodTypeOfForecast:
-            _periodLabel.text = @"预测经期";
+            _periodLabel.text = kLocalization(@"period_forecast");
             break;
         case kPeriodTypeOfMenstrual:
-             _periodLabel.text = @"月经期";
+             _periodLabel.text = kLocalization(@"period_menstrual");
             break;
         case kPeriodTypeOfOviposit:
-             _periodLabel.text = @"排卵日";
+             _periodLabel.text = kLocalization(@"period_oviposit");
             break;
             
         case kPeriodTypeOfPregnancy:
-             _periodLabel.text = @"易孕期";
+             _periodLabel.text = kLocalization(@"period_pregnancy");
             break;
         default:
-            _periodLabel.text = @"安全期";
+            _periodLabel.text = kLocalization(@"period_safe");
             break;
     }
     //取某天的记录
@@ -213,8 +213,8 @@
             eventCount ++;
         }
     }
-    [_recordView setTitle:@"记录" detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:@"项" showNext:YES];
-    [_timeView setTitle:@"距离易孕期" detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
+    [_recordView setTitle:kLocalization(@"record_title") detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:@"项" showNext:YES];
+    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
     
     //某日温度
     _temperature = [_viewModel getTempWithDate:date];

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_10;
-    self.title = @"经期长度";
+    self.title = kLocalization(@"period_menstruation_distance");
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -39,7 +39,7 @@
     _detailLabel.backgroundColor = [UIColor clearColor];
     _detailLabel.textColor = kColor_7_With_Alpha(0.8);
     _detailLabel.font = kFont_1(12);
-    _detailLabel.text = @"月经期指：从月经第一天到月经最后一天为止，通常为2-7天。";
+    _detailLabel.text = kLocalization(@"menstrual_detail_info");
     _detailLabel.numberOfLines = 0;
     [self.view addSubview:_detailLabel];
 }

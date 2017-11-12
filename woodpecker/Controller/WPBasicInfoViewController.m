@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"基本信息";
+    self.title = kLocalization(@"me_basic");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -60,7 +60,7 @@
     if (_isLogin) {
         self.navigationItem.rightBarButtonItems = @[];
     }else{
-        [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+        [self setMoreBarButtonWithTitle:kLocalization(@"common_save") color: kColor_7_With_Alpha(0.8)];
     }
     
 }
@@ -79,7 +79,7 @@
     _nextBtn.layer.borderColor = kColor_8_With_Alpha(0.8).CGColor;
     _nextBtn.layer.borderWidth = 0.5;
     _nextBtn.titleLabel.font = kFont_1(15);
-    [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [_nextBtn setTitle:kLocalization(@"common_next") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
     [_nextBtn addTarget:self action:@selector(nextBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nextBtn];
@@ -141,30 +141,30 @@
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
-        cell.titleLabel.text = @"昵称";
+        cell.titleLabel.text = kLocalization(@"userinfo_nick_name");
         cell.textField.text = _userinfo.nick_name;
         cell.line.hidden = YES;
         cell.textField.enabled = YES;
     }else if (indexPath.row == 1){
-        cell.titleLabel.text = @"出生日期";
+        cell.titleLabel.text = kLocalization(@"userinfo_birthday");
         cell.textField.text = _userinfo.birthday;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"身高";
+        cell.titleLabel.text = kLocalization(@"userinfo_height");
         if ([NSString leie_isBlankString:_userinfo.weight]) {
             cell.textField.text = @"";
         }else{
-            cell.textField.text = [NSString stringWithFormat:@"%@cm",_userinfo.height];
+            cell.textField.text = [NSString stringWithFormat:kLocalization(@"userinfo_height_unit"),_userinfo.height];
         }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 3){
-        cell.titleLabel.text = @"体重";
+        cell.titleLabel.text = kLocalization(@"userinfo_weight");
         if ([NSString leie_isBlankString:_userinfo.weight]) {
             cell.textField.text = @"";
         }else{
-            cell.textField.text = [NSString stringWithFormat:@"%@kg",_userinfo.weight];
+            cell.textField.text = [NSString stringWithFormat:kLocalization(@"userinfo_weight_unit"),_userinfo.weight];
         }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;

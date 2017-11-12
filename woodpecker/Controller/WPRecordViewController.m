@@ -48,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"记录";
+    self.title = kLocalization(@"record_title");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -58,7 +58,7 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+    [self setMoreBarButtonWithTitle:kLocalization(@"common_save") color: kColor_7_With_Alpha(0.8)];
 }
 
 - (void)moreBarButtonPressed:(UIButton *)sender{
@@ -73,7 +73,7 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     [[XJFHUDManager defaultInstance] hideLoading];
-                    [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+                    [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
                 }
             }];
             if (needUpdate) {
@@ -81,7 +81,7 @@
             }
         }else{
             [[XJFHUDManager defaultInstance] hideLoading];
-            [[XJFHUDManager defaultInstance] showTextHUD:@"网络请求失败"];
+            [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
         }
 
     }];
@@ -91,7 +91,7 @@
     if (!_eventDate) {
         _eventDate = [NSDate date];
     }
-    _eventDate =  [NSDate dateFromString:[NSDate stringFromDate:_eventDate] format:@"yyyy MM dd"];
+    _eventDate =  [NSDate dateFromString:[NSDate stringFromDate:_eventDate] format:DATE_FORMATE_STRING];
     _viewModel = [[WPRecordViewModel alloc] init];
     _viewModel.eventDate = _eventDate;
     _event =  [_viewModel getEventWithDate:_eventDate];
@@ -110,23 +110,23 @@
     _dateLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_dateLabel];
     [self.view addSubview:self.tableView];
-    NSString *dateStr = [NSDate stringFromDate:_eventDate format:@"yyyy年M月d日"];
+    NSString *dateStr = [NSDate stringFromDate:_eventDate format:kLocalization(@"record_date_format")];
     NSString *weekStr = @"";
     NSInteger weekday = [NSDate weekdayOfDate:_eventDate];
     if (weekday == 1) {
-        weekStr = @"周日";
+        weekStr = kLocalization(@"common_sunday");
     }else if (weekday == 2) {
-        weekStr = @"周一";
+        weekStr = kLocalization(@"common_monday");
     }else if (weekday == 3) {
-        weekStr = @"周二";
+        weekStr = kLocalization(@"common_tuesday");
     }else if (weekday == 4) {
-        weekStr = @"周三";
+        weekStr = kLocalization(@"common_wednesday");
     }else if (weekday == 5) {
-        weekStr = @"周四";
+        weekStr = kLocalization(@"common_thursday");
     }else if (weekday == 6) {
-        weekStr = @"周五";
+        weekStr = kLocalization(@"common_friday");
     }else{
-        weekStr = @"周六";
+        weekStr = kLocalization(@"common_saturday");
     }
     _dateLabel.text = [NSString stringWithFormat:@"%@ %@",dateStr , weekStr];
 }
@@ -287,7 +287,7 @@
             if ([NSString leie_isBlankString:_event.weight]) {
                 headerView.detailLabel.text = @"";
             }else{
-                headerView.detailLabel.text = [NSString stringWithFormat:@"%@kg",_event.weight];
+                headerView.detailLabel.text = [NSString stringWithFormat:@"%@%@",_event.weight,kLocalization(@"common_weight_unit")];
             }
         }
         if (section == 14) {
@@ -335,11 +335,11 @@
         }];
     }else if (headerView.section == 14){
         //备注
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"请输入备注信息" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:kLocalization(@"noti_record_comments") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:kLocalization(@"common_cancel") style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:cancelAction];
         MJWeakSelf;
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:kLocalization(@"common_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (alertController.textFields.count > 0) {
                 UITextField *textField = [alertController.textFields objectAtIndex:0];
                 weakSelf.event.comments = textField.text;

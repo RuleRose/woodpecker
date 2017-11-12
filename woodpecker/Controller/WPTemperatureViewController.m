@@ -65,7 +65,7 @@
     _titleLabel.textColor = kColor_7;
     _titleLabel.font = kFont_1(14);
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.text = @"体温曲线";
+    _titleLabel.text = kLocalization(@"temperature_line");
     [self.view addSubview:_titleLabel];
     _switchBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreen_Width - 64, 18, 64, 44)];
     _switchBtn.backgroundColor = [UIColor clearColor];

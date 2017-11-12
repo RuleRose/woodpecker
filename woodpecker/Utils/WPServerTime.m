@@ -24,7 +24,7 @@ Singleton_Implementation(WPServerTime);
 
 - (NSString *)displayStringFromServerString:(NSString *)serverStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy MM dd HH:mm:ss"];
+    [dateFormatter setDateFormat:DATE_FORMATE_SEC_STRING];
     NSDate *serverDate = [dateFormatter dateFromString:serverStr];
     NSDate *displayDate = [NSDate dateWithTimeInterval:self.secondsAheadLocalTime sinceDate:serverDate];
     
@@ -33,7 +33,7 @@ Singleton_Implementation(WPServerTime);
 
 - (NSString *)serverStringFromDisplayString:(NSString *)displayStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy MM dd HH:mm:ss"];
+    [dateFormatter setDateFormat:DATE_FORMATE_SEC_STRING];
     NSDate *displayDate = [dateFormatter dateFromString:displayStr];
     NSDate *serverDate = [NSDate dateWithTimeInterval:(-self.secondsAheadLocalTime) sinceDate:displayDate];
 

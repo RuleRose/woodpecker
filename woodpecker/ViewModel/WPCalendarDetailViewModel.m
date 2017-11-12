@@ -33,7 +33,7 @@
 
 - (NSInteger)eventCountAtDate:(NSDate *)date{
     WPEventItemModel *event =[[WPEventItemModel alloc] init];
-    event.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+    event.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
     NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
     return events.count;
 }
@@ -41,7 +41,7 @@
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date{
     if (date) {
         WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-        temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+        temperature.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
         NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
         return tempsArr.firstObject;
     }

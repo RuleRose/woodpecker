@@ -125,12 +125,12 @@
 }
 
 - (void)insertTemperature:(WPTemperatureModel *)temp{
-    NSDate *date = [NSDate dateFromUTCString:temp.time format:@"yyyy MM dd HH:mm:ss"];
+    NSDate *date = [NSDate dateFromUTCString:temp.time format:DATE_FORMATE_SEC_STRING];
     if (date) {
         NSTimeInterval time = [date timeIntervalSince2000];
         if (time >= 0) {
             WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-            temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+            temperature.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
             NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
             WPTemperatureModel *localTemp = tempsArr.firstObject;
             temp.date = temperature.date;

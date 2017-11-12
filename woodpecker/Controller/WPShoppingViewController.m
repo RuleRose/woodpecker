@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"购买";
+    self.title = kLocalization(@"me_shop");
     // Do any additional setup after loading the view.
 }
 

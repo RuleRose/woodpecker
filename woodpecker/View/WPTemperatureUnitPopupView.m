@@ -68,9 +68,9 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     if (row == 0) {
-        return @"华氏度°F";
+        return kLocalization(@"common_temp_f");
     }else{
-        return @"摄氏度°C";
+        return kLocalization(@"common_temp_c");
     }
 }
 

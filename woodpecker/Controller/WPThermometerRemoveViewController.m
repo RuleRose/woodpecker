@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"体温计";
+    self.title = kLocalization(@"thermometer_title");
     _removing = YES;
     [self setupData];
     [self setupViews];
@@ -62,7 +62,7 @@
     _detailLabel.backgroundColor = [UIColor clearColor];
     _detailLabel.textColor = kColor_7_With_Alpha(0.8);
     _detailLabel.font = kFont_1(12);
-    _detailLabel.text = @"尚未连接体温计\n无法获得体温计相关数据";
+    _detailLabel.text = kLocalization(@"noti_thermometer_noconnect");
     _detailLabel.numberOfLines = 2;
     _detailLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_detailLabel];
@@ -71,7 +71,7 @@
     _removeBtn.layer.borderColor = kColor_8_With_Alpha(0.5).CGColor;
     _removeBtn.layer.borderWidth = 0.5;
     _removeBtn.titleLabel.font = kFont_1(15);
-    [_removeBtn setTitle:@"解除绑定" forState:UIControlStateNormal];
+    [_removeBtn setTitle:kLocalization(@"thermometer_remove_bind") forState:UIControlStateNormal];
     [_removeBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
     [_removeBtn addTarget:self action:@selector(removeBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_removeBtn];
@@ -80,7 +80,7 @@
 - (void)removeBtnPressed{
     MJWeakSelf;
     WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
-    popView.title = @"确定解除体温计绑定？";
+    popView.title = kLocalization(@"noti_remove_thermometer");
     popView.cancelBlock = ^(MMPopupView *popupView) {
         
     };

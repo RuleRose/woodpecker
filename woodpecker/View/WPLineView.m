@@ -172,9 +172,9 @@
     NSInteger total_days = 0;
     if (sortTemps.count > 0) {
         WPTemperatureModel *lastTemp = [[sortTemps lastObject] lastObject];
-        NSDate *today = [NSDate dateFromString:[NSDate stringFromDate:[NSDate date]] format:@"yyyy MM dd"];
+        NSDate *today = [NSDate dateFromString:[NSDate stringFromDate:[NSDate date]] format:DATE_FORMATE_STRING];
         NSDate *startDate = [NSDate dateWithTimeIntervalSince2000:[lastTemp.time longLongValue]];
-        startDate =[NSDate dateFromString:[NSDate stringFromDate:startDate] format:@"yyyy MM dd"];
+        startDate =[NSDate dateFromString:[NSDate stringFromDate:startDate] format:DATE_FORMATE_STRING];
         _formatter.startDate = startDate;
        total_days = [NSDate daysFromDate:startDate toDate:today];
         NSMutableArray *startVals = [[NSMutableArray alloc] init];
@@ -191,7 +191,7 @@
             PeriodType period_type = kPeriodTypeOfSafe;
             for (NSInteger j = temps.count -1; j >= 0; j --) {
                 WPTemperatureModel *temp = [temps objectAtIndex:j];
-                NSDate *date = [NSDate dateFromString:temp.date format:@"yyyy MM dd"];
+                NSDate *date = [NSDate dateFromString:temp.date format:DATE_FORMATE_STRING];
                 CGFloat x = [NSDate daysFromDate:startDate toDate:date];
                 if (yVals.count == 0) {
                     period_type = temp.period_type;
@@ -205,29 +205,29 @@
                 }
                 [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:((NSInteger)(temperature*100))/100.0]];
             }
-            NSString *title = @"安全期";
+            NSString *title = kLocalization(@"period_safe");
             UIColor *linefillColor = [UIColor clearColor];
             UIColor *lineColor = [UIColor clearColor];
             switch (period_type) {
                 case kPeriodTypeOfForecast:
                 case kPeriodTypeOfMenstrual:
-                    title = @"月经期";
+                    title = kLocalization(@"period_menstrual");
                     linefillColor = kColor_5;
                     lineColor = kColor_5;
                     break;
                 case kPeriodTypeOfOviposit:
-                    title = @"排卵日";
+                    title = kLocalization(@"period_oviposit");
                     linefillColor = kColor_15;
                     lineColor = kColor_15;
                     break;
                     
                 case kPeriodTypeOfPregnancy:
-                    title = @"易孕期";
+                    title = kLocalization(@"period_pregnancy");
                     linefillColor = kColor_18;
                     lineColor = kColor_18;
                     break;
                 default:
-                    title = @"安全期";
+                    title = kLocalization(@"period_safe");
                     linefillColor = kColor_17;
                     lineColor = kColor_17;
                     break;

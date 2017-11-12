@@ -48,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"周期信息";
+    self.title = kLocalization(@"me_period");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -61,7 +61,7 @@
     if (_isLogin) {
         self.navigationItem.rightBarButtonItems = @[];
     }else{
-        [self setMoreBarButtonWithTitle:@"保存" color: kColor_7_With_Alpha(0.8)];
+        [self setMoreBarButtonWithTitle:kLocalization(@"common_save") color: kColor_7_With_Alpha(0.8)];
     }
 }
 
@@ -78,7 +78,7 @@
     _finishBtn.layer.borderColor = kColor_8_With_Alpha(0.8).CGColor;
     _finishBtn.layer.borderWidth = 0.5;
     _finishBtn.titleLabel.font = kFont_1(15);
-    [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [_finishBtn setTitle:kLocalization(@"common_finish") forState:UIControlStateNormal];
     [_finishBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
     [_finishBtn addTarget:self action:@selector(finishBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_finishBtn];
@@ -146,17 +146,17 @@
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
-        cell.titleLabel.text = @"周期长度";
+        cell.titleLabel.text = kLocalization(@"period_distance");
         cell.textField.text = _profile.period;
         cell.line.hidden = YES;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 1){
-        cell.titleLabel.text = @"经期长度";
+        cell.titleLabel.text = kLocalization(@"period_menstruation_distance");
         cell.textField.text = _profile.menstruation;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"末次月经首日";
+        cell.titleLabel.text = kLocalization(@"period_next_start");
         cell.textField.text = _profile.lastperiod;
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
