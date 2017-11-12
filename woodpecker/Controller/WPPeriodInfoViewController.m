@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_10;
-    self.title = @"周期长度";
+    self.title = kLocalization(@"period_distance");
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -39,7 +39,7 @@
     _detailLabel.backgroundColor = [UIColor clearColor];
     _detailLabel.textColor = kColor_7_With_Alpha(0.8);
     _detailLabel.font = kFont_1(12);
-    _detailLabel.text = @"周期长度是指：从本次月经来潮开始到下次月经来潮第一天，称为1个月经周期。\n一般的月经周期为28~30天，提前或错后7天都属于正常范围。";
+    _detailLabel.text = kLocalization(@"period_detail_info");
     _detailLabel.numberOfLines = 0;
     [self.view addSubview:_detailLabel];
 }

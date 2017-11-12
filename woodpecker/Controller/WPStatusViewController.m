@@ -46,7 +46,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEvent)  name:WPNotificationKeyGetEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(measureFinished) name:MMCNotificationKeyMeasureFinished object:nil];
 //    [self performSelector:@selector(recountPeriod) withObject:nil afterDelay:0];
-    _statusView.startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+    _statusView.startDate = [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
 }
 
 - (void)recountPeriod{

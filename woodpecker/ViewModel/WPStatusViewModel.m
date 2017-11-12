@@ -142,12 +142,12 @@
 }
 
 - (void)insertTemperature:(WPTemperatureModel *)temp{
-    NSDate *date = [NSDate dateFromUTCString:temp.time format:@"yyyy MM dd HH:mm:ss"];
+    NSDate *date = [NSDate dateFromUTCString:temp.time format:DATE_FORMATE_SEC_STRING];
     if (date) {
         NSTimeInterval time = [date timeIntervalSince2000];
         if (time >= 0) {
             WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-            temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+            temperature.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
             NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
             WPTemperatureModel *localTemp = tempsArr.firstObject;
             temp.date = temperature.date;
@@ -170,14 +170,14 @@
     WPTemperatureModel *startTemp = temps.firstObject;
     NSDate *date = [NSDate dateWithTimeIntervalSince2000:[startTemp.time longLongValue]];
     if (startTemp) {
-        return [NSDate dateFromString:[NSDate stringFromDate:date] format:@"yyyy MM dd"];
+        return [NSDate dateFromString:[NSDate stringFromDate:date] format:DATE_FORMATE_STRING];
     }
     return nil;
 }
 
 - (NSInteger)eventCountAtDate:(NSDate *)date{
     WPEventItemModel *event =[[WPEventItemModel alloc] init];
-    event.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+    event.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
     NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
     return events.count;
 }
@@ -185,7 +185,7 @@
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date{
     if (date) {
         WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-        temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+        temperature.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
         NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
         return tempsArr.firstObject;
     }
@@ -200,7 +200,7 @@
                 WPDeviceModel *device = [[WPDeviceModel alloc] init];
                 [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
                 WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-                temperature.date = [NSDate stringFromDate:date format:@"yyyy MM dd"];
+                temperature.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
                 NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:-1 andOrderby:@"time" isAscend:NO];
                 WPTemperatureModel *localTemp = tempsArr.firstObject;
                 temperature.dindex = [index stringValue];
@@ -233,12 +233,12 @@
     NSMutableArray *allPeriods = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < periods.count; i ++) {
         WPPeriodModel *peirod = periods[i];
-        NSDate *date = [NSDate dateFromString:peirod.period_start format:@"yyyy MM dd"];
+        NSDate *date = [NSDate dateFromString:peirod.period_start format:DATE_FORMATE_STRING];
         NSDate *nextDate = [NSDate date];
         if (periods.count > i +1) {
             //后面就还有数据
             WPPeriodModel *peirod_next = periods[i + 1];
-            nextDate = [NSDate dateFromString:peirod_next.period_start format:@"yyyy MM dd"];
+            nextDate = [NSDate dateFromString:peirod_next.period_start format:DATE_FORMATE_STRING];
         }
         [allPeriods addObject:peirod];
         NSInteger days = [NSDate daysFromDate:date toDate:nextDate];
@@ -257,10 +257,10 @@
         NSDate *startDate;
         NSDate *endDate;
         if (![NSString leie_isBlankString:period.period_start]) {
-            startDate = [NSDate dateFromString:period.period_start format:@"yyyy MM dd"];
+            startDate = [NSDate dateFromString:period.period_start format:DATE_FORMATE_STRING];
         }
         if (![NSString leie_isBlankString:period.period_end]) {
-            endDate = [NSDate dateFromString:period.period_end format:@"yyyy MM dd"];
+            endDate = [NSDate dateFromString:period.period_end format:DATE_FORMATE_STRING];
         }
         NSInteger menstruation_lenth = [profile.menstruation integerValue];
         if (endDate) {
@@ -270,7 +270,7 @@
         if (next_period) {
             NSDate *nextStartDate;
             if (![NSString leie_isBlankString:next_period.period_start]) {
-                nextStartDate = [NSDate dateFromString:next_period.period_start format:@"yyyy MM dd"];
+                nextStartDate = [NSDate dateFromString:next_period.period_start format:DATE_FORMATE_STRING];
             }
             period_lenth = [NSDate daysFromDate:startDate toDate:nextStartDate];
         }

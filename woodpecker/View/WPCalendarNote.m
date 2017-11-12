@@ -37,27 +37,29 @@
     _period = period;
     switch (period) {
         case kPeriodTypeOfMenstrual:
-            _titleLabel.text = @"月经期";
+        case kPeriodTypeOfMenstrualEnd:
+        case kPeriodTypeOfMenstrualStart:
+            _titleLabel.text = kLocalization(@"period_menstrual");
             _colorNote.layer.borderColor = kColor_13.CGColor;
             _colorNote.backgroundColor = kColor_13;
             break;
         case kPeriodTypeOfPregnancy:
-            _titleLabel.text = @"易孕期";
+            _titleLabel.text = kLocalization(@"period_pregnancy");
             _colorNote.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
             _colorNote.backgroundColor = kColor_14_With_Alpha(0.1);
             break;
         case kPeriodTypeOfForecast:
-            _titleLabel.text = @"预测经期";
+            _titleLabel.text = kLocalization(@"period_forecast");
             _colorNote.layer.borderColor = kColor_15.CGColor;
             _colorNote.backgroundColor = [UIColor clearColor];
             break;
         case kPeriodTypeOfOviposit:
-            _titleLabel.text = @"排卵日";
+            _titleLabel.text = kLocalization(@"period_oviposit");
             _colorNote.layer.borderColor = kColor_15.CGColor;
             _colorNote.backgroundColor = kColor_15;
             break;
         case kPeriodTypeOfSafe:
-            _titleLabel.text = @"安全期";
+            _titleLabel.text = kLocalization(@"period_safe");
             _colorNote.layer.borderColor = kColor_17.CGColor;
             _colorNote.backgroundColor = kColor_17;
             break;

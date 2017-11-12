@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"安全要求及注意事项";
+    self.title = kLocalization(@"userinfo_safe");
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -55,7 +55,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [[XJFHUDManager defaultInstance]  hideLoading];
-    [[XJFHUDManager defaultInstance]  showTextHUD:@"加载失败"];
+    [[XJFHUDManager defaultInstance]  showTextHUD:kLocalization(@"common_load_failure")];
     
 }
 

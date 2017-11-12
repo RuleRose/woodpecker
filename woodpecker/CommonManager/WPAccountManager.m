@@ -7,6 +7,9 @@
 //
 
 #import "WPAccountManager.h"
+#import "WPLoginViewController.h"
+#import "AppDelegate.h"
+
 @interface WPAccountManager ()<MPSessionDelegate, MPRequestDelegate>
 @end
 
@@ -19,8 +22,29 @@ Singleton_Implementation(WPAccountManager);
         _account = [[MiPassport alloc] initWithAppId:@"2882303761517613555" redirectUrl:@"http://mmc.mi-ae.cn/mmc/api/user/login/" andDelegate:self];
         
         [self loadUserDefaultValue];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutAccount)  name:WPNotificationKeyLogout object:nil];
+
     }
     return self;
+}
+
+- (void)logoutAccount{
+    [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_logout_account")];
+    [self logout];
+}
+
+- (void)logoutSuccess{
+    [[XJFHUDManager defaultInstance] hideLoading];
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:delegate.navigationC.viewControllers];
+    [viewControllers removeAllObjects];
+    [viewControllers addObject:loginVC];
+    [delegate.navigationC setViewControllers:viewControllers animated:YES];
 }
 
 - (void)login {
@@ -40,10 +64,14 @@ Singleton_Implementation(WPAccountManager);
 }
 
 - (void)logout {
+    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
+        
+    }];
     if ([self isLogin]) {
         [self.account logOut];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogoutSuccess object:nil];
+        [self logoutSuccess];
     }
 }
 
@@ -59,6 +87,7 @@ Singleton_Implementation(WPAccountManager);
     [self fetchProfile];
 }
 /**
+ 
  * Called when the user failed to log in.
  */
 - (void)passport:(MiPassport *)passport failedWithError:(NSError *)error{
@@ -81,6 +110,7 @@ Singleton_Implementation(WPAccountManager);
     DDLogDebug(@"passport did log out");
     [self cleanUserDefaultValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogoutSuccess object:nil];
+    [self logoutSuccess];
 }
 
 /**
@@ -133,5 +163,11 @@ Singleton_Implementation(WPAccountManager);
     kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
     kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
     kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WPNotificationKeyLogout object:nil];
+
 }
 @end

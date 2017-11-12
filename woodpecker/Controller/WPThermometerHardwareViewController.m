@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"硬件信息";
+    self.title = kLocalization(@"hardware_info");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -90,26 +90,26 @@
     [device loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_DEVICE)];
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"秒秒测ID";
+        cell.titleLabel.text = kLocalization(@"hardware_mmcid");
         cell.detailLabel.text = device.device_id;
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"电池电量";
+        cell.titleLabel.text = kLocalization(@"hardware_battery");
         cell.detailLabel.text = [NSString stringWithFormat:@"%ld%%",(long)currentDevice.batteryLevelRaw];
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"固件版本";
+        cell.titleLabel.text = kLocalization(@"hardware_firmware");
         cell.detailLabel.text = currentDevice.firmwareRev;
     }else if (indexPath.row == 3){
         cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"MAC地址";
+        cell.titleLabel.text = kLocalization(@"hardware_mac");
         cell.detailLabel.text = currentDevice.MacAddr;
         cell.line.hidden = NO;
     }else if (indexPath.row == 4){
         cell.rightModel = kCellRightModelImage;
-        cell.titleLabel.text = @"蓝牙信号";
+        cell.titleLabel.text = kLocalization(@"hardware_rssi");
         cell.imageIcon.image = [_viewModel mapRssi:currentDevice.RSSI];
         cell.detailLabel.text = @"";
         cell.line.hidden = NO;

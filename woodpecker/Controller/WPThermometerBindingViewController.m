@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_4;
-    self.title = @"正在绑定";
+    self.title = kLocalization(@"thermometer_binding");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -51,10 +51,10 @@
 
 - (void)updateConnectionState{
     if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
-        [[XJFHUDManager defaultInstance] showTextHUD:@"连接成功"];
+        [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_connect_success")];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_NONE){
-        [[XJFHUDManager defaultInstance] showTextHUD:@"连接失败"];
+        [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_connect_failure")];
         [self.navigationController popViewControllerAnimated:YES];
    }
 }
@@ -64,7 +64,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = kColor_7;
     _titleLabel.font = kFont_1(12);
-    _titleLabel.text = @"请打开体温计并靠近手机";
+    _titleLabel.text = kLocalization(@"noti_thermometer_binding");
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_titleLabel];
     _iconView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreen_Width - 283)/2, 200, 283, 336)];

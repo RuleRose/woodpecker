@@ -51,15 +51,15 @@
     for (NSInteger i = 0; i < 15; i ++) {
         if (i == 0) {
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"经期";
+            status.title = kLocalization(@"menstrual_title");
             status.onlyTitle = YES;
             [_statuses addObject:status];
         }else if (i == 1){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
             if (!_period_day.isMenstruationSwitchOffValide) {
-                status.title = @"经期开始";
+                status.title = kLocalization(@"menstrual_start");
             }else{
-                status.title = @"经期结束";
+                status.title = kLocalization(@"menstrual_end");
             }
             status.showSwitch = YES;
             status.icon = @"icon-record-menses";
@@ -114,7 +114,7 @@
             [_statuses addObject:status];
         }else if (i == 11){
             WPRecordStatusModel *status = [[WPRecordStatusModel alloc] init];
-            status.title = @"体重";
+            status.title = kLocalization(@"userinfo_weight");
             status.icon = @"icon-record-weight";
             status.showDetailEnable = NO;
             [_statuses addObject:status];

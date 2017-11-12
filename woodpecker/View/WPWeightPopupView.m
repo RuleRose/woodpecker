@@ -26,7 +26,7 @@
     if ( self )
     {
         self.titleView.backgroundColor = kColor_5;
-        self.titleLabel.text = @"体重";
+        self.titleLabel.text = kLocalization(@"userinfo_weight");
         self.titleLabel.font = kFont_1(14);
         self.titleLabel.textColor = kColor_10;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
@@ -64,7 +64,7 @@
     _unitlabel.textAlignment = NSTextAlignmentLeft;
     _unitlabel.font = kFont_3(18);
     _unitlabel.backgroundColor = [UIColor clearColor];
-    _unitlabel.text = @"kg";
+    _unitlabel.text = kLocalization(@"common_weight_unit");
     [self addSubview:_unitlabel];
 
     MJWeakSelf;

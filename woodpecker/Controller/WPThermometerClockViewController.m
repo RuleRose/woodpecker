@@ -58,7 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"闹钟";
+    self.title = kLocalization(@"thermometer_clock");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -125,7 +125,7 @@
         if (date) {
             cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
         }else{
-            cell.detailLabel.text = @"未设置";
+            cell.detailLabel.text = kLocalization(@"common_no_setting");
         }
         cell.line.hidden = NO;
     }

@@ -392,7 +392,7 @@ Singleton_Implementation(WPPeriodCountManager);
 
 - (void)resetPeriodsDic{
     [_periodDic removeAllObjects];
-    NSDate *startDate = [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+    NSDate *startDate = [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
     NSDate *endDate = [NSDate endOfMonthOfDate: [NSDate nextMonthOfDate:[NSDate date]]];
     NSInteger days = [NSDate daysFromDate:startDate toDate:endDate];
     for (NSInteger i = 0; i < days; i ++) {

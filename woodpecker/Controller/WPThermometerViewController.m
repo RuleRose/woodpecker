@@ -44,7 +44,7 @@
         _removeBtn.backgroundColor = [UIColor clearColor];
         _removeBtn.layer.borderColor = kColor_8.CGColor;
         _removeBtn.layer.borderWidth = 0.5;
-        [_removeBtn setTitle:kLocalization(@"thermometer_remove_binding") forState:UIControlStateNormal];
+        [_removeBtn setTitle:kLocalization(@"thermometer_remove_bind") forState:UIControlStateNormal];
         [_removeBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
         _removeBtn.titleLabel.font = kFont_1(15);
         [_removeBtn addTarget:self action:@selector(removeBtnPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"体温计";
+    self.title = kLocalization(@"thermometer_title");
     _removing = NO;
     [self setupData];
     [self setupViews];
@@ -128,16 +128,16 @@
         if (date && [MMCDeviceManager defaultInstance].alarmIsOn) {
             cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
         }else{
-            cell.detailLabel.text = @"未设置";
+            cell.detailLabel.text = kLocalization(@"common_no_setting");
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.icon.image = kImage(@"icon-device-unit");
         cell.titleLabel.text = kLocalization(@"thermometer_unit");
         if ([MMCDeviceManager defaultInstance].isCentigrade) {
-            cell.detailLabel.text = @"摄氏度°C";
+            cell.detailLabel.text = kLocalization(@"common_temp_c");
         }else{
-            cell.detailLabel.text = @"华氏度°F";
+            cell.detailLabel.text = kLocalization(@"common_temp_f");
         }
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
@@ -198,7 +198,7 @@
 
 - (void)removeBtnPressed{
     WPAlertPopupView *popView = [[WPAlertPopupView alloc] init];
-    popView.title = @"确定解除体温计绑定？";
+    popView.title = kLocalization(@"noti_remove_thermometer");
     popView.cancelBlock = ^(MMPopupView *popupView) {
         
     };
