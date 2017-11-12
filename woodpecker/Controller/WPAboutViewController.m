@@ -40,7 +40,7 @@
         versionLabel.textColor = kColor_7;
         versionLabel.font = kFont_1(12);
         NSString *strVersion =  [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-        versionLabel.text = [NSString stringWithFormat:@"版本号:%@",strVersion];
+        versionLabel.text = [NSString stringWithFormat:kLocalization(@"userinfo_version"),strVersion];
         versionLabel.textAlignment = NSTextAlignmentCenter;
         [headerView addSubview:versionLabel];
         _tableView.tableHeaderView = headerView;
@@ -53,7 +53,7 @@
         notiLabel.backgroundColor = [UIColor clearColor];
         notiLabel.textColor = kColor_7;
         notiLabel.font = kFont_1(12);
-        notiLabel.text = @"Copyright 2017 Miaomiaoce";
+        notiLabel.text = kLocalization(@"userinfo_ablout_mmc");
         notiLabel.textAlignment = NSTextAlignmentCenter;
         [footerView addSubview:notiLabel];
         _tableView.tableFooterView = footerView;
@@ -64,7 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"关于";
+    self.title = kLocalization(@"me_about");
     [self setupViews];
     // Do any additional setup after loading the view.
 }
@@ -105,11 +105,11 @@
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNext;
-        cell.titleLabel.text = @"用户协议与隐私政策";
+        cell.titleLabel.text = kLocalization(@"userinfo_privacy");
         cell.line.hidden = NO;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
-        cell.titleLabel.text = @"安全要求及注意事项";
+        cell.titleLabel.text = kLocalization(@"userinfo_safe");
         cell.line.hidden = NO;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];

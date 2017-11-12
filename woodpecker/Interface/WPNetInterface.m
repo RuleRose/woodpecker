@@ -268,7 +268,7 @@
         WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
         [temperature loadDataFromkeyValues:[temp transToDictionary]];
         NSDate *date = [NSDate dateWithTimeIntervalSince2000:[temperature.time integerValue]];
-        temperature.time = [NSDate UTCStringFromDate:date format:@"yyyy MM dd HH:mm:ss"];
+        temperature.time = [NSDate UTCStringFromDate:date format:DATE_FORMATE_SEC_STRING];
         [temperatures addObject:temperature];
     }
     [params setObject:[WPTemperatureModel mj_keyValuesArrayWithObjectArray:temperatures ignoredKeys:@[ @"sync", @"pid" ]] forKey:@"temperatures"];
@@ -451,6 +451,12 @@
             if (success) {
                 success(YES);
             }
+        }else if ([status integerValue] == 255){
+            //登出
+            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
+            if (success) {
+                success(NO);
+            }
         }else{
             if (success) {
                 success(NO);
@@ -497,9 +503,9 @@
         [params setObject:period_start forKey:@"period_start"];
     }
     if ([NSString leie_isBlankString:period_end]) {
-        [params setObject:@"TRUE" forKey:@"remove_end"];
+        [params setObject:@"T" forKey:@"remove_end"];
     }else{
-        [params setObject:@"FALSE" forKey:@"remove_end"];
+        [params setObject:@"F" forKey:@"remove_end"];
         [params setObject:period_end forKey:@"period_end"];
     }
     [[XJFNetworkManager shareManager] requestWithPath:PERIOD_UPDATE requestParams:params networkMethod:POST callback:^(id data, NSError *error) {

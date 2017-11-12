@@ -116,11 +116,11 @@
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
         cell.icon.image = kImage(@"icon-me-cycle");
-        cell.titleLabel.text = kLocalization(@"me_cycle");
+        cell.titleLabel.text = kLocalization(@"me_period");
         if ([NSString leie_isBlankString:_profile.period]) {
              cell.detailLabel.text = @"";
         }else{
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@天",_profile.period];
+            cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"me_period_unit"),_profile.period];
         }
         cell.line.hidden = NO;
     }else if (indexPath.row == 4){

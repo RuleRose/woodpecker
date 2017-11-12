@@ -22,7 +22,7 @@
     if ( self )
     {
         self.titleView.backgroundColor = kColor_5;
-        self.titleLabel.text = @"经期长度";
+        self.titleLabel.text = kLocalization(@"period_menstruation_distance");
         self.titleLabel.font = kFont_1(14);
         self.titleLabel.textColor = kColor_10;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
@@ -61,7 +61,7 @@
         make.height.equalTo(@55);
     }];
     
-    CGSize size = [@"周期长度" sizeWithFont:kFont_1(14)];
+    CGSize size = [kLocalization(@"period_distance") sizeWithFont:kFont_1(14)];
     [_infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.bottom.equalTo(@0);

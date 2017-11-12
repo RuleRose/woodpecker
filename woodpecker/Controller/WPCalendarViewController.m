@@ -48,7 +48,7 @@
         [_calendar.appearance setTitleFont:kFont_1(12)];
         [_calendar.appearance setHeaderTitleFont:kFont_2(23)];
         [_calendar.appearance setHeaderTitleColor:kColor_7];
-        [_calendar.appearance setHeaderDateFormat:@"M月"];
+        [_calendar.appearance setHeaderDateFormat:kLocalization(@"calendar_header_dateformat")];
         [_calendar.appearance setWeekdayFont:kFont_1(12)];
         [_calendar.appearance setSubtitleFont:kFont_2(12)];
         _calendar.weekdayHeight = 0;
@@ -114,13 +114,13 @@
 - (void)setupViews{
     _weekdayView = [[FSCalendarWeekdayView alloc] initWithFrame:CGRectMake(0, kStatusHeight + kNavigationHeight, kScreen_Width, 52)];
     _weekdayView.backgroundColor = kColor_4;
-    _weekdayView.weekdays = @[ @"日", @"一", @"二", @"三", @"四", @"五", @"六" ];
+    _weekdayView.weekdays = @[kLocalization(@"common_sunday_abbr"), kLocalization(@"common_monday_abbr"), kLocalization(@"common_tuesday_abbr"), kLocalization(@"common_wednesday_abbr"), kLocalization(@"common_thursday_abbr"), kLocalization(@"common_friday_abbr"), kLocalization(@"common_saturday_abbr") ];
     _weekdayView.calendar = self.calendar;
     [self.view addSubview:_weekdayView];
     [_weekdayView configureAppearance];
     [self.view addSubview:self.calendar];
     _calendar.currentPage = [NSDate date];
-    self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+    self.title = [NSDate stringFromDate:[NSDate date]format:kLocalization(@"calendar_title_dateformat")];
     _noteView = [[WPCalendarNoteView alloc] initWithFrame:CGRectMake(0, kScreen_Height - 52, kScreen_Width, 52)];
     _noteView.backgroundColor = kColor_3;
     [self.view addSubview:_noteView];
@@ -137,7 +137,7 @@
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+    return [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
@@ -152,7 +152,7 @@
 
 - (nullable NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date{
     if ([NSDate isDateInToday:date]) {
-        return @"今天";
+        return kLocalization(@"common_today");
     }
     return nil;
 }
@@ -204,9 +204,9 @@
 
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
     if (calendar.currentPage) {
-        self.title = [NSDate stringFromDate:calendar.currentPage format:@"yyyy年M月"];
+        self.title = [NSDate stringFromDate:calendar.currentPage format:kLocalization(@"calendar_title_dateformat")];
     }else{
-        self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+        self.title = [NSDate stringFromDate:[NSDate date]format:kLocalization(@"calendar_title_dateformat")];
     }
 }
 

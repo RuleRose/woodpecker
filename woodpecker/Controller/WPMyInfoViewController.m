@@ -47,7 +47,7 @@
         _cancelBtn.layer.borderColor = kColor_8_With_Alpha(0.8).CGColor;
         _cancelBtn.layer.borderWidth = 0.5;
         _cancelBtn.titleLabel.font = kFont_1(15);
-        [_cancelBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        [_cancelBtn setTitle:kLocalization(@"common_logout") forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:kColor_8 forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:_cancelBtn];
@@ -59,7 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"账号信息";
+    self.title = kLocalization(@"account_title");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -70,12 +70,10 @@
     [self setBackBarButton];
     [self showNavigationBar];
     [_tableView reloadData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutSuccess) name:WPNotificationKeyLogoutSuccess object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WPNotificationKeyLogoutSuccess object:nil];
 }
 
 - (void)setupData{
@@ -87,23 +85,7 @@
 }
 
 - (void)cancelBtnPressed{
-    [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
-        
-    }];
     [[WPAccountManager defaultInstance] logout];
-}
-
-- (void)logoutSuccess{
-    [[XJFHUDManager defaultInstance] hideLoading];
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
-    WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [viewControllers removeAllObjects];
-    [viewControllers addObject:loginVC];
-    [self.navigationController setViewControllers:viewControllers animated:YES];
 }
 
 #pragma mark UITableViewDataSource
@@ -134,7 +116,7 @@
         cell.rightModel = kCellRightModelImageNext;
         cell.imageIcon.image = kImage(@"btn-me-avatar");
         cell.imageSize = CGSizeMake(51, 51);
-        cell.titleLabel.text = @"头像";
+        cell.titleLabel.text = kLocalization(@"userinfo_avatar");
         cell.detailLabel.text = @"";
         cell.line.hidden = YES;
         if (_photo) {
@@ -145,12 +127,12 @@
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
         cell.icon.image = kImage(@"icon-device-unit");
-        cell.titleLabel.text = @"昵称";
+        cell.titleLabel.text = kLocalization(@"userinfo_nick_name");
         cell.detailLabel.text = _userinfo.nick_name;
         cell.line.hidden = NO;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
-        cell.titleLabel.text = @"账号";
+        cell.titleLabel.text = kLocalization(@"common_account");
         cell.detailLabel.text = _userinfo.account_id;
         NSString *account_id = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
         if (!account_id) {
@@ -182,17 +164,17 @@
 {
     if (indexPath.row == 0) {
         MMSheetViewConfig *config = [MMSheetViewConfig globalConfig];
-        config.defaultTextCancel = @"取消";
+        config.defaultTextCancel = kLocalization(@"common_cancel");
         MMPopupItem *cameraItem = [[MMPopupItem alloc] init];
         cameraItem.handler = ^(NSInteger index) {
             [self showCamera];
         };
-        cameraItem.title = @"拍照";
+        cameraItem.title = kLocalization(@"common_camera");
         MMPopupItem *photoItem = [[MMPopupItem alloc] init];
         photoItem.handler = ^(NSInteger index) {
             [self showPhotos];
         };
-        photoItem.title = @"从相册中选择";
+        photoItem.title = kLocalization(@"common_photos");
         WPSheetView *sheetView = [[WPSheetView alloc] initWithTitle:@"" items:@[cameraItem, photoItem]];
         [sheetView showWithBlock:^(MMPopupView *popupView, BOOL finished) {
             
@@ -208,7 +190,7 @@
     NSString * mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
-        [[XJFHUDManager defaultInstance] showTextHUD:@"此应用没有权限使用您的相机功能，您可以在“隐私设置”中启用访问"];
+        [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_camera")];
 
     }else{
         UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -222,7 +204,7 @@
                 
             }];
         }else{
-            [[XJFHUDManager defaultInstance] showTextHUD:@"不能使用相机功能"];
+            [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_no_camera")];
         }
     }
 
@@ -240,7 +222,7 @@
             
         }];
     }else{
-        [[XJFHUDManager defaultInstance] showTextHUD:@"不能浏览本地相册"];
+        [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_no_photos")];
     }
 }
 
@@ -266,11 +248,11 @@
         [_viewModel uploadAvatar:avatar success:^(BOOL finished) {
             [[XJFHUDManager defaultInstance] hideLoading];
             if (finished) {
-                [[XJFHUDManager defaultInstance] showTextHUD:@"上传成功"];
+                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_upload_success")];
                 _photo = avatar;
                 [_tableView reloadData];
             }else{
-                [[XJFHUDManager defaultInstance] showTextHUD:@"上传失败"];
+                [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_upload_failure")];
             }
         }];
     }

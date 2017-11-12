@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"体温曲线图例";
+    self.title = kLocalization(@"temperature_line_exp");
     [self setupViews];
     // Do any additional setup after loading the view.
 }

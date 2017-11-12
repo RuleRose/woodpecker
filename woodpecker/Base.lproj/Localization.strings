@@ -8,24 +8,127 @@
 "common_cancel" = "取消";
 "common_confirm" = "确定";
 "common_save" = "保存";
+"common_finish" = "完成";
+"common_no_setting" = "未设置";
+"common_temp_c" = "摄氏度°C";
+"common_temp_f" = "华氏度°F";
+"common_sunday" = "周日";
+"common_monday" = "周一";
+"common_tuesday" = "周二";
+"common_wednesday" = "周三";
+"common_thursday" = "周四";
+"common_friday" = "周五";
+"common_saturday" = "周六";
+"common_sunday_abbr" = "日";
+"common_monday_abbr" = "一";
+"common_tuesday_abbr" = "二";
+"common_wednesday_abbr" = "三";
+"common_thursday_abbr" = "四";
+"common_friday_abbr" = "五";
+"common_saturday_abbr" = "六";
+"common_weight_unit" = "kg";
+"common_height_unit" = "cm";
+"common_today" = "今天";
+"common_next" = "下一步";
+"common_logout" = "退出登录";
+"common_account" = "账号";
+"common_photos" = "从相册中选择";
+"common_camera" = "拍照";
+"common_load_failure" = "加载失败";
 
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
+"noti_logout_account" = "您的账号已在另一台设备上登录";
+"noti_remove_thermometer" = "确定解除体温计绑定？";
+"noti_connect_success" = "连接成功";
+"noti_connect_failure" = "连接失败";
+"noti_thermometer_binding" = "请打开体温计并靠近手机";
+"noti_thermometer_noconnect" = "尚未连接体温计\n无法获得体温计相关数据";
+"noti_network_failure" = "网络请求失败";
+"noti_record_comments" = "请输入备注信息";
+"noti_camera" = "此应用没有权限使用您的相机功能，您可以在“隐私设置”中启用访问";
+"noti_no_camera" = "不能使用相机功能";
+"noti_no_photos" = "不能浏览本地相册";
+"noti_upload_success" = "上传成功";
+"noti_upload_failure" = "上传失败";
+
 "me_title" = "我";
 "me_basic" = "基本信息";
-"me_cycle" = "周期信息";
+"me_period" = "周期信息";
 "me_shop" = "购买";
 "me_about" = "关于";
 "me_help" = "帮助";
+"me_period_unit" = "%@天";
+"account_title" = "账号信息";
+
+"userinfo_nick_name" = "昵称";
+"userinfo_nick_name_placeholder" = "请输入昵称";
+"userinfo_birthday" = "出生日期";
+"userinfo_height" = "身高";
+"userinfo_weight" = "体重";
+"userinfo_height_unit" = "%@cm";
+"userinfo_weight_unit" = "%@kg";
+"userinfo_avatar" = "头像";
+"userinfo_version" = "版本号:%@";
+"userinfo_ablout_mmc" = "Copyright 2017 Miaomiaoce";
+"userinfo_privacy" = "用户协议与隐私政策";
+"userinfo_safe" = "安全要求及注意事项";
+
+"temperature_line" = "体温曲线";
+"temperature_line_exp" = "体温曲线图例";
+"temperature_unit_c" = "%@°C";
+"temperature_unit" = "°C";
+"temperature_edit" = "添加基础体温";
+"temperature_edit_placeholder" = "请输入基础体温";
+
 "thermometer_title" = "体温计";
+"thermometer_bind" = "绑定体温计";
+"thermometer_bind_start" = "开始绑定";
+"thermometer_bind_no" = "暂不绑定";
+"thermometer_binding" = "正在绑定";
 "thermometer_clock" = "闹钟";
 "thermometer_unit" = "单位";
 "thermometer_hardware" = "硬件信息";
-"thermometer_remove_binding" = "解除绑定";
+"thermometer_remove_bind" = "解除绑定";
 "clock_measurement" = "测温提醒";
 "clock_wakeup_time" = "唤醒时间";
 "clock_prompt" = "设置闹钟后\n体温计将在指定时间提醒您测温";
 
+"hardware_info" = "硬件信息";
+"hardware_mmcid" = "秒秒测ID";
+"hardware_battery" = "电池电量";
+"hardware_firmware" = "固件版本";
+"hardware_mac" = "MAC地址";
+"hardware_rssi" = "蓝牙信号";
+
+"record_title" = "记录";
+"record_date_format" = "yyyy年M月d日";
+"record_today" = "当日记录";
+"record_today_unit" = "%ld项";
+
+"calendar_header_dateformat" = "M月";
+"calendar_title_dateformat" = "yyyy年M月";
+"calendar_detail_dateformat" = "yyyy年M月";
+"calendar_detail_temp" = "基础体温";
+
+"menstrual_title" = "经期";
+"menstrual_start" = "经期开始";
+"menstrual_end" = "经期结束";
+
+"period_index" = "周期第%ld天";
+"period_forecast" = "预测经期";
+"period_oviposit" = "排卵日";
+"period_menstrual" = "月经期";
+"period_pregnancy" = "易孕期";
+"period_safe" = "安全期";
+"period_pregnancy_index" = "受孕指数";
+"period_pregnancy_distance" = "距离易孕期";
+"period_pregnancy_distance_unit" = "%ld天";
+"period_distance" = "周期长度";
+"period_menstruation_distance" = "经期长度";
+"period_next_start" = "末次月经首日";
+"period_detail_info" = "周期长度是指：从本次月经来潮开始到下次月经来潮第一天，称为1个月经周期。\n一般的月经周期为28~30天，提前或错后7天都属于正常范围。";
+"menstrual_detail_info" = "月经期指：从月经第一天到月经最后一天为止，通常为2-7天。";
 
 "alert_common_request_failed" = "请求失败";
 

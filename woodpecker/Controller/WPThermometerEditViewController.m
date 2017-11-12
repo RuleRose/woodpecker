@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"添加基础体温";
+    self.title = kLocalization(@"temperature_edit");
     [self setupData];
     [self setupViews];
     // Do any additional setup after loading the view.
@@ -51,7 +51,7 @@
     _textField.backgroundColor = kColor_10;
     _textField.textColor = kColor_7;
     _textField.font = kFont_1(12);
-    _textField.placeholder = @"请输入基础体温";
+    _textField.placeholder = kLocalization(@"temperature_edit_placeholder");
     _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _textField.text = _temperature.temp;
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 40)];
@@ -59,7 +59,7 @@
     _textField.leftView = leftView;
     UILabel *rightView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 56, 40)];
     rightView.backgroundColor = [UIColor clearColor];
-    rightView.text = @"°C";
+    rightView.text = kLocalization(@"temperature_unit");
     rightView.textAlignment = NSTextAlignmentCenter;
     rightView.textColor = kColor_7;
     rightView.font = kFont_1(12);
@@ -106,7 +106,7 @@
             _temperature.time = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince2000]];
         }else{
             NSString *dateStr = [NSString stringWithFormat:@"%@ 23:59:59",[NSDate stringFromDate:_date]];
-            NSDate *date = [NSDate dateFromString:dateStr format:@"yyyy MM dd HH:mm:ss"];
+            NSDate *date = [NSDate dateFromString:dateStr format:DATE_FORMATE_SEC_STRING];
             _temperature.time = [NSString stringWithFormat:@"%f",[date timeIntervalSince2000]];
         }
         [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{

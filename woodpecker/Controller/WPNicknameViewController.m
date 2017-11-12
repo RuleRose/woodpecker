@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor_2;
-    self.title = @"昵称";
+    self.title = kLocalization(@"userinfo_nick_name");
     [self setupViews];
     [self loadData];
     // Do any additional setup after loading the view.
@@ -38,7 +38,7 @@
     _textField.backgroundColor = kColor_10;
     _textField.textColor = kColor_7;
     _textField.font = kFont_1(12);
-    _textField.placeholder = @"请输入昵称";
+    _textField.placeholder = kLocalization(@"userinfo_nick_name_placeholder");
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 40)];
     leftView.backgroundColor = [UIColor clearColor];
     _textField.leftView = leftView;

@@ -51,7 +51,7 @@
         _calendar.pagingEnabled = YES;
         _calendar.allowsMultipleSelection = NO;
         _calendar.placeholderType = FSCalendarPlaceholderTypeNone;
-        _calendar.calendarWeekdayView.weekdays = @[ @"日", @"一", @"二", @"三", @"四", @"五", @"六" ];
+        _calendar.calendarWeekdayView.weekdays = @[kLocalization(@"common_sunday_abbr"), kLocalization(@"common_monday_abbr"), kLocalization(@"common_tuesday_abbr"), kLocalization(@"common_wednesday_abbr"), kLocalization(@"common_thursday_abbr"), kLocalization(@"common_friday_abbr"), kLocalization(@"common_saturday_abbr") ];
         [_calendar.appearance setWeekdayTextColor:kColor_7];
         _calendar.firstWeekday = 1;
         _calendar.scope = FSCalendarScopeWeek;
@@ -84,7 +84,7 @@
     }
     [_calendar selectDate:_selectedDate];
     _calendar.currentPage = _selectedDate;
-    self.title = [NSDate stringFromDate:_selectedDate format:@"yyyy年M月"];
+    self.title = [NSDate stringFromDate:_selectedDate format:kLocalization(@"calendar_detail_dateformat")];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -120,7 +120,7 @@
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate dateFromString:@"2017-01-01" format:@"yyyy-MM-dd"];
+    return [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
@@ -135,7 +135,7 @@
 
 - (nullable NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date{
     if ([NSDate isDateInToday:date]) {
-        return @"今天";
+        return kLocalization(@"common_today");
     }
     return nil;
 }
@@ -179,9 +179,9 @@
 
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
     if (calendar.currentPage) {
-        self.title = [NSDate stringFromDate:calendar.currentPage format:@"yyyy年M月"];
+        self.title = [NSDate stringFromDate:calendar.currentPage format:kLocalization(@"calendar_detail_dateformat")];
     }else{
-        self.title = [NSDate stringFromDate:[NSDate date]format:@"yyyy年M月"];
+        self.title = [NSDate stringFromDate:[NSDate date]format:kLocalization(@"calendar_detail_dateformat")];
     }
 }
 
@@ -330,51 +330,51 @@
     cell.leftModel = kCellLeftModelNone;
     WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
     if (indexPath.row == 0) {
-        cell.titleLabel.text = [NSString stringWithFormat:@"周期第%ld天",(long)period.dayInPeriod];
+        cell.titleLabel.text = [NSString stringWithFormat:kLocalization(@"period_index"),(long)period.dayInPeriod];
         switch (period.type) {
             case kPeriodTypeOfForecast:
             case kPeriodTypeOfForecastStart:
             case kPeriodTypeOfForecastEnd:
-                cell.detailLabel.text = @"预测经期";
+                cell.detailLabel.text = kLocalization(@"period_forecast");
                 break;
             case kPeriodTypeOfOviposit:
-                cell.detailLabel.text = @"排卵日";
+                cell.detailLabel.text = kLocalization(@"period_oviposit");
                 break;
             case kPeriodTypeOfMenstrual:
             case kPeriodTypeOfMenstrualStart:
             case kPeriodTypeOfMenstrualEnd:
-                cell.detailLabel.text = @"月经期";
+                cell.detailLabel.text = kLocalization(@"period_menstrual");
                 break;
             case kPeriodTypeOfPregnancy:
             case kPeriodTypeOfPregnancyStart:
             case kPeriodTypeOfPregnancyEnd:
-                cell.detailLabel.text = @"易孕期";
+                cell.detailLabel.text = kLocalization(@"period_pregnancy");
                 break;
             case kPeriodTypeOfSafe:
-                cell.detailLabel.text = @"安全期";
+                cell.detailLabel.text =kLocalization(@"period_safe");
                 break;
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
-        cell.titleLabel.text = @"基础体温";
+        cell.titleLabel.text = kLocalization(@"calendar_detail_temp");
          WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
         if (temperature && ![NSString leie_isBlankString:temperature.temp]) {
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@°C", temperature.temp];
+            cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"temperature_unit_c"), temperature.temp];
         }else{
             cell.detailLabel.text = @"";
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
-        cell.titleLabel.text = @"受孕指数";
-        cell.detailLabel.text = @"4%";
+        cell.titleLabel.text = kLocalization(@"period_pregnancy_index");
+        cell.detailLabel.text = @"";
         cell.line.hidden = YES;
     }else if (indexPath.row == 3){
-        cell.titleLabel.text = @"距离易孕期";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%ld天",(long)period.dayBeforePregnantPeriod];
+        cell.titleLabel.text = kLocalization(@"period_pregnancy_distance");
+        cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"period_pregnancy_distance_unit"),(long)period.dayBeforePregnantPeriod];
         cell.line.hidden = YES;
     }else if (indexPath.row == 4){
-        cell.titleLabel.text = @"当日记录";
-        cell.detailLabel.text = [NSString stringWithFormat:@"%ld项",(long)[_viewModel eventCountAtDate:_selectedDate]];
+        cell.titleLabel.text = kLocalization(@"record_today");
+        cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"record_today_unit"),(long)[_viewModel eventCountAtDate:_selectedDate]];
         cell.line.hidden = YES;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];

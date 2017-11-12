@@ -35,7 +35,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = kColor_7_With_Alpha(0.8);
     _titleLabel.font = kFont_1(14);
-    _titleLabel.text = @"绑定体温计";
+    _titleLabel.text = kLocalization(@"thermometer_bind");
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_titleLabel];
 
@@ -48,14 +48,14 @@
     _bindBtn.layer.borderColor = kColor_8_With_Alpha(0.8).CGColor;
     _bindBtn.layer.borderWidth = 0.5;
     _bindBtn.titleLabel.font = kFont_1(12);
-    [_bindBtn setTitle:@"开始绑定" forState:UIControlStateNormal];
+    [_bindBtn setTitle:kLocalization(@"thermometer_bind_start") forState:UIControlStateNormal];
     [_bindBtn setTitleColor:kColor_9_With_Alpha(0.8) forState:UIControlStateNormal];
     [_bindBtn addTarget:self action:@selector(bindBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_bindBtn];
     _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake((kScreen_Width - 100)/2, _bindBtn.bottom + 12, 100, 32)];
     _cancelBtn.backgroundColor = [UIColor clearColor];
     _cancelBtn.titleLabel.font = kFont_1(12);
-    [_cancelBtn setTitle:@"暂不绑定" forState:UIControlStateNormal];
+    [_cancelBtn setTitle:kLocalization(@"thermometer_bind_no") forState:UIControlStateNormal];
     [_cancelBtn setTitleColor:kColor_9_With_Alpha(0.8) forState:UIControlStateNormal];
     [_cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_cancelBtn];

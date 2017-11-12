@@ -21,7 +21,7 @@
     if ( self )
     {
         self.titleView.backgroundColor = kColor_5;
-        self.titleLabel.text = @"身高";
+        self.titleLabel.text = kLocalization(@"userinfo_height");
         self.titleLabel.font = kFont_1(14);
         self.titleLabel.textColor = kColor_10;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
