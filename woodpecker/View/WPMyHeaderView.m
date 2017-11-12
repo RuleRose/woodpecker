@@ -44,7 +44,7 @@
     _accountLabel.backgroundColor = [UIColor clearColor];
     _accountLabel.textColor = kColor_7_With_Alpha(0.8);
     _accountLabel.font = kFont_1(12);
-    _accountLabel.text = @"账号: ";
+    _accountLabel.text = kLocalization(@"userinfo_account");
     [_contentView addSubview:_accountLabel];
     _triIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.width - 32,  35, 7, 13)];
     _triIcon.backgroundColor = [UIColor clearColor];
@@ -59,9 +59,9 @@
     _nameLabel.text = _userinfo.nick_name;
     NSString *account_id = kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER_ID);
     if (!account_id) {
-        _accountLabel.text = @"账号: ";
+        _accountLabel.text = kLocalization(@"userinfo_account");
     }else{
-        _accountLabel.text = [NSString stringWithFormat:@"账号：%@",account_id];
+        _accountLabel.text = [NSString stringWithFormat:@"%@%@",kLocalization(@"userinfo_account"),account_id];
     }
     [_avatar leie_imageWithUrlStr:_userinfo.avatar phImage:kImage(@"btn-me-avatar")];
 }

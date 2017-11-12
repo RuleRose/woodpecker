@@ -27,7 +27,11 @@
     [super viewWillAppear:animated];
     [self setBackBarButton];
     [self showNavigationBar];
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[XJFHUDManager defaultInstance]  hideLoading];
 }
 
 - (void)setupViews{

@@ -37,7 +37,7 @@
     _tempLabel = [[UILabel alloc] init];
     _tempLabel.backgroundColor = [UIColor clearColor];
     _tempLabel.textColor = kColor_7;
-    _tempLabel.text = @"尚未测温";
+    _tempLabel.text = kLocalization(@"temperature_nodata");
     [self addSubview:_tempLabel];
     _tempUnitLabel = [[UILabel alloc] init];
     _tempUnitLabel.backgroundColor = [UIColor clearColor];
@@ -88,8 +88,8 @@
 
     
     [_indexView setTitle:kLocalization(@"period_pregnancy_index") detail:@"" unit:@"%" showNext:NO];
-    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail:@"" unit:@"天" showNext:NO];
-    [_recordView setTitle:kLocalization(@"record_title") detail:@"0" unit:@"项" showNext:YES];
+    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail:@"" unit:kLocalization(@"common_day_unit") showNext:NO];
+    [_recordView setTitle:kLocalization(@"record_title") detail:@"0" unit:kLocalization(@"common_record_unit") showNext:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRecord)];
     [_recordView addGestureRecognizer:tap];
     _todayBtn.hidden = YES;
@@ -97,7 +97,7 @@
 
 - (void)resetTemp:(NSString *)temp{
     if ([NSString leie_isBlankString:temp]) {
-        temp = @"尚未测温";
+        temp = kLocalization(@"temperature_nodata");
         _tempLabel.font = kFont_4(48);
     }else{
         _tempLabel.font = kFont_4(84);
@@ -187,7 +187,7 @@
 #pragma mark WPStatusWheelViewDelegate
 - (void)showDetailDate:(NSDate *)date period:(WPDayInfoInPeriod *)period_day{
     _selectedDate = date;
-    _dateLabel.text =  [NSDate stringFromDate:date format:@"M月d日"];
+    _dateLabel.text =  [NSDate stringFromDate:date format:kLocalization(@"status_dateformate")];
     switch (period_day.type) {
         case kPeriodTypeOfForecast:
             _periodLabel.text = kLocalization(@"period_forecast");
@@ -213,8 +213,8 @@
             eventCount ++;
         }
     }
-    [_recordView setTitle:kLocalization(@"record_title") detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:@"项" showNext:YES];
-    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:@"天" showNext:NO];
+    [_recordView setTitle:kLocalization(@"record_title") detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:kLocalization(@"common_record_unit") showNext:YES];
+    [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:kLocalization(@"common_day_unit") showNext:NO];
     
     //某日温度
     _temperature = [_viewModel getTempWithDate:date];

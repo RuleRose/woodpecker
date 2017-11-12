@@ -35,6 +35,15 @@
 "common_photos" = "从相册中选择";
 "common_camera" = "拍照";
 "common_load_failure" = "加载失败";
+"common_date" = "日期";
+"common_period" = "周期";
+"common_nodata" = "没有数据";
+"common_unit" = "单位";
+"common_yes" = "是";
+"common_no" = "否";
+"common_day_unit" = "天";
+"common_record_unit" = "项";
+"common_save_success" = "保存成功";
 
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
@@ -73,6 +82,7 @@
 "userinfo_ablout_mmc" = "Copyright 2017 Miaomiaoce";
 "userinfo_privacy" = "用户协议与隐私政策";
 "userinfo_safe" = "安全要求及注意事项";
+"userinfo_account" = "账号：";
 
 "temperature_line" = "体温曲线";
 "temperature_line_exp" = "体温曲线图例";
@@ -80,6 +90,7 @@
 "temperature_unit" = "°C";
 "temperature_edit" = "添加基础体温";
 "temperature_edit_placeholder" = "请输入基础体温";
+"temperature_nodata" = "尚未测温";
 
 "thermometer_title" = "体温计";
 "thermometer_bind" = "绑定体温计";
@@ -105,15 +116,87 @@
 "record_date_format" = "yyyy年M月d日";
 "record_today" = "当日记录";
 "record_today_unit" = "%ld项";
+"record_pregnant" = "备孕";
+"record_mucus" = "宫颈粘液";
+"record_love" = "同房记录";
+"record_ct" = "排卵试纸";
+"record_day" = "日常";
+"record_sleep" = "睡眠";
+"record_mood" = "情绪";
+"record_sport" = "运动";
+"record_drink" = "饮酒";
+"record_drug" = "服药";
+"record_comments" = "备注";
+"record_color" = "颜色";
+"record_flow" = "流量";
+"record_pain" = "痛经";
+"record_gore" = "血块";
+"record_mucusprob" = "性状";
+"record_mucusflow" = "量";
+"record_quality" = "质量";
+"record_sport_time" = "时长";
+
+"record_color_l" = "淡红";
+"record_color_f" = "鲜红";
+"record_color_d" = "深红";
+"record_flow_f" = "较少";
+"record_flow_n" = "中等";
+"record_flow_m" = "较多";
+"record_pain_f" = "轻度";
+"record_pain_n" = "中度";
+"record_pain_m" = "重度";
+"record_gore_f" = "无";
+"record_gore_n" = "较少";
+"record_gore_m" = "较多";
+"record_mucusprob_d" = "发干";
+"record_mucusprob_t" = "粘稠";
+"record_mucusprob_b" = "拉丝";
+"record_mucusflow_f" = "较少";
+"record_mucusflow_n" = "中等";
+"record_mucusflow_m" = "较多";
+"record_love_n" = "无措施";
+"record_love_m" = "避孕药";
+"record_love_c" = "避孕套";
+"record_ct_i" = "无效";
+"record_ct_n" = "阴性";
+"record_ct_p" = "阳性";
+"record_sleep_g" = "很好";
+"record_sleep_n" = "一般";
+"record_sleep_b" = "较差";
+"record_mood_p" = "平静";
+"record_mood_h" = "开心";
+"record_mood_s" = "伤感";
+"record_mood_d" = "郁闷";
+"record_mood_f" = "烦躁";
+"record_mood_a" = "焦虑";
+"record_mood_r" = "愤怒";
+"record_mood_o" = "其它";
+"record_sport_0" = "<0.5小时";
+"record_sport_1" = "0.5-1小时";
+"record_sport_2" = ">1小时";
+"record_drink_l" = "小酌";
+"record_drink_n" = "微醉";
+"record_drink_b" = "大醉";
+"record_drug_t" = "中药";
+"record_drug_c" = "感冒药";
+"record_drug_p" = "止疼药";
+"record_drug_i" = "消炎药";
+"record_drug_s" = "肠胃药";
+"record_drug_a" = "避孕药";
 
 "calendar_header_dateformat" = "M月";
 "calendar_title_dateformat" = "yyyy年M月";
 "calendar_detail_dateformat" = "yyyy年M月";
 "calendar_detail_temp" = "基础体温";
 
+"status_dateformate" = "M月d日";
+
 "menstrual_title" = "经期";
 "menstrual_start" = "经期开始";
 "menstrual_end" = "经期结束";
+"menstrual_detail" = "经期详情";
+"menstrual_detail_info" = "月经期指：从月经第一天到月经最后一天为止，通常为2-7天。";
+"menstrual_regular" = "经期是否规律？";
 
 "period_index" = "周期第%ld天";
 "period_forecast" = "预测经期";
@@ -128,7 +211,8 @@
 "period_menstruation_distance" = "经期长度";
 "period_next_start" = "末次月经首日";
 "period_detail_info" = "周期长度是指：从本次月经来潮开始到下次月经来潮第一天，称为1个月经周期。\n一般的月经周期为28~30天，提前或错后7天都属于正常范围。";
-"menstrual_detail_info" = "月经期指：从月经第一天到月经最后一天为止，通常为2-7天。";
+"pop_height_unit" = "%ldcm";
+
 
 "alert_common_request_failed" = "请求失败";
 

@@ -20,7 +20,7 @@
     if ( self )
     {
         self.titleView.backgroundColor = kColor_5;
-        self.titleLabel.text = @"经期是否规律？";
+        self.titleLabel.text = kLocalization(@"menstrual_regular");
         self.titleLabel.font = kFont_1(14);
         self.titleLabel.textColor = kColor_10;
         self.contentView.backgroundColor = kColor_9_With_Alpha(0.1);
@@ -67,9 +67,9 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     if (row == 0) {
-        return @"否";
+        return kLocalization(@"common_yes");
     }else{
-        return @"是";
+        return kLocalization(@"common_no");
     }
 }
 

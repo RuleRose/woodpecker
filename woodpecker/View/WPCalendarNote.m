@@ -44,11 +44,15 @@
             _colorNote.backgroundColor = kColor_13;
             break;
         case kPeriodTypeOfPregnancy:
+        case kPeriodTypeOfPregnancyEnd:
+        case kPeriodTypeOfPregnancyStart:
             _titleLabel.text = kLocalization(@"period_pregnancy");
             _colorNote.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
             _colorNote.backgroundColor = kColor_14_With_Alpha(0.1);
             break;
         case kPeriodTypeOfForecast:
+        case kPeriodTypeOfForecastEnd:
+        case kPeriodTypeOfForecastStart:
             _titleLabel.text = kLocalization(@"period_forecast");
             _colorNote.layer.borderColor = kColor_15.CGColor;
             _colorNote.backgroundColor = [UIColor clearColor];
