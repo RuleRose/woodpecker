@@ -159,15 +159,23 @@ static NSURL *_baseurl = nil;
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
 //                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
-                      NSString *result = [responseObject objectForKey:@"reseult"];
-                      if ([result integerValue] == 255) {
-                          //登出
-                          [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
-                      }
                   //    [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
-                      block(responseObject, nil);
+                      if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                          if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
+                              block(responseObject, nil);
+                          } else {
+                              NSString *result = [responseObject objectForKey:@"result"];
+                              if ([result integerValue] == 255) {
+                                  //登出
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
+                              }
+                              block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
+                          }
+                      } else {
+                          block(nil, [XJFNetworkManager shareManager].errorDataNotDiction);
+                      }
                   }
                 }
                 failure:^(NSURLSessionTask *task, NSError *error) {
@@ -218,6 +226,11 @@ static NSURL *_baseurl = nil;
                                if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
                                    block(responseObject, nil);
                                } else {
+                                   NSString *result = [responseObject objectForKey:@"result"];
+                                   if ([result integerValue] == 255) {
+                                       //登出
+                                       [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
+                                   }
                                    block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
                                }
                            } else {
@@ -225,11 +238,6 @@ static NSURL *_baseurl = nil;
                            }
                        } else {
 //                           [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
-                           NSString *result = [responseObject objectForKey:@"reseult"];
-                           if ([result integerValue] == 255) {
-                               //登出
-                               [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
-                           }
                          //  [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                            DDLogDebug(@"\n===========response===========\n%@:\n%@", path, error);
                            block(responseObject, error);
@@ -249,7 +257,7 @@ static NSURL *_baseurl = nil;
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
 //                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
-                      NSString *result = [responseObject objectForKey:@"reseult"];
+                      NSString *result = [responseObject objectForKey:@"result"];
                       if ([result integerValue] == 255) {
                           //登出
                           [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
@@ -257,7 +265,20 @@ static NSURL *_baseurl = nil;
 //                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
-                      block(responseObject, nil);
+                      if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                          if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
+                              block(responseObject, nil);
+                          } else {
+                              NSString *result = [responseObject objectForKey:@"result"];
+                              if ([result integerValue] == 255) {
+                                  //登出
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
+                              }
+                              block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
+                          }
+                      } else {
+                          block(nil, [XJFNetworkManager shareManager].errorDataNotDiction);
+                      }
                   }
                 }
                 failure:^(NSURLSessionTask *task, NSError *error) {
@@ -280,7 +301,7 @@ static NSURL *_baseurl = nil;
                   id error = [self handleResponse:responseObject autoShowError:showError];
                   if (error) {
 //                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
-                      NSString *result = [responseObject objectForKey:@"reseult"];
+                      NSString *result = [responseObject objectForKey:@"result"];
                       if ([result integerValue] == 255) {
                           //登出
                           [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
@@ -288,7 +309,20 @@ static NSURL *_baseurl = nil;
 //                      [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"alert_common_request_failed")];
                       block(responseObject, error);
                   } else {
-                      block(responseObject, nil);
+                      if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                          if ([[responseObject leie_getObjectByPath:@"result"] integerValue] == 0) {
+                              block(responseObject, nil);
+                          } else {
+                              NSString *result = [responseObject objectForKey:@"result"];
+                              if ([result integerValue] == 255) {
+                                  //登出
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyLogout object:nil];
+                              }
+                              block(responseObject, [XJFNetworkManager shareManager].errorDataNotDiction);
+                          }
+                      } else {
+                          block(nil, [XJFNetworkManager shareManager].errorDataNotDiction);
+                      }
                   }
                 }
                 failure:^(NSURLSessionTask *task, NSError *error) {

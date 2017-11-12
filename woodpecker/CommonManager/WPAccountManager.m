@@ -35,10 +35,6 @@ Singleton_Implementation(WPAccountManager);
 
 - (void)logoutSuccess{
     [[XJFHUDManager defaultInstance] hideLoading];
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_TOKEN);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_NICKNAME);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_AVATAR);
-    kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER_ID);
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:delegate.navigationC.viewControllers];
