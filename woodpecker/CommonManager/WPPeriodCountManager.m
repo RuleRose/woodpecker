@@ -42,13 +42,12 @@ Singleton_Implementation(WPPeriodCountManager);
 }
 
 -(void)recountPeriod{
+    [_periodList removeAllObjects];
+    [_periodDic removeAllObjects];
     WPProfileModel *profile = [[WPProfileModel alloc] init];
     [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
     self.menstruation = [profile.menstruation integerValue] - 1;
     self.period = [profile.period integerValue];
-    
-    [self.periodList removeAllObjects];
-    [_periodDic removeAllObjects];
     WPPeriodModel *periodModel = [[WPPeriodModel alloc] init];
     NSArray *rawPeriodList = [NSArray arrayWithArray:[XJFDBManager searchModelsWithCondition:periodModel andpage:-1 andOrderby:@"period_start" isAscend:YES]];
     
@@ -191,7 +190,10 @@ Singleton_Implementation(WPPeriodCountManager);
     WPDayInfoInPeriod *dayinfo = [_periodDic objectForKey:[NSDate stringFromDate:day]];
     if (!dayinfo) {
         dayinfo = [[WPPeriodCountManager defaultInstance] dayInfoOfDay:day];
-        [[WPPeriodCountManager defaultInstance].periodDic setObject:dayinfo forKey:[NSDate stringFromDate:day]];
+        if (_periodList.count > 0) {
+            [[WPPeriodCountManager defaultInstance].periodDic setObject:dayinfo forKey:[NSDate stringFromDate:day]];
+
+        }
     }
     return dayinfo;
 }

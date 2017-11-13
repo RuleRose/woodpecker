@@ -50,14 +50,16 @@
 }
 
 - (void)recountPeriod{
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [[WPPeriodCountManager defaultInstance] recountPeriod];
-        //通知主线程刷新
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //回调或者说是通知主线程刷新，
-            [_statusView updateState];
-        });
-    });
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//
+//
+//        //通知主线程刷新
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //回调或者说是通知主线程刷新，
+//        });
+//    });
+    [[WPPeriodCountManager defaultInstance] recountPeriod];
+    [_statusView updateState];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
