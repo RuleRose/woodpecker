@@ -28,10 +28,6 @@ Singleton_Implementation(WPPeriodCountManager);
 {
     self = [super init];
     if (self) {
-        WPProfileModel *profile = [[WPProfileModel alloc] init];
-        [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
-        self.menstruation = [profile.menstruation integerValue] - 1;
-        self.period = [profile.period integerValue];
         self.periodList = [NSMutableArray array];
         self.periodDic = [[NSMutableDictionary alloc] init];
         [self recountPeriod];
@@ -40,6 +36,11 @@ Singleton_Implementation(WPPeriodCountManager);
 }
 
 -(void)recountPeriod{
+    WPProfileModel *profile = [[WPProfileModel alloc] init];
+    [profile loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_PROFILE)];
+    self.menstruation = [profile.menstruation integerValue] - 1;
+    self.period = [profile.period integerValue];
+    
     [self.periodList removeAllObjects];
     [_periodDic removeAllObjects];
     WPPeriodModel *periodModel = [[WPPeriodModel alloc] init];
@@ -47,63 +48,67 @@ Singleton_Implementation(WPPeriodCountManager);
     
     //生产所有的period的start和end，标注是否是预测。
     for (NSInteger i = 0; i < rawPeriodList.count; i++) {
-        WPPeriodCountModel *periodCountMode = [[WPPeriodCountModel alloc] init];
         WPPeriodModel * periodMode = [rawPeriodList objectAtIndex:i];
-        periodCountMode.brief = periodMode.brief;
-        periodCountMode.extra_data = periodMode.extra_data;
-        periodCountMode.period_id = periodMode.period_id;
-        periodCountMode.lastupdate = periodMode.lastupdate;
-        periodCountMode.removed = periodMode.removed;
-        NSDate *nextPeriodStartDate = nil;
-        if (i < (rawPeriodList.count - 1)) {
-            WPPeriodModel * nextPeriodMode = [rawPeriodList objectAtIndex:(i + 1)];
-            nextPeriodStartDate = [NSDate dateFromString:nextPeriodMode.period_start format:DATE_FORMATE_STRING];
-        }
-        
-        periodCountMode.period_start = [NSDate dateFromString:periodMode.period_start format:DATE_FORMATE_STRING];
-        periodCountMode.isForecast = NO;
-        periodCountMode.isEndDayForecast = YES;
-        if (![NSString leie_isBlankString:periodMode.period_end]) {
-            //用户输入了结束日期，直接记录
-            periodCountMode.period_end = [NSDate dateFromString:periodMode.period_end format:DATE_FORMATE_STRING];
-            periodCountMode.isEndDayForecast = NO;
-        } else {
-            if (nextPeriodStartDate) {
-                NSInteger timeGap = [NSDate daysFromDate:periodCountMode.period_start toDate:nextPeriodStartDate];
-                if (timeGap > self.menstruation) {
-                    //间隔大于用户输入的周期，设置到周期最后一天
-                    periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
-                } else {
-                    //间隔小于等于用户输入的周期，设置到下次开始的前一天
-                    periodCountMode.period_end = [NSDate dateByAddingDays:-1 toDate:nextPeriodStartDate];
-                }
-            }else{
-                periodCountMode.isForecast = NO;
-                periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
+        NSDate *date = [NSDate dateFromString:periodMode.period_start format:DATE_FORMATE_STRING];
+        NSDate *start_date = [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
+        if ([NSDate isDate:date afterToDate:start_date toCalendarUnit:NSCalendarUnitDay]) {
+            WPPeriodCountModel *periodCountMode = [[WPPeriodCountModel alloc] init];
+            periodCountMode.brief = periodMode.brief;
+            periodCountMode.extra_data = periodMode.extra_data;
+            periodCountMode.period_id = periodMode.period_id;
+            periodCountMode.lastupdate = periodMode.lastupdate;
+            periodCountMode.removed = periodMode.removed;
+            NSDate *nextPeriodStartDate = nil;
+            if (i < (rawPeriodList.count - 1)) {
+                WPPeriodModel * nextPeriodMode = [rawPeriodList objectAtIndex:(i + 1)];
+                nextPeriodStartDate = [NSDate dateFromString:nextPeriodMode.period_start format:DATE_FORMATE_STRING];
             }
-        }
-        [self.periodList addObject:periodCountMode];
-        
-        NSDate *nextPreiodStartDateLimit = nil;//下次月经前7天
-        if (nextPeriodStartDate) {
-            nextPreiodStartDateLimit = [NSDate dateByAddingDays:-PRE_PERIOD_START toDate:nextPeriodStartDate];
-        }
-        
-        //循环查找预测周期
-        while (nextPreiodStartDateLimit && periodCountMode.period_start) {
-            NSDate *nextForecastDate = [NSDate dateByAddingDays:self.period toDate:periodCountMode.period_start];
-            NSDate *nextForecastDateEnd = [NSDate dateByAddingDays:self.menstruation toDate:nextForecastDate];
-            if ([NSDate isDate:nextPreiodStartDateLimit afterToDate:nextForecastDateEnd toCalendarUnit:NSCalendarUnitDay]) {
-                //预测的周期结束日期，在下次用户设置的开始日期的前7天之前，那么预测周期有效，添加
-                periodCountMode = [[WPPeriodCountModel alloc] init];
-                periodCountMode.period_start = nextForecastDate;
-                periodCountMode.period_end = nextForecastDateEnd;
-                periodCountMode.isForecast = YES;
-                periodCountMode.isEndDayForecast = YES;
-                [self.periodList addObject:periodCountMode];
-            }else{
-                //如果超过下次用户设置的开始日期的前七天，跳出
-                break;
+            
+            periodCountMode.period_start = [NSDate dateFromString:periodMode.period_start format:DATE_FORMATE_STRING];
+            periodCountMode.isForecast = NO;
+            periodCountMode.isEndDayForecast = YES;
+            if (![NSString leie_isBlankString:periodMode.period_end]) {
+                //用户输入了结束日期，直接记录
+                periodCountMode.period_end = [NSDate dateFromString:periodMode.period_end format:DATE_FORMATE_STRING];
+                periodCountMode.isEndDayForecast = NO;
+            } else {
+                if (nextPeriodStartDate) {
+                    NSInteger timeGap = [NSDate daysFromDate:periodCountMode.period_start toDate:nextPeriodStartDate];
+                    if (timeGap > self.menstruation) {
+                        //间隔大于用户输入的周期，设置到周期最后一天
+                        periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
+                    } else {
+                        //间隔小于等于用户输入的周期，设置到下次开始的前一天
+                        periodCountMode.period_end = [NSDate dateByAddingDays:-1 toDate:nextPeriodStartDate];
+                    }
+                }else{
+                    periodCountMode.isForecast = NO;
+                    periodCountMode.period_end = [NSDate dateByAddingDays:self.menstruation toDate:periodCountMode.period_start];
+                }
+            }
+            [self.periodList addObject:periodCountMode];
+            
+            NSDate *nextPreiodStartDateLimit = nil;//下次月经前7天
+            if (nextPeriodStartDate) {
+                nextPreiodStartDateLimit = [NSDate dateByAddingDays:-PRE_PERIOD_START toDate:nextPeriodStartDate];
+            }
+            
+            //循环查找预测周期
+            while (nextPreiodStartDateLimit && periodCountMode.period_start) {
+                NSDate *nextForecastDate = [NSDate dateByAddingDays:self.period toDate:periodCountMode.period_start];
+                NSDate *nextForecastDateEnd = [NSDate dateByAddingDays:self.menstruation toDate:nextForecastDate];
+                if ([NSDate isDate:nextPreiodStartDateLimit afterToDate:nextForecastDateEnd toCalendarUnit:NSCalendarUnitDay]) {
+                    //预测的周期结束日期，在下次用户设置的开始日期的前7天之前，那么预测周期有效，添加
+                    periodCountMode = [[WPPeriodCountModel alloc] init];
+                    periodCountMode.period_start = nextForecastDate;
+                    periodCountMode.period_end = nextForecastDateEnd;
+                    periodCountMode.isForecast = YES;
+                    periodCountMode.isEndDayForecast = YES;
+                    [self.periodList addObject:periodCountMode];
+                }else{
+                    //如果超过下次用户设置的开始日期的前七天，跳出
+                    break;
+                }
             }
         }
     }

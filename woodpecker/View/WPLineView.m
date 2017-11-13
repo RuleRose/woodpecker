@@ -17,6 +17,9 @@
 @property (nonatomic, strong) LineChartView *chartView;
 @property (nonatomic, strong) BalloonMarker *marker;
 @property (nonatomic, strong) WPLineDateFormatter *formatter;
+@property (nonatomic, assign) CGFloat maxTemp;
+@property (nonatomic, assign) CGFloat minTemp;
+
 @end
 
 @implementation WPLineView
@@ -50,8 +53,8 @@
         leftAxis.granularityEnabled = YES;
         leftAxis.drawAxisLineEnabled = YES;
         leftAxis.gridLineWidth = 0.5;
-        leftAxis.axisMaximum = 45.0;
-        leftAxis.axisMinimum = 32.0;
+        leftAxis.axisMaximum = _maxTemp;
+        leftAxis.axisMinimum = _minTemp;
         leftAxis.labelCount = 15;
         leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -72,8 +75,8 @@
         rightAxis.drawAxisLineEnabled = YES;
         rightAxis.drawZeroLineEnabled = YES;
         rightAxis.gridLineWidth = 0.5;
-        rightAxis.axisMaximum = 45.0;
-        rightAxis.axisMinimum = 32.0;
+        rightAxis.axisMaximum = _maxTemp;
+        rightAxis.axisMinimum = _minTemp;
         rightAxis.labelCount = 15;
         rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -105,6 +108,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupViews];
+        _maxTemp = 38;
+        _minTemp = 35;
         self.showLegend = NO;
         self.showRightYAxis = NO;
         self.showLeftYAxis = YES;
@@ -197,11 +202,11 @@
                     period_type = temp.period_type;
                 }
                 CGFloat temperature = [temp.temp floatValue];
-                if (temperature > 45) {
-                    temperature = 45;
+                if (temperature > _maxTemp) {
+                    temperature = _maxTemp;
                 }
-                if (temperature < 32) {
-                    temperature = 32;
+                if (temperature < _minTemp) {
+                    temperature = _minTemp;
                 }
                 [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:((NSInteger)(temperature*100))/100.0]];
             }
