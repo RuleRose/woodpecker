@@ -60,6 +60,7 @@
 "noti_no_photos" = "不能浏览本地相册";
 "noti_upload_success" = "上传成功";
 "noti_upload_failure" = "上传失败";
+"noti_lastperiod" = "末次经期首日必须在最后一次经期开始日之后";
 
 "me_title" = "我";
 "me_basic" = "基本信息";

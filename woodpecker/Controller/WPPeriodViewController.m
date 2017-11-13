@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIButton* finishBtn;
 @property (nonatomic, strong) WPPeriodViewModel *viewModel;
+@property (nonatomic, strong) WPPeriodModel *period;
 @end
 
 @implementation WPPeriodViewController
@@ -70,6 +71,10 @@
     if (!_profile) {
         _profile = [[WPProfileModel alloc] init];
     }
+    _period = [_viewModel getLastPeriod];
+    if (_period) {
+        _profile.lastperiod = _period.period_start;
+    }
 }
 
 - (void)setupViews{
@@ -92,7 +97,7 @@
     [[XJFHUDManager defaultInstance] showLoadingHUDwithCallback:^{
         
     }];
-    [_viewModel updateProfile:_profile reuslt:^(BOOL success) {
+    [_viewModel updateProfile:_profile lastperiod:_period reuslt:^(BOOL success) {
         [[XJFHUDManager defaultInstance] hideLoading];
         if (success) {
             [[WPPeriodCountManager defaultInstance] recountPeriod];
@@ -107,7 +112,7 @@
         [_viewModel updateUserinfo:_userinfo reuslt:^(BOOL success) {
             if (success) {
                 [_viewModel registerProfile:_profile reuslt:^(NSString *profile_id) {
-                    if (success) {
+                    if (![NSString leie_isBlankString:profile_id]) {
                         _userinfo.profile_id = profile_id;
                         kDefaultSetObjectForKey([_userinfo transToDictionary], USER_DEFAULT_ACCOUNT_USER);
                         WPMainViewController *mainVC = [[WPMainViewController alloc] init];

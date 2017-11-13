@@ -13,6 +13,7 @@
 #import "NSDate+Extension.h"
 #import "WPTableViewCell.h"
 #import "WPPeriodCountManager.h"
+#import "WPThermometerEditViewController.h"
 
 @interface WPCalendarDetailViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) WPCalendarDetailViewModel *viewModel;
@@ -92,6 +93,7 @@
     [self setBackBarButton];
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
+    [_tableView reloadData];
 }
 
 - (void)setupData{
@@ -326,10 +328,10 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
-    cell.rightModel = kCellRightModelNone;
     cell.leftModel = kCellLeftModelNone;
     WPDayInfoInPeriod *period = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
     if (indexPath.row == 0) {
+        cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = [NSString stringWithFormat:kLocalization(@"period_index"),(long)period.dayInPeriod];
         switch (period.type) {
             case kPeriodTypeOfForecast:
@@ -356,23 +358,27 @@
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
+        cell.rightModel = kCellRightModelNext;
         cell.titleLabel.text = kLocalization(@"calendar_detail_temp");
          WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
         if (temperature && ![NSString leie_isBlankString:temperature.temp]) {
             cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"temperature_unit_c"), temperature.temp];
         }else{
-            cell.detailLabel.text = @"";
+            cell.detailLabel.text = kLocalization(@"temperature_nodata");
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
+        cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"period_pregnancy_index");
-        cell.detailLabel.text = @"";
+        cell.detailLabel.text = [NSString stringWithFormat:@"%0.1f",period.pregantRate];
         cell.line.hidden = YES;
     }else if (indexPath.row == 3){
+        cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"period_pregnancy_distance");
         cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"period_pregnancy_distance_unit"),(long)period.dayBeforePregnantPeriod];
         cell.line.hidden = YES;
     }else if (indexPath.row == 4){
+        cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"record_today");
         cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"record_today_unit"),(long)[_viewModel eventCountAtDate:_selectedDate]];
         cell.line.hidden = YES;
@@ -392,7 +398,13 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    
+    if (indexPath.row == 1){
+        WPTemperatureModel *temperature = [_viewModel getTempWithDate:_selectedDate];
+        WPThermometerEditViewController *editVC = [[WPThermometerEditViewController alloc] init];
+        editVC.date = _selectedDate;
+        editVC.temperature = temperature;
+        [self.navigationController pushViewController:editVC animated:YES];
+    }
 }
 /*
 #pragma mark - Navigation
