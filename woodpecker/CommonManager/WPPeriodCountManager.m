@@ -285,7 +285,7 @@ Singleton_Implementation(WPPeriodCountManager);
         dayInfo.isStart = YES;
         dayInfo.dayBeforePregnantPeriod = 0;
         NSInteger dayBeforePregancyEnd = [NSDate daysFromDate:destPeriod.pregnant_start toDate:destPeriod.pregnant_end];
-        NSInteger index = MIN(0, (9 - dayBeforePregancyEnd));
+        NSInteger index = MAX(0, (9 - dayBeforePregancyEnd));
         dayInfo.pregantRate = [self.rate[index] floatValue];
     } else if (destPeriod.pregnant_end && [NSDate isDate:destPeriod.pregnant_end equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //易孕期结束日
@@ -299,7 +299,7 @@ Singleton_Implementation(WPPeriodCountManager);
         dayInfo.type = kPeriodTypeOfPregnancy;
         dayInfo.dayBeforePregnantPeriod = 0;
         NSInteger dayBeforePregancyEnd = [NSDate daysFromDate:destPeriod.pregnant_start toDate:destPeriod.pregnant_end];
-        NSInteger index = MIN(0, (9 - dayBeforePregancyEnd));
+        NSInteger index = MAX(0, (9 - dayBeforePregancyEnd));
         dayInfo.pregantRate = [self.rate[index] floatValue];
     } else {
         //安全期
