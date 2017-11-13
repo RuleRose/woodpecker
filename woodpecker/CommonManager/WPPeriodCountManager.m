@@ -19,6 +19,9 @@
 @property (nonatomic,strong) NSMutableArray<WPPeriodCountModel *> *periodList;
 @property (nonatomic,assign) NSInteger menstruation;
 @property (nonatomic,assign) NSInteger period;
+@property (nonatomic,copy) NSArray* rate;
+@property (nonatomic,assign) float rateOfMenstruation;
+@property (nonatomic,assign) float rateOfSavePeriod;
 @end
 
 @implementation WPPeriodCountManager
@@ -30,6 +33,9 @@ Singleton_Implementation(WPPeriodCountManager);
     if (self) {
         self.periodList = [NSMutableArray array];
         self.periodDic = [[NSMutableDictionary alloc] init];
+        self.rateOfSavePeriod = 0.5;
+        self.rateOfMenstruation = 0;
+        self.rate = @[@7, @17.4, @25.2, @30.4, @33, @33, @30.4, @25.2, @17.4, @7]; //第11， 12， 13， 14， 15， 16， 17， 18， 19， 20天的概率。16是排卵日。
         [self recountPeriod];
     }
     return self;
@@ -230,6 +236,7 @@ Singleton_Implementation(WPPeriodCountManager);
         } else {
             dayInfo.dayBeforePregnantPeriod = 0;
         }
+        dayInfo.pregantRate = self.rateOfMenstruation;
     } else if ([NSDate isDate:destPeriod.period_end equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //经期结束日
         if (destPeriod.isForecast) {
@@ -252,6 +259,7 @@ Singleton_Implementation(WPPeriodCountManager);
         } else {
             dayInfo.dayBeforePregnantPeriod = 0;
         }
+        dayInfo.pregantRate = self.rateOfMenstruation;
     } else if ([NSDate isDate:destPeriod.period_end afterToDate:day toCalendarUnit:NSCalendarUnitDay] && [NSDate isDate:day afterToDate:destPeriod.period_start toCalendarUnit:NSCalendarUnitDay]){
         //经期中
         if (destPeriod.isForecast) {
@@ -269,26 +277,35 @@ Singleton_Implementation(WPPeriodCountManager);
         } else {
             dayInfo.dayBeforePregnantPeriod = 0;
         }
+        dayInfo.pregantRate = self.rateOfMenstruation;
     } else if (destPeriod.ovulate_day && [NSDate isDate:destPeriod.ovulate_day equalToDate:day toCalendarUnit:NSCalendarUnitDay]) {
         //排卵日
         dayInfo.type = kPeriodTypeOfOviposit;
         dayInfo.dayBeforePregnantPeriod = 0;
+        dayInfo.pregantRate = [self.rate[5] floatValue];
     } else if (destPeriod.pregnant_start && [NSDate isDate:destPeriod.pregnant_start equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //易孕期开始日
 //        dayInfo.type = kPeriodTypeOfPregnancyStart;
         dayInfo.type = kPeriodTypeOfPregnancy;
         dayInfo.isStart = YES;
         dayInfo.dayBeforePregnantPeriod = 0;
+        NSInteger dayBeforePregancyEnd = [NSDate daysFromDate:destPeriod.pregnant_start toDate:destPeriod.pregnant_end];
+        NSInteger index = MIN(0, (9 - dayBeforePregancyEnd));
+        dayInfo.pregantRate = [self.rate[index] floatValue];
     } else if (destPeriod.pregnant_end && [NSDate isDate:destPeriod.pregnant_end equalToDate:day toCalendarUnit:NSCalendarUnitDay]){
         //易孕期结束日
 //        dayInfo.type = kPeriodTypeOfPregnancyEnd;
         dayInfo.type = kPeriodTypeOfPregnancy;
         dayInfo.isEnd = YES;
         dayInfo.dayBeforePregnantPeriod = 0;
+        dayInfo.pregantRate = [self.rate[9] floatValue];
     } else if ([NSDate isDate:destPeriod.pregnant_end afterToDate:day toCalendarUnit:NSCalendarUnitDay] && [NSDate isDate:day afterToDate:destPeriod.pregnant_start toCalendarUnit:NSCalendarUnitDay]){
         //易孕期中
         dayInfo.type = kPeriodTypeOfPregnancy;
         dayInfo.dayBeforePregnantPeriod = 0;
+        NSInteger dayBeforePregancyEnd = [NSDate daysFromDate:destPeriod.pregnant_start toDate:destPeriod.pregnant_end];
+        NSInteger index = MIN(0, (9 - dayBeforePregancyEnd));
+        dayInfo.pregantRate = [self.rate[index] floatValue];
     } else {
         //安全期
         dayInfo.type = kPeriodTypeOfSafe;
@@ -312,6 +329,7 @@ Singleton_Implementation(WPPeriodCountManager);
         } else {
             dayInfo.dayBeforePregnantPeriod = 0;
         }
+        dayInfo.pregantRate = self.rateOfSavePeriod;
     }
     
     //是否有经期结束开关
