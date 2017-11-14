@@ -112,7 +112,7 @@
             for (NSDictionary *tempDic in temperatures) {
                 WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
                 [temp loadDataFromkeyValues:tempDic];
-                temperature.sync = @"1";
+                temp.sync = @"1";
                 [self insertTemperature:temp];
             }
             kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
@@ -197,9 +197,12 @@
                 [item loadDataFromkeyValues:eventDic];
                 item.pid = item.event_id;
                 item.brief = [eventDic objectForKey:@"description"];
-
-                if (![item insertToDB]) {
-                    [item updateToDBDependsOn:nil];
+                if ([item.removed boolValue]) {
+                    [XJFDBManager deleteModel:item dependOnKeys:nil];
+                }else{
+                    if (![item insertToDB]) {
+                        [item updateToDBDependsOn:nil];
+                    }
                 }
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetEvent object:nil];

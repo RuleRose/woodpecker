@@ -173,6 +173,9 @@
 }
 
 - (void)editTemperature:(WPTemperatureModel *)temperature date:(NSDate *)date{
+    if ([NSDate isDateAfterToday:date]) {
+        return;
+    }
     WPThermometerEditViewController *editVC = [[WPThermometerEditViewController alloc] init];
     editVC.date = date;
     editVC.temperature = temperature;
@@ -180,6 +183,9 @@
 }
 
 - (void)showEventWithDate:(NSDate *)date{
+    if ([NSDate isDateAfterToday:date]) {
+        return;
+    }
     WPRecordViewController *recordVC = [[WPRecordViewController alloc] init];
     recordVC.eventDate = date;
     [self.navigationController pushViewController:recordVC animated:YES];
