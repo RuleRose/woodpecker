@@ -97,6 +97,13 @@
     [_tableView reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (![NSDate isDate:_selectedDate equalToDate:_calendar.currentPage toCalendarUnit:NSCalendarUnitDay]) {
+        _calendar.currentPage = _selectedDate;
+    };
+}
+
 - (void)setupData{
     _viewModel = [[WPCalendarDetailViewModel alloc] init];
 }
@@ -104,7 +111,9 @@
 - (void)setupViews{
     [self.view addSubview:self.calendar];
     [self.view addSubview:self.tableView];
+
 }
+
 
 - (void)goBack:(UIButton *)sender{
     if (_delegate && [_delegate respondsToSelector:@selector(updateSelectedDate:)]) {
@@ -248,10 +257,12 @@
         }else{
             NSDate *tomorrow = [NSDate dateByAddingDays:1 toDate:date];
             NSDate *yesterday = [NSDate dateByAddingDays:-1 toDate:date];
+            NSDate *startDate = [NSDate dateFromString:DATE_STAERT format:DATE_FORMATE_STRING];
+            NSDate *endDate = [NSDate endOfMonthOfDate:[NSDate nextMonthOfDate:[NSDate date]]];
             WPDayInfoInPeriod *tomorrow_period = [[WPPeriodCountManager defaultInstance] dayInfo:tomorrow];
             WPDayInfoInPeriod *yesterday_period = [[WPPeriodCountManager defaultInstance] dayInfo:yesterday];
             NSInteger weekday = [NSDate weekdayOfDate:date];
-            if (weekday == 1 || [NSDate isDate:date equalToDate:[NSDate beginingOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]) {
+            if (weekday == 1 || [NSDate isDate:date equalToDate:startDate toCalendarUnit:NSCalendarUnitDay]) {
                 if (tomorrow_period.type == period.type) {
                     if (tomorrow_period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;
@@ -261,7 +272,7 @@
                 }else{
                     calendarCell.shape = kPeriodShapeOfSingle;
                 }
-            }else if (weekday == 7 || [NSDate isDate:date equalToDate:[NSDate endOfMonthOfDate:date] toCalendarUnit:NSCalendarUnitDay]){
+            }else if (weekday == 7 || [NSDate isDate:date equalToDate:endDate toCalendarUnit:NSCalendarUnitDay]){
                 if (yesterday_period.type == period.type) {
                     if (period.dayInPeriod  == 1) {
                         calendarCell.shape = kPeriodShapeOfSingle;

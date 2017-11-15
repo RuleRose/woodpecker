@@ -73,7 +73,7 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     [[XJFHUDManager defaultInstance] hideLoading];
-                    [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
+                  //  [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
                 }
             }];
             if (needUpdate) {
@@ -81,7 +81,7 @@
             }
         }else{
             [[XJFHUDManager defaultInstance] hideLoading];
-            [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
+          //  [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_network_failure")];
         }
 
     }];
