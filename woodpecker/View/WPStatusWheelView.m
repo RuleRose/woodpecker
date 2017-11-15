@@ -24,6 +24,8 @@
 @property(nonatomic, strong)CAShapeLayer *shapeLayer;
 @property(nonatomic, strong)WPCollectionViewWheelLayout *layout;
 //@property (nonatomic,strong)NSMutableArray *periods;
+@property(nonatomic, strong)CAShapeLayer *innerLineLayer;
+@property(nonatomic, strong)CAShapeLayer *outLineLayer;
 
 @end
 
@@ -63,6 +65,8 @@
 //    _scrollView.showsVerticalScrollIndicator = NO;
 //    _scrollView.showsHorizontalScrollIndicator = NO;
     [self drawLine];
+    [self drawInnerLine];
+    [self drawOutLine];
     [self addSubview:_collectionView];
 //    [self addSubview:_scrollView];
 }
@@ -84,6 +88,42 @@
     //添加并显示
     self.shapeLayer.path = linePath.CGPath;
     [self.layer addSublayer:self.shapeLayer];
+}
+
+- (void)drawInnerLine{
+    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    CGPoint pos =  CGPointMake((self.width - self.layout.radius)/2 + 25, self.height + (self.layout.radius - 300)/2);
+    [linePath moveToPoint:CGPointMake(pos.x + 115, pos.y - 115)];
+    [linePath addLineToPoint:CGPointMake(pos.x + 125, pos.y - 125)];
+    //让贝塞尔曲线与CAShapeLayer产生联系
+    self.innerLineLayer = [CAShapeLayer layer];
+    self.innerLineLayer.masksToBounds = YES;
+    self.innerLineLayer.frame = CGRectMake(0, 0, self.width, self.height);//设置shapeLayer的尺寸和位置
+    self.innerLineLayer.fillColor = [UIColor clearColor].CGColor;//填充颜色为ClearColor
+    //设置线条的宽度和颜色
+    self.innerLineLayer.lineWidth = 1.0f;
+    self.innerLineLayer.strokeColor = kColor_7_With_Alpha(0.9).CGColor;
+    //添加并显示
+    self.innerLineLayer.path = linePath.CGPath;
+    [self.layer addSublayer:self.innerLineLayer];
+}
+
+- (void)drawOutLine{
+    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    CGPoint pos =  CGPointMake((self.width - self.layout.radius)/2 + 25, self.height + (self.layout.radius - 300)/2);
+    [linePath moveToPoint:CGPointMake(pos.x + 165, pos.y - 165)];
+    [linePath addLineToPoint:CGPointMake(pos.x + 175, pos.y - 175)];
+    //让贝塞尔曲线与CAShapeLayer产生联系
+    self.outLineLayer = [CAShapeLayer layer];
+    self.outLineLayer.masksToBounds = YES;
+    self.outLineLayer.frame = CGRectMake(0, 0, self.width, self.height);//设置shapeLayer的尺寸和位置
+    self.outLineLayer.fillColor = [UIColor clearColor].CGColor;//填充颜色为ClearColor
+    //设置线条的宽度和颜色
+    self.outLineLayer.lineWidth = 1.0f;
+    self.outLineLayer.strokeColor = kColor_7_With_Alpha(0.9).CGColor;
+    //添加并显示
+    self.outLineLayer.path = linePath.CGPath;
+    [self.layer addSublayer:self.outLineLayer];
 }
 
 - (void)setStartDate:(NSDate *)startDate{

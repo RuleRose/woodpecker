@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface NSString (leie_Characters)
++ (NSString *)floatString:(CGFloat)f;
++ (NSString *)formatFloat:(NSString *)f;
 
 #pragma mark - Category(leie_Characters)
 - (CGSize)sizeWithFont:(UIFont *)font;

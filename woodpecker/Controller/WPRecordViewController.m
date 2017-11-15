@@ -229,6 +229,19 @@
 {
     WPRecordStatusModel *status = [_statuses objectAtIndex:indexPath.section];
     if (status.showDetail) {
+        if ((_viewModel.period_day.type == kPeriodTypeOfMenstrual || _viewModel.period_day.type == kPeriodTypeOfMenstrualStart ||_viewModel.period_day.type == kPeriodTypeOfMenstrualEnd) || _viewModel.on) {
+            //排除经期开始日
+            if (_viewModel.period_day.dayInPeriod == 1 && !_viewModel.on) {
+                if ( indexPath.section >= 2 && indexPath.section <=6) {
+                    return 0;
+                }
+            }
+        }else{
+            if (indexPath.section >= 2 && indexPath.section <=6) {
+                return 0;
+            }
+        }
+        
         if (indexPath.section == 9) {
             return 164;
         }else if (indexPath.section == 13){

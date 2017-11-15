@@ -201,7 +201,7 @@
                 if (yVals.count == 0) {
                     period_type = temp.period_type;
                 }
-                CGFloat temperature = [temp.temp floatValue];
+                double temperature = [temp.temp doubleValue];
                 if (temperature > _maxTemp) {
                     temperature = _maxTemp;
                 }

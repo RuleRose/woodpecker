@@ -83,7 +83,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%ld",(long)row];
+    return [NSString stringWithFormat:@"%ld%@",(long)row,kLocalization(@"common_day_unit")];
 }
 
 #pragma mark UIPickerViewDelegate

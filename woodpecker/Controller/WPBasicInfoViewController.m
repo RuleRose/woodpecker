@@ -147,7 +147,8 @@
         cell.textField.enabled = YES;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = kLocalization(@"userinfo_birthday");
-        cell.textField.text = _userinfo.birthday;
+        NSDate *date = [NSDate dateFromString:_userinfo.birthday format:DATE_FORMATE_STRING];
+        cell.textField.text = [NSDate stringFromDate:date format:kLocalization(@"common_detail_dateformat")];
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){

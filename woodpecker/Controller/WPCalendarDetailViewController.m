@@ -95,6 +95,7 @@
     [self showNavigationBar];
     self.bottomLine.hidden = YES;
     [_tableView reloadData];
+    [_calendar reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -375,7 +376,7 @@
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"period_pregnancy_index");
-        cell.detailLabel.text = [NSString stringWithFormat:@"%0.1f%%",period.pregantRate];
+        cell.detailLabel.text = [NSString stringWithFormat:@"%@%%",[NSString floatString:period.pregantRate]];
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
