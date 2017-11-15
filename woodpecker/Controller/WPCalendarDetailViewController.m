@@ -14,6 +14,7 @@
 #import "WPTableViewCell.h"
 #import "WPPeriodCountManager.h"
 #import "WPThermometerEditViewController.h"
+#import "WPRecordViewController.h"
 
 @interface WPCalendarDetailViewController ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) WPCalendarDetailViewModel *viewModel;
@@ -127,7 +128,7 @@
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
 {
-    return [NSDate date];
+    return [NSDate endOfMonthOfDate:[NSDate nextMonthOfDate:[NSDate date]]];
 }
 
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
@@ -308,6 +309,9 @@
 #pragma mark UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([NSDate isDateAfterToday:_selectedDate]) {
+        return 3;
+    }
     return 5;
 }
 
@@ -404,6 +408,11 @@
         editVC.date = _selectedDate;
         editVC.temperature = temperature;
         [self.navigationController pushViewController:editVC animated:YES];
+    }else if (indexPath.row == 4){
+        WPRecordViewController *recordVC = [[WPRecordViewController alloc] init];
+        recordVC.eventDate = _selectedDate;
+        [self.navigationController pushViewController:recordVC animated:YES];
+
     }
 }
 /*
