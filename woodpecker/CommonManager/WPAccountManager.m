@@ -36,6 +36,10 @@ Singleton_Implementation(WPAccountManager);
 - (void)logoutSuccess{
     [[XJFHUDManager defaultInstance] hideLoading];
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    UIViewController *vc = delegate.navigationC.topViewController;
+    if ([vc isKindOfClass:[WPLoginViewController class]]) {
+        return;
+    }
     WPLoginViewController *loginVC = [[WPLoginViewController alloc] init];
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:delegate.navigationC.viewControllers];
     [viewControllers removeAllObjects];

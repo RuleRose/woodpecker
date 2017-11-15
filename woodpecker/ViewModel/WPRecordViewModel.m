@@ -444,202 +444,248 @@
     NSMutableArray *events = [[NSMutableArray alloc] init];
     NSMutableArray *delEvents = [[NSMutableArray alloc] init];
     WPEventModel *event = [self getEventWithDate:_eventDate];
-    if (_event.color || _event.flow || _event.pain || _event.gore) {
+    BOOL changed = NO;
+    if (![NSString leie_isBlankString:_event.color] || ![NSString leie_isBlankString:_event.flow] || ![NSString leie_isBlankString:_event.pain] || ![NSString leie_isBlankString:_event.gore]) {
         
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"1" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.color) {
-            if (![_event.color isEqualToString:event.color]) {
+            if (![NSString leie_isBlankString:_event.color]) {
                 [description setObject:_event.color forKey:@"color"];
             }
+            if (![_event.color isEqualToString:event.color]) {
+                changed = YES;
+            }
+            
         }
         if (_event.flow) {
-            if (![_event.flow isEqualToString:event.flow]) {
+            if (![NSString leie_isBlankString:_event.flow]) {
                 [description setObject:_event.flow forKey:@"flow"];
+            }
+            if (![_event.flow isEqualToString:event.flow]) {
+                changed = YES;
             }
         }
         if (_event.pain) {
-            if (![_event.pain isEqualToString:event.pain]) {
+            if (![NSString leie_isBlankString:_event.pain]) {
                 [description setObject:_event.pain forKey:@"pain"];
+            }
+            if (![_event.pain isEqualToString:event.pain]) {
+                changed = YES;
             }
         }
         if (_event.gore) {
-            if (![_event.gore isEqualToString:event.gore]) {
+            if (![NSString leie_isBlankString:_event.gore]) {
                 [description setObject:_event.gore forKey:@"gore"];
+            }
+            if (![_event.gore isEqualToString:event.gore]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.color || event.flow || event.pain || event.gore) {
+        if (![NSString leie_isBlankString:event.color] || ![NSString leie_isBlankString:event.flow] || ![NSString leie_isBlankString:event.pain] || ![NSString leie_isBlankString:event.gore]) {
             [delEvents addObject:event.event_id1];
         }
     }
     
-    if (_event.mucus_prob || _event.mucus_flow || _event.love || _event.ct) {
+    if (![NSString leie_isBlankString:_event.mucus_prob] || ![NSString leie_isBlankString:_event.mucus_flow] || ![NSString leie_isBlankString:_event.love] || ![NSString leie_isBlankString:_event.ct]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"2" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.mucus_prob) {
-            if (![_event.mucus_prob isEqualToString:event.mucus_prob]) {
+            if (![NSString leie_isBlankString:_event.mucus_prob]) {
                 [description setObject:_event.mucus_prob forKey:@"mucus_prob"];
+            }
+            if (![_event.mucus_prob isEqualToString:event.mucus_prob]) {
+                changed = YES;
             }
         }
         if (_event.mucus_flow) {
-            if (![_event.mucus_flow isEqualToString:event.mucus_flow]) {
+            if (![NSString leie_isBlankString:_event.mucus_flow]) {
                 [description setObject:_event.mucus_flow forKey:@"mucus_flow"];
+            }
+            if (![_event.mucus_flow isEqualToString:event.mucus_flow]) {
+                changed = YES;
             }
         }
         if (_event.love) {
-            if (![_event.love isEqualToString:event.love]) {
+            if (![NSString leie_isBlankString:_event.love]) {
                 [description setObject:_event.love forKey:@"love"];
+            }
+            if (![_event.love isEqualToString:event.love]) {
+                changed = YES;
             }
         }
         if (_event.ct) {
-            if (![_event.ct isEqualToString:event.ct]) {
+            if (![NSString leie_isBlankString:_event.ct]) {
                 [description setObject:_event.ct forKey:@"test_paper"];
+            }
+            if (![_event.ct isEqualToString:event.ct]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.mucus_prob || event.mucus_flow || event.love || event.ct) {
+        if (![NSString leie_isBlankString:event.mucus_prob] || ![NSString leie_isBlankString:event.mucus_flow] || ![NSString leie_isBlankString:event.love] || ![NSString leie_isBlankString:event.ct]) {
             [delEvents addObject:event.event_id2];
         }
     }
-    if (_event.sleep) {
+    if (![NSString leie_isBlankString:_event.sleep]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"3" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.sleep) {
-            if (![_event.sleep isEqualToString:event.sleep]) {
+            if (![NSString leie_isBlankString:_event.sleep]) {
                 [description setObject:_event.sleep forKey:@"quality"];
+            }
+            if (![_event.sleep isEqualToString:event.sleep]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.sleep) {
+        if (![NSString leie_isBlankString:event.sleep]) {
             [delEvents addObject:event.event_id3];
         }
     }
-    if (_event.mood) {
+    if (![NSString leie_isBlankString:_event.mood]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"4" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.mood) {
-            if (![_event.mood isEqualToString:event.mood]) {
+            if (![NSString leie_isBlankString:_event.mood]) {
                 [description setObject:_event.mood forKey:@"motion"];
+            }
+            if (![_event.mood isEqualToString:event.mood]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.mood) {
+        if (![NSString leie_isBlankString:event.mood]) {
             [delEvents addObject:event.event_id4];
         }
     }
-    if (_event.sport) {
+    if (![NSString leie_isBlankString:_event.sport]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"5" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.sport) {
-            if (![_event.sport isEqualToString:event.sport]) {
+            if (![NSString leie_isBlankString:_event.sport]) {
                 [description setObject:_event.sport forKey:@"time"];
+            }
+            if (![_event.sport isEqualToString:event.sport]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.sport) {
+        if (![NSString leie_isBlankString:event.sport]) {
             [delEvents addObject:event.event_id5];
         }
     }
-    if (_event.drink) {
+    if (![NSString leie_isBlankString:_event.drink]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"6" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.drink) {
-            if (![_event.drink isEqualToString:event.drink]) {
+            if (![NSString leie_isBlankString:_event.drink]) {
                 [description setObject:_event.drink forKey:@"status"];
+            }
+            if (![_event.drink isEqualToString:event.drink]) {
+                changed  = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.drink) {
+        if (![NSString leie_isBlankString:event.drink]) {
             [delEvents addObject:event.event_id6];
         }
     }
-    if (_event.drug) {
+    if (![NSString leie_isBlankString:_event.drug]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"7" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.drug) {
-            if (![_event.drug isEqualToString:event.drug]) {
+            if (![NSString leie_isBlankString:_event.drug]) {
                 [description setObject:_event.drug forKey:@"type"];
+            }
+            if (![_event.drug isEqualToString:event.drug]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.drug) {
+        if (![NSString leie_isBlankString:event.drug]) {
             [delEvents addObject:event.event_id7];
         }
     }
-    if (_event.comments) {
+    if (![NSString leie_isBlankString:_event.comments]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"8" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.comments) {
-            if (![_event.comments isEqualToString:event.comments]) {
+            if (![NSString leie_isBlankString:_event.comments]) {
                 [description setObject:_event.comments forKey:@"comments"];
+            }
+            if (![_event.comments isEqualToString:event.comments]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.comments) {
+        if (![NSString leie_isBlankString:event.comments]) {
             [delEvents addObject:event.event_id8];
         }
     }
-    if (_event.weight) {
+    if (![NSString leie_isBlankString:_event.weight]) {
         NSMutableDictionary *eventDic = [[NSMutableDictionary alloc] init];
         [eventDic setObject:@"9" forKey:@"type"];
         [eventDic setObject:[NSDate stringFromDate:_eventDate] forKey:@"date"];
         NSMutableDictionary *description = [[NSMutableDictionary alloc] init];
         if (_event.weight) {
-            if (![_event.weight isEqualToString:event.weight]) {
+            if (![NSString leie_isBlankString:_event.weight]) {
                 [description setObject:_event.weight forKey:@"weight"];
+            }
+            if (![_event.weight isEqualToString:event.weight]) {
+                changed = YES;
             }
         }
         [eventDic setObject:[NSString getJSONString:description] forKey:@"description"];
         [events addObject:eventDic];
     }else{
-        if (event.weight) {
+        if (![NSString leie_isBlankString:event.weight]) {
             [delEvents addObject:event.event_id8];
         }
     }
-    if (events.count == 0 && delEvents.count == 0) {
+    if (changed == NO && delEvents.count == 0) {
         if (result) {
             result(YES);
         }
         return;
     }
-    
     __block NSInteger count = 0;
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-    if (events.count > 0) {
+    if (changed) {
         [WPNetInterface postEvents:events user_id:user.user_id success:^(NSArray *events) {
             for (NSDictionary *eventDic in events) {
                 WPEventItemModel *item = [[WPEventItemModel alloc] init];
@@ -664,11 +710,21 @@
     }
     for (NSString *event_id in delEvents) {
         [WPNetInterface deleteEvent:event_id user_id:user.user_id success:^(BOOL finished) {
-            
+            WPEventItemModel *item = [[WPEventItemModel alloc] init];
+            item.pid = event_id;
+            [XJFDBManager deleteModel:item dependOnKeys:nil];
             count ++;
-            if (count == delEvents.count + 1) {
-                if (result) {
-                    result(YES);
+            if (changed) {
+                if (count == delEvents.count + 1) {
+                    if (result) {
+                        result(YES);
+                    }
+                }
+            }else{
+                if (count == delEvents.count) {
+                    if (result) {
+                        result(YES);
+                    }
                 }
             }
         } failure:^(NSError *error) {
