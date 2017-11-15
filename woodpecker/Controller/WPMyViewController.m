@@ -108,6 +108,7 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = kColor_10;
     cell.layer.masksToBounds = YES;
+    cell.leftModel = kCellLeftModelIcon;
     cell.rightModel = kCellRightModelNext;
     if (indexPath.row == 1) {
         cell.icon.image = kImage(@"icon-me-basic");

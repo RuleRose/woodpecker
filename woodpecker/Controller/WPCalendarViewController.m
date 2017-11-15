@@ -142,7 +142,7 @@
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
 {
-    return  [NSDate nextMonthOfDate:[NSDate date]];
+    return [NSDate endOfMonthOfDate:[NSDate nextMonthOfDate:[NSDate date]]];
 }
 
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
@@ -185,9 +185,9 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
-    if ([NSDate isDateAfterToday:date]) {
-        return;
-    }
+//    if ([NSDate isDateAfterToday:date]) {
+//        return;
+//    }
     _selectedDate = date;
     WPCalendarDetailViewController *detailVC = [[WPCalendarDetailViewController alloc] init];
     detailVC.selectedDate = date;
