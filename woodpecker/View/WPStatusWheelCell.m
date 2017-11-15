@@ -36,27 +36,36 @@
         case kPeriodTypeOfForecastEnd:
             self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_15.CGColor;
+            _textLabel.backgroundColor = kColor_10;
 
             break;
         case kPeriodTypeOfOviposit:
             self.backgroundColor = kColor_15;
             self.layer.borderColor = kColor_15.CGColor;
+            _textLabel.backgroundColor = kColor_10;
+
             break;
         case kPeriodTypeOfMenstrual:
         case kPeriodTypeOfMenstrualStart:
         case kPeriodTypeOfMenstrualEnd:
-            self.backgroundColor = kColor_13;
+            self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_13.CGColor;
+            _textLabel.backgroundColor = kColor_13;
+
             break;
         case kPeriodTypeOfPregnancy:
         case kPeriodTypeOfPregnancyStart:
         case kPeriodTypeOfPregnancyEnd:
-            self.backgroundColor = kColor_14_With_Alpha(0.1);
+            self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_14_With_Alpha(0.1).CGColor;
+            _textLabel.backgroundColor = kColor_14_With_Alpha(0.1);
+
             break;
         case kPeriodTypeOfSafe:
-            self.backgroundColor = kColor_17;
+            self.backgroundColor = kColor_10;
             self.layer.borderColor = kColor_17.CGColor;
+            _textLabel.backgroundColor = kColor_17;
+
             break;
     }
 }
