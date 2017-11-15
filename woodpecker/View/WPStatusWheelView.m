@@ -104,7 +104,7 @@
 #pragma mark - UICollectionView DataSource & Delegate Methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5;
+    return [NSDate daysFromDate:_startDate toDate:[NSDate nextMonthOfDate:[NSDate date]]] + 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +163,7 @@
     NSInteger index = round(collectionViewOffset.y / 56);
     if (index < 0) {
         index = 0;
-    }else if(index > ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5)){
+    }else if(index > ([NSDate daysFromDate:_startDate toDate:[NSDate nextMonthOfDate:[NSDate date]]] + 5)){
         index = ([NSDate daysFromDate:_startDate toDate:[NSDate date]] + 5);
     }
     CGFloat offsetY = index * 56;
