@@ -62,6 +62,7 @@
 "noti_upload_success" = "上传成功";
 "noti_upload_failure" = "上传失败";
 "noti_lastperiod" = "末次经期首日必须在最后一次经期开始日之后";
+"noti_lastperiod_2" = "末次经期首日不能设置成未来";
 
 "me_title" = "我";
 "me_basic" = "基本信息";
