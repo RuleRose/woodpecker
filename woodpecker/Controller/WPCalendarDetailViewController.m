@@ -371,6 +371,9 @@
             case kPeriodTypeOfSafe:
                 cell.detailLabel.text =kLocalization(@"period_safe");
                 break;
+            case kPeriodTypeOfUnknow:
+            default:
+                cell.detailLabel.text = @"";
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
@@ -394,9 +397,11 @@
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 4){
+        WPDayInfoInPeriod *dayInfo = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
+        NSInteger eventCount = [_viewModel eventCountAtDate:_selectedDate withDayInfor:dayInfo];
         cell.rightModel = kCellRightModelNext;
         cell.titleLabel.text = kLocalization(@"record_today");
-        cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"record_today_unit"),(long)[_viewModel eventCountAtDate:_selectedDate]];
+        cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"record_today_unit"),(long)eventCount];
         cell.line.hidden = YES;
     }
     [cell drawCellWithSize:CGSizeMake(kScreen_Width, [self tableView:_tableView heightForRowAtIndexPath:indexPath])];
