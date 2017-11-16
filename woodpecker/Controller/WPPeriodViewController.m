@@ -152,17 +152,18 @@
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
         cell.titleLabel.text = kLocalization(@"period_distance");
-        cell.textField.text = _profile.period;
+        cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_period_unit"),_profile.period];;
         cell.line.hidden = YES;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = kLocalization(@"period_menstruation_distance");
-        cell.textField.text = _profile.menstruation;
+        cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_menstruation_unit"),_profile.menstruation];
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
         cell.titleLabel.text = kLocalization(@"period_next_start");
-        cell.textField.text = _profile.lastperiod;
+        NSDate *date = [NSDate dateFromString:_profile.lastperiod format:DATE_FORMATE_STRING];
+        cell.textField.text = [NSDate stringFromDate:date format:kLocalization(@"common_detail_dateformat")];
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }

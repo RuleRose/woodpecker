@@ -14,6 +14,7 @@
 #import "WPTemperatureModel.h"
 #import "XJFDBManager.h"
 #import "WPEventItemModel.h"
+#import "NSString+JSON.h"
 
 @implementation WPStatusViewModel
 - (instancetype)init
@@ -179,7 +180,16 @@
     WPEventItemModel *event =[[WPEventItemModel alloc] init];
     event.date = [NSDate stringFromDate:date format:DATE_FORMATE_STRING];
     NSArray *events = [XJFDBManager searchModelsWithCondition:event andpage:-1 andOrderby:nil isAscend:YES];
-    return events.count;
+    NSInteger count = 0;
+    for (WPEventItemModel *item in events) {
+        NSDictionary *breifDic =[NSString getDictionary:item.brief];
+        for (NSString *value in breifDic.allValues) {
+            if (![NSString leie_isBlankString:value]) {
+                count ++;
+            }
+        }
+    }
+    return count;
 }
 
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date{

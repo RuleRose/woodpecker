@@ -9,12 +9,33 @@
 #import "NSString+Extension.h"
 
 @implementation NSString (leie_Characters)
++ (NSString *)floatString:(CGFloat)f{
+    if (fmodf(f, 1)==0) {//如果有一位小数点
+        return [NSString stringWithFormat:@"%.0f",f];
+    } else{
+        return [NSString stringWithFormat:@"%.1f",f];
+    }
+}
+
++ (NSString *)formatFloat:(NSString *)f
+{
+    float ff=[f floatValue];
+    if (fmodf(ff, 1)==0) {//如果有一位小数点
+        return [NSString stringWithFormat:@"%.0f",ff];
+    } else if (fmodf(ff*10, 1)==0) {//如果有两位小数点
+        return [NSString stringWithFormat:@"%.1f",ff];
+    } else {
+        return [NSString stringWithFormat:@"%.2f",ff];
+    }
+}
+
 - (CGSize)sizeWithFont:(UIFont *)font{
     if ([self length] == 0) {
         return CGSizeZero;
     }
     return [self sizeWithAttributes:@{NSFontAttributeName : font}];
 }
+
 
 - (NSString *)leie_pinyinOfName {
     NSMutableString *name = [[NSMutableString alloc] initWithString:self];

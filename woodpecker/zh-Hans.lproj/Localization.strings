@@ -44,6 +44,7 @@
 "common_day_unit" = "天";
 "common_record_unit" = "项";
 "common_save_success" = "保存成功";
+"common_detail_dateformat" = "yyyy年M月d日";
 
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
@@ -69,6 +70,7 @@
 "me_about" = "关于";
 "me_help" = "帮助";
 "me_period_unit" = "%@天";
+"me_menstruation_unit" = "%@天";
 "account_title" = "账号信息";
 
 "userinfo_nick_name" = "昵称";
@@ -80,7 +82,7 @@
 "userinfo_weight_unit" = "%@kg";
 "userinfo_avatar" = "头像";
 "userinfo_version" = "版本号:%@";
-"userinfo_ablout_mmc" = "Copyright 2017 Miaomiaoce";
+"userinfo_ablout_mmc" = "Copyright © 2017 Miaomiaoce";
 "userinfo_privacy" = "用户协议与隐私政策";
 "userinfo_safe" = "安全要求及注意事项";
 "userinfo_account" = "账号：";
