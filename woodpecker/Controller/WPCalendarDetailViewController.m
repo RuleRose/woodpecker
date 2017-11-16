@@ -395,12 +395,7 @@
         cell.line.hidden = YES;
     }else if (indexPath.row == 4){
         WPDayInfoInPeriod *dayInfo = [[WPPeriodCountManager defaultInstance] dayInfo:_selectedDate];
-        NSInteger eventCount = [_viewModel eventCountAtDate:_selectedDate];
-        if (dayInfo.type == kPeriodTypeOfMenstrual) {
-            if ((!dayInfo.isForecast && dayInfo.isStart) || (!dayInfo.isEndDayForecast && dayInfo.isEnd)) {
-                eventCount ++;
-            }
-        }
+        NSInteger eventCount = [_viewModel eventCountAtDate:_selectedDate withDayInfor:dayInfo];
         cell.rightModel = kCellRightModelNext;
         cell.titleLabel.text = kLocalization(@"record_today");
         cell.detailLabel.text = [NSString stringWithFormat:kLocalization(@"record_today_unit"),(long)eventCount];

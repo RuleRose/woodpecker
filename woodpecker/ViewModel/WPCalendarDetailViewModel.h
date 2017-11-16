@@ -10,11 +10,12 @@
 #import "WPUserModel.h"
 #import "WPProfileModel.h"
 #import "WPTemperatureModel.h"
+#import "WPDayInfoInPeriod.h"
 
 @interface WPCalendarDetailViewModel : NSObject
 @property(nonatomic, strong)WPUserModel *user;
 @property(nonatomic, strong)WPProfileModel *profile;
 
-- (NSInteger)eventCountAtDate:(NSDate *)date;
+- (NSInteger)eventCountAtDate:(NSDate *)date withDayInfor:(WPDayInfoInPeriod *)dayInfo;
 - (WPTemperatureModel *)getTempWithDate:(NSDate *)date;
 @end

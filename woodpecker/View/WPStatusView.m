@@ -207,12 +207,7 @@
             break;
     }
     //取某天的记录
-    NSInteger eventCount = [_viewModel eventCountAtDate:date];
-    if (period_day.type == kPeriodTypeOfMenstrual) {
-        if ((!period_day.isForecast && period_day.isStart) || (!period_day.isEndDayForecast && period_day.isEnd)) {
-            eventCount ++;
-        }
-    }
+    NSInteger eventCount = [_viewModel eventCountAtDate:date withDayInfor:period_day];
     [_recordView setTitle:kLocalization(@"record_title") detail:[NSString stringWithFormat:@"%ld",(long)eventCount] unit:kLocalization(@"common_record_unit") showNext:YES];
     [_timeView setTitle:kLocalization(@"period_pregnancy_distance") detail: [NSString stringWithFormat:@"%ld",(long)period_day.dayBeforePregnantPeriod] unit:kLocalization(@"common_day_unit") showNext:NO];
     [_indexView setTitle:kLocalization(@"period_pregnancy_index") detail:[NSString stringWithFormat:@"%@",[NSString floatString:period_day.pregantRate]] unit:@"%" showNext:NO];
