@@ -116,16 +116,16 @@
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNext;
         cell.titleLabel.text = kLocalization(@"clock_wakeup_time");
-        if ([MMCDeviceManager defaultInstance].alarmIsOn) {
-            NSTimeInterval alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
-            NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
-            if (date) {
-                cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
-            }else{
-                cell.detailLabel.text = kLocalization(@"common_no_setting");
-            }
+        NSNumber *timeNumber = kDefaultObjectForKey(TEMPERATURE_DEFAULT_CLOCK_TIME);
+        NSTimeInterval alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        if (timeNumber && ![MMCDeviceManager defaultInstance].alarmIsOn) {
+            alarmTimeInterval = timeNumber.integerValue;
+        }
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
+        if (date) {
+            cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
         }else{
-            cell.detailLabel.text = @"";
+            cell.detailLabel.text = kLocalization(@"common_no_setting");
         }
         cell.line.hidden = NO;
     }

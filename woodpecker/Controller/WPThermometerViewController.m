@@ -128,7 +128,7 @@
         if (date && [MMCDeviceManager defaultInstance].alarmIsOn) {
             cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
         }else{
-            cell.detailLabel.text = @"";
+            cell.detailLabel.text = kLocalization(@"common_no_setting");
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
