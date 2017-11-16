@@ -78,6 +78,13 @@
                 result(NO);
             }
             return;
+        }else if ([NSDate isDateAfterToday:new_date]) {
+            //设置了之前的日期
+            [[XJFHUDManager defaultInstance] showTextHUD:kLocalization(@"noti_lastperiod_2")];
+            if (result) {
+                result(NO);
+            }
+            return;
         }else{
             [self updateProfile:profile reuslt:^(BOOL success) {
                 if (success) {
