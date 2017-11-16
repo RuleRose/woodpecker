@@ -202,8 +202,12 @@
         case kPeriodTypeOfPregnancy:
              _periodLabel.text = kLocalization(@"period_pregnancy");
             break;
-        default:
+        case kPeriodTypeOfSafe:
             _periodLabel.text = kLocalization(@"period_safe");
+            break;
+        case kPeriodTypeOfUnknow:
+        default:
+            _periodLabel.text = @"";//kLocalization(@"period_safe");
             break;
     }
     //取某天的记录

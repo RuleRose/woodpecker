@@ -202,7 +202,7 @@ Singleton_Implementation(WPPeriodCountManager);
     WPDayInfoInPeriod *dayInfo = [[WPDayInfoInPeriod alloc] init];
     dayInfo.isValide = YES;
     dayInfo.isMenstruationSwitchOffValide = NO;
-    dayInfo.type = kPeriodTypeOfSafe;
+    dayInfo.type = kPeriodTypeOfUnknow;
     dayInfo.isStart = NO;
     dayInfo.isEnd = NO;
 

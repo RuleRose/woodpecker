@@ -371,6 +371,9 @@
             case kPeriodTypeOfSafe:
                 cell.detailLabel.text =kLocalization(@"period_safe");
                 break;
+            case kPeriodTypeOfUnknow:
+            default:
+                cell.detailLabel.text = @"";
         }
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){

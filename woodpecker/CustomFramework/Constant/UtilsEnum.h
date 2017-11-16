@@ -19,7 +19,9 @@ typedef NS_ENUM(NSUInteger, PeriodType) {
     kPeriodTypeOfForecastStart,
     kPeriodTypeOfForecastEnd,
     kPeriodTypeOfOviposit, //排卵日
-    kPeriodTypeOfSafe //安全期
+    kPeriodTypeOfSafe, //安全期
+    kPeriodTypeOfUnknow //未计算
+
 };
 typedef NS_ENUM(NSUInteger, PeriodShapeType) {
     kPeriodShapeOfRight = 0,
