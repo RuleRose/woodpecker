@@ -9,20 +9,22 @@
 #import "NSString+Extension.h"
 
 @implementation NSString (leie_Characters)
-+ (NSString *)floatString:(CGFloat)f{
-    if (fmodf(f, 1)==0) {//如果有一位小数点
++ (NSString *)floatString:(CGFloat)f decimals:(NSInteger)decimals{
+    if (fmodf(f, 1)==0 || decimals == 0) {//如果有一位小数点
         return [NSString stringWithFormat:@"%.0f",f];
-    } else{
+    } else if (fmodf(f*10, 1)==0 || decimals == 1) {//如果有两位小数点
         return [NSString stringWithFormat:@"%.1f",f];
+    } else{
+        return [NSString stringWithFormat:@"%.2f",f];
     }
 }
 
-+ (NSString *)formatFloat:(NSString *)f
++ (NSString *)formatFloat:(NSString *)f decimals:(NSInteger)decimals
 {
     float ff=[f floatValue];
-    if (fmodf(ff, 1)==0) {//如果有一位小数点
+    if (fmodf(ff, 1)==0 || decimals == 0) {//如果有一位小数点
         return [NSString stringWithFormat:@"%.0f",ff];
-    } else if (fmodf(ff*10, 1)==0) {//如果有两位小数点
+    } else if (fmodf(ff*10, 1)==0 || decimals == 1) {//如果有两位小数点
         return [NSString stringWithFormat:@"%.1f",ff];
     } else {
         return [NSString stringWithFormat:@"%.2f",ff];

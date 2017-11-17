@@ -56,6 +56,7 @@
         leftAxis.axisMaximum = _maxTemp;
         leftAxis.axisMinimum = _minTemp;
         leftAxis.labelCount = 15;
+        leftAxis.granularity = 0.1;
         leftAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -78,6 +79,7 @@
         rightAxis.axisMaximum = _maxTemp;
         rightAxis.axisMinimum = _minTemp;
         rightAxis.labelCount = 15;
+        rightAxis.granularity = 0.1;
         rightAxis.gridColor = kColor_16_With_Alpha(0.1);
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -212,29 +214,34 @@
             }
             NSString *title = kLocalization(@"period_safe");
             UIColor *linefillColor = [UIColor clearColor];
+            UIColor *linefillEndColor = [UIColor clearColor];
             UIColor *lineColor = [UIColor clearColor];
             switch (period_type) {
                 case kPeriodTypeOfForecast:
                 case kPeriodTypeOfMenstrual:
                     title = kLocalization(@"period_menstrual");
-                    linefillColor = kColor_5;
                     lineColor = kColor_5;
+                    linefillColor = kColor_5_With_Alpha(0.8);
+                    linefillEndColor = kColor_5_With_Alpha(0.2);
                     break;
                 case kPeriodTypeOfOviposit:
                     title = kLocalization(@"period_oviposit");
                     linefillColor = kColor_15;
-                    lineColor = kColor_15;
+                    lineColor = kColor_15_With_Alpha(0.8);
+                    linefillEndColor = kColor_15_With_Alpha(0.2);
                     break;
                     
                 case kPeriodTypeOfPregnancy:
                     title = kLocalization(@"period_pregnancy");
-                    linefillColor = kColor_18;
                     lineColor = kColor_18;
+                    linefillColor = kColor_18_With_Alpha(0.8);
+                    linefillEndColor = kColor_18_With_Alpha(0.2);
                     break;
                 default:
                     title = kLocalization(@"period_safe");
-                    linefillColor = kColor_17;
                     lineColor = kColor_17;
+                    linefillColor = kColor_17_With_Alpha(0.8);
+                    linefillEndColor = kColor_17_With_Alpha(0.2);
                     break;
             }
             LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:yVals label:title];
@@ -244,7 +251,7 @@
             dataSet.fillColor = lineColor;
             dataSet.highlightColor = lineColor;
             dataSet.circleHoleColor = lineColor;
-            NSArray *gradientColors = @[(id)kColor_10.CGColor,(id)linefillColor.CGColor];
+            NSArray *gradientColors = @[(id)linefillEndColor.CGColor,(id)linefillColor.CGColor];
             CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
             dataSet.lineWidth = 1;
             dataSet.drawCircleHoleEnabled = YES;

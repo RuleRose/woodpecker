@@ -70,6 +70,7 @@
         make.width.equalTo(@45);
         make.left.equalTo(@((kScreen_Width + size.width)/2));
     }];
+    [_pickerView selectRow:28 inComponent:0 animated:NO];
 }
 
 

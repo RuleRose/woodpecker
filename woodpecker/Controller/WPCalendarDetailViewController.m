@@ -379,7 +379,11 @@
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"period_pregnancy_index");
-        cell.detailLabel.text = [NSString stringWithFormat:@"%@%%",[NSString floatString:period.pregantRate]];
+        if (period.pregantRate >= 1) {
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@%%",[NSString floatString:period.pregantRate decimals:0]];
+        }else{
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@%%",[NSString floatString:period.pregantRate decimals:1]];
+        }
         cell.line.hidden = YES;
     }else if (indexPath.row == 2){
         cell.rightModel = kCellRightModelNone;
