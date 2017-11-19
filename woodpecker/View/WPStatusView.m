@@ -63,6 +63,9 @@
     _recordView = [[WPStatusItemView alloc] initWithFrame:CGRectMake(_timeView.right, kScreen_Height - 170, (kScreen_Width - 125)/2, 80)];
     _recordView.backgroundColor = [UIColor clearColor];
     [self addSubview:_recordView];
+    UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(20, _indexView.top - 20, kScreen_Width - 40, 0.5)];
+    topLine.backgroundColor = kColor_9_With_Alpha(0.1);
+    [self addSubview:topLine];
     UIView *leftLine = [[UIView alloc] initWithFrame:CGRectMake(_indexView.right, _indexView.top + 16, 0.5, 47)];
     leftLine.backgroundColor = kColor_9_With_Alpha(0.1);
     [self addSubview:leftLine];
