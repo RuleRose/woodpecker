@@ -42,6 +42,8 @@
 "common_yes" = "是";
 "common_no" = "否";
 "common_day_unit" = "天";
+"common_hour_unit" = "时";
+"common_minute_unit" = "分";
 "common_record_unit" = "项";
 "common_save_success" = "保存成功";
 "common_detail_dateformat" = "yyyy年M月d日";
