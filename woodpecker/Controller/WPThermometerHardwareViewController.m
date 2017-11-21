@@ -91,7 +91,8 @@
     if (indexPath.row == 0) {
         cell.rightModel = kCellRightModelNone;
         cell.titleLabel.text = kLocalization(@"hardware_mmcid");
-        cell.detailLabel.text = device.device_id;
+//        cell.detailLabel.text = device.device_id;
+        cell.detailLabel.text = [NSString stringWithFormat:@"%ld",([device.device_id integerValue] + 500000000)];
         cell.line.hidden = YES;
     }else if (indexPath.row == 1){
         cell.rightModel = kCellRightModelNone;
@@ -125,6 +126,9 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    if (indexPath.row == 1) {
+        return 0;
+    }
     return 41;
 }
 
