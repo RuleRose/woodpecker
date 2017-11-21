@@ -103,6 +103,12 @@
     [_rightPickerView selectRow:0 inComponent:0 animated:NO];
 }
 
+- (void)setDate:(NSDate *)date{
+    _date = date;
+    [_leftPickerView selectRow:[NSDate hourOfDate:date] inComponent:0 animated:NO];
+    [_rightPickerView selectRow:[NSDate minuteOfDate:date] inComponent:0 animated:NO];
+}
+
 #pragma mark UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;

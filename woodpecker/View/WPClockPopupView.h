@@ -11,5 +11,5 @@ typedef void(^WPClockBlock)(MMPopupView *, NSDate *);
 
 @interface WPClockPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPClockBlock clockBlock;
-
+@property (nonatomic, strong) NSDate *date;
 @end

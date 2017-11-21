@@ -60,6 +60,12 @@
     return component.hour;
 }
 
++ (NSInteger)minuteOfDate:(NSDate *)date{
+    NSDateComponents *component = [[self calendar] components:NSCalendarUnitMinute
+                                                     fromDate:date];
+    return component.minute;
+}
+
 + (NSInteger)weekdayOfDate:(NSDate*)date
 {
     NSDateComponents* component = [[self calendar] components:NSCalendarUnitWeekday fromDate:date];

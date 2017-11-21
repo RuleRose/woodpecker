@@ -63,8 +63,8 @@
 "noti_no_photos" = "不能浏览本地相册";
 "noti_upload_success" = "上传成功";
 "noti_upload_failure" = "上传失败";
-"noti_lastperiod" = "末次经期首日必须在最后一次经期开始日之后";
-"noti_lastperiod_2" = "末次经期首日不能设置成未来";
+"noti_lastperiod" = "最后一次经期开始日必须在最后一次经期开始日之后";
+"noti_lastperiod_2" = "最后一次经期开始日不能设置成未来";
 
 "me_title" = "我";
 "me_basic" = "基本信息";
@@ -215,7 +215,7 @@
 "period_pregnancy_distance_unit" = "%ld天";
 "period_distance" = "周期长度";
 "period_menstruation_distance" = "经期长度";
-"period_next_start" = "末次月经首日";
+"period_next_start" = "最后一次经期开始日";
 "period_detail_info" = "周期长度是指：从本次月经来潮开始到下次月经来潮第一天，称为1个月经周期。\n一般的月经周期为28~30天，提前或错后7天都属于正常范围。";
 "pop_height_unit" = "%ldcm";
 

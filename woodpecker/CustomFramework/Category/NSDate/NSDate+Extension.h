@@ -14,6 +14,7 @@
 + (NSInteger)weekOfDate:(NSDate *)date;
 + (NSInteger)dayOfDate:(NSDate *)date;
 + (NSInteger)hourOfDate:(NSDate *)date;
++ (NSInteger)minuteOfDate:(NSDate *)date;
 + (NSInteger)weekdayOfDate:(NSDate*)date;
 
 + (NSDate *)beginingOfMonthOfDate:(NSDate *)date;
