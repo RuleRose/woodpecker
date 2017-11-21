@@ -147,7 +147,14 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.row == 1) {
+        NSNumber *timeNumber = kDefaultObjectForKey(TEMPERATURE_DEFAULT_CLOCK_TIME);
+        NSTimeInterval alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        if (timeNumber && ![MMCDeviceManager defaultInstance].alarmIsOn) {
+            alarmTimeInterval = timeNumber.integerValue;
+        }
+        NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
         WPClockPopupView *popView = [[WPClockPopupView alloc] init];
+        popView.date = date;
         popView.clockBlock = ^(MMPopupView *popupView, NSDate *clock) {
             NSTimeInterval timeInterval = [clock timeIntervalSince2000];
             kDefaultSetObjectForKey([NSNumber numberWithFloat:timeInterval], TEMPERATURE_DEFAULT_CLOCK_TIME);
