@@ -10,6 +10,8 @@
 
 @interface XJFServerManager : NSObject
 @property(nonatomic, copy) NSString *serverURL;
+@property (nonatomic,copy) NSString *APP_ID;
+@property (nonatomic,copy) NSString *APP_SECRET;
 
 + (XJFServerManager *)shareManager;
 - (void)loadSettingsConfig;

@@ -21,6 +21,14 @@ static XJFServerManager *_shareManager = nil;
 }
 
 - (void)loadSettingsConfig {
+#ifdef DEBUG
     _serverURL = @"wp.mmc-data.com";
+    _APP_ID = @"mmc_wp";
+    _APP_SECRET = @"mmc";
+#else
+    _serverURL = @"mmc-wp.mmc-data.com";
+    _APP_ID = @"mmc_wp_prod";
+    _APP_SECRET = @"2I4eOXyMf5izGtuUIexu5bin1tq6ZG";
+#endif
 }
 @end
