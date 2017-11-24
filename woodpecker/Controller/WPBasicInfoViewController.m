@@ -195,6 +195,7 @@
             [_activeTextField resignFirstResponder];
         }
         WPBirthdayPopupView *popView = [[WPBirthdayPopupView alloc] init];
+        popView.selectedDate = [NSDate dateFromString:@"1990 01 01" format:DATE_FORMATE_STRING];
         popView.birthdayBlock = ^(MMPopupView *popupView, NSDate *birthday) {
             _userinfo.birthday = [NSDate stringFromDate:birthday];
             [_tableView reloadData];

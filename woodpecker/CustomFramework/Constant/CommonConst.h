@@ -28,7 +28,7 @@
 #define TAG_RETRY 1009
 #define TAG_ORDER_LIST_MODIFY 1010
 #define DATE_STAERT @"2017 01 01"
-
+#define DATE_BIRTHDAY_STAERT @"1990 01 01"
 #define DATE_FORMATE_STRING @"yyyy MM dd"
 #define DATE_FORMATE_SEC_STRING @"yyyy MM dd HH:mm:ss"
 

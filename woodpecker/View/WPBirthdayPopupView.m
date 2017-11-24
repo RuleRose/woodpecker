@@ -28,6 +28,11 @@
     return self;
 }
 
+- (void)setSelectedDate:(NSDate *)selectedDate{
+    _selectedDate = selectedDate;
+    _timePicker.date = _selectedDate;
+}
+
 - (void)setupViews{
     [super setupViews];
     _timePicker = [[UIDatePicker alloc] init];
