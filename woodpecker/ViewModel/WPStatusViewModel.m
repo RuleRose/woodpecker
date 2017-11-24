@@ -82,8 +82,6 @@
                 self.syncFromTime = nil;
             }
             [self syncTempDataFromIndex:0];
-            kDefaultRemoveForKey(TEMPERATURE_DEFAULT_GETTEMP);
-            self.isBindNewDevice = NO;
         }else{
             if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
                 //获取该设备最后一条本地温度信息dindex
@@ -100,7 +98,6 @@
                         [self syncTempDataFromIndex:0];
                     }
                 }
-                kDefaultRemoveForKey(TEMPERATURE_DEFAULT_GETTEMP);
             }
         }
         

@@ -11,5 +11,6 @@ typedef void(^WPBirthdayBlock)(MMPopupView *, NSDate *);
 
 @interface WPBirthdayPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPBirthdayBlock birthdayBlock;
+@property (nonatomic, strong) NSDate *selectedDate;
 
 @end

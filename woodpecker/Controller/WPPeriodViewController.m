@@ -152,12 +152,20 @@
     cell.layer.masksToBounds = YES;
     if (indexPath.row == 0) {
         cell.titleLabel.text = kLocalization(@"period_distance");
-        cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_period_unit"),_profile.period];;
+        if ([NSString leie_isBlankString:_profile.period]) {
+            cell.textField.text = @"";
+        }else{
+            cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_period_unit"),_profile.period];;
+        }
         cell.line.hidden = YES;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = kLocalization(@"period_menstruation_distance");
-        cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_menstruation_unit"),_profile.menstruation];
+        if ([NSString leie_isBlankString:_profile.menstruation]) {
+            cell.textField.text = @"";
+        }else{
+            cell.textField.text = [NSString stringWithFormat:kLocalization(@"me_menstruation_unit"),_profile.menstruation];
+        }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
