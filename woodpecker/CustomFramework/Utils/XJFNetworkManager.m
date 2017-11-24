@@ -21,13 +21,19 @@ static NSURL *_baseurl = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
       XJFServerManager *serverManager = [XJFServerManager shareManager];
-      NSString *serverURL = [NSString stringWithFormat:@"http://%@", serverManager.serverURL];
+      NSString *serverURL = [NSString stringWithFormat:@"https://%@", serverManager.serverURL];
       DDLogDebug(@"server url is %@", serverURL);
       _baseurl = [NSURL URLWithString:serverURL];
       _shareManager = [[XJFNetworkManager alloc] initWithBaseURL:_baseurl];
 
       _shareManager.networkReachability = [AFNetworkReachabilityManager sharedManager];
       _shareManager.errorDataNotDiction = [NSError errorWithDomain:serverManager.serverURL code:100 userInfo:nil];
+        
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+        securityPolicy.allowInvalidCertificates = YES;
+        securityPolicy.validatesDomainName = NO;
+        _shareManager.securityPolicy = securityPolicy;
+        
     });
     return _shareManager;
 }
@@ -47,8 +53,8 @@ static NSURL *_baseurl = nil;
 
 //    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 //    [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
-    [self.requestSerializer setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
-    [self.requestSerializer setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
+    [self.requestSerializer setValue:[XJFServerManager shareManager].APP_ID forHTTPHeaderField:@"App_ID"];
+    [self.requestSerializer setValue:[XJFServerManager shareManager].APP_SECRET forHTTPHeaderField:@"APP_SECRET"];
     self.securityPolicy.allowInvalidCertificates = YES;
     return self;
 }
@@ -209,13 +215,13 @@ static NSURL *_baseurl = nil;
             //                  //                  !showError || [self showError:error];
             //                  block(nil, error);
             //                }];
-            NSString *reqURL = [NSString stringWithFormat:@"http://%@", [XJFServerManager shareManager].serverURL];
+            NSString *reqURL = [NSString stringWithFormat:@"https://%@", [XJFServerManager shareManager].serverURL];
             reqURL = [reqURL stringByAppendingString:path];
             NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:reqURL parameters:nil error:nil];
             [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-            [req setValue:@"mmc_wp" forHTTPHeaderField:@"App_ID"];
-            [req setValue:@"mmc" forHTTPHeaderField:@"APP_SECRET"];
+            [req setValue:[XJFServerManager shareManager].APP_ID forHTTPHeaderField:@"App_ID"];
+            [req setValue:[XJFServerManager shareManager].APP_SECRET forHTTPHeaderField:@"APP_SECRET"];
             req.timeoutInterval = 60.0f;
             [req setHTTPBody:[tempParams mj_JSONData]];
             [[self dataTaskWithRequest:req
