@@ -82,7 +82,6 @@
                 self.syncFromTime = nil;
             }
             [self syncTempDataFromIndex:0];
-            self.isBindNewDevice = NO;
         }else{
             if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
                 //获取该设备最后一条本地温度信息dindex

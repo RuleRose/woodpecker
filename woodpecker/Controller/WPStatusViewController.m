@@ -100,6 +100,7 @@
     if (([MMCDeviceManager defaultInstance].deviceState == MMC_STATE_IDLE) && ([MMCDeviceManager defaultInstance].preDeviceState == MMC_STATE_SYNC)) {
         //上传
 //        _statusView.startDate = [_viewModel getStartDate];
+        _viewModel.isBindNewDevice = NO;
         [_statusView updateState];
         [_viewModel syncTempDataToService];
     }
@@ -111,7 +112,7 @@
     NSNumber *time = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_TIME];
     NSNumber *temp = [userinfo objectForKey:NOTIFY_KEY_TEMPERATURE_VALUE];
     if (self.viewModel.isBindNewDevice && self.viewModel.syncFromTime) {
-        if ([time longLongValue] < [self.viewModel.syncFromTime longLongValue]) {
+        if ([time longLongValue] <= [self.viewModel.syncFromTime longLongValue]) {
             return;
         }
     }

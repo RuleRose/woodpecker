@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "woodpecker/Controller/WPStatusViewController.m"
-            timestampString = "533223435.348454"
+            filePath = "woodpecker/ViewModel/WPStatusViewModel.m"
+            timestampString = "533225470.399845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-updateConnectionState"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-insertTemperature:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
