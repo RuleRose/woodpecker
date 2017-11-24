@@ -50,13 +50,13 @@
             [self getDevice];
             [self getPeriods];
             [self getEvents];
+            [self getTemperatures];
         }else{
             kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
         }
     } failure:^(NSError *error) {
         
     }];
-    [self getTemperatures];
 }
 
 - (void)getProfile{
@@ -97,31 +97,29 @@
 - (void)getTemperatures{
     WPUserModel *user = [[WPUserModel alloc] init];
     [user loadDataFromkeyValues:kDefaultObjectForKey(USER_DEFAULT_ACCOUNT_USER)];
-    if (![NSString leie_isBlankString:user.device_id]) {
-        //    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
-        //开始时间当前设备最后一条温度的时间
-        WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
-        temperature.sync = @"1";
-        NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:0 andOrderby:@"lastupdate" isAscend:NO];
-        WPTemperatureModel *localTemp = tempsArr.firstObject;
-        NSString *temp_updatetime = nil;
-        if (localTemp) {
-            temp_updatetime = localTemp.lastupdate;
-        }
-        [WPNetInterface getTemperaturesWithUserId:user.user_id startTime:temp_updatetime end_update_time:nil success:^(NSArray *temperatures) {
-            for (NSDictionary *tempDic in temperatures) {
-                WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
-                [temp loadDataFromkeyValues:tempDic];
-                temp.sync = @"1";
-                [self insertTemperature:temp];
-            }
-            kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
-            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
-        } failure:^(NSError *error) {
-            kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
-            [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
-        }];
+    //    NSString *temp_updatetime = kDefaultObjectForKey(TEMPERATURE_DEFAULT_UPDATETIME);
+    //开始时间当前设备最后一条温度的时间
+    WPTemperatureModel *temperature = [[WPTemperatureModel alloc] init];
+    temperature.sync = @"1";
+    NSArray *tempsArr = [XJFDBManager searchModelsWithCondition:temperature andpage:0 andOrderby:@"lastupdate" isAscend:NO];
+    WPTemperatureModel *localTemp = tempsArr.firstObject;
+    NSString *temp_updatetime = nil;
+    if (localTemp) {
+        temp_updatetime = localTemp.lastupdate;
     }
+    [WPNetInterface getTemperaturesWithUserId:user.user_id startTime:temp_updatetime end_update_time:nil success:^(NSArray *temperatures) {
+        for (NSDictionary *tempDic in temperatures) {
+            WPTemperatureModel *temp = [[WPTemperatureModel alloc] init];
+            [temp loadDataFromkeyValues:tempDic];
+            temp.sync = @"1";
+            [self insertTemperature:temp];
+        }
+        kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
+        [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
+    } failure:^(NSError *error) {
+        kDefaultSetObjectForKey([NSNumber numberWithBool:YES], TEMPERATURE_DEFAULT_GETTEMP);
+        [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyGetTemp object:nil];
+    }];
 }
 
 - (void)insertTemperature:(WPTemperatureModel *)temp{
