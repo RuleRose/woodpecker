@@ -82,7 +82,6 @@
                 self.syncFromTime = nil;
             }
             [self syncTempDataFromIndex:0];
-            kDefaultRemoveForKey(TEMPERATURE_DEFAULT_GETTEMP);
             self.isBindNewDevice = NO;
         }else{
             if ([MMCDeviceManager defaultInstance].deviceConnectionState == STATE_DEVICE_CONNECTED) {
@@ -100,7 +99,6 @@
                         [self syncTempDataFromIndex:0];
                     }
                 }
-                kDefaultRemoveForKey(TEMPERATURE_DEFAULT_GETTEMP);
             }
         }
         
