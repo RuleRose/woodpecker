@@ -147,8 +147,12 @@
         cell.textField.enabled = YES;
     }else if (indexPath.row == 1){
         cell.titleLabel.text = kLocalization(@"userinfo_birthday");
-        NSDate *date = [NSDate dateFromString:_userinfo.birthday format:DATE_FORMATE_STRING];
-        cell.textField.text = [NSDate stringFromDate:date format:kLocalization(@"common_detail_dateformat")];
+        if (![NSString leie_isBlankString:_userinfo.birthday]) {
+            NSDate *date = [NSDate dateFromString:_userinfo.birthday format:DATE_FORMATE_STRING];
+            cell.textField.text = [NSDate stringFromDate:date format:kLocalization(@"common_detail_dateformat")];
+        }else{
+            cell.textField.text = @"";
+        }
         cell.line.hidden = NO;
         cell.textField.enabled = NO;
     }else if (indexPath.row == 2){
@@ -195,7 +199,12 @@
             [_activeTextField resignFirstResponder];
         }
         WPBirthdayPopupView *popView = [[WPBirthdayPopupView alloc] init];
-        popView.selectedDate = [NSDate dateFromString:DATE_BIRTHDAY_STAERT format:DATE_FORMATE_STRING];
+        if (![NSString leie_isBlankString:_userinfo.birthday]) {
+            NSDate *date = [NSDate dateFromString:_userinfo.birthday format:DATE_FORMATE_STRING];
+            popView.selectedDate = date;
+        }else{
+            popView.selectedDate = [NSDate dateFromString:DATE_BIRTHDAY_STAERT format:DATE_FORMATE_STRING];
+        }
         popView.birthdayBlock = ^(MMPopupView *popupView, NSDate *birthday) {
             _userinfo.birthday = [NSDate stringFromDate:birthday];
             [_tableView reloadData];
@@ -209,6 +218,7 @@
             [_activeTextField resignFirstResponder];
         }
         WPHeightPopupView *popView = [[WPHeightPopupView alloc] init];
+        popView.height = _userinfo.height;
         popView.heightBlock = ^(MMPopupView *popupView, NSInteger height) {
             _userinfo.height = [NSString stringWithFormat:@"%ld",(long)height];
             [_tableView reloadData];
@@ -222,6 +232,7 @@
             [_activeTextField resignFirstResponder];
         }
         WPWeightPopupView *popView = [[WPWeightPopupView alloc] init];
+        popView.weight = _userinfo.weight;
         popView.weightBlock = ^(MMPopupView *popupView, NSInteger weight1, NSInteger weight2) {
             _userinfo.weight = [NSString stringWithFormat:@"%ld.%ld",(long)weight1,(long)weight2];
             [_tableView reloadData];

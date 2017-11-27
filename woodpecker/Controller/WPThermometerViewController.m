@@ -125,7 +125,7 @@
             alarmTimeInterval = timeNumber.integerValue;
         }
         NSDate *date = [NSDate dateWithTimeIntervalSince2000:alarmTimeInterval];
-        if (date && [MMCDeviceManager defaultInstance].alarmIsOn) {
+        if (date) {
             cell.detailLabel.text = [NSDate stringFromDate:date format:@"HH:mm"];
         }else{
             cell.detailLabel.text = kLocalization(@"common_no_setting");

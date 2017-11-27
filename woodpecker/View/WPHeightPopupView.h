@@ -11,5 +11,6 @@ typedef void(^WPHeightBlock)(MMPopupView *, NSInteger);
 
 @interface WPHeightPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPHeightBlock heightBlock;
+@property (nonatomic, strong) NSString *height;
 
 @end

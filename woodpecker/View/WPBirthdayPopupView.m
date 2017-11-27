@@ -30,7 +30,11 @@
 
 - (void)setSelectedDate:(NSDate *)selectedDate{
     _selectedDate = selectedDate;
-    _timePicker.date = _selectedDate;
+    if (selectedDate) {
+        _timePicker.date = _selectedDate;
+    }else{
+        _timePicker.date = [NSDate dateFromString:DATE_BIRTHDAY_STAERT format:DATE_FORMATE_STRING];;
+    }
 }
 
 - (void)setupViews{

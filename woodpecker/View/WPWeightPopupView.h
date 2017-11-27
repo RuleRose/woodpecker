@@ -11,4 +11,6 @@ typedef void(^WPWeightBlock)(MMPopupView *, NSInteger, NSInteger);
 
 @interface WPWeightPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPWeightBlock weightBlock;
+@property (nonatomic, strong) NSString *weight;
+
 @end

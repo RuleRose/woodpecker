@@ -14,4 +14,6 @@ typedef void(^WPMenstrualBlock)(MMPopupView *, NSInteger);
 @interface WPMenstrualPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPMenstrualShowInfoBlock showInfoBlock;
 @property (nonatomic, strong) WPMenstrualBlock menstrualBlock;
+@property (nonatomic, strong) NSString *menstrual;
+
 @end

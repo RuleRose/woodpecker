@@ -13,5 +13,6 @@ typedef void(^WPPeriodBlock)(MMPopupView *, NSInteger);
 @interface WPPeriodPopupView : WPSelectionPopupView
 @property (nonatomic, strong) WPPeriodShowInfoBlock showInfoBlock;
 @property (nonatomic, strong) WPPeriodBlock periodBlock;
+@property (nonatomic, strong) NSString *period;
 
 @end

@@ -184,7 +184,12 @@
             
         }];
     }else{
-        [[MMCDeviceManager defaultInstance] writeAlarm:[MMCDeviceManager defaultInstance].alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
+        NSNumber *timeNumber = kDefaultObjectForKey(TEMPERATURE_DEFAULT_CLOCK_TIME);
+        NSTimeInterval alarmTimeInterval = [[MMCDeviceManager defaultInstance] alarmTimeInterval];
+        if (timeNumber && ![MMCDeviceManager defaultInstance].alarmIsOn) {
+            alarmTimeInterval = timeNumber.integerValue;
+        }
+        [[MMCDeviceManager defaultInstance] writeAlarm:alarmTimeInterval timeZone:[NSTimeZone timeZoneDiffwithUTC] callback:^(NSInteger sendState) {
         }];
 
     }

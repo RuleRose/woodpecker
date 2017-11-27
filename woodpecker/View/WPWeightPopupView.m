@@ -101,10 +101,33 @@
         make.left.equalTo(weakSelf.pointLabel.mas_right).offset(36);
         make.width.equalTo(@80);
     }];
-    [_leftPickerView selectRow:50 inComponent:0 animated:NO];
-    [_rightPickerView selectRow:0 inComponent:0 animated:NO];
+
 }
 
+- (void)setWeight:(NSString *)weight{
+    _weight = weight;
+    if ([NSString leie_isBlankString:weight]) {
+        [_leftPickerView selectRow:50 inComponent:0 animated:NO];
+        [_rightPickerView selectRow:0 inComponent:0 animated:NO];
+    }else{
+        NSInteger w_left = [weight integerValue];
+        if (w_left < 0) {
+            w_left = 0;
+        }
+        if (w_left > 500) {
+            w_left = 500;
+        }
+        NSInteger w_right = round(([weight doubleValue] -w_left)*10);
+        if (w_right < 0) {
+            w_right = 0;
+        }
+        if (w_right > 9) {
+            w_right = 9;
+        }
+        [_leftPickerView selectRow:w_left inComponent:0 animated:NO];
+        [_rightPickerView selectRow:w_right inComponent:0 animated:NO];
+    }
+}
 
 #pragma mark UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -113,7 +136,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (pickerView == _leftPickerView) {
-        return 500;
+        return 501;
     }else{
         return 10;
     }

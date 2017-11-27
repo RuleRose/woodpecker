@@ -54,8 +54,23 @@
         make.width.equalTo(@6);
         make.height.equalTo(@55);
     }];
-    [_pickerView selectRow:160 inComponent:0 animated:NO];
 }
+
+- (void)setHeight:(NSString *)height{
+    _height = height;
+    CGFloat h = 160;
+    if (![NSString leie_isBlankString:height]) {
+        h = [height integerValue];
+    }
+    if (h > 300) {
+        h = 300;
+    }
+    if (h < 0) {
+        h = 0;
+    }
+    [_pickerView selectRow:h inComponent:0 animated:NO];
+}
+
 
 
 #pragma mark UIPickerViewDataSource
@@ -64,7 +79,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 300;
+    return 301;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
