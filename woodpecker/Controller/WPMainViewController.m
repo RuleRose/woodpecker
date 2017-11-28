@@ -46,8 +46,8 @@
     NSString *lowestVersion = kDefaultObjectForKey(USER_DEFAULT_LOWEST_VERSION);
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     if (![NSString leie_isBlankString:lowestVersion] && ![currentVersion isEqualToString:lowestVersion]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"您有新版本" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:kLocalization(@"noti_version") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:kLocalization(@"common_version") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSString *link = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kStoreAppId];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
         }];
