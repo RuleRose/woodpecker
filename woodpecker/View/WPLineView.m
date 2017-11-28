@@ -210,7 +210,7 @@
                 if (temperature < _minTemp) {
                     temperature = _minTemp;
                 }
-                [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:((NSInteger)(temperature*100))/100.0]];
+                [yVals addObject:[[ChartDataEntry alloc] initWithX:x y:round(temperature*100)/100.0]];
             }
             NSString *title = kLocalization(@"period_safe");
             UIColor *linefillColor = [UIColor clearColor];

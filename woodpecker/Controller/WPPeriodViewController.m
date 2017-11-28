@@ -193,6 +193,7 @@
 {
     if (indexPath.row == 0) {
         WPPeriodPopupView *popView = [[WPPeriodPopupView alloc] init];
+        popView.period = _profile.period;
         popView.periodBlock = ^(MMPopupView *popupView, NSInteger period) {
             _profile.period = [NSString stringWithFormat:@"%ld",(long)period];
             [_tableView reloadData];
@@ -207,6 +208,7 @@
         }];
     }else if (indexPath.row == 1){
         WPMenstrualPopupView *popView = [[WPMenstrualPopupView alloc] init];
+        popView.menstrual = _profile.menstruation;
         popView.menstrualBlock = ^(MMPopupView *popupView, NSInteger menstrual) {
             _profile.menstruation = [NSString stringWithFormat:@"%ld",(long)menstrual];
             [_tableView reloadData];

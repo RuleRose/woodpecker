@@ -70,9 +70,23 @@
         make.width.equalTo(@45);
         make.left.equalTo(@((kScreen_Width + size.width)/2));
     }];
-    [_pickerView selectRow:28 inComponent:0 animated:NO];
 }
 
+- (void)setPeriod:(NSString *)period{
+    _period = period;
+    if ([NSString leie_isBlankString:_period]) {
+        [_pickerView selectRow:28 inComponent:0 animated:NO];
+    }else{
+        NSInteger row = [_period integerValue];
+        if (row < 0) {
+            row = 0;
+        }
+        if (row > 60) {
+            row = 60;
+        }
+        [_pickerView selectRow:row inComponent:0 animated:NO];
+    }
+}
 
 #pragma mark UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -80,7 +94,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 100;
+    return 61;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{

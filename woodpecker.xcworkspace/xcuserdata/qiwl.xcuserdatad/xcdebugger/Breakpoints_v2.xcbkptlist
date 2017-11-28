@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "woodpecker/ViewModel/WPStatusViewModel.m"
-            timestampString = "533226343.669899"
+            filePath = "woodpecker/Controller/WPThermometerClockViewController.m"
+            timestampString = "533486000.804659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "-insertTemperature:"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "-switchAction:cell:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
