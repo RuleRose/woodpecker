@@ -40,4 +40,6 @@
 
 #define AVATAR_POST @"/mmcpecker/api/avatar/post/"
 
+#define VERSION_GET @"/mmcpecker/api/version/get/"
+
 #endif /* NetWorkAPI_h */
