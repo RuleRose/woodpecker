@@ -16,4 +16,6 @@
 @property (nonatomic,strong) NSMutableArray *controllerList;
 - (void)updateData;
 - (void)insertTemperature:(WPTemperatureModel *)temp;
+- (void)checkVersion;
+
 @end

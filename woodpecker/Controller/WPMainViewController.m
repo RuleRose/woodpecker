@@ -22,11 +22,14 @@
     [self.tabBar setBackgroundImage:[UIImage drawImageWithSize:CGSizeMake(kScreen_Width, 45) color:kColor_4]];
     // Do any additional setup after loading the view.
     [self updateUserInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkVersion) name:WPNotificationKeyVersion object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    [self checkVersion];
 }
 
 - (void)setupData {
@@ -36,6 +39,23 @@
 
 - (void)updateUserInfo{
     [_viewModel updateData];
+}
+
+- (void)checkVersion{
+//    NSString *newestVersion = kDefaultObjectForKey(USER_DEFAULT_NEWEST_VERSION);
+    NSString *lowestVersion = kDefaultObjectForKey(USER_DEFAULT_LOWEST_VERSION);
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    if (![NSString leie_isBlankString:lowestVersion] && ![currentVersion isEqualToString:lowestVersion]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:kLocalization(@"noti_version") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:kLocalization(@"common_version") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *link = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kStoreAppId];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+        }];
+        [alertController addAction:confirmAction];
+        if (!self.navigationController.presentedViewController) {
+            [self.navigationController presentViewController:alertController animated:YES completion:nil];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -31,5 +31,5 @@
 #define DATE_BIRTHDAY_STAERT @"1990 01 01"
 #define DATE_FORMATE_STRING @"yyyy MM dd"
 #define DATE_FORMATE_SEC_STRING @"yyyy MM dd HH:mm:ss"
-
+#define kStoreAppId @"1279151564"
 #endif /* CommonConst_h */

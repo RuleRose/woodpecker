@@ -47,6 +47,7 @@
 "common_record_unit" = "项";
 "common_save_success" = "保存成功";
 "common_detail_dateformat" = "yyyy年M月d日";
+"common_version" = "去更新";
 
 "login_agreement" = "登录则表示您同意遵守秒秒测用户协议与隐私政策";
 "login_btn" = "小米账号登录";
@@ -65,6 +66,7 @@
 "noti_upload_failure" = "上传失败";
 "noti_lastperiod" = "最后一次经期开始日必须在最后一次经期开始日之后";
 "noti_lastperiod_2" = "最后一次经期开始日不能设置成未来";
+"noti_version" = "您有新版本";
 
 "me_title" = "我";
 "me_basic" = "基本信息";

@@ -9,14 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "woodpecker/Controller/WPThermometerClockViewController.m"
-            timestampString = "533486000.804659"
+            filePath = "woodpecker/ViewModel/WPMainViewModel.m"
+            timestampString = "533572413.983566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "-switchAction:cell:"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "-checkVersion"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[WPMainViewModel checkVersion]"
+                  moduleName = "woodpecker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/qiwl/Documents/%E5%AE%9E%E4%BE%8B/product/woodpecker/woodpecker/ViewModel/WPMainViewModel.m"
+                  timestampString = "533572414.339189"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "202">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[WPMainViewModel checkVersion]_block_invoke"
+                  moduleName = "woodpecker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/qiwl/Documents/%E5%AE%9E%E4%BE%8B/product/woodpecker/woodpecker/ViewModel/WPMainViewModel.m"
+                  timestampString = "533572414.340587"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "218"
+                  endingLineNumber = "218"
+                  offsetFromSymbolStart = "78">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
