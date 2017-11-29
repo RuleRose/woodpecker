@@ -48,16 +48,16 @@
             kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
             [self getProfile];
             [self getDevice];
-            [self getPeriods];
-            [self getEvents];
-            [self getTemperatures];
-            [self checkVersion];
         }else{
             kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
         }
     } failure:^(NSError *error) {
         
     }];
+    [self getPeriods];
+    [self getEvents];
+    [self getTemperatures];
+    [self checkVersion];
 }
 
 - (void)getProfile{
