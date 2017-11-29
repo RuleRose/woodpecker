@@ -43,9 +43,37 @@
 
 - (void)checkVersion{
 //    NSString *newestVersion = kDefaultObjectForKey(USER_DEFAULT_NEWEST_VERSION);
-    NSString *lowestVersion = kDefaultObjectForKey(USER_DEFAULT_LOWEST_VERSION);
+    NSString *supportedLowestVersion = kDefaultObjectForKey(USER_DEFAULT_SUPPORTED_LOWEST_VERSION);
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    if (![NSString leie_isBlankString:lowestVersion] && ![currentVersion isEqualToString:lowestVersion]) {
+    Boolean isNeedUpdate = NO;
+    
+    if (![NSString leie_isBlankString:supportedLowestVersion]) {
+        NSArray *supportedLowestVersionList = [(NSString *)([supportedLowestVersion componentsSeparatedByString:@" "][0]) componentsSeparatedByString:@"."];
+        NSArray *currentVersionList = [currentVersion componentsSeparatedByString:@"."];
+        
+        NSInteger i = 0;
+        Boolean isHigher = NO;
+        for (; i < supportedLowestVersionList.count && i < currentVersionList.count; i++) {
+            if ([supportedLowestVersionList[i] integerValue] > [currentVersionList[i] integerValue]) {
+                isNeedUpdate = YES;
+                break;
+            } else if ([supportedLowestVersionList[i] integerValue] < [currentVersionList[i] integerValue]){
+                isHigher = YES;
+                break;
+            }
+        }
+        
+        if (!isNeedUpdate && !isHigher && (i < supportedLowestVersionList.count)) {
+            for (; i < supportedLowestVersionList.count; i++) {
+                if ([supportedLowestVersionList[i] integerValue] > 0) {
+                    isNeedUpdate = YES;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (isNeedUpdate) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:kLocalization(@"noti_version") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:kLocalization(@"common_version") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSString *link = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kStoreAppId];

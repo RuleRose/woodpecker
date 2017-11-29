@@ -212,11 +212,9 @@
 }
 
 - (void)checkVersion{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_NEWEST_VERSION];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_LOWEST_VERSION];
-    [WPNetInterface getVersionSuccess:^(NSString *newestVersion, NSString *lowestVersion) {
-        kDefaultSetObjectForKey(newestVersion, USER_DEFAULT_NEWEST_VERSION);
-        kDefaultSetObjectForKey(lowestVersion, USER_DEFAULT_LOWEST_VERSION);
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_SUPPORTED_LOWEST_VERSION];
+    [WPNetInterface getVersionSuccess:^(NSString *supportedLowestVersion) {
+        kDefaultSetObjectForKey(supportedLowestVersion, USER_DEFAULT_SUPPORTED_LOWEST_VERSION);
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyVersion object:nil];
     } failure:^(NSError *error) {
         
