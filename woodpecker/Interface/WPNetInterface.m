@@ -570,7 +570,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"wp" forKey:@"app"];
 
-    [[XJFNetworkManager shareManager] requestWithPath:VERSION_GET requestParams:params networkMethod:POST callback:^(id data, NSError *error) {
+    [[XJFNetworkManager shareManager] requestWithPath:VERSION_GET requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
         if (!error) {
             NSString *newestVersion = [data objectForKey:@"supported_lowest_ver_ios"];
             NSString *lowestVersion = [data objectForKey:@"latest_ver_ios"];
