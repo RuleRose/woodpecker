@@ -48,16 +48,16 @@
             kDefaultSetObjectForKey(userDic, USER_DEFAULT_ACCOUNT_USER);
             [self getProfile];
             [self getDevice];
+            [self getPeriods];
+            [self getEvents];
+            [self getTemperatures];
+            [self checkVersion];
         }else{
             kDefaultRemoveForKey(USER_DEFAULT_ACCOUNT_USER);
         }
     } failure:^(NSError *error) {
         
     }];
-    [self getPeriods];
-    [self getEvents];
-    [self getTemperatures];
-    [self checkVersion];
 }
 
 - (void)getProfile{
@@ -212,11 +212,9 @@
 }
 
 - (void)checkVersion{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_NEWEST_VERSION];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_LOWEST_VERSION];
-    [WPNetInterface getVersionSuccess:^(NSString *newestVersion, NSString *lowestVersion) {
-        kDefaultSetObjectForKey(newestVersion, USER_DEFAULT_NEWEST_VERSION);
-        kDefaultSetObjectForKey(lowestVersion, USER_DEFAULT_LOWEST_VERSION);
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_SUPPORTED_LOWEST_VERSION];
+    [WPNetInterface getVersionSuccess:^(NSString *supportedLowestVersion) {
+        kDefaultSetObjectForKey(supportedLowestVersion, USER_DEFAULT_SUPPORTED_LOWEST_VERSION);
         [[NSNotificationCenter defaultCenter] postNotificationName:WPNotificationKeyVersion object:nil];
     } failure:^(NSError *error) {
         

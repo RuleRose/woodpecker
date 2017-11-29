@@ -566,16 +566,15 @@
     }];
 }
 
-+ (void)getVersionSuccess:(void (^)(NSString *newestVersion, NSString *lowestVersion))success failure:(void (^)(NSError* error))failure{
++ (void)getVersionSuccess:(void (^)(NSString *supportedLowestVersion))success failure:(void (^)(NSError* error))failure{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"wp" forKey:@"app"];
 
     [[XJFNetworkManager shareManager] requestWithPath:VERSION_GET requestParams:params networkMethod:GET callback:^(id data, NSError *error) {
         if (!error) {
-            NSString *newestVersion = [data objectForKey:@"supported_lowest_ver_ios"];
-            NSString *lowestVersion = [data objectForKey:@"latest_ver_ios"];
+            NSString *supportedLowestVersion = [data leie_getObjectByPath:@"Versions/supported_lowest_ver_ios"];
             if (success) {
-                success(newestVersion, lowestVersion);
+                success(supportedLowestVersion);
             }
         }else{
             if (failure) {
